@@ -4,8 +4,8 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
+  output   = "../src/generated"
 }
 
 datasource db {
@@ -23,6 +23,7 @@ enum BloqueHorario {
   A 
   B  
   C  
+  C2
   D  
   E 
   F 
@@ -35,7 +36,7 @@ model Usuario {
   rut       String     @unique
   correo    String     @unique
   password  String
-  rol       RolUsuario @default(ESTUDIANTE)
+  rol       RolUsuario 
 
   talleresDictados Taller[]      @relation("ProfesorTaller")
   inscripciones    Inscripcion[]
@@ -86,8 +87,7 @@ model Asistencia {
   sesionId         Int
   sesion           Sesion   @relation(fields: [sesionId], references: [id])
   estudianteId     Int
-  estudiante       Usuario  @relation(fields: [estudianteId], references: [id])
-  notaSatisfaccion Int?   
+  estudiante       Usuario  @relation(fields: [estudianteId], references: [id])  
 
   fechaHora        DateTime @default(now())
   estado           String   @default("Ausente") 
