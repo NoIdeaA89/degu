@@ -4,9 +4,12 @@ WORKDIR /app
 
 # Copia package.json y package-lock.json
 COPY package*.json ./
+COPY Database/prisma ./Database/prisma/
 
 # Instala todas las deps (incluyendo dev)
 RUN npm install
+
+RUN npx prisma generate --schema=Database/prisma/schema.prisma
 
 # Instala ts-node-dev globalmente (para live reload)
 RUN npm install -g ts-node-dev

@@ -16,6 +16,9 @@
   "scripts": {
     "test": "test run dev"
   },
+  "prisma": {
+    "schema": "Database/prisma/schema.prisma"
+  },
   "devDependencies": {
     "@types/node": "^25.5.0",
     "@types/pg": "^8.20.0",
