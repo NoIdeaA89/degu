@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface Taller {
   id: number;
@@ -15,23 +15,44 @@ const talleresData: Taller[] = [
 ];
 
 const ListaTalleres: React.FC = () => {
-  
+  const [filtro, setFiltro] = useState<string>("");
+
   const obtenerColorBarra = (porcentaje: number): string => {
     if (porcentaje >= 80) return 'bg-green-500';
     if (porcentaje >= 50) return 'bg-yellow-500';
     return 'bg-red-500';
   };
 
+  // Ordenar según el filtro seleccionado
+  const talleresFiltrados = [...talleresData].sort((a, b) => {
+    if (filtro === "mas") return b.porcentajeAsistencia - a.porcentajeAsistencia;
+    if (filtro === "menos") return a.porcentajeAsistencia - b.porcentajeAsistencia;
+    return a.id - b.id; // por defecto, orden original
+  });
+
   return (
     <div className="max-w-4xl mx-auto p-6 bg-gray-50 min-h-screen">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 text-left">Control de Asistencia</h1>
-        <p className="text-gray-600 mt-2">Vista general de participación en los talleres del galpón cultural.</p>
+      <div className="mb-8 flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-800 text-left">Control de Asistencia</h1>
+          <p className="text-gray-600 mt-2">Vista general de participación en los talleres del galpón cultural.</p>
+        </div>
+
+        {/* Dropdown de filtro */}
+        <select
+          value={filtro}
+          onChange={(e) => setFiltro(e.target.value)}
+          className="px-3 py-2 border border-gray-300 rounded-md text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Ordenar por...</option>
+          <option value="mas">Mayor asistencia</option>
+          <option value="menos">Menor asistencia</option>
+        </select>
       </div>
 
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
         <ul className="divide-y divide-gray-200">
-          {talleresData.map((taller) => (
+          {talleresFiltrados.map((taller) => (
             <li 
               key={taller.id} 
               className="p-5 hover:bg-gray-50 transition-colors duration-150 ease-in-out"
