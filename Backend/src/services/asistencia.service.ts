@@ -1,7 +1,6 @@
-import { PrismaClient, BloqueHorario } from '../../Database/src/generated';
+import { PrismaClient, BloqueHorario } from '../generated/client';
 import {v4 as uuidv4 } from 'uuid';
-
-const prisma = new PrismaClient();
+import { prisma } from '../lib/prisma';
 
 export class AsistenciaService {
   

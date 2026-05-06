@@ -27,7 +27,7 @@ services:
   # ----------------------------------------
   backend:
     build:
-      context: ./backend
+      context: ./Backend
       dockerfile: Dockerfile
     container_name: app_backend
     restart: unless-stopped
@@ -37,7 +37,7 @@ services:
       DATABASE_URL: "postgresql://postgres:password123@database:5432/app_db"
     volumes:
       # Hot Reloading: sincroniza tu código local con el contenedor
-      - ./backend:/app
+      - ./Backend:/app
       # Protege los node_modules del contenedor
       - /app/node_modules
       - /app/Database/node_modules
@@ -46,14 +46,18 @@ services:
         condition: service_healthy
     networks:
       - app_network
-    command: sh -c "cd Database && npx prisma migrate dev --name init && cd .. && npm run dev"
+    command: >
+      sh -c "npx prisma db push && 
+           npx prisma generate && 
+           npm run seed && 
+           npm run dev"
 
   # ----------------------------------------
   # FRONTEND: Vite
   # ----------------------------------------
   frontend:
     build:
-      context: ./frontend
+      context: ./Frontend
       dockerfile: Dockerfile
     container_name: app_frontend
     restart: unless-stopped
@@ -62,7 +66,7 @@ services:
     environment:
       - VITE_API_URL=http://localhost:3000
     volumes:
-      - ./frontend:/app
+      - ./Frontend:/app
       - /app/node_modules
     depends_on:
       - backend

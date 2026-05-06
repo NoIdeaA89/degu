@@ -6,6 +6,7 @@ import Horario from './pages/Horario'
 import Perfil from './pages/Perfil'
 import './App.css';
 import Login from './pages/Login';
+import GeneradorQR from './components/generadorQR';
 
 
 
@@ -13,6 +14,7 @@ function App() {
   return (
     <Routes>  
       <Route path='/' element={<Inicio />} />
+      <Route path='/generarQR' element={<GeneradorQR tallerId={1}/>} />
       <Route path='/formularioAsistencia' element={<FormularioAsistencia />} />
       <Route path='/talleres' element={<ListaTalleres />} />
       <Route path='/horario' element={<Horario />} />

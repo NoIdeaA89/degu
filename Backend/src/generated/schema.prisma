@@ -4,8 +4,9 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated"
+  provider        = "prisma-client-js"
+  output          = "../src/generated"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -20,28 +21,28 @@ enum RolUsuario {
 }
 
 enum BloqueHorario {
-  A 
-  B  
-  C  
+  A
+  B
+  C
   C2
-  D  
-  E 
-  F 
+  D
+  E
+  F
 }
 
-model Usuario { 
-  id    Int     @id @default(autoincrement()) 
-  nombre    String
-  apellido  String
-  rut       String     @unique
-  correo    String     @unique
-  password  String
-  rol       RolUsuario 
+model Usuario {
+  id       Int        @id @default(autoincrement())
+  nombre   String
+  apellido String
+  rut      String     @unique
+  correo   String     @unique
+  password String
+  rol      RolUsuario
 
   talleresDictados Taller[]      @relation("ProfesorTaller")
   inscripciones    Inscripcion[]
   asistencias      Asistencia[]
-} 
+}
 
 model Taller {
   id          Int     @id @default(autoincrement())
@@ -66,32 +67,32 @@ model Inscripcion {
   tallerId     Int
   taller       Taller  @relation(fields: [tallerId], references: [id])
 
-  @@unique([estudianteId, tallerId]) 
+  @@unique([estudianteId, tallerId])
 }
 
 model Sesion {
-  id           Int           @id @default(autoincrement())
-  tallerId     Int
-  taller       Taller        @relation(fields: [tallerId], references: [id])
-  fecha        DateTime      @default(now()) @db.Date
-  bloque       BloqueHorario
-  
-  qrToken      String        @unique
-  validoHasta  DateTime      
-  
-  asistencias  Asistencia[]
+  id       Int           @id @default(autoincrement())
+  tallerId Int
+  taller   Taller        @relation(fields: [tallerId], references: [id])
+  fecha    DateTime      @default(now()) @db.Date
+  bloque   BloqueHorario
+
+  qrToken     String   @unique
+  validoHasta DateTime
+
+  asistencias Asistencia[]
 }
 
 model Asistencia {
-  id               Int      @id @default(autoincrement())
-  sesionId         Int
-  sesion           Sesion   @relation(fields: [sesionId], references: [id])
-  estudianteId     Int
-  estudiante       Usuario  @relation(fields: [estudianteId], references: [id])  
+  id           Int     @id @default(autoincrement())
+  sesionId     Int
+  sesion       Sesion  @relation(fields: [sesionId], references: [id])
+  estudianteId Int
+  estudiante   Usuario @relation(fields: [estudianteId], references: [id])
 
   fechaHora        DateTime @default(now())
-  estado           String   @default("Ausente") 
-  notaSatisfaccion Int?     
+  estado           String   @default("Ausente")
+  notaSatisfaccion Int?
 
   @@unique([sesionId, estudianteId])
 }
