@@ -5,7 +5,6 @@ jspm_packages/
 
 # --- Compilación (TypeScript/Builds) ---
 dist/
-lib/
 out/
 tsconfig.tsbuildinfo
 *.ts.buildapi
