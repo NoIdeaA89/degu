@@ -1,7 +1,7 @@
 # --- Dependencias ---
 node_modules/
 jspm_packages/
-package-lock.json
+
 
 # --- Compilación (TypeScript/Builds) ---
 dist/
@@ -9,6 +9,7 @@ lib/
 out/
 tsconfig.tsbuildinfo
 *.ts.buildapi
+.env
 
 # --- Logs ---
 logs
