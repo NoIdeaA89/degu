@@ -28,13 +28,6 @@ export default function Inicio(): ReactElement {
           >
             Ir al Formulario de Asistencia
           </Link>
-
-          <Link 
-            to="/generarQR" 
-            className="px-6 py-3 bg-green-600 text-white text-center font-semibold rounded-lg shadow-md hover:bg-green-700 transition"
-          >
-            Generar Código QR
-          </Link>
         </div>
       </main>
     </div>
