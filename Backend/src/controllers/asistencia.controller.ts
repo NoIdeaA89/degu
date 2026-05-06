@@ -31,7 +31,7 @@ export class AsistenciaController {
       const asistencia = await asistenciaService.registrarAsistenciaQR(qrToken, rut, notaSatisfaccion);
       return res.status(200).json({ mensaje: "Asistencia registrada correctamente", data: asistencia });
     } catch (error: any) {
-      // Manejo dinámico de códigos HTTP según el error del servicio
+     
       if (error.message.includes("expirado")) return res.status(403).json({ error: error.message });
       if (error.message.includes("inválido") || error.message.includes("no registrado")) return res.status(404).json({ error: error.message });
       if (error.message.includes("ya fue registrada")) return res.status(409).json({ error: error.message });
@@ -53,7 +53,7 @@ export class AsistenciaController {
   async modificacionManual(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const { estado } = req.body; // Ej: "Presente", "Justificado"
+      const { estado } = req.body; 
 
       if (!estado) return res.status(400).json({ error: "El nuevo estado es obligatorio" });
 

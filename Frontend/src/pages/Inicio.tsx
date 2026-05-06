@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { type ReactElement } from 'react'
+import GeneradorQR from '../components/generadorQR';
 
 export default function Inicio(): ReactElement {
   return (
@@ -23,6 +24,8 @@ export default function Inicio(): ReactElement {
   	    >
   	      Ir al Formulario de Asistencia
   	    </Link>
+
+		<GeneradorQR tallerId={1} />	
   	  </div>
   	</div>
 	)
