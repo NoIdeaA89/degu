@@ -1,7 +1,51 @@
-
-import type { JSX } from "react/jsx-dev-runtime"
+import { useState, type JSX } from "react"
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "../context/AuthContext" // Asegúrate de que esta ruta coincida con tu proyecto
 
 export default function Login(): JSX.Element {
+  // 1. Estados para los inputs y el manejo de errores/carga
+  const [correo, setCorreo] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [cargando, setCargando] = useState(false)
+
+  // 2. Hooks de navegación y autenticación
+  const navigate = useNavigate()
+  const { login } = useAuth()
+
+  // 3. Función que se ejecuta al enviar el formulario
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault() // Evita que la página se recargue
+    setError("")
+    setCargando(true)
+
+    try {
+      // Hacemos la petición al backend (Ajusta la URL a tu endpoint real)
+      const response = await fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ correo, password }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "Credenciales incorrectas")
+      }
+
+      // 4. Si es exitoso, guardamos el token en el contexto
+      login(data.token)
+      
+      // 5. Redirigimos al panel principal
+      navigate("/inicio")
+      
+    } catch (err: any) {
+      setError(err.message)
+    } finally {
+      setCargando(false)
+    }
+  }
+
   return (
     <main className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-12">
       <section className="w-full max-w-md bg-white border border-slate-200 rounded-[30px] shadow-[0_28px_80px_rgba(15,23,42,0.08)] p-8">
@@ -9,12 +53,22 @@ export default function Login(): JSX.Element {
           <h1 className=" text-2xl font-semibold ">Inicio de sesión</h1>
         </div>
 
-        <form className="space-y-6">
+        {/* Mostramos el error si el backend rechaza las credenciales */}
+        {error && (
+          <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-sm text-red-600 text-center">
+            {error}
+          </div>
+        )}
+
+        {/* Conectamos el formulario a la función handleSubmit */}
+        <form onSubmit={handleSubmit} className="space-y-6">
           <label className="block text-sm font-medium text-slate-700 text-left">
             Correo
             <input
               type="email"
               required
+              value={correo}
+              onChange={(e) => setCorreo(e.target.value)}
               className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-950 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
             />
           </label>
@@ -25,6 +79,8 @@ export default function Login(): JSX.Element {
               type="password"
               name="password"
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-950 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
             />
           </label>
@@ -36,34 +92,35 @@ export default function Login(): JSX.Element {
             </label>
             <button
               type="submit"
-              className="inline-flex justify-center rounded-2xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+              disabled={cargando}
+              className={`inline-flex justify-center rounded-2xl px-6 py-3 text-sm font-semibold text-white transition ${
+                cargando ? "bg-slate-400 cursor-not-allowed" : "bg-slate-950 hover:bg-slate-800"
+              }`}
             >
-              Entrar
+              {cargando ? "Entrando..." : "Entrar"}
             </button>
           </div>
         </form>
 
-
         <div className="mt-6">
-        {/* Separador */}
-        <div className="flex items-center gap-4 mb-4">
-            <div className="h-px flex-1 bg-slate-200"></div>
-            <span className="text-sm text-slate-400">O continuar con correo</span>
-            <div className="h-px flex-1 bg-slate-200"></div>
-        </div>
+          <div className="flex items-center gap-4 mb-4">
+              <div className="h-px flex-1 bg-slate-200"></div>
+              <span className="text-sm text-slate-400">O continuar con correo</span>
+              <div className="h-px flex-1 bg-slate-200"></div>
+          </div>
 
-        {/* Botón */}
-        <button
-            type="button"
-            className="w-full rounded-2xl bg-slate-950 text-white border border-slate-200 py-3 font-medium hover:bg-slate-800 transition"
-        >
-            Acceder con correo
-        </button>
+          <button
+              type="button"
+              className="w-full rounded-2xl bg-slate-950 text-white border border-slate-200 py-3 font-medium hover:bg-slate-800 transition"
+          >
+              Acceder con correo
+          </button>
         </div>
-       <div className="mt-8 grid grid-cols-2 text-sm text-slate-400">
+        
+        <div className="mt-8 grid grid-cols-2 text-sm text-slate-400">
           <p className="text-left">
             ¿Olvidaste tu contraseña?{' '}
-            <a className="text-slate-900 font-medium hover:underline">
+            <a className="text-slate-900 font-medium hover:underline cursor-pointer">
               Restaurar
             </a>
           </p>
