@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import sesionRoutes from './routes/sesion.routes';
 import asistenciaRoutes from './routes/asistencia.routes';
+import authRoutes from './routes/auth.routes';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,6 +20,7 @@ app.use(express.json());
 // Ahora el endpoint completo será: http://localhost:3000/api/sesiones/generar
 app.use('/api/sesiones', sesionRoutes);
 app.use('/api/asistencia', asistenciaRoutes)
+app.use('/api/auth', authRoutes);
 
 // 4. Ruta de salud (Útil para probar si el contenedor responde)
 app.get('/health', (req, res) => {

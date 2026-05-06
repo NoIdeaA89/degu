@@ -16,10 +16,10 @@ async function main() {
     console.log('👨‍🏫 Creando usuarios (Profesor y Estudiantes)...');
     const profesor = await prisma.usuario.create({
       data: {
-        nombre: "Juan",
-        apellido: "Pérez",
+        nombre: "Edgar",
+        apellido: "Gallardo",
         rut: "12.345.678-9",
-        correo: "profesor@ucn.cl",
+        correo: "Edgar.Gallardo@ucn.cl",
         password: "password123",
         rol: "Profesor" 
       }

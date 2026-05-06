@@ -1,25 +1,43 @@
 import { Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import ListaTalleres from './components/listaTalleres';
 import FormularioAsistencia from './components/formularioAsistencia';
 import Inicio from './pages/Inicio';
-import Horario from './pages/Horario'
-import Perfil from './pages/Perfil'
+import Horario from './pages/Horario';
+import Perfil from './pages/Perfil';
 import Login from './pages/Login';
-
-
+import { PublicRoute } from './components/PublicRoute';
 
 function App() {
   return (
-    <Routes>  
-      <Route path='/inicio' element={<Inicio />} />
-      <Route path='/formularioAsistencia' element={<FormularioAsistencia />} />
-      <Route path='/talleres' element={<ListaTalleres />} />
-      <Route path='/horario' element={<Horario />} />
-      <Route path='/perfil' element={<Perfil />} />
-      <Route path='/' element={<Login />} />
-      <Route path='/inicio' element={<Inicio />} />
-      <Route path="*" element={<div className="p-10 text-center text-red-500">Página no encontrada (Error 404)</div>} />
-    </Routes>
+    // 1. Envolvemos toda la aplicación con el proveedor de autenticación
+    <AuthProvider>
+      <Routes>  
+        {/* ======================================= */}
+        {/* RUTAS PÚBLICAS (No requieren sesión)    */}
+        {/* ======================================= */}
+        <Route element={<PublicRoute />}>
+          <Route path='/' element={<Login />} />
+        </Route>
+        
+        {/* ======================================= */}
+        {/* RUTAS PRIVADAS (Requieren token válido) */}
+        {/* ======================================= */}
+        <Route element={<ProtectedRoute />}>
+          <Route path='/inicio' element={<Inicio />} />
+          <Route path='/talleres' element={<ListaTalleres />} />
+          <Route path='/horario' element={<Horario />} />
+          <Route path='/perfil' element={<Perfil />} />
+          <Route path='/formularioAsistencia' element={<FormularioAsistencia />} />
+        </Route>
+
+        {/* ======================================= */}
+        {/* CATCH-ALL (Página no encontrada)        */}
+        {/* ======================================= */}
+        <Route path="*" element={<div className="p-10 text-center text-red-500">Página no encontrada (Error 404)</div>} />
+      </Routes>
+    </AuthProvider>
   );
 }
 
