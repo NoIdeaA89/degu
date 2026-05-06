@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useMemo, useState, type ReactElement } from "react"
 import "./Horario.css"
 import Navbar from "../components/navbar"
+import GeneradorQR from "../components/generadorQR"
 
 interface Taller {
   dia: number
@@ -457,8 +458,8 @@ export default function Horario(): ReactElement {
               </button>
             </div>
 
-            <div className="qr-placeholder">
-              <span>Espacio para código QR</span>
+            <div className="flex justify-center p-4">
+              <GeneradorQR tallerId={1} /> 
             </div>
           </div>
         </div>
