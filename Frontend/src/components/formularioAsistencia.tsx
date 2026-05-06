@@ -97,7 +97,7 @@ const AsistenciaForm = () => {
         </button>
       </form>
 
-      <p className="mt-8 text-xs text-gray-400 text-center max-w-[250px]">
+      <p className="mt-8 text-xs text-gray-400 text-center max-w-[62,5]">
         Al registrarte confirmas que has participado en la sesión de hoy.
       </p>
     </div>

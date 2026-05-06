@@ -7,7 +7,7 @@ export default function Inicio(): ReactElement {
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <Navbar />
 
-      <main className="flex flex-col items-center justify-center flex-grow p-6">
+      <main className="flex flex-col items-center justify-center grow p-6">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">
           Sistema de Gestión Estudiantil
         </h1>
@@ -23,10 +23,17 @@ export default function Inicio(): ReactElement {
             Ir a la Lista de Talleres
           </Link>
           <Link 
-            to="/formularioAsistencia" 
+            to="/FormularioAsistencia" 
             className="px-6 py-3 bg-blue-600 text-white text-center font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
           >
             Ir al Formulario de Asistencia
+          </Link>
+
+          <Link 
+            to="/generarQR" 
+            className="px-6 py-3 bg-green-600 text-white text-center font-semibold rounded-lg shadow-md hover:bg-green-700 transition"
+          >
+            Generar Código QR
           </Link>
         </div>
       </main>
