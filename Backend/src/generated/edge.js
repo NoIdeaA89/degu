@@ -39,12 +39,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 7.6.0
- * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
+ * Prisma Client JS version: 7.8.0
+ * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
  */
 Prisma.prismaVersion = {
-  client: "7.6.0",
-  engine: "75cbdc1eb7150937890ad5465d861175c6624711"
+  client: "7.8.0",
+  engine: "3c6e192761c0362d496ed980de936e2f3cebcd3a"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -182,8 +182,8 @@ const config = {
   "previewFeatures": [
     "driverAdapters"
   ],
-  "clientVersion": "7.6.0",
-  "engineVersion": "75cbdc1eb7150937890ad5465d861175c6624711",
+  "clientVersion": "7.8.0",
+  "engineVersion": "3c6e192761c0362d496ed980de936e2f3cebcd3a",
   "activeProvider": "postgresql",
   "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Get a free hosted Postgres database in seconds: `npx create-db`\n\ngenerator client {\n  provider        = \"prisma-client-js\"\n  output          = \"../src/generated\"\n  previewFeatures = [\"driverAdapters\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum RolUsuario {\n  Administrador\n  Profesor\n  Ayudante\n  Estudiante\n}\n\nenum BloqueHorario {\n  A\n  B\n  C\n  C2\n  D\n  E\n  F\n}\n\nmodel Usuario {\n  id       Int        @id @default(autoincrement())\n  nombre   String\n  apellido String\n  rut      String     @unique\n  correo   String     @unique\n  password String\n  rol      RolUsuario\n\n  talleresDictados Taller[]      @relation(\"ProfesorTaller\")\n  inscripciones    Inscripcion[]\n  asistencias      Asistencia[]\n}\n\nmodel Taller {\n  id          Int     @id @default(autoincrement())\n  nombre      String\n  descripcion String  @db.Text\n  horario     String\n  semestre    String\n  estado      Boolean @default(true)\n\n  profesorId    Int\n  profesor      Usuario       @relation(\"ProfesorTaller\", fields: [profesorId], references: [id])\n  inscripciones Inscripcion[]\n  sesiones      Sesion[]\n}\n\nmodel Inscripcion {\n  id            Int      @id @default(autoincrement())\n  fechaRegistro DateTime @default(now())\n\n  estudianteId Int\n  estudiante   Usuario @relation(fields: [estudianteId], references: [id])\n  tallerId     Int\n  taller       Taller  @relation(fields: [tallerId], references: [id])\n\n  @@unique([estudianteId, tallerId])\n}\n\nmodel Sesion {\n  id       Int           @id @default(autoincrement())\n  tallerId Int\n  taller   Taller        @relation(fields: [tallerId], references: [id])\n  fecha    DateTime      @default(now()) @db.Date\n  bloque   BloqueHorario\n\n  qrToken     String   @unique\n  validoHasta DateTime\n\n  asistencias Asistencia[]\n}\n\nmodel Asistencia {\n  id           Int     @id @default(autoincrement())\n  sesionId     Int\n  sesion       Sesion  @relation(fields: [sesionId], references: [id])\n  estudianteId Int\n  estudiante   Usuario @relation(fields: [estudianteId], references: [id])\n\n  fechaHora        DateTime @default(now())\n  estado           String   @default(\"Ausente\")\n  notaSatisfaccion Int?\n\n  @@unique([sesionId, estudianteId])\n}\n"
 }

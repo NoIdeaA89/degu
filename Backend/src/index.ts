@@ -3,6 +3,8 @@ import cors from 'cors';
 import sesionRoutes from './routes/sesion.routes';
 import asistenciaRoutes from './routes/asistencia.routes';
 import authRoutes from './routes/auth.routes';
+import estudianteRoutes from './routes/estudiante.routes';
+import { es } from 'zod/locales';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -25,6 +27,7 @@ app.use(express.json());
 app.use('/api/sesion', sesionRoutes);
 app.use('/api/asistencia', asistenciaRoutes)
 app.use('/api/auth', authRoutes);
+app.use('/api/estudiantes', estudianteRoutes);
 
 app.get('/health', (req, res) => {
   res.status(200).send('OK');
