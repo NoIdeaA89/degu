@@ -1,66 +1,65 @@
 import { Request, Response } from 'express';
 import { AsistenciaService } from '../services/asistencia.service';
 
-const asistenciaService = new AsistenciaService();
-
 export class AsistenciaController {
+  private asistenciaService: AsistenciaService;
 
-  async crearSesion(req: Request, res: Response) {
-    try {
-      const { tallerId, bloque, minutosValidez } = req.body;
-      
-      if (!tallerId || !bloque || !minutosValidez) {
-        return res.status(400).json({ error: "Faltan datos obligatorios (tallerId, bloque, minutosValidez)" });
-      }
-
-      const sesion = await asistenciaService.crearSesion(Number(tallerId), bloque, Number(minutosValidez));
-      return res.status(201).json({ mensaje: "Sesión creada exitosamente", data: sesion });
-    } catch (error: any) {
-      return res.status(400).json({ error: error.message });
-    }
+  constructor() {
+    this.asistenciaService = new AsistenciaService();
   }
 
-  async registrarQR(req: Request, res: Response) {
+  registrarPorQR = async (req: Request, res: Response) => {
     try {
-      const { qrToken, rut, notaSatisfaccion } = req.body;
-
-      if (!qrToken || !rut) {
-        return res.status(400).json({ error: "El Token QR y el RUT son obligatorios" });
+      const { rut, qrToken, satisfaccion } = req.body;
+      if (!rut || !qrToken) {
+        return res.status(400).json({ message: 'RUT y Token de sesión son obligatorios' });
       }
 
-      const asistencia = await asistenciaService.registrarAsistenciaQR(qrToken, rut, notaSatisfaccion);
-      return res.status(200).json({ mensaje: "Asistencia registrada correctamente", data: asistencia });
+      const registro = await this.asistenciaService.registrarAsistencia(rut, qrToken, satisfaccion);
+      res.status(201).json({ message: 'Asistencia registrada con éxito', data: registro });
     } catch (error: any) {
-     
-      if (error.message.includes("expirado")) return res.status(403).json({ error: error.message });
-      if (error.message.includes("inválido") || error.message.includes("no registrado")) return res.status(404).json({ error: error.message });
-      if (error.message.includes("ya fue registrada")) return res.status(409).json({ error: error.message });
-      
-      return res.status(400).json({ error: error.message });
+      res.status(error.status || 500).json({ message: error.message });
     }
-  }
+  };
 
-  async consultarPorSesion(req: Request, res: Response) {
+  obtenerPorSesion = async (req: Request, res: Response) => {
     try {
       const { sesionId } = req.params;
-      const listado = await asistenciaService.consultarAsistenciaPorSesion(Number(sesionId));
-      return res.status(200).json({ data: listado });
+      const alumnos = await this.asistenciaService.listarPorSesion(Number(sesionId));
+      res.json(alumnos);
     } catch (error: any) {
-      return res.status(500).json({ error: "Error al consultar la asistencia" });
+      res.status(500).json({ message: error.message });
     }
-  }
+  };
 
-  async modificacionManual(req: Request, res: Response) {
+  obtenerPorTaller = async (req: Request, res: Response) => {
+    try {
+      const { tallerId } = req.params;
+      const reporte = await this.asistenciaService.listarPorTaller(Number(tallerId));
+      res.json(reporte);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+  obtenerPorEstudiante = async (req: Request, res: Response) => {
+    try {
+      const { rut } = req.params;
+      const historial = await this.asistenciaService.listarPorEstudiante(String(rut));
+      res.json(historial);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+  modificarEstadoManual = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const { estado } = req.body; 
-
-      if (!estado) return res.status(400).json({ error: "El nuevo estado es obligatorio" });
-
-      const actualizada = await asistenciaService.modificarEstadoManual(Number(id), estado);
-      return res.status(200).json({ mensaje: "Estado actualizado manualmente", data: actualizada });
+      const { estado } = req.body;
+      const actualizado = await this.asistenciaService.actualizarEstado(Number(id), estado);
+      res.json({ message: 'Estado actualizado', data: actualizado });
     } catch (error: any) {
-      return res.status(400).json({ error: "No se pudo actualizar el estado" });
+      res.status(500).json({ message: error.message });
     }
-  }
+  };
 }

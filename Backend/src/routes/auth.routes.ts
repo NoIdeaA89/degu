@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import { login } from '../controllers/auth.controller';
+import { login, registro, verificarSesion } from '../controllers/auth.controller';
 
 const router = Router();
 
-// Endpoint: POST http://localhost:3000/api/auth/login
 router.post('/login', login);
+
+router.post('/registro', registro);
+router.get('/verify', verificarSesion);
 
 export default router;

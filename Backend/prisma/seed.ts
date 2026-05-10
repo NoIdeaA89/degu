@@ -1,6 +1,6 @@
 import { prisma } from '../src/lib/prisma';
-
 import { randomUUID } from 'crypto'; 
+import bcrypt from 'bcrypt'; 
 
 async function main() {
   console.log('🌱 Iniciando seed alineado al esquema oficial...');
@@ -13,6 +13,9 @@ async function main() {
     await prisma.taller.deleteMany();
     await prisma.usuario.deleteMany();
 
+    console.log('🔐 Encriptando contraseñas por defecto...');
+    const passwordHasheada = await bcrypt.hash('password123', 10);
+
     console.log('👨‍🏫 Creando usuarios (Profesor y Estudiantes)...');
     const profesor = await prisma.usuario.create({
       data: {
@@ -20,7 +23,7 @@ async function main() {
         apellido: "Gallardo",
         rut: "12.345.678-9",
         correo: "Edgar.Gallardo@ucn.cl",
-        password: "password123",
+        password: passwordHasheada, 
         rol: "Profesor" 
       }
     });
@@ -31,7 +34,7 @@ async function main() {
         apellido: "Guidotti",
         rut: "19.876.543-2",
         correo: "lucas@alumnos.ucn.cl",
-        password: "password123",
+        password: passwordHasheada, 
         rol: "Estudiante"
       }
     });
@@ -42,7 +45,7 @@ async function main() {
         apellido: "Iriarte",
         rut: "20.123.456-7",
         correo: "joaquin@alumnos.ucn.cl",
-        password: "password123",
+        password: passwordHasheada, 
         rol: "Estudiante"
       }
     });

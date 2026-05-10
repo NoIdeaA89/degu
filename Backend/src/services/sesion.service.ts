@@ -1,49 +1,53 @@
-import { v4 as uuidv4 } from 'uuid';
-import { BloqueHorario } from '../generated/client';
 import { prisma } from '../lib/prisma';
+import crypto from 'crypto';
 
-export const generarEnlaceQR = async (tallerId: number, bloque: string) => {
-  const tallerExiste = await prisma.taller.findUnique({ where: { id: tallerId } });
-  if (!tallerExiste) throw new Error('El taller no existe o está inactivo');
-
-  const bloqueLimpio = bloque.replace(/bloque\s+/i, '').trim().toUpperCase();
-
-  if (!Object.values(BloqueHorario).includes(bloqueLimpio as BloqueHorario)) {
-    throw new Error(`El bloque '${bloque}' no es válido en el sistema.`);
-  }
+export class SesionService {
   
-  const token = uuidv4();
-  const expiraEn = new Date(Date.now() + 5 * 60000);
+  async crear(tallerId: number, bloque: any, minutos: number) {
+    const token = crypto.randomBytes(16).toString('hex');
+    const fechaExpiracion = new Date();
+    fechaExpiracion.setMinutes(fechaExpiracion.getMinutes() + minutos);
 
-  const nuevaSesion = await prisma.sesion.create({
-    data: {
-      tallerId,
-      bloque: bloque as BloqueHorario,
-      qrToken: token,
-      validoHasta: expiraEn
-    }
-  });
-
-  const baseUrlFront = process.env.FRONTEND_URL || 'http://localhost:3000';
-  const urlAsistencia = `${baseUrlFront}/formularioAsistencia?token=${token}`;
-
-  return {
-    url: urlAsistencia,
-    token,
-    expiraEn
-  };
-};
-
-export const validarTokenFrontend = async (token: string) => {
-  const sesion = await prisma.sesion.findFirst({
-    where: { qrToken: token }
-  });
-
-  if (!sesion) throw new Error('Token no encontrado o inválido');
-
-  if (new Date() > sesion.validoHasta) {
-    throw new Error('El enlace del código QR ha expirado');
+    return await prisma.sesion.create({
+      data: {
+        tallerId,
+        bloque,
+        qrToken: token,
+        validoHasta: fechaExpiracion,
+        fecha: new Date()
+      }
+    });
   }
 
-  return { valido: true, sesionId: sesion.id, tallerId: sesion.tallerId };
-};
+  async validar(token: string) {
+    return await prisma.sesion.findFirst({
+      where: {
+        qrToken: token,
+        validoHasta: {
+          gt: new Date()
+        }
+      },
+      include: {
+        taller: {
+          select: { nombre: true }
+        }
+      }
+    });
+  }
+
+  async listarPorTaller(tallerId: number) {
+    return await prisma.sesion.findMany({
+      where: { tallerId },
+      orderBy: { fecha: 'desc' }
+    });
+  }
+
+  async finalizar(id: number) {
+    return await prisma.sesion.update({
+      where: { id },
+      data: {
+        validoHasta: new Date()
+      }
+    });
+  }
+}

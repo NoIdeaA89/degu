@@ -21,6 +21,8 @@ function App() {
           <Route path='/' element={<Login />} />
         </Route>
         
+        <Route path='/formularioAsistencia' element={<FormularioAsistencia />} />
+        
         {/* ======================================= */}
         {/* RUTAS PRIVADAS (Requieren token válido) */}
         {/* ======================================= */}
@@ -29,7 +31,6 @@ function App() {
           <Route path='/talleres' element={<ListaTalleres />} />
           <Route path='/horario' element={<Horario />} />
           <Route path='/perfil' element={<Perfil />} />
-          <Route path='/formularioAsistencia' element={<FormularioAsistencia />} />
         </Route>
 
         {/* ======================================= */}
