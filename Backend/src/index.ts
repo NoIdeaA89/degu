@@ -4,7 +4,6 @@ import sesionRoutes from './routes/sesion.routes';
 import asistenciaRoutes from './routes/asistencia.routes';
 import authRoutes from './routes/auth.routes';
 import estudianteRoutes from './routes/estudiante.routes';
-import { es } from 'zod/locales';
 
 const app = express();
 const port = process.env.PORT || 3000;
