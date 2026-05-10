@@ -1,27 +1,25 @@
 import { useState, type JSX } from "react"
 import { useNavigate } from "react-router-dom"
-import { useAuth } from "../context/AuthContext" // Asegúrate de que esta ruta coincida con tu proyecto
+import { useAuth } from "../context/AuthContext" 
 
 export default function Login(): JSX.Element {
-  // 1. Estados para los inputs y el manejo de errores/carga
   const [correo, setCorreo] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [cargando, setCargando] = useState(false)
 
-  // 2. Hooks de navegación y autenticación
   const navigate = useNavigate()
   const { login } = useAuth()
 
-  // 3. Función que se ejecuta al enviar el formulario
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault() // Evita que la página se recargue
+    e.preventDefault()
     setError("")
     setCargando(true)
 
     try {
-      // Hacemos la petición al backend (Ajusta la URL a tu endpoint real)
-      const response = await fetch("http://localhost:3000/api/auth/login", {
+      const baseUrl = `http://${window.location.hostname}:3000/api`;
+      
+      const response = await fetch(`${baseUrl}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ correo, password }),
@@ -33,10 +31,8 @@ export default function Login(): JSX.Element {
         throw new Error(data.error || "Credenciales incorrectas")
       }
 
-      // 4. Si es exitoso, guardamos el token en el contexto
       login(data.token)
       
-      // 5. Redirigimos al panel principal
       navigate("/inicio")
       
     } catch (err: any) {

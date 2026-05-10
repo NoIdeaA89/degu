@@ -1,14 +1,52 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const AsistenciaForm = () => {
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token');
+
   const [rut, setRut] = useState('');
   const [satisfaccion, setSatisfaccion] = useState<number | null>(null);
   const [enviado, setEnviado] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ rut, satisfaccion });
-    setEnviado(true);
+    
+    if (!token) {
+      setError('El código QR no es válido o ha expirado.');
+      return;
+    }
+
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const baseUrl = `http://${window.location.hostname}:3000/api`;
+      
+      const response = await fetch(`${baseUrl}/asistencia/registrar`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          rut, 
+          qrToken: token, 
+          satisfaccion 
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Error al registrar asistencia');
+      }
+
+      setEnviado(true);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (enviado) {
@@ -22,7 +60,7 @@ const AsistenciaForm = () => {
             onClick={() => window.location.href = '/'}
             className="mt-6 w-full py-3 bg-gray-800 text-white rounded-xl font-semibold"
           >
-            Volver al inicio
+            Finalizar
           </button>
         </div>
       </div>
@@ -31,17 +69,21 @@ const AsistenciaForm = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center p-4">
-      {}
       <div className="w-full max-w-md mt-8 mb-6 text-center">
         <h1 className="text-2xl font-bold text-blue-900">Galpón Cultural UCN</h1>
-        <p className="text-gray-500 italic">Registro de Asistencia</p>
+        <p className="text-gray-500 italic font-medium">Registro de Asistencia</p>
       </div>
 
       <form 
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-white rounded-2xl shadow-lg p-6 space-y-8"
       >
-        {}
+        {error && (
+          <div className="p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl text-center font-medium">
+            {error}
+          </div>
+        )}
+
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">
             Ingresa tu RUT (sin puntos ni guion)
@@ -49,14 +91,14 @@ const AsistenciaForm = () => {
           <input
             type="text"
             required
+            disabled={isLoading}
             placeholder="12345678"
-            className="w-full p-4 border-2 border-gray-100 rounded-xl focus:border-blue-500 outline-none transition-colors text-lg"
+            className="w-full p-4 border-2 border-gray-100 rounded-xl focus:border-blue-500 outline-none transition-colors text-lg disabled:bg-gray-50"
             value={rut}
             onChange={(e) => setRut(e.target.value)}
           />
         </div>
 
-        {}
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-4 text-center">
             ¿Qué te pareció el taller de hoy?
@@ -66,6 +108,7 @@ const AsistenciaForm = () => {
               <button
                 key={nivel}
                 type="button"
+                disabled={isLoading}
                 onClick={() => setSatisfaccion(nivel)}
                 className={`flex-1 py-4 text-2xl rounded-xl transition-all ${
                   satisfaccion === nivel 
@@ -83,21 +126,20 @@ const AsistenciaForm = () => {
           </div>
         </div>
 
-        {}
         <button
           type="submit"
-          disabled={!rut || !satisfaccion}
+          disabled={!rut || !satisfaccion || isLoading}
           className={`w-full py-4 rounded-xl font-bold text-lg shadow-lg transition-all ${
-            rut && satisfaccion 
+            rut && satisfaccion && !isLoading
               ? 'bg-blue-600 text-white hover:bg-blue-700 active:scale-95' 
               : 'bg-gray-200 text-gray-400 cursor-not-allowed'
           }`}
         >
-          Confirmar Asistencia
+          {isLoading ? 'Registrando...' : 'Confirmar Asistencia'}
         </button>
       </form>
 
-      <p className="mt-8 text-xs text-gray-400 text-center max-w-[62,5]">
+      <p className="mt-8 text-xs text-gray-400 text-center max-w-50">
         Al registrarte confirmas que has participado en la sesión de hoy.
       </p>
     </div>

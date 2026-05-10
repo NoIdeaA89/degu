@@ -4,12 +4,14 @@ import { AsistenciaController } from '../controllers/asistencia.controller';
 const router = Router();
 const asistenciaController = new AsistenciaController();
 
-router.post('/sesion', asistenciaController.crearSesion);
+router.post('/registrar', asistenciaController.registrarPorQR);
 
-router.patch('/registrar-qr', asistenciaController.registrarQR);
+router.get('/sesion/:sesionId', asistenciaController.obtenerPorSesion);
 
-router.get('/sesion/:sesionId', asistenciaController.consultarPorSesion);
+router.get('/taller/:tallerId', asistenciaController.obtenerPorTaller);
 
-router.patch('/:id/manual', asistenciaController.modificacionManual);
+router.get('/estudiante/:rut', asistenciaController.obtenerPorEstudiante);
+
+router.patch('/:id/estado', asistenciaController.modificarEstadoManual);
 
 export default router;

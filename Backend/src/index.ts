@@ -8,7 +8,13 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: 'http://localhost:5173', 
+  origin: function (origin, callback) {
+    if (!origin || /^http:\/\/(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+):\d+$/.test(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Bloqueado por CORS: Origen no permitido'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -16,18 +22,14 @@ app.use(cors({
 
 app.use(express.json());
 
-// 3. Montaje de rutas
-// Ahora el endpoint completo será: http://localhost:3000/api/sesiones/generar
-app.use('/api/sesiones', sesionRoutes);
+app.use('/api/sesion', sesionRoutes);
 app.use('/api/asistencia', asistenciaRoutes)
 app.use('/api/auth', authRoutes);
 
-// 4. Ruta de salud (Útil para probar si el contenedor responde)
 app.get('/health', (req, res) => {
   res.status(200).send('OK');
 });
 
-// 5. Arranque del servidor
 if (process.env.NODE_ENV !== 'test') {
   app.listen(port, () => {
     console.log(`🚀 Servidor unificado listo en http://localhost:${port}`);

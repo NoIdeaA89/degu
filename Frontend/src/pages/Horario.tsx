@@ -448,7 +448,7 @@ export default function Horario(): ReactElement {
         </div>
       )}
 
-      {mostrarQrModal && (
+      {mostrarQrModal && tallerSeleccionado && (
         <div className="modal-overlay-qr" onClick={cerrarQrModal}>
           <div className="modal-contenido-qr" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
@@ -459,7 +459,11 @@ export default function Horario(): ReactElement {
             </div>
 
             <div className="flex justify-center p-4">
-              <GeneradorQR tallerId={1} /> 
+              <GeneradorQR 
+                tallerId={1} 
+                nombreTaller={tallerSeleccionado.taller.titulo}
+                bloque={bloques[tallerSeleccionado.taller.bloque - 1]} 
+              /> 
             </div>
           </div>
         </div>
