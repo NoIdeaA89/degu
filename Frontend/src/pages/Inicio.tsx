@@ -1,7 +1,6 @@
 import { type ReactElement } from "react"
 import Navbar from "../components/navbar"
-import ListaTalleres from "../components/listaTalleres" // importa tu componente
-
+import ListaTalleres from "../components/listaTalleres" 
 export default function Inicio(): ReactElement {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
@@ -15,7 +14,6 @@ export default function Inicio(): ReactElement {
           Bienvenido al panel principal de Galpón Cultural.
         </p>
 
-        {/* Aquí renderizas la lista de talleres */}
         <ListaTalleres />
       </main>
     </div>
