@@ -1,13 +1,12 @@
 import { type ReactElement } from "react"
 import Navbar from "../components/navbar"
-import { Link } from "react-router-dom"
-
+import ListaTalleres from "../components/listaTalleres" 
 export default function Inicio(): ReactElement {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <Navbar />
 
-      <main className="flex flex-col items-center justify-center grow p-6">
+      <main className="flex flex-col items-center justify-start grow p-6">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">
           Sistema de Gestión Estudiantil
         </h1>
@@ -15,20 +14,7 @@ export default function Inicio(): ReactElement {
           Bienvenido al panel principal de Galpón Cultural.
         </p>
 
-        <div className="flex flex-col gap-4 w-full max-w-xs">
-          <Link 
-            to="/talleres" 
-            className="px-6 py-3 bg-blue-600 text-white text-center font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
-          >
-            Ir a la Lista de Talleres
-          </Link>
-          <Link 
-            to="/FormularioAsistencia" 
-            className="px-6 py-3 bg-blue-600 text-white text-center font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
-          >
-            Ir al Formulario de Asistencia
-          </Link>
-        </div>
+        <ListaTalleres />
       </main>
     </div>
   )
