@@ -31,10 +31,10 @@ export default function Navbar(): ReactElement {
             Horario
           </Link>
           <Link 
-            to="/perfil" 
+            to="/estudiantes" 
             className="text-gray-700 hover:text-gray-900 font-medium transition-colors"
           >
-            Perfil
+            Estudiantes
           </Link>
 
           {/* Sección de Sesión (Solo visible si el usuario está logueado) */}

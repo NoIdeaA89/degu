@@ -5,9 +5,10 @@ import ListaTalleres from './components/listaTalleres';
 import FormularioAsistencia from './components/formularioAsistencia';
 import Inicio from './pages/Inicio';
 import Horario from './pages/Horario';
-import Perfil from './pages/Perfil';
 import Login from './pages/Login';
 import { PublicRoute } from './components/PublicRoute';
+import BuscadorEstudiantes from './pages/BuscadorEstudiantes';
+import Perfil from './pages/Perfil';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
         <Route element={<PublicRoute />}>
           <Route path='/' element={<Login />} />
         </Route>
-        
+
         <Route path='/formularioAsistencia' element={<FormularioAsistencia />} />
         
         {/* ======================================= */}
@@ -30,6 +31,7 @@ function App() {
           <Route path='/inicio' element={<Inicio />} />
           <Route path='/talleres' element={<ListaTalleres />} />
           <Route path='/horario' element={<Horario />} />
+          <Route path='/estudiantes' element={<BuscadorEstudiantes />} />
           <Route path='/perfil' element={<Perfil />} />
         </Route>
 
