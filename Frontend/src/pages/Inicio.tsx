@@ -1,6 +1,6 @@
 import { type ReactElement } from "react"
 import Navbar from "../components/navbar"
-import ListaTalleres from "../components/listaTalleres" 
+import Horario from "../pages/Horario" 
 export default function Inicio(): ReactElement {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
@@ -14,7 +14,7 @@ export default function Inicio(): ReactElement {
           Bienvenido al panel principal de Galpón Cultural.
         </p>
 
-        <ListaTalleres />
+        <Horario />
       </main>
     </div>
   )
