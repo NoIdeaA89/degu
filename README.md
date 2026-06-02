@@ -29,3 +29,8 @@ uso de docker:
 1. para construir: docker-compose build --no-cache
 2. para levantar: docker-compose up -d 
 3. para bajarlo: docker-compose down -v
+
+
+
+Edgar.Gallardo@ucn.cl
+password123
