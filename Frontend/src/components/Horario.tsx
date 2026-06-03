@@ -1,25 +1,11 @@
 import { Fragment, useEffect, useMemo, useState, type ReactElement } from "react"
 import "./Horario.css"
+import type { Taller } from "../interfaces/Taller"
+import type { Estudiante } from "../interfaces/Estudiante"
+import type { CeldaSeleccionada, TallerSeleccionado } from "../interfaces/Horario"
 
 import GeneradorQR from "../components/generadorQR"
 
-interface Taller {
-  dia: number
-  bloque: number
-  titulo: string
-  lugar: string
-}
-
-type CeldaSeleccionada = {
-  dia: number
-  bloque: number
-  items: Taller[]
-}
-
-type TallerSeleccionado = {
-  id: string
-  taller: Taller
-}
 
 const talleres: Array<Taller> = [
   { dia: 1, bloque: 3, titulo: "Club TCG", lugar: "Sala J" },
