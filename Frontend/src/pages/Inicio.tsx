@@ -1,6 +1,6 @@
 import { type ReactElement } from "react"
 import Navbar from "../components/navbar"
-import Horario from "../components/Horario" 
+import Horario from "../components/Horario/Horario" 
 
 export default function Inicio(): ReactElement {
   return (

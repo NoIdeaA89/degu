@@ -72,9 +72,9 @@ export default function BuscadorEstudiantes(): ReactElement {
   }
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-r from-blue-600 via-yellow-400 to-green-500 flex flex-col">
       <Navbar />
-      <main className="min-h-screen bg-[#f6f7f8] px-4 py-8 sm:px-6">
+      <main className="min-h-screen px-4 py-8 sm:px-6">
         <section className="mx-auto w-full max-w-6xl">
           <header className="mb-6 rounded-2xl border border-[#dfe3e7] bg-white p-6 shadow-[0_8px_22px_-18px_rgba(31,35,40,0.28)]">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2f363d]">
