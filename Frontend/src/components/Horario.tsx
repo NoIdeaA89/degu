@@ -1,60 +1,14 @@
 import { Fragment, useEffect, useMemo, useState, type ReactElement } from "react"
 import "./Horario.css"
 import type { Taller } from "../interfaces/Taller"
-import type { Estudiante } from "../interfaces/Estudiante"
 import type { CeldaSeleccionada, TallerSeleccionado } from "../interfaces/Horario"
 
 import GeneradorQR from "../components/generadorQR"
 
+import { talleres } from "../data/TallerMock"
+import { estudiantes } from "../data/EstudiantesMock"
 
-const talleres: Array<Taller> = [
-  { dia: 1, bloque: 3, titulo: "Club TCG", lugar: "Sala J" },
-  { dia: 1, bloque: 4, titulo: "Club TCG", lugar: "Sala J" },
-  { dia: 1, bloque: 4, titulo: "Cueca", lugar: "Gimnasio" },
-  { dia: 1, bloque: 5, titulo: "Club TCG", lugar: "Sala J" },
-  { dia: 1, bloque: 5, titulo: "Bandas", lugar: "Sala multiusos" },
-  { dia: 1, bloque: 6, titulo: "Pole Dance", lugar: "Gimnasio" },
-  { dia: 2, bloque: 3, titulo: "Club TCG", lugar: "Sala J" },
-  { dia: 2, bloque: 3, titulo: "Club Gamer", lugar: "Sala multiusos" },
-  { dia: 2, bloque: 4, titulo: "Club TCG", lugar: "Sala J" },
-  { dia: 2, bloque: 4, titulo: "Club Gamer", lugar: "Sala multiusos" },
-  { dia: 2, bloque: 4, titulo: "Cueca", lugar: "Gimnasio" },
-  { dia: 2, bloque: 5, titulo: "Club TCG", lugar: "Sala J" },
-  { dia: 2, bloque: 5, titulo: "Club Gamer", lugar: "Sala multiusos" },
-  { dia: 2, bloque: 6, titulo: "Jazz Band", lugar: "Sala de Música" },
-  { dia: 3, bloque: 1, titulo: "Pintura", lugar: "Taller de Arte" },
-  { dia: 3, bloque: 2, titulo: "Pintura", lugar: "Taller de Arte" },
-  { dia: 3, bloque: 2, titulo: "Canto", lugar: "Sala multiusos" },
-  { dia: 3, bloque: 2, titulo: "Danza", lugar: "Sala de Música" },
-  { dia: 3, bloque: 3, titulo: "Pintura", lugar: "Taller de Arte" },
-  { dia: 3, bloque: 3, titulo: "Canto", lugar: "Sala multiusos" },
-  { dia: 3, bloque: 4, titulo: "Danza", lugar: "Sala de Música" },
-  { dia: 3, bloque: 4, titulo: "Teatro", lugar: "Sala multiusos" },
-  { dia: 3, bloque: 6, titulo: "Música", lugar: "Sala de Música" },
-  { dia: 3, bloque: 7, titulo: "Música", lugar: "Sala de Música" },
-  { dia: 4, bloque: 2, titulo: "Club de literatura", lugar: "Sala de Música" },
-  { dia: 4, bloque: 2, titulo: "Fotografía", lugar: "Exterior" },
-  { dia: 4, bloque: 3, titulo: "Fotografía", lugar: "Exterior" },
-  { dia: 4, bloque: 4, titulo: "Teatro", lugar: "Sala multiusos" },
-  { dia: 4, bloque: 4, titulo: "Club TCG", lugar: "Sala J" },
-  { dia: 4, bloque: 6, titulo: "Pole Dance", lugar: "Gimnasio" },
-  { dia: 5, bloque: 4, titulo: "Club TCG", lugar: "Sala J" },
-  { dia: 5, bloque: 5, titulo: "Jazz Band", lugar: "Sala de Música" },
-  { dia: 5, bloque: 5, titulo: "Bandas", lugar: "Sala multiusos" }
-]
 
-interface Estudiante {
-  rut: string
-  nombre: string
-}
-
-const estudiantes: Estudiante[] = [
-  { rut: "12.345.678-9", nombre: "Estudiante 1" },
-  { rut: "11.111.111-1", nombre: "Estudiante 2" },
-  { rut: "22.222.222-2", nombre: "Estudiante 3" },
-  { rut: "33.333.333-3", nombre: "Estudiante 4" },
-  { rut: "44.444.444-4", nombre: "Estudiante 5" }
-]
 
 const crearIdTaller = (taller: Taller, indice: number) =>
   `${taller.dia}-${taller.bloque}-${taller.titulo}-${taller.lugar}-${indice}`

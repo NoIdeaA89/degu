@@ -8,3 +8,4 @@ export type TallerSeleccionado = {
   id: string
   taller: Taller
 }
+
