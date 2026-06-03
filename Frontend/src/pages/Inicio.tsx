@@ -1,6 +1,6 @@
 import { type ReactElement } from "react"
 import Navbar from "../components/navbar"
-import Horario from "../pages/Horario" 
+import Horario from "../components/Horario" 
 export default function Inicio(): ReactElement {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
