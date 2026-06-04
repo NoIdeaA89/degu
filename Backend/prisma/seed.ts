@@ -24,7 +24,7 @@ async function main() {
         rut: "12.345.678-9",
         correo: "Edgar.Gallardo@ucn.cl",
         password: passwordHasheada, 
-        rol: "Profesor" 
+        rol: "Administrador" 
       }
     });
 
