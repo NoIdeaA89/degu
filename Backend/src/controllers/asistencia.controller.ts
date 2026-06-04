@@ -10,12 +10,12 @@ export class AsistenciaController {
 
   registrarPorQR = async (req: Request, res: Response) => {
     try {
-      const { rut, qrToken, satisfaccion } = req.body;
+      const { rut, qrToken, satisfaccion, comentarios } = req.body;
       if (!rut || !qrToken) {
         return res.status(400).json({ message: 'RUT y Token de sesión son obligatorios' });
       }
 
-      const registro = await this.asistenciaService.registrarAsistencia(rut, qrToken, satisfaccion);
+      const registro = await this.asistenciaService.registrarAsistencia(rut, qrToken, satisfaccion, comentarios);
       res.status(201).json({ message: 'Asistencia registrada con éxito', data: registro });
     } catch (error: any) {
       res.status(error.status || 500).json({ message: error.message });

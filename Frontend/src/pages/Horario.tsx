@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState, type ReactElement } from "react"
+import {type ReactElement } from "react"
 import Navbar from "../components/navbar"
 import Schedule from "../components/Horario"
 

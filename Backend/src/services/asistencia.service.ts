@@ -2,7 +2,7 @@ import { prisma } from '../lib/prisma';
 
 export class AsistenciaService {
   
-  async registrarAsistencia(rut: string, qrToken: string, satisfaccion?: number) {
+  async registrarAsistencia(rut: string, qrToken: string, satisfaccion?: number, comentario?: string) {
     const sesion = await prisma.sesion.findFirst({
       where: { 
         qrToken: qrToken,
@@ -35,12 +35,14 @@ export class AsistenciaService {
       },
       update: {
         notaSatisfaccion: satisfaccion,
+        comentario: comentario,
         estado: "Presente"
       },
       create: {
         sesionId: sesion.id,
         estudianteId: estudiante.id,
         notaSatisfaccion: satisfaccion,
+        comentario: comentario,
         estado: "Presente",
         fechaHora: new Date()
       }
