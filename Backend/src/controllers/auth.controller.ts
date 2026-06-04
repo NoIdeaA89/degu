@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { autenticarUsuario, registrarUsuario, validarToken } from '../services/auth.service';
+import { autenticarUsuario, registrarUsuario, validarToken, autenticarConGoogle } from '../services/auth.service';
 
 export const login = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -18,6 +18,26 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     });
   } catch (error: any) {
     res.status(401).json({ error: error.message });
+  }
+};
+
+export const loginGoogle = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { token } = req.body;
+
+    if (!token) {
+      res.status(400).json({ error: 'El token de Google es obligatorio' });
+      return;
+    }
+
+    const tokenApp = await autenticarConGoogle(token);
+
+    res.status(200).json({
+      mensaje: 'Inicio de sesión con Google exitoso',
+      token: tokenApp
+    });
+  } catch (error: any) {
+    res.status(error.status || 401).json({ error: error.message });
   }
 };
 
