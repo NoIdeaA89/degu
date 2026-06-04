@@ -92,7 +92,8 @@ model Asistencia {
 
   fechaHora        DateTime @default(now())
   estado           String   @default("Ausente") 
-  notaSatisfaccion Int?     
+  notaSatisfaccion Int? 
+  comentario       String?  @db.Text    
 
   @@unique([sesionId, estudianteId])
 }

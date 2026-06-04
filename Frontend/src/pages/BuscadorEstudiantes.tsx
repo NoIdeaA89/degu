@@ -1,6 +1,6 @@
 import { useMemo, useState, type ReactElement } from "react"
 import { useNavigate } from "react-router-dom"
-import Perfil, { type EstudiantePerfil } from "./Perfil"
+import { type EstudiantePerfil } from "./Perfil"
 import Navbar from "../components/navbar"
 
 interface TallerHistorico {

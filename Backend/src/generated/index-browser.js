@@ -162,7 +162,8 @@ exports.Prisma.AsistenciaScalarFieldEnum = {
   estudianteId: 'estudianteId',
   fechaHora: 'fechaHora',
   estado: 'estado',
-  notaSatisfaccion: 'notaSatisfaccion'
+  notaSatisfaccion: 'notaSatisfaccion',
+  comentario: 'comentario'
 };
 
 exports.Prisma.SortOrder = {

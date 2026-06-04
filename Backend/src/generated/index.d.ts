@@ -6038,6 +6038,7 @@ export namespace Prisma {
     fechaHora: Date | null
     estado: string | null
     notaSatisfaccion: number | null
+    comentario: string | null
   }
 
   export type AsistenciaMaxAggregateOutputType = {
@@ -6047,6 +6048,7 @@ export namespace Prisma {
     fechaHora: Date | null
     estado: string | null
     notaSatisfaccion: number | null
+    comentario: string | null
   }
 
   export type AsistenciaCountAggregateOutputType = {
@@ -6056,6 +6058,7 @@ export namespace Prisma {
     fechaHora: number
     estado: number
     notaSatisfaccion: number
+    comentario: number
     _all: number
   }
 
@@ -6081,6 +6084,7 @@ export namespace Prisma {
     fechaHora?: true
     estado?: true
     notaSatisfaccion?: true
+    comentario?: true
   }
 
   export type AsistenciaMaxAggregateInputType = {
@@ -6090,6 +6094,7 @@ export namespace Prisma {
     fechaHora?: true
     estado?: true
     notaSatisfaccion?: true
+    comentario?: true
   }
 
   export type AsistenciaCountAggregateInputType = {
@@ -6099,6 +6104,7 @@ export namespace Prisma {
     fechaHora?: true
     estado?: true
     notaSatisfaccion?: true
+    comentario?: true
     _all?: true
   }
 
@@ -6195,6 +6201,7 @@ export namespace Prisma {
     fechaHora: Date
     estado: string
     notaSatisfaccion: number | null
+    comentario: string | null
     _count: AsistenciaCountAggregateOutputType | null
     _avg: AsistenciaAvgAggregateOutputType | null
     _sum: AsistenciaSumAggregateOutputType | null
@@ -6223,6 +6230,7 @@ export namespace Prisma {
     fechaHora?: boolean
     estado?: boolean
     notaSatisfaccion?: boolean
+    comentario?: boolean
     sesion?: boolean | SesionDefaultArgs<ExtArgs>
     estudiante?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["asistencia"]>
@@ -6234,6 +6242,7 @@ export namespace Prisma {
     fechaHora?: boolean
     estado?: boolean
     notaSatisfaccion?: boolean
+    comentario?: boolean
     sesion?: boolean | SesionDefaultArgs<ExtArgs>
     estudiante?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["asistencia"]>
@@ -6245,6 +6254,7 @@ export namespace Prisma {
     fechaHora?: boolean
     estado?: boolean
     notaSatisfaccion?: boolean
+    comentario?: boolean
     sesion?: boolean | SesionDefaultArgs<ExtArgs>
     estudiante?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["asistencia"]>
@@ -6256,9 +6266,10 @@ export namespace Prisma {
     fechaHora?: boolean
     estado?: boolean
     notaSatisfaccion?: boolean
+    comentario?: boolean
   }
 
-  export type AsistenciaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sesionId" | "estudianteId" | "fechaHora" | "estado" | "notaSatisfaccion", ExtArgs["result"]["asistencia"]>
+  export type AsistenciaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sesionId" | "estudianteId" | "fechaHora" | "estado" | "notaSatisfaccion" | "comentario", ExtArgs["result"]["asistencia"]>
   export type AsistenciaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sesion?: boolean | SesionDefaultArgs<ExtArgs>
     estudiante?: boolean | UsuarioDefaultArgs<ExtArgs>
@@ -6285,6 +6296,7 @@ export namespace Prisma {
       fechaHora: Date
       estado: string
       notaSatisfaccion: number | null
+      comentario: string | null
     }, ExtArgs["result"]["asistencia"]>
     composites: {}
   }
@@ -6716,6 +6728,7 @@ export namespace Prisma {
     readonly fechaHora: FieldRef<"Asistencia", 'DateTime'>
     readonly estado: FieldRef<"Asistencia", 'String'>
     readonly notaSatisfaccion: FieldRef<"Asistencia", 'Int'>
+    readonly comentario: FieldRef<"Asistencia", 'String'>
   }
     
 
@@ -7203,7 +7216,8 @@ export namespace Prisma {
     estudianteId: 'estudianteId',
     fechaHora: 'fechaHora',
     estado: 'estado',
-    notaSatisfaccion: 'notaSatisfaccion'
+    notaSatisfaccion: 'notaSatisfaccion',
+    comentario: 'comentario'
   };
 
   export type AsistenciaScalarFieldEnum = (typeof AsistenciaScalarFieldEnum)[keyof typeof AsistenciaScalarFieldEnum]
@@ -7609,6 +7623,7 @@ export namespace Prisma {
     fechaHora?: DateTimeFilter<"Asistencia"> | Date | string
     estado?: StringFilter<"Asistencia"> | string
     notaSatisfaccion?: IntNullableFilter<"Asistencia"> | number | null
+    comentario?: StringNullableFilter<"Asistencia"> | string | null
     sesion?: XOR<SesionScalarRelationFilter, SesionWhereInput>
     estudiante?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
   }
@@ -7620,6 +7635,7 @@ export namespace Prisma {
     fechaHora?: SortOrder
     estado?: SortOrder
     notaSatisfaccion?: SortOrderInput | SortOrder
+    comentario?: SortOrderInput | SortOrder
     sesion?: SesionOrderByWithRelationInput
     estudiante?: UsuarioOrderByWithRelationInput
   }
@@ -7635,6 +7651,7 @@ export namespace Prisma {
     fechaHora?: DateTimeFilter<"Asistencia"> | Date | string
     estado?: StringFilter<"Asistencia"> | string
     notaSatisfaccion?: IntNullableFilter<"Asistencia"> | number | null
+    comentario?: StringNullableFilter<"Asistencia"> | string | null
     sesion?: XOR<SesionScalarRelationFilter, SesionWhereInput>
     estudiante?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
   }, "id" | "sesionId_estudianteId">
@@ -7646,6 +7663,7 @@ export namespace Prisma {
     fechaHora?: SortOrder
     estado?: SortOrder
     notaSatisfaccion?: SortOrderInput | SortOrder
+    comentario?: SortOrderInput | SortOrder
     _count?: AsistenciaCountOrderByAggregateInput
     _avg?: AsistenciaAvgOrderByAggregateInput
     _max?: AsistenciaMaxOrderByAggregateInput
@@ -7663,6 +7681,7 @@ export namespace Prisma {
     fechaHora?: DateTimeWithAggregatesFilter<"Asistencia"> | Date | string
     estado?: StringWithAggregatesFilter<"Asistencia"> | string
     notaSatisfaccion?: IntNullableWithAggregatesFilter<"Asistencia"> | number | null
+    comentario?: StringNullableWithAggregatesFilter<"Asistencia"> | string | null
   }
 
   export type UsuarioCreateInput = {
@@ -7929,6 +7948,7 @@ export namespace Prisma {
     fechaHora?: Date | string
     estado?: string
     notaSatisfaccion?: number | null
+    comentario?: string | null
     sesion: SesionCreateNestedOneWithoutAsistenciasInput
     estudiante: UsuarioCreateNestedOneWithoutAsistenciasInput
   }
@@ -7940,12 +7960,14 @@ export namespace Prisma {
     fechaHora?: Date | string
     estado?: string
     notaSatisfaccion?: number | null
+    comentario?: string | null
   }
 
   export type AsistenciaUpdateInput = {
     fechaHora?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: StringFieldUpdateOperationsInput | string
     notaSatisfaccion?: NullableIntFieldUpdateOperationsInput | number | null
+    comentario?: NullableStringFieldUpdateOperationsInput | string | null
     sesion?: SesionUpdateOneRequiredWithoutAsistenciasNestedInput
     estudiante?: UsuarioUpdateOneRequiredWithoutAsistenciasNestedInput
   }
@@ -7957,6 +7979,7 @@ export namespace Prisma {
     fechaHora?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: StringFieldUpdateOperationsInput | string
     notaSatisfaccion?: NullableIntFieldUpdateOperationsInput | number | null
+    comentario?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AsistenciaCreateManyInput = {
@@ -7966,12 +7989,14 @@ export namespace Prisma {
     fechaHora?: Date | string
     estado?: string
     notaSatisfaccion?: number | null
+    comentario?: string | null
   }
 
   export type AsistenciaUpdateManyMutationInput = {
     fechaHora?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: StringFieldUpdateOperationsInput | string
     notaSatisfaccion?: NullableIntFieldUpdateOperationsInput | number | null
+    comentario?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AsistenciaUncheckedUpdateManyInput = {
@@ -7981,6 +8006,7 @@ export namespace Prisma {
     fechaHora?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: StringFieldUpdateOperationsInput | string
     notaSatisfaccion?: NullableIntFieldUpdateOperationsInput | number | null
+    comentario?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -8329,6 +8355,21 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type SesionScalarRelationFilter = {
     is?: SesionWhereInput
     isNot?: SesionWhereInput
@@ -8351,6 +8392,7 @@ export namespace Prisma {
     fechaHora?: SortOrder
     estado?: SortOrder
     notaSatisfaccion?: SortOrder
+    comentario?: SortOrder
   }
 
   export type AsistenciaAvgOrderByAggregateInput = {
@@ -8367,6 +8409,7 @@ export namespace Prisma {
     fechaHora?: SortOrder
     estado?: SortOrder
     notaSatisfaccion?: SortOrder
+    comentario?: SortOrder
   }
 
   export type AsistenciaMinOrderByAggregateInput = {
@@ -8376,6 +8419,7 @@ export namespace Prisma {
     fechaHora?: SortOrder
     estado?: SortOrder
     notaSatisfaccion?: SortOrder
+    comentario?: SortOrder
   }
 
   export type AsistenciaSumOrderByAggregateInput = {
@@ -8399,6 +8443,24 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type TallerCreateNestedManyWithoutProfesorInput = {
@@ -8757,6 +8819,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type SesionUpdateOneRequiredWithoutAsistenciasNestedInput = {
     create?: XOR<SesionCreateWithoutAsistenciasInput, SesionUncheckedCreateWithoutAsistenciasInput>
     connectOrCreate?: SesionCreateOrConnectWithoutAsistenciasInput
@@ -8925,6 +8991,20 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -8950,6 +9030,23 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type TallerCreateWithoutProfesorInput = {
@@ -9008,6 +9105,7 @@ export namespace Prisma {
     fechaHora?: Date | string
     estado?: string
     notaSatisfaccion?: number | null
+    comentario?: string | null
     sesion: SesionCreateNestedOneWithoutAsistenciasInput
   }
 
@@ -9017,6 +9115,7 @@ export namespace Prisma {
     fechaHora?: Date | string
     estado?: string
     notaSatisfaccion?: number | null
+    comentario?: string | null
   }
 
   export type AsistenciaCreateOrConnectWithoutEstudianteInput = {
@@ -9110,6 +9209,7 @@ export namespace Prisma {
     fechaHora?: DateTimeFilter<"Asistencia"> | Date | string
     estado?: StringFilter<"Asistencia"> | string
     notaSatisfaccion?: IntNullableFilter<"Asistencia"> | number | null
+    comentario?: StringNullableFilter<"Asistencia"> | string | null
   }
 
   export type UsuarioCreateWithoutTalleresDictadosInput = {
@@ -9416,6 +9516,7 @@ export namespace Prisma {
     fechaHora?: Date | string
     estado?: string
     notaSatisfaccion?: number | null
+    comentario?: string | null
     estudiante: UsuarioCreateNestedOneWithoutAsistenciasInput
   }
 
@@ -9425,6 +9526,7 @@ export namespace Prisma {
     fechaHora?: Date | string
     estado?: string
     notaSatisfaccion?: number | null
+    comentario?: string | null
   }
 
   export type AsistenciaCreateOrConnectWithoutSesionInput = {
@@ -9618,6 +9720,7 @@ export namespace Prisma {
     fechaHora?: Date | string
     estado?: string
     notaSatisfaccion?: number | null
+    comentario?: string | null
   }
 
   export type TallerUpdateWithoutProfesorInput = {
@@ -9671,6 +9774,7 @@ export namespace Prisma {
     fechaHora?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: StringFieldUpdateOperationsInput | string
     notaSatisfaccion?: NullableIntFieldUpdateOperationsInput | number | null
+    comentario?: NullableStringFieldUpdateOperationsInput | string | null
     sesion?: SesionUpdateOneRequiredWithoutAsistenciasNestedInput
   }
 
@@ -9680,6 +9784,7 @@ export namespace Prisma {
     fechaHora?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: StringFieldUpdateOperationsInput | string
     notaSatisfaccion?: NullableIntFieldUpdateOperationsInput | number | null
+    comentario?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AsistenciaUncheckedUpdateManyWithoutEstudianteInput = {
@@ -9688,6 +9793,7 @@ export namespace Prisma {
     fechaHora?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: StringFieldUpdateOperationsInput | string
     notaSatisfaccion?: NullableIntFieldUpdateOperationsInput | number | null
+    comentario?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InscripcionCreateManyTallerInput = {
@@ -9752,12 +9858,14 @@ export namespace Prisma {
     fechaHora?: Date | string
     estado?: string
     notaSatisfaccion?: number | null
+    comentario?: string | null
   }
 
   export type AsistenciaUpdateWithoutSesionInput = {
     fechaHora?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: StringFieldUpdateOperationsInput | string
     notaSatisfaccion?: NullableIntFieldUpdateOperationsInput | number | null
+    comentario?: NullableStringFieldUpdateOperationsInput | string | null
     estudiante?: UsuarioUpdateOneRequiredWithoutAsistenciasNestedInput
   }
 
@@ -9767,6 +9875,7 @@ export namespace Prisma {
     fechaHora?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: StringFieldUpdateOperationsInput | string
     notaSatisfaccion?: NullableIntFieldUpdateOperationsInput | number | null
+    comentario?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AsistenciaUncheckedUpdateManyWithoutSesionInput = {
@@ -9775,6 +9884,7 @@ export namespace Prisma {
     fechaHora?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: StringFieldUpdateOperationsInput | string
     notaSatisfaccion?: NullableIntFieldUpdateOperationsInput | number | null
+    comentario?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
