@@ -1,0 +1,83 @@
+import request from 'supertest';
+import app from '../src/index'; // Ajusta la ruta a tu archivo principal donde exportas 'app'
+import { prisma } from '../src/lib/prisma'; // Ajusta la ruta a tu instancia de Prisma
+import jwt from 'jsonwebtoken';
+import { RolUsuario } from '../src/generated';
+
+// 1. Mockeamos Prisma para que no toque la base de datos real
+jest.mock('../src/lib/prisma', () => ({
+  prisma: {
+    $transaction: jest.fn(),
+    usuario: {
+      findUnique: jest.fn(),
+      update: jest.fn(),
+    },
+  },
+}));
+
+describe('Endpoint: PATCH /api/admin/transferir-mando', () => {
+  const JWT_SECRET = process.env.JWT_SECRET || 'tu_secreto_super_seguro';
+  
+  // Generamos tokens falsos para simular diferentes usuarios
+  const tokenAdmin = jwt.sign({ rut: '11.111.111-1', rol: RolUsuario.Administrador }, JWT_SECRET);
+  const tokenEstudiante = jwt.sign({ rut: '22.222.222-2', rol: RolUsuario.Estudiante }, JWT_SECRET);
+
+  beforeEach(() => {
+    jest.clearAllMocks(); // Limpiar contadores antes de cada prueba
+  });
+
+  it('🔴 [Seguridad] Debería bloquear la petición si no se envía un token (401)', async () => {
+    const res = await request(app)
+      .patch('/api/admin/transferir-mando')
+      .send({ rutNuevoAdmin: '33.333.333-3', palabraConfirmacion: 'CONFIRMAR' });
+
+    expect(res.status).toBe(401);
+    expect(res.body.error).toMatch(/Acceso denegado/i);
+  });
+
+  it('🔴 [Seguridad] Debería bloquear a un usuario que no es Administrador (403)', async () => {
+    const res = await request(app)
+      .patch('/api/admin/transferir-mando')
+      .set('Authorization', `Bearer ${tokenEstudiante}`)
+      .send({ rutNuevoAdmin: '33.333.333-3', palabraConfirmacion: 'CONFIRMAR' });
+
+    expect(res.status).toBe(403);
+    expect(res.body.error).toMatch(/requiere permisos de Administrador/i);
+  });
+
+  it('🔴 [Validación] Debería fallar si la palabra de confirmación es incorrecta (400)', async () => {
+    const res = await request(app)
+      .patch('/api/admin/transferir-mando')
+      .set('Authorization', `Bearer ${tokenAdmin}`)
+      .send({ rutNuevoAdmin: '33.333.333-3', palabraConfirmacion: 'ACEPTAR' }); // Palabra errónea
+
+    expect(res.status).toBe(400);
+    // Asumiendo que tu validador Zod intercepta esto y lanza el error
+  });
+
+  it('🔴 [Lógica] Debería fallar si el Administrador intenta transferirse a sí mismo (400)', async () => {
+    const res = await request(app)
+      .patch('/api/admin/transferir-mando')
+      .set('Authorization', `Bearer ${tokenAdmin}`)
+      .send({ rutNuevoAdmin: '11.111.111-1', palabraConfirmacion: 'CONFIRMAR' }); // Mismo RUT del token
+
+    expect(res.status).toBe(400);
+    expect(res.body.error).toMatch(/propia cuenta/i);
+  });
+
+  it('🟢 [Éxito] Debería ejecutar la transferencia correctamente (200)', async () => {
+    // Simulamos que la transacción de Prisma devuelve un true (éxito)
+    (prisma.$transaction as jest.Mock).mockResolvedValueOnce(true);
+
+    const res = await request(app)
+      .patch('/api/admin/transferir-mando')
+      .set('Authorization', `Bearer ${tokenAdmin}`)
+      .send({ rutNuevoAdmin: '33.333.333-3', palabraConfirmacion: 'CONFIRMAR' });
+
+    expect(res.status).toBe(200);
+    expect(res.body.mensaje).toMatch(/Traspaso de administración exitoso/i);
+    
+    // Verificamos que la función $transaction de Prisma realmente haya sido llamada
+    expect(prisma.$transaction).toHaveBeenCalledTimes(1);
+  });
+});

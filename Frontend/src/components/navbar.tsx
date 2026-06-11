@@ -37,13 +37,23 @@ export default function Navbar(): ReactElement {
             Estudiantes
           </Link>
 
-          {/* Sección de Sesión (Solo visible si el usuario está logueado) */}
           {user && (
             <div className="flex items-center gap-4 ml-2 border-l border-gray-400 pl-6">
-              {/* Opcional: Mostrar el nombre del usuario */}
-              <span className="text-sm font-semibold text-gray-700 hidden sm:block">
-                Hola, {user.nombre}
-              </span>
+              
+              {/* Lógica Condicional: Link si es Admin, Texto normal si no lo es */}
+              {user.rol === 'Administrador' ? (
+                <Link 
+                  to="/admin/perfil" 
+                  className="text-sm font-semibold text-blue-600 hover:text-blue-800 hover:underline hidden sm:block transition-colors cursor-pointer"
+                  title="Ir al panel de administración"
+                >
+                  Hola, {user.nombre} (Admin)
+                </Link>
+              ) : (
+                <span className="text-sm font-semibold text-gray-700 hidden sm:block">
+                  Hola, {user.nombre}
+                </span>
+              )}
               
               <button 
                 onClick={handleLogout}

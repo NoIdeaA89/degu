@@ -29,7 +29,9 @@ export const autenticarUsuario = async (correo: string, passwordPlan: string) =>
         id: usuario.id,
         nombre: usuario.nombre,
         apellido: usuario.apellido,
-        rol: usuario.rol
+        rol: usuario.rol,
+        rut: usuario.rut,
+        correo: usuario.correo
       }
     },
     JWT_SECRET,
@@ -107,7 +109,9 @@ export const autenticarConGoogle = async (tokenGoogle: string) => {
         id: usuario.id,
         nombre: usuario.nombre,
         apellido: usuario.apellido,
-        rol: usuario.rol
+        rol: usuario.rol,
+        rut: usuario.rut,
+        correo: usuario.correo
       }
     },
     JWT_SECRET,

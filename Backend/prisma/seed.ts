@@ -3,7 +3,7 @@ import { randomUUID } from 'crypto';
 import bcrypt from 'bcrypt'; 
 
 async function main() {
-  console.log('🌱 Iniciando seed alineado al esquema oficial...');
+  console.log('🌱 Iniciando seed analítico para el Galpón Cultural...');
 
   try {
     console.log('🧹 Limpiando tablas viejas...');
@@ -16,7 +16,7 @@ async function main() {
     console.log('🔐 Encriptando contraseñas por defecto...');
     const passwordHasheada = await bcrypt.hash('password123', 10);
 
-    console.log('👨‍🏫 Creando usuarios (Profesor y Estudiantes)...');
+    console.log('👨‍🏫 Creando usuarios (Administrador y Equipo de Estudiantes)...');
     const profesor = await prisma.usuario.create({
       data: {
         nombre: "Edgar",
@@ -28,67 +28,93 @@ async function main() {
       }
     });
 
-    const estudiante1 = await prisma.usuario.create({
-      data: {
-        nombre: "Lucas",
-        apellido: "Guidotti",
-        rut: "19.876.543-2",
-        correo: "lucas@alumnos.ucn.cl",
-        password: passwordHasheada, 
-        rol: "Estudiante"
-      }
-    });
+    // Creación masiva de estudiantes
+    const estudiantesData = [
+      { nombre: "Lucas", apellido: "Guidotti", rut: "19.876.543-2", correo: "lucas@alumnos.ucn.cl" },
+      { nombre: "Joaquín", apellido: "Iriarte", rut: "20.123.456-7", correo: "joaquin@alumnos.ucn.cl" },
+      { nombre: "Luciano", apellido: "Bastías", rut: "21.111.111-1", correo: "luciano@alumnos.ucn.cl" },
+      { nombre: "José", apellido: "Gonzalez", rut: "22.222.222-2", correo: "jose@alumnos.ucn.cl" },
+      { nombre: "Matías", apellido: "Manríquez", rut: "23.333.333-3", correo: "matias@alumnos.ucn.cl" }
+    ];
 
-    const estudiante2 = await prisma.usuario.create({
-      data: {
-        nombre: "Joaquín",
-        apellido: "Iriarte",
-        rut: "20.123.456-7",
-        correo: "joaquin@alumnos.ucn.cl",
-        password: passwordHasheada, 
-        rol: "Estudiante"
-      }
-    });
+    const estudiantes = await Promise.all(
+      estudiantesData.map(est => prisma.usuario.create({
+        data: { ...est, password: passwordHasheada, rol: "Estudiante" }
+      }))
+    );
 
-    console.log('📚 Abriendo talleres...');
-    const tallerTeatro = await prisma.taller.create({
-      data: {
-        nombre: "Taller de Teatro",
-        descripcion: "Expresión corporal en el Galpón Cultural.",
-        horario: "Miércoles 17:00 - 19:00",
-        semestre: "2026-1",
-        profesorId: profesor.id
-      }
-    });
+    const [lucas, joaquin, luciano, jose, matias] = estudiantes;
 
-    console.log('📝 Inscribiendo alumnos...');
-    await prisma.inscripcion.createMany({
-      data: [
-        { estudianteId: estudiante1.id, tallerId: tallerTeatro.id },
-        { estudianteId: estudiante2.id, tallerId: tallerTeatro.id }
-      ]
-    });
+    console.log('📚 Abriendo catálogo de talleres...');
+    const tallerGuitarra = await prisma.taller.create({ data: { nombre: "Taller de Guitarra", descripcion: "Nivel básico e intermedio.", horario: "Lunes 15:00 - 17:00", semestre: "2026-1", profesorId: profesor.id } });
+    const tallerTeatro = await prisma.taller.create({ data: { nombre: "Taller de Teatro", descripcion: "Expresión corporal.", horario: "Miércoles 17:00 - 19:00", semestre: "2026-1", profesorId: profesor.id } });
+    const tallerDanza = await prisma.taller.create({ data: { nombre: "Danza Contemporánea", descripcion: "Ritmo y movimiento.", horario: "Martes 10:00 - 12:00", semestre: "2026-1", profesorId: profesor.id } });
+    const tallerPintura = await prisma.taller.create({ data: { nombre: "Pintura al Óleo", descripcion: "Técnicas clásicas.", horario: "Viernes 14:00 - 16:00", semestre: "2026-1", profesorId: profesor.id } });
+    const tallerFoto = await prisma.taller.create({ data: { nombre: "Fotografía Digital", descripcion: "Uso de cámara manual.", horario: "Jueves 08:00 - 10:00", semestre: "2026-1", profesorId: profesor.id } });
 
-    console.log('⏰ Generando la sesión activa y su QR Token...');
+    console.log('📝 Inscribiendo alumnos en múltiples talleres...');
+    const inscripciones = [
+      // Todos aman guitarra
+      { estudianteId: lucas.id, tallerId: tallerGuitarra.id }, { estudianteId: joaquin.id, tallerId: tallerGuitarra.id }, { estudianteId: luciano.id, tallerId: tallerGuitarra.id }, { estudianteId: jose.id, tallerId: tallerGuitarra.id }, { estudianteId: matias.id, tallerId: tallerGuitarra.id },
+      // Varios en teatro
+      { estudianteId: lucas.id, tallerId: tallerTeatro.id }, { estudianteId: joaquin.id, tallerId: tallerTeatro.id }, { estudianteId: luciano.id, tallerId: tallerTeatro.id },
+      // Algunos en pintura y danza
+      { estudianteId: jose.id, tallerId: tallerPintura.id }, { estudianteId: matias.id, tallerId: tallerPintura.id },
+      { estudianteId: lucas.id, tallerId: tallerDanza.id }, { estudianteId: luciano.id, tallerId: tallerDanza.id },
+      // Solo uno en foto
+      { estudianteId: joaquin.id, tallerId: tallerFoto.id }
+    ];
+    await prisma.inscripcion.createMany({ data: inscripciones });
+
+    console.log('⏰ Generando sesiones históricas y activas...');
     const ahora = new Date();
- 
-    const tiempoValidez = new Date(ahora.getTime() + 5 * 60000); 
+    const validez = new Date(ahora.getTime() + 60 * 60000); // 1 hora de validez
 
-    const sesionActiva = await prisma.sesion.create({
-      data: {
-        tallerId: tallerTeatro.id,
-        fecha: ahora,
-        bloque: "C2", 
-        qrToken: randomUUID(), 
-        validoHasta: tiempoValidez
-      }
-    });
+    const sesionGuitarra = await prisma.sesion.create({ data: { tallerId: tallerGuitarra.id, fecha: ahora, bloque: "C", qrToken: randomUUID(), validoHasta: validez } });
+    const sesionTeatro = await prisma.sesion.create({ data: { tallerId: tallerTeatro.id, fecha: ahora, bloque: "D", qrToken: randomUUID(), validoHasta: validez } });
+    const sesionPintura = await prisma.sesion.create({ data: { tallerId: tallerPintura.id, fecha: ahora, bloque: "E", qrToken: randomUUID(), validoHasta: validez } });
+    const sesionDanza = await prisma.sesion.create({ data: { tallerId: tallerDanza.id, fecha: ahora, bloque: "A", qrToken: randomUUID(), validoHasta: validez } });
+    const sesionFoto = await prisma.sesion.create({ data: { tallerId: tallerFoto.id, fecha: ahora, bloque: "B", qrToken: randomUUID(), validoHasta: validez } });
+
+    console.log('🙋 Registrando asistencias y encuestas de satisfacción...');
+    
+    // TALLER ESTRELLA (Guitarra): Alta asistencia, notas perfectas
+    await prisma.asistencia.createMany({ data: [
+      { sesionId: sesionGuitarra.id, estudianteId: lucas.id, estado: "Presente", notaSatisfaccion: 5 },
+      { sesionId: sesionGuitarra.id, estudianteId: joaquin.id, estado: "Presente", notaSatisfaccion: 5 },
+      { sesionId: sesionGuitarra.id, estudianteId: luciano.id, estado: "Presente", notaSatisfaccion: 4 },
+      { sesionId: sesionGuitarra.id, estudianteId: jose.id, estado: "Presente", notaSatisfaccion: 5 }
+    ]});
+
+    // TALLER BUENO (Teatro): Buena asistencia, notas mixtas
+    await prisma.asistencia.createMany({ data: [
+      { sesionId: sesionTeatro.id, estudianteId: lucas.id, estado: "Presente", notaSatisfaccion: 4 },
+      { sesionId: sesionTeatro.id, estudianteId: joaquin.id, estado: "Presente", notaSatisfaccion: 3 },
+      { sesionId: sesionTeatro.id, estudianteId: luciano.id, estado: "Atrasado", notaSatisfaccion: 4 }
+    ]});
+
+    // TALLER DECEPCIONANTE (Pintura): Asistencia regular, pésimas notas
+    await prisma.asistencia.createMany({ data: [
+      { sesionId: sesionPintura.id, estudianteId: jose.id, estado: "Presente", notaSatisfaccion: 2, comentario: "Faltan materiales" },
+      { sesionId: sesionPintura.id, estudianteId: matias.id, estado: "Presente", notaSatisfaccion: 1, comentario: "El profe llegó tarde" }
+    ]});
+
+    // TALLER FANTASMA (Fotografía): Casi nula asistencia, notas promedio
+    await prisma.asistencia.createMany({ data: [
+      { sesionId: sesionFoto.id, estudianteId: joaquin.id, estado: "Presente", notaSatisfaccion: 3 }
+    ]});
+
+    // TALLER EXCELENTE PERO VACÍO (Danza): Poca asistencia, pero a los que van les encanta
+    await prisma.asistencia.createMany({ data: [
+      { sesionId: sesionDanza.id, estudianteId: lucas.id, estado: "Presente", notaSatisfaccion: 5 }
+    ]});
 
     console.log('✅ Seed completado impecablemente.');
     console.log('----------------------------------------------------');
-    console.log(`📌 Taller ID: ${tallerTeatro.id}`);
-    console.log(`📌 Sesión ID: ${sesionActiva.id}`);
-    console.log(`🔑 QR Token para probar endpoints: ${sesionActiva.qrToken}`);
+    console.log('Inicia sesión con:');
+    console.log('Correo: Edgar.Gallardo@ucn.cl');
+    console.log('Clave:  password123');
+    console.log('Ve a /inicio para ver la matriz de métricas en acción.');
     console.log('----------------------------------------------------');
 
   } catch (e) {

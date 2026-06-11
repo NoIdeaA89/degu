@@ -5,6 +5,8 @@ export interface User {
   id: number;
   nombre: string;
   apellido: string;
+  rut: string;
+  correo: string;
   rol: 'Administrador' | 'Profesor' | 'Ayudante' | 'Estudiante';
 }
 
