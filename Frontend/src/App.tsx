@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import { PublicRoute } from './components/PublicRoute';
 import BuscadorEstudiantes from './pages/BuscadorEstudiantes';
 import Perfil from './pages/Perfil';
+import { PerfilAdmin } from './components/perfilAdmin';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path='/horario' element={<Horario />} />
           <Route path='/estudiantes' element={<BuscadorEstudiantes />} />
           <Route path='/perfil' element={<Perfil />} />
+          <Route path='/admin/perfil' element={<PerfilAdmin />} />
         </Route>
 
         {/* ======================================= */}
