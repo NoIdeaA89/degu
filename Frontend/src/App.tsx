@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import { PublicRoute } from './components/PublicRoute';
 import BuscadorEstudiantes from './pages/BuscadorEstudiantes';
 import Perfil from './pages/Perfil';
+import { PerfilAdmin } from './components/perfilAdmin';
 
 function App() {
   return (

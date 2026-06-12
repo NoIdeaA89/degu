@@ -37,7 +37,6 @@ export default function Navbar(): ReactElement {
             Estudiantes
           </Link>
 
-          {/* Sección de Sesión (Solo visible si el usuario está logueado) */}
           {user && (
             <div className="flex items-center gap-4 ml-2 border-l border-white/20 pl-6">
               {/* Opcional: Mostrar el nombre del usuario */}

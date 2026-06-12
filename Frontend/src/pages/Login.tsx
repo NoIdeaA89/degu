@@ -1,6 +1,8 @@
 import { useState, type JSX } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext" 
+import { GoogleLogin } from '@react-oauth/google'
+import { jwtDecode } from 'jwt-decode'
 
 export default function Login(): JSX.Element {
   const [correo, setCorreo] = useState("")
@@ -28,7 +30,13 @@ export default function Login(): JSX.Element {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || "Credenciales incorrectas")
+        if (response.status === 404) {
+          throw new Error('No encontramos ninguna cuenta asociada a este correo.');
+        } else if (response.status === 401) {
+          throw new Error('La contraseña ingresada es incorrecta. Inténtalo nuevamente.');
+        } else {
+          throw new Error(data.message || data.error || "Credenciales incorrectas");
+        }
       }
 
       login(data.token)
@@ -41,6 +49,43 @@ export default function Login(): JSX.Element {
       setCargando(false)
     }
   }
+
+  const handleGoogleSuccess = async (credentialResponse: any) => {
+    setError("")
+    setCargando(true) 
+    
+    try {
+      const decoded: any = jwtDecode(credentialResponse.credential);
+      const email = decoded.email.toLowerCase();
+      
+      const esCorreoUCN = email.endsWith('@ucn.cl') || email.endsWith('.ucn.cl');
+
+      if (!esCorreoUCN) {
+        throw new Error('Acceso denegado: Por favor, utiliza tu correo institucional de la UCN.');
+      }
+
+      const baseUrl = `http://${window.location.hostname}:3000/api`;
+      const response = await fetch(`${baseUrl}/auth/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: credentialResponse.credential }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Error al autenticar con Google en el servidor.');
+      }
+
+      login(data.token);
+      navigate("/inicio");
+
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setCargando(false)
+    }
+  };
 
   return (
     <main className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-12">
@@ -101,16 +146,20 @@ export default function Login(): JSX.Element {
         <div className="mt-6">
           <div className="flex items-center gap-4 mb-4">
               <div className="h-px flex-1 bg-slate-200"></div>
-              <span className="text-sm text-slate-400">O continuar con correo</span>
+              <span className="text-sm text-slate-400">O continuar con Google</span>
               <div className="h-px flex-1 bg-slate-200"></div>
           </div>
 
-          <button
-              type="button"
-              className="w-full rounded-2xl bg-slate-950 text-white border border-slate-200 py-3 font-medium hover:bg-slate-800 transition"
-          >
-              Acceder con correo
-          </button>
+          <div className="flex justify-center">
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => setError('El inicio de sesión con Google fue cancelado o falló.')}
+              useOneTap={false}
+              shape="rectangular"
+              theme="outline"
+              text="signin_with"
+            />
+          </div>
         </div>
         
         <div className="mt-8 grid grid-cols-2 text-sm text-slate-400">

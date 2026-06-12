@@ -7,6 +7,7 @@ const AsistenciaForm = () => {
 
   const [rut, setRut] = useState('');
   const [satisfaccion, setSatisfaccion] = useState<number | null>(null);
+  const [comentarios, setComentarios] = useState(''); // <-- Nuevo estado para los comentarios
   const [enviado, setEnviado] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -31,7 +32,8 @@ const AsistenciaForm = () => {
         body: JSON.stringify({ 
           rut, 
           qrToken: token, 
-          satisfaccion 
+          satisfaccion,
+          comentarios // <-- Enviamos los comentarios a la API
         }),
       });
 
@@ -124,6 +126,19 @@ const AsistenciaForm = () => {
             <span>Malo</span>
             <span>Excelente</span>
           </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Comentarios sobre la clase <span className="text-gray-400 font-normal">(Opcional)</span>
+          </label>
+          <textarea
+            disabled={isLoading}
+            placeholder="¿Qué aprendiste hoy? ¿Alguna sugerencia?"
+            className="w-full p-4 border-2 border-gray-100 rounded-xl focus:border-blue-500 outline-none transition-colors text-md disabled:bg-gray-50 resize-none h-24"
+            value={comentarios}
+            onChange={(e) => setComentarios(e.target.value)}
+          />
         </div>
 
         <button
