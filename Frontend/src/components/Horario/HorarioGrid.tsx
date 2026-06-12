@@ -42,8 +42,8 @@ export default function HorarioGrid({ dias, bloques, talleresPorCelda, abrirCeld
                 }}
               >
                 {items.map((t, idx) => (
-                  <span key={`${t.titulo}-${idx}`} className="contenido-item">
-                    {t.titulo}
+                  <span key={`${t.nombre}-${idx}`} className="contenido-item">
+                    {t.nombre}
                   </span>
                 ))}
               </div>

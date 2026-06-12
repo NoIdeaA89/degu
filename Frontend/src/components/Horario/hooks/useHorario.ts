@@ -65,8 +65,8 @@ export default function useHorario() {
   const abrirQrModal = () => setMostrarQrModal(true)
   const cerrarQrModal = () => setMostrarQrModal(false)
 
-  const abrirTaller = (taller: Taller, indice: number) => {
-    const id = crearIdTaller(taller, indice)
+  const abrirTaller = (taller: Taller) => {
+    const id = Number(crearIdTaller(taller));
     const asistenciaBase = asistenciaPorTaller[id] ?? crearAsistenciaInicial(estudiantes)
 
     setTallerSeleccionado({ id, taller })

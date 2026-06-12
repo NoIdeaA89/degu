@@ -77,7 +77,7 @@ export default function Horario(): ReactElement {
       {mostrarQrModal && tallerSeleccionado && (
         <ModalQr
           tallerSeleccionado={tallerSeleccionado}
-          bloqueText={bloques[tallerSeleccionado.taller.bloque - 1]}
+          bloqueText={tallerSeleccionado.taller.horario}
           cerrarQrModal={cerrarQrModal}
         />
       )}

@@ -52,28 +52,11 @@ export namespace $Enums {
 
 export type RolUsuario = (typeof RolUsuario)[keyof typeof RolUsuario]
 
-
-export const BloqueHorario: {
-  A: 'A',
-  B: 'B',
-  C: 'C',
-  C2: 'C2',
-  D: 'D',
-  E: 'E',
-  F: 'F'
-};
-
-export type BloqueHorario = (typeof BloqueHorario)[keyof typeof BloqueHorario]
-
 }
 
 export type RolUsuario = $Enums.RolUsuario
 
 export const RolUsuario: typeof $Enums.RolUsuario
-
-export type BloqueHorario = $Enums.BloqueHorario
-
-export const BloqueHorario: typeof $Enums.BloqueHorario
 
 /**
  * ##  Prisma Client ʲˢ
@@ -2590,11 +2573,15 @@ export namespace Prisma {
 
   export type TallerAvgAggregateOutputType = {
     id: number | null
+    dia: number | null
+    bloque: number | null
     profesorId: number | null
   }
 
   export type TallerSumAggregateOutputType = {
     id: number | null
+    dia: number | null
+    bloque: number | null
     profesorId: number | null
   }
 
@@ -2605,6 +2592,9 @@ export namespace Prisma {
     horario: string | null
     semestre: string | null
     estado: boolean | null
+    lugar: string | null
+    dia: number | null
+    bloque: number | null
     profesorId: number | null
   }
 
@@ -2615,6 +2605,9 @@ export namespace Prisma {
     horario: string | null
     semestre: string | null
     estado: boolean | null
+    lugar: string | null
+    dia: number | null
+    bloque: number | null
     profesorId: number | null
   }
 
@@ -2625,6 +2618,9 @@ export namespace Prisma {
     horario: number
     semestre: number
     estado: number
+    lugar: number
+    dia: number
+    bloque: number
     profesorId: number
     _all: number
   }
@@ -2632,11 +2628,15 @@ export namespace Prisma {
 
   export type TallerAvgAggregateInputType = {
     id?: true
+    dia?: true
+    bloque?: true
     profesorId?: true
   }
 
   export type TallerSumAggregateInputType = {
     id?: true
+    dia?: true
+    bloque?: true
     profesorId?: true
   }
 
@@ -2647,6 +2647,9 @@ export namespace Prisma {
     horario?: true
     semestre?: true
     estado?: true
+    lugar?: true
+    dia?: true
+    bloque?: true
     profesorId?: true
   }
 
@@ -2657,6 +2660,9 @@ export namespace Prisma {
     horario?: true
     semestre?: true
     estado?: true
+    lugar?: true
+    dia?: true
+    bloque?: true
     profesorId?: true
   }
 
@@ -2667,6 +2673,9 @@ export namespace Prisma {
     horario?: true
     semestre?: true
     estado?: true
+    lugar?: true
+    dia?: true
+    bloque?: true
     profesorId?: true
     _all?: true
   }
@@ -2764,6 +2773,9 @@ export namespace Prisma {
     horario: string
     semestre: string
     estado: boolean
+    lugar: string
+    dia: number
+    bloque: number
     profesorId: number
     _count: TallerCountAggregateOutputType | null
     _avg: TallerAvgAggregateOutputType | null
@@ -2793,6 +2805,9 @@ export namespace Prisma {
     horario?: boolean
     semestre?: boolean
     estado?: boolean
+    lugar?: boolean
+    dia?: boolean
+    bloque?: boolean
     profesorId?: boolean
     profesor?: boolean | UsuarioDefaultArgs<ExtArgs>
     inscripciones?: boolean | Taller$inscripcionesArgs<ExtArgs>
@@ -2807,6 +2822,9 @@ export namespace Prisma {
     horario?: boolean
     semestre?: boolean
     estado?: boolean
+    lugar?: boolean
+    dia?: boolean
+    bloque?: boolean
     profesorId?: boolean
     profesor?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taller"]>
@@ -2818,6 +2836,9 @@ export namespace Prisma {
     horario?: boolean
     semestre?: boolean
     estado?: boolean
+    lugar?: boolean
+    dia?: boolean
+    bloque?: boolean
     profesorId?: boolean
     profesor?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taller"]>
@@ -2829,10 +2850,13 @@ export namespace Prisma {
     horario?: boolean
     semestre?: boolean
     estado?: boolean
+    lugar?: boolean
+    dia?: boolean
+    bloque?: boolean
     profesorId?: boolean
   }
 
-  export type TallerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "descripcion" | "horario" | "semestre" | "estado" | "profesorId", ExtArgs["result"]["taller"]>
+  export type TallerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "descripcion" | "horario" | "semestre" | "estado" | "lugar" | "dia" | "bloque" | "profesorId", ExtArgs["result"]["taller"]>
   export type TallerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     profesor?: boolean | UsuarioDefaultArgs<ExtArgs>
     inscripciones?: boolean | Taller$inscripcionesArgs<ExtArgs>
@@ -2860,6 +2884,9 @@ export namespace Prisma {
       horario: string
       semestre: string
       estado: boolean
+      lugar: string
+      dia: number
+      bloque: number
       profesorId: number
     }, ExtArgs["result"]["taller"]>
     composites: {}
@@ -3293,6 +3320,9 @@ export namespace Prisma {
     readonly horario: FieldRef<"Taller", 'String'>
     readonly semestre: FieldRef<"Taller", 'String'>
     readonly estado: FieldRef<"Taller", 'Boolean'>
+    readonly lugar: FieldRef<"Taller", 'String'>
+    readonly dia: FieldRef<"Taller", 'Int'>
+    readonly bloque: FieldRef<"Taller", 'Int'>
     readonly profesorId: FieldRef<"Taller", 'Int'>
   }
     
@@ -4876,18 +4906,20 @@ export namespace Prisma {
   export type SesionAvgAggregateOutputType = {
     id: number | null
     tallerId: number | null
+    bloque: number | null
   }
 
   export type SesionSumAggregateOutputType = {
     id: number | null
     tallerId: number | null
+    bloque: number | null
   }
 
   export type SesionMinAggregateOutputType = {
     id: number | null
     tallerId: number | null
     fecha: Date | null
-    bloque: $Enums.BloqueHorario | null
+    bloque: number | null
     qrToken: string | null
     validoHasta: Date | null
   }
@@ -4896,7 +4928,7 @@ export namespace Prisma {
     id: number | null
     tallerId: number | null
     fecha: Date | null
-    bloque: $Enums.BloqueHorario | null
+    bloque: number | null
     qrToken: string | null
     validoHasta: Date | null
   }
@@ -4915,11 +4947,13 @@ export namespace Prisma {
   export type SesionAvgAggregateInputType = {
     id?: true
     tallerId?: true
+    bloque?: true
   }
 
   export type SesionSumAggregateInputType = {
     id?: true
     tallerId?: true
+    bloque?: true
   }
 
   export type SesionMinAggregateInputType = {
@@ -5040,7 +5074,7 @@ export namespace Prisma {
     id: number
     tallerId: number
     fecha: Date
-    bloque: $Enums.BloqueHorario
+    bloque: number
     qrToken: string
     validoHasta: Date
     _count: SesionCountAggregateOutputType | null
@@ -5128,7 +5162,7 @@ export namespace Prisma {
       id: number
       tallerId: number
       fecha: Date
-      bloque: $Enums.BloqueHorario
+      bloque: number
       qrToken: string
       validoHasta: Date
     }, ExtArgs["result"]["sesion"]>
@@ -5559,7 +5593,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Sesion", 'Int'>
     readonly tallerId: FieldRef<"Sesion", 'Int'>
     readonly fecha: FieldRef<"Sesion", 'DateTime'>
-    readonly bloque: FieldRef<"Sesion", 'BloqueHorario'>
+    readonly bloque: FieldRef<"Sesion", 'Int'>
     readonly qrToken: FieldRef<"Sesion", 'String'>
     readonly validoHasta: FieldRef<"Sesion", 'DateTime'>
   }
@@ -7182,6 +7216,9 @@ export namespace Prisma {
     horario: 'horario',
     semestre: 'semestre',
     estado: 'estado',
+    lugar: 'lugar',
+    dia: 'dia',
+    bloque: 'bloque',
     profesorId: 'profesorId'
   };
 
@@ -7316,20 +7353,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'BloqueHorario'
-   */
-  export type EnumBloqueHorarioFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BloqueHorario'>
-    
-
-
-  /**
-   * Reference to a field of type 'BloqueHorario[]'
-   */
-  export type ListEnumBloqueHorarioFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BloqueHorario[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -7429,6 +7452,9 @@ export namespace Prisma {
     horario?: StringFilter<"Taller"> | string
     semestre?: StringFilter<"Taller"> | string
     estado?: BoolFilter<"Taller"> | boolean
+    lugar?: StringFilter<"Taller"> | string
+    dia?: IntFilter<"Taller"> | number
+    bloque?: IntFilter<"Taller"> | number
     profesorId?: IntFilter<"Taller"> | number
     profesor?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     inscripciones?: InscripcionListRelationFilter
@@ -7442,6 +7468,9 @@ export namespace Prisma {
     horario?: SortOrder
     semestre?: SortOrder
     estado?: SortOrder
+    lugar?: SortOrder
+    dia?: SortOrder
+    bloque?: SortOrder
     profesorId?: SortOrder
     profesor?: UsuarioOrderByWithRelationInput
     inscripciones?: InscripcionOrderByRelationAggregateInput
@@ -7458,6 +7487,9 @@ export namespace Prisma {
     horario?: StringFilter<"Taller"> | string
     semestre?: StringFilter<"Taller"> | string
     estado?: BoolFilter<"Taller"> | boolean
+    lugar?: StringFilter<"Taller"> | string
+    dia?: IntFilter<"Taller"> | number
+    bloque?: IntFilter<"Taller"> | number
     profesorId?: IntFilter<"Taller"> | number
     profesor?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     inscripciones?: InscripcionListRelationFilter
@@ -7471,6 +7503,9 @@ export namespace Prisma {
     horario?: SortOrder
     semestre?: SortOrder
     estado?: SortOrder
+    lugar?: SortOrder
+    dia?: SortOrder
+    bloque?: SortOrder
     profesorId?: SortOrder
     _count?: TallerCountOrderByAggregateInput
     _avg?: TallerAvgOrderByAggregateInput
@@ -7489,6 +7524,9 @@ export namespace Prisma {
     horario?: StringWithAggregatesFilter<"Taller"> | string
     semestre?: StringWithAggregatesFilter<"Taller"> | string
     estado?: BoolWithAggregatesFilter<"Taller"> | boolean
+    lugar?: StringWithAggregatesFilter<"Taller"> | string
+    dia?: IntWithAggregatesFilter<"Taller"> | number
+    bloque?: IntWithAggregatesFilter<"Taller"> | number
     profesorId?: IntWithAggregatesFilter<"Taller"> | number
   }
 
@@ -7555,7 +7593,7 @@ export namespace Prisma {
     id?: IntFilter<"Sesion"> | number
     tallerId?: IntFilter<"Sesion"> | number
     fecha?: DateTimeFilter<"Sesion"> | Date | string
-    bloque?: EnumBloqueHorarioFilter<"Sesion"> | $Enums.BloqueHorario
+    bloque?: IntFilter<"Sesion"> | number
     qrToken?: StringFilter<"Sesion"> | string
     validoHasta?: DateTimeFilter<"Sesion"> | Date | string
     taller?: XOR<TallerScalarRelationFilter, TallerWhereInput>
@@ -7581,7 +7619,7 @@ export namespace Prisma {
     NOT?: SesionWhereInput | SesionWhereInput[]
     tallerId?: IntFilter<"Sesion"> | number
     fecha?: DateTimeFilter<"Sesion"> | Date | string
-    bloque?: EnumBloqueHorarioFilter<"Sesion"> | $Enums.BloqueHorario
+    bloque?: IntFilter<"Sesion"> | number
     validoHasta?: DateTimeFilter<"Sesion"> | Date | string
     taller?: XOR<TallerScalarRelationFilter, TallerWhereInput>
     asistencias?: AsistenciaListRelationFilter
@@ -7608,7 +7646,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Sesion"> | number
     tallerId?: IntWithAggregatesFilter<"Sesion"> | number
     fecha?: DateTimeWithAggregatesFilter<"Sesion"> | Date | string
-    bloque?: EnumBloqueHorarioWithAggregatesFilter<"Sesion"> | $Enums.BloqueHorario
+    bloque?: IntWithAggregatesFilter<"Sesion"> | number
     qrToken?: StringWithAggregatesFilter<"Sesion"> | string
     validoHasta?: DateTimeWithAggregatesFilter<"Sesion"> | Date | string
   }
@@ -7769,6 +7807,9 @@ export namespace Prisma {
     horario: string
     semestre: string
     estado?: boolean
+    lugar?: string
+    dia?: number
+    bloque?: number
     profesor: UsuarioCreateNestedOneWithoutTalleresDictadosInput
     inscripciones?: InscripcionCreateNestedManyWithoutTallerInput
     sesiones?: SesionCreateNestedManyWithoutTallerInput
@@ -7781,6 +7822,9 @@ export namespace Prisma {
     horario: string
     semestre: string
     estado?: boolean
+    lugar?: string
+    dia?: number
+    bloque?: number
     profesorId: number
     inscripciones?: InscripcionUncheckedCreateNestedManyWithoutTallerInput
     sesiones?: SesionUncheckedCreateNestedManyWithoutTallerInput
@@ -7792,6 +7836,9 @@ export namespace Prisma {
     horario?: StringFieldUpdateOperationsInput | string
     semestre?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    lugar?: StringFieldUpdateOperationsInput | string
+    dia?: IntFieldUpdateOperationsInput | number
+    bloque?: IntFieldUpdateOperationsInput | number
     profesor?: UsuarioUpdateOneRequiredWithoutTalleresDictadosNestedInput
     inscripciones?: InscripcionUpdateManyWithoutTallerNestedInput
     sesiones?: SesionUpdateManyWithoutTallerNestedInput
@@ -7804,6 +7851,9 @@ export namespace Prisma {
     horario?: StringFieldUpdateOperationsInput | string
     semestre?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    lugar?: StringFieldUpdateOperationsInput | string
+    dia?: IntFieldUpdateOperationsInput | number
+    bloque?: IntFieldUpdateOperationsInput | number
     profesorId?: IntFieldUpdateOperationsInput | number
     inscripciones?: InscripcionUncheckedUpdateManyWithoutTallerNestedInput
     sesiones?: SesionUncheckedUpdateManyWithoutTallerNestedInput
@@ -7816,6 +7866,9 @@ export namespace Prisma {
     horario: string
     semestre: string
     estado?: boolean
+    lugar?: string
+    dia?: number
+    bloque?: number
     profesorId: number
   }
 
@@ -7825,6 +7878,9 @@ export namespace Prisma {
     horario?: StringFieldUpdateOperationsInput | string
     semestre?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    lugar?: StringFieldUpdateOperationsInput | string
+    dia?: IntFieldUpdateOperationsInput | number
+    bloque?: IntFieldUpdateOperationsInput | number
   }
 
   export type TallerUncheckedUpdateManyInput = {
@@ -7834,6 +7890,9 @@ export namespace Prisma {
     horario?: StringFieldUpdateOperationsInput | string
     semestre?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    lugar?: StringFieldUpdateOperationsInput | string
+    dia?: IntFieldUpdateOperationsInput | number
+    bloque?: IntFieldUpdateOperationsInput | number
     profesorId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -7883,7 +7942,7 @@ export namespace Prisma {
 
   export type SesionCreateInput = {
     fecha?: Date | string
-    bloque: $Enums.BloqueHorario
+    bloque: number
     qrToken: string
     validoHasta: Date | string
     taller: TallerCreateNestedOneWithoutSesionesInput
@@ -7894,7 +7953,7 @@ export namespace Prisma {
     id?: number
     tallerId: number
     fecha?: Date | string
-    bloque: $Enums.BloqueHorario
+    bloque: number
     qrToken: string
     validoHasta: Date | string
     asistencias?: AsistenciaUncheckedCreateNestedManyWithoutSesionInput
@@ -7902,7 +7961,7 @@ export namespace Prisma {
 
   export type SesionUpdateInput = {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
+    bloque?: IntFieldUpdateOperationsInput | number
     qrToken?: StringFieldUpdateOperationsInput | string
     validoHasta?: DateTimeFieldUpdateOperationsInput | Date | string
     taller?: TallerUpdateOneRequiredWithoutSesionesNestedInput
@@ -7913,7 +7972,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     tallerId?: IntFieldUpdateOperationsInput | number
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
+    bloque?: IntFieldUpdateOperationsInput | number
     qrToken?: StringFieldUpdateOperationsInput | string
     validoHasta?: DateTimeFieldUpdateOperationsInput | Date | string
     asistencias?: AsistenciaUncheckedUpdateManyWithoutSesionNestedInput
@@ -7923,14 +7982,14 @@ export namespace Prisma {
     id?: number
     tallerId: number
     fecha?: Date | string
-    bloque: $Enums.BloqueHorario
+    bloque: number
     qrToken: string
     validoHasta: Date | string
   }
 
   export type SesionUpdateManyMutationInput = {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
+    bloque?: IntFieldUpdateOperationsInput | number
     qrToken?: StringFieldUpdateOperationsInput | string
     validoHasta?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7939,7 +7998,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     tallerId?: IntFieldUpdateOperationsInput | number
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
+    bloque?: IntFieldUpdateOperationsInput | number
     qrToken?: StringFieldUpdateOperationsInput | string
     validoHasta?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8181,11 +8240,16 @@ export namespace Prisma {
     horario?: SortOrder
     semestre?: SortOrder
     estado?: SortOrder
+    lugar?: SortOrder
+    dia?: SortOrder
+    bloque?: SortOrder
     profesorId?: SortOrder
   }
 
   export type TallerAvgOrderByAggregateInput = {
     id?: SortOrder
+    dia?: SortOrder
+    bloque?: SortOrder
     profesorId?: SortOrder
   }
 
@@ -8196,6 +8260,9 @@ export namespace Prisma {
     horario?: SortOrder
     semestre?: SortOrder
     estado?: SortOrder
+    lugar?: SortOrder
+    dia?: SortOrder
+    bloque?: SortOrder
     profesorId?: SortOrder
   }
 
@@ -8206,11 +8273,16 @@ export namespace Prisma {
     horario?: SortOrder
     semestre?: SortOrder
     estado?: SortOrder
+    lugar?: SortOrder
+    dia?: SortOrder
+    bloque?: SortOrder
     profesorId?: SortOrder
   }
 
   export type TallerSumOrderByAggregateInput = {
     id?: SortOrder
+    dia?: SortOrder
+    bloque?: SortOrder
     profesorId?: SortOrder
   }
 
@@ -8290,13 +8362,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type EnumBloqueHorarioFilter<$PrismaModel = never> = {
-    equals?: $Enums.BloqueHorario | EnumBloqueHorarioFieldRefInput<$PrismaModel>
-    in?: $Enums.BloqueHorario[] | ListEnumBloqueHorarioFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BloqueHorario[] | ListEnumBloqueHorarioFieldRefInput<$PrismaModel>
-    not?: NestedEnumBloqueHorarioFilter<$PrismaModel> | $Enums.BloqueHorario
-  }
-
   export type SesionCountOrderByAggregateInput = {
     id?: SortOrder
     tallerId?: SortOrder
@@ -8309,6 +8374,7 @@ export namespace Prisma {
   export type SesionAvgOrderByAggregateInput = {
     id?: SortOrder
     tallerId?: SortOrder
+    bloque?: SortOrder
   }
 
   export type SesionMaxOrderByAggregateInput = {
@@ -8332,16 +8398,7 @@ export namespace Prisma {
   export type SesionSumOrderByAggregateInput = {
     id?: SortOrder
     tallerId?: SortOrder
-  }
-
-  export type EnumBloqueHorarioWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.BloqueHorario | EnumBloqueHorarioFieldRefInput<$PrismaModel>
-    in?: $Enums.BloqueHorario[] | ListEnumBloqueHorarioFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BloqueHorario[] | ListEnumBloqueHorarioFieldRefInput<$PrismaModel>
-    not?: NestedEnumBloqueHorarioWithAggregatesFilter<$PrismaModel> | $Enums.BloqueHorario
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumBloqueHorarioFilter<$PrismaModel>
-    _max?: NestedEnumBloqueHorarioFilter<$PrismaModel>
+    bloque?: SortOrder
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -8759,10 +8816,6 @@ export namespace Prisma {
     connect?: AsistenciaWhereUniqueInput | AsistenciaWhereUniqueInput[]
   }
 
-  export type EnumBloqueHorarioFieldUpdateOperationsInput = {
-    set?: $Enums.BloqueHorario
-  }
-
   export type TallerUpdateOneRequiredWithoutSesionesNestedInput = {
     create?: XOR<TallerCreateWithoutSesionesInput, TallerUncheckedCreateWithoutSesionesInput>
     connectOrCreate?: TallerCreateOrConnectWithoutSesionesInput
@@ -8963,23 +9016,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedEnumBloqueHorarioFilter<$PrismaModel = never> = {
-    equals?: $Enums.BloqueHorario | EnumBloqueHorarioFieldRefInput<$PrismaModel>
-    in?: $Enums.BloqueHorario[] | ListEnumBloqueHorarioFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BloqueHorario[] | ListEnumBloqueHorarioFieldRefInput<$PrismaModel>
-    not?: NestedEnumBloqueHorarioFilter<$PrismaModel> | $Enums.BloqueHorario
-  }
-
-  export type NestedEnumBloqueHorarioWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.BloqueHorario | EnumBloqueHorarioFieldRefInput<$PrismaModel>
-    in?: $Enums.BloqueHorario[] | ListEnumBloqueHorarioFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BloqueHorario[] | ListEnumBloqueHorarioFieldRefInput<$PrismaModel>
-    not?: NestedEnumBloqueHorarioWithAggregatesFilter<$PrismaModel> | $Enums.BloqueHorario
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumBloqueHorarioFilter<$PrismaModel>
-    _max?: NestedEnumBloqueHorarioFilter<$PrismaModel>
-  }
-
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -9055,6 +9091,9 @@ export namespace Prisma {
     horario: string
     semestre: string
     estado?: boolean
+    lugar?: string
+    dia?: number
+    bloque?: number
     inscripciones?: InscripcionCreateNestedManyWithoutTallerInput
     sesiones?: SesionCreateNestedManyWithoutTallerInput
   }
@@ -9066,6 +9105,9 @@ export namespace Prisma {
     horario: string
     semestre: string
     estado?: boolean
+    lugar?: string
+    dia?: number
+    bloque?: number
     inscripciones?: InscripcionUncheckedCreateNestedManyWithoutTallerInput
     sesiones?: SesionUncheckedCreateNestedManyWithoutTallerInput
   }
@@ -9154,6 +9196,9 @@ export namespace Prisma {
     horario?: StringFilter<"Taller"> | string
     semestre?: StringFilter<"Taller"> | string
     estado?: BoolFilter<"Taller"> | boolean
+    lugar?: StringFilter<"Taller"> | string
+    dia?: IntFilter<"Taller"> | number
+    bloque?: IntFilter<"Taller"> | number
     profesorId?: IntFilter<"Taller"> | number
   }
 
@@ -9263,7 +9308,7 @@ export namespace Prisma {
 
   export type SesionCreateWithoutTallerInput = {
     fecha?: Date | string
-    bloque: $Enums.BloqueHorario
+    bloque: number
     qrToken: string
     validoHasta: Date | string
     asistencias?: AsistenciaCreateNestedManyWithoutSesionInput
@@ -9272,7 +9317,7 @@ export namespace Prisma {
   export type SesionUncheckedCreateWithoutTallerInput = {
     id?: number
     fecha?: Date | string
-    bloque: $Enums.BloqueHorario
+    bloque: number
     qrToken: string
     validoHasta: Date | string
     asistencias?: AsistenciaUncheckedCreateNestedManyWithoutSesionInput
@@ -9361,7 +9406,7 @@ export namespace Prisma {
     id?: IntFilter<"Sesion"> | number
     tallerId?: IntFilter<"Sesion"> | number
     fecha?: DateTimeFilter<"Sesion"> | Date | string
-    bloque?: EnumBloqueHorarioFilter<"Sesion"> | $Enums.BloqueHorario
+    bloque?: IntFilter<"Sesion"> | number
     qrToken?: StringFilter<"Sesion"> | string
     validoHasta?: DateTimeFilter<"Sesion"> | Date | string
   }
@@ -9400,6 +9445,9 @@ export namespace Prisma {
     horario: string
     semestre: string
     estado?: boolean
+    lugar?: string
+    dia?: number
+    bloque?: number
     profesor: UsuarioCreateNestedOneWithoutTalleresDictadosInput
     sesiones?: SesionCreateNestedManyWithoutTallerInput
   }
@@ -9411,6 +9459,9 @@ export namespace Prisma {
     horario: string
     semestre: string
     estado?: boolean
+    lugar?: string
+    dia?: number
+    bloque?: number
     profesorId: number
     sesiones?: SesionUncheckedCreateNestedManyWithoutTallerInput
   }
@@ -9471,6 +9522,9 @@ export namespace Prisma {
     horario?: StringFieldUpdateOperationsInput | string
     semestre?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    lugar?: StringFieldUpdateOperationsInput | string
+    dia?: IntFieldUpdateOperationsInput | number
+    bloque?: IntFieldUpdateOperationsInput | number
     profesor?: UsuarioUpdateOneRequiredWithoutTalleresDictadosNestedInput
     sesiones?: SesionUpdateManyWithoutTallerNestedInput
   }
@@ -9482,6 +9536,9 @@ export namespace Prisma {
     horario?: StringFieldUpdateOperationsInput | string
     semestre?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    lugar?: StringFieldUpdateOperationsInput | string
+    dia?: IntFieldUpdateOperationsInput | number
+    bloque?: IntFieldUpdateOperationsInput | number
     profesorId?: IntFieldUpdateOperationsInput | number
     sesiones?: SesionUncheckedUpdateManyWithoutTallerNestedInput
   }
@@ -9492,6 +9549,9 @@ export namespace Prisma {
     horario: string
     semestre: string
     estado?: boolean
+    lugar?: string
+    dia?: number
+    bloque?: number
     profesor: UsuarioCreateNestedOneWithoutTalleresDictadosInput
     inscripciones?: InscripcionCreateNestedManyWithoutTallerInput
   }
@@ -9503,6 +9563,9 @@ export namespace Prisma {
     horario: string
     semestre: string
     estado?: boolean
+    lugar?: string
+    dia?: number
+    bloque?: number
     profesorId: number
     inscripciones?: InscripcionUncheckedCreateNestedManyWithoutTallerInput
   }
@@ -9556,6 +9619,9 @@ export namespace Prisma {
     horario?: StringFieldUpdateOperationsInput | string
     semestre?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    lugar?: StringFieldUpdateOperationsInput | string
+    dia?: IntFieldUpdateOperationsInput | number
+    bloque?: IntFieldUpdateOperationsInput | number
     profesor?: UsuarioUpdateOneRequiredWithoutTalleresDictadosNestedInput
     inscripciones?: InscripcionUpdateManyWithoutTallerNestedInput
   }
@@ -9567,6 +9633,9 @@ export namespace Prisma {
     horario?: StringFieldUpdateOperationsInput | string
     semestre?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    lugar?: StringFieldUpdateOperationsInput | string
+    dia?: IntFieldUpdateOperationsInput | number
+    bloque?: IntFieldUpdateOperationsInput | number
     profesorId?: IntFieldUpdateOperationsInput | number
     inscripciones?: InscripcionUncheckedUpdateManyWithoutTallerNestedInput
   }
@@ -9589,7 +9658,7 @@ export namespace Prisma {
 
   export type SesionCreateWithoutAsistenciasInput = {
     fecha?: Date | string
-    bloque: $Enums.BloqueHorario
+    bloque: number
     qrToken: string
     validoHasta: Date | string
     taller: TallerCreateNestedOneWithoutSesionesInput
@@ -9599,7 +9668,7 @@ export namespace Prisma {
     id?: number
     tallerId: number
     fecha?: Date | string
-    bloque: $Enums.BloqueHorario
+    bloque: number
     qrToken: string
     validoHasta: Date | string
   }
@@ -9650,7 +9719,7 @@ export namespace Prisma {
 
   export type SesionUpdateWithoutAsistenciasInput = {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
+    bloque?: IntFieldUpdateOperationsInput | number
     qrToken?: StringFieldUpdateOperationsInput | string
     validoHasta?: DateTimeFieldUpdateOperationsInput | Date | string
     taller?: TallerUpdateOneRequiredWithoutSesionesNestedInput
@@ -9660,7 +9729,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     tallerId?: IntFieldUpdateOperationsInput | number
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
+    bloque?: IntFieldUpdateOperationsInput | number
     qrToken?: StringFieldUpdateOperationsInput | string
     validoHasta?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9706,6 +9775,9 @@ export namespace Prisma {
     horario: string
     semestre: string
     estado?: boolean
+    lugar?: string
+    dia?: number
+    bloque?: number
   }
 
   export type InscripcionCreateManyEstudianteInput = {
@@ -9729,6 +9801,9 @@ export namespace Prisma {
     horario?: StringFieldUpdateOperationsInput | string
     semestre?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    lugar?: StringFieldUpdateOperationsInput | string
+    dia?: IntFieldUpdateOperationsInput | number
+    bloque?: IntFieldUpdateOperationsInput | number
     inscripciones?: InscripcionUpdateManyWithoutTallerNestedInput
     sesiones?: SesionUpdateManyWithoutTallerNestedInput
   }
@@ -9740,6 +9815,9 @@ export namespace Prisma {
     horario?: StringFieldUpdateOperationsInput | string
     semestre?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    lugar?: StringFieldUpdateOperationsInput | string
+    dia?: IntFieldUpdateOperationsInput | number
+    bloque?: IntFieldUpdateOperationsInput | number
     inscripciones?: InscripcionUncheckedUpdateManyWithoutTallerNestedInput
     sesiones?: SesionUncheckedUpdateManyWithoutTallerNestedInput
   }
@@ -9751,6 +9829,9 @@ export namespace Prisma {
     horario?: StringFieldUpdateOperationsInput | string
     semestre?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    lugar?: StringFieldUpdateOperationsInput | string
+    dia?: IntFieldUpdateOperationsInput | number
+    bloque?: IntFieldUpdateOperationsInput | number
   }
 
   export type InscripcionUpdateWithoutEstudianteInput = {
@@ -9805,7 +9886,7 @@ export namespace Prisma {
   export type SesionCreateManyTallerInput = {
     id?: number
     fecha?: Date | string
-    bloque: $Enums.BloqueHorario
+    bloque: number
     qrToken: string
     validoHasta: Date | string
   }
@@ -9829,7 +9910,7 @@ export namespace Prisma {
 
   export type SesionUpdateWithoutTallerInput = {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
+    bloque?: IntFieldUpdateOperationsInput | number
     qrToken?: StringFieldUpdateOperationsInput | string
     validoHasta?: DateTimeFieldUpdateOperationsInput | Date | string
     asistencias?: AsistenciaUpdateManyWithoutSesionNestedInput
@@ -9838,7 +9919,7 @@ export namespace Prisma {
   export type SesionUncheckedUpdateWithoutTallerInput = {
     id?: IntFieldUpdateOperationsInput | number
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
+    bloque?: IntFieldUpdateOperationsInput | number
     qrToken?: StringFieldUpdateOperationsInput | string
     validoHasta?: DateTimeFieldUpdateOperationsInput | Date | string
     asistencias?: AsistenciaUncheckedUpdateManyWithoutSesionNestedInput
@@ -9847,7 +9928,7 @@ export namespace Prisma {
   export type SesionUncheckedUpdateManyWithoutTallerInput = {
     id?: IntFieldUpdateOperationsInput | number
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
+    bloque?: IntFieldUpdateOperationsInput | number
     qrToken?: StringFieldUpdateOperationsInput | string
     validoHasta?: DateTimeFieldUpdateOperationsInput | Date | string
   }

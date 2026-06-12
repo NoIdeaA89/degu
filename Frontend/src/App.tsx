@@ -34,6 +34,7 @@ function App() {
             <Route path='/talleres' element={<ListaTalleres />} />
             <Route path='/horario' element={<Horario />} />
             <Route path='/estudiantes' element={<BuscadorEstudiantes />} />
+            <Route path='/admin/perfil' element={<PerfilAdmin />} />
             <Route path='/perfil' element={<Perfil />} />
           </Route>
 

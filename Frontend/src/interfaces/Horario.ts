@@ -1,3 +1,5 @@
+import type { Taller } from "./Taller"
+
 export type CeldaSeleccionada = {
   dia: number
   bloque: number
@@ -5,7 +7,7 @@ export type CeldaSeleccionada = {
 }
 
 export type TallerSeleccionado = {
-  id: string
+  id: number
   taller: Taller
 }
 
