@@ -26,7 +26,7 @@ export default function Inicio(): ReactElement {
         )}
 
         <section className="w-full">
-          <Horario />
+          <Horario modo="inicio" />
         </section>
       </main>
     </div>

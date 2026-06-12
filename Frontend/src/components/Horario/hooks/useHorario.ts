@@ -1,15 +1,18 @@
 import { useEffect, useMemo, useState } from "react"
 import { DIAS as dias, BLOQUES as bloques } from "../../../constants/Horario"
 import { estudiantes } from "../../../data/Estudiantes"
-import { talleres } from "../../../data/Taller"
 import { crearAsistenciaInicial, crearIdTaller } from "../../../utils/Asistencia"
+import { cargarTalleres, guardarTalleres } from "../../../utils/Horariostorage"
 import type { Taller } from "../../../interfaces/Taller"
 import type { CeldaSeleccionada, TallerSeleccionado } from "../../../interfaces/Horario"
 
 export default function useHorario() {
+  const [talleresState, setTalleresState] = useState<Taller[]>(() => cargarTalleres())
+  const [modoEdicion, setModoEdicion] = useState(false)
+
   const lugares = useMemo(
-    () => Array.from(new Set(talleres.map((t) => t.lugar))).sort(),
-    []
+    () => Array.from(new Set(talleresState.map((t) => t.lugar))).sort(),
+    [talleresState]
   )
 
   const [lugaresActivos, setLugaresActivos] = useState<string[]>(lugares)
@@ -19,6 +22,15 @@ export default function useHorario() {
   const [asistenciaOriginalPorTaller, setAsistenciaOriginalPorTaller] = useState<Record<string, Record<string, boolean>>>({})
   const [mostrarQrModal, setMostrarQrModal] = useState(false)
 
+  // Sincroniza lugaresActivos si aparecen lugares nuevos (poco probable pero seguro)
+  useEffect(() => {
+    setLugaresActivos((prev) => {
+      const nuevos = lugares.filter((l) => !prev.includes(l) && !prev.some((p) => !lugares.includes(p)))
+      if (nuevos.length === 0) return prev
+      return [...prev, ...nuevos]
+    })
+  }, [lugares])
+
   const toggleLugar = (lugar: string) => {
     setLugaresActivos((prev) =>
       prev.includes(lugar) ? prev.filter((item) => item !== lugar) : [...prev, lugar]
@@ -26,8 +38,8 @@ export default function useHorario() {
   }
 
   const talleresFiltrados = useMemo(
-    () => talleres.filter((t) => t.bloque > 0 && t.dia > 0 && lugaresActivos.includes(t.lugar)),
-    [lugaresActivos]
+    () => talleresState.filter((t) => t.bloque > 0 && t.dia > 0 && lugaresActivos.includes(t.lugar)),
+    [talleresState, lugaresActivos]
   )
 
   const talleresPorCelda = useMemo(() => {
@@ -46,7 +58,25 @@ export default function useHorario() {
   const seleccionarTodos = () => setLugaresActivos(lugares)
   const limpiarTodos = () => setLugaresActivos([])
 
+  const toggleModoEdicion = () => setModoEdicion((prev) => !prev)
+
+  const moverTaller = (origen: Taller, nuevoDia: number, nuevoBloque: number) => {
+    setTalleresState((prev) => {
+      const actualizado = prev.map((t) =>
+        t.dia === origen.dia &&
+        t.bloque === origen.bloque &&
+        t.titulo === origen.titulo &&
+        t.lugar === origen.lugar
+          ? { ...t, dia: nuevoDia, bloque: nuevoBloque }
+          : t
+      )
+      guardarTalleres(actualizado)
+      return actualizado
+    })
+  }
+
   const abrirCelda = (dia: number, bloque: number) => {
+    if (modoEdicion) return
     const items = talleresPorCelda.get(`${bloque}-${dia}`) ?? []
     setCeldaSeleccionada({ dia, bloque, items })
     setTallerSeleccionado(null)
@@ -66,6 +96,7 @@ export default function useHorario() {
   const cerrarQrModal = () => setMostrarQrModal(false)
 
   const abrirTaller = (taller: Taller, indice: number) => {
+    if (modoEdicion) return
     const id = crearIdTaller(taller, indice)
     const asistenciaBase = asistenciaPorTaller[id] ?? crearAsistenciaInicial(estudiantes)
 
@@ -173,6 +204,9 @@ export default function useHorario() {
     hayCambios,
     mostrarQrModal,
     estudiantes,
+    modoEdicion,
+    toggleModoEdicion,
+    moverTaller,
     toggleLugar,
     seleccionarTodos,
     limpiarTodos,
