@@ -1,14 +1,16 @@
 import { useEffect, useMemo, useState } from "react"
-import { DIAS as dias, BLOQUES as bloques } from "../../../constants/Horario"
+import { DIAS as dias } from "../../../constants/Horario"
 import { estudiantes } from "../../../data/Estudiantes"
 import { crearAsistenciaInicial, crearIdTaller } from "../../../utils/Asistencia"
-import { cargarTalleres, guardarTalleres } from "../../../utils/Horariostorage"
+import { cargarBloques, cargarTalleres, guardarTalleres } from "../../../utils/Horariostorage"
 import type { Taller } from "../../../interfaces/Taller"
 import type { CeldaSeleccionada, TallerSeleccionado } from "../../../interfaces/Horario"
+
 
 export default function useHorario() {
   const [talleresState, setTalleresState] = useState<Taller[]>(() => cargarTalleres())
   const [modoEdicion, setModoEdicion] = useState(false)
+  const [bloques, setBloques] = useState<string[]>(() => cargarBloques())
 
   const lugares = useMemo(
     () => Array.from(new Set(talleresState.map((t) => t.lugar))).sort(),
@@ -59,7 +61,36 @@ export default function useHorario() {
   const limpiarTodos = () => setLugaresActivos([])
 
   const toggleModoEdicion = () => setModoEdicion((prev) => !prev)
+  const talleresSinAsignar = useMemo(
+    () => talleresState.filter((t) => t.dia === 0 || t.bloque === 0),
+    [talleresState]
+  )
 
+  const agregarTaller = (titulo: string, lugar: string) => {
+    const tituloLimpio = titulo.trim()
+    const lugarLimpio = lugar.trim()
+    if (!tituloLimpio || !lugarLimpio) return
+
+    setTalleresState((prev) => {
+      const actualizado = [...prev, { dia: 0, bloque: 0, titulo: tituloLimpio, lugar: lugarLimpio }]
+      guardarTalleres(actualizado)
+      return actualizado
+    })
+  }
+  const desasignarTaller = (origen: Taller) => {
+    setTalleresState((prev) => {
+      const actualizado = prev.map((t) =>
+        t.dia === origen.dia &&
+        t.bloque === origen.bloque &&
+        t.titulo === origen.titulo &&
+        t.lugar === origen.lugar
+          ? { ...t, dia: 0, bloque: 0 }
+          : t
+      )
+      guardarTalleres(actualizado)
+      return actualizado
+    })
+  }
   const moverTaller = (origen: Taller, nuevoDia: number, nuevoBloque: number) => {
     setTalleresState((prev) => {
       const actualizado = prev.map((t) =>
@@ -198,6 +229,7 @@ export default function useHorario() {
     lugares,
     lugaresActivos,
     talleresPorCelda,
+    talleresSinAsignar,
     celdaSeleccionada,
     tallerSeleccionado,
     asistenciaActual,
@@ -205,6 +237,8 @@ export default function useHorario() {
     mostrarQrModal,
     estudiantes,
     modoEdicion,
+    desasignarTaller,
+    agregarTaller,
     toggleModoEdicion,
     moverTaller,
     toggleLugar,

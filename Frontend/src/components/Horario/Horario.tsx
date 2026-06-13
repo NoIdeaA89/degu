@@ -1,10 +1,13 @@
 ﻿import type { ReactElement } from "react"
+import { useState } from "react"
 import "./Horario.css"
 import HorarioGrid from "./HorarioGrid"
 import HorarioFilters from "./HorarioFilters"
 import ModalCelda from "./ModalCelda"
 import ModalAsistencia from "./ModalAsistencia"
 import ModalQr from "./ModalQr"
+import ModalAgregarTaller from "../ModalAgregarTaller"
+import PanelTalleresSinAsignar from "../PanelTalleresSinAsignar"
 import useHorario from "./hooks/useHorario"
 
 type HorarioProps = {
@@ -13,6 +16,7 @@ type HorarioProps = {
 
 export default function Horario({ modo = "completo" }: HorarioProps): ReactElement {
   const soloLectura = modo === "inicio"
+  const [mostrarModalTaller, setMostrarModalTaller] = useState(false)
 
   const {
     dias,
@@ -20,6 +24,8 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
     lugares,
     lugaresActivos,
     talleresPorCelda,
+    talleresSinAsignar,
+    agregarTaller,
     celdaSeleccionada,
     tallerSeleccionado,
     asistenciaActual,
@@ -27,6 +33,7 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
     mostrarQrModal,
     estudiantes,
     modoEdicion,
+    desasignarTaller,
     toggleModoEdicion,
     moverTaller,
     toggleLugar,
@@ -44,7 +51,7 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
   } = useHorario()
 
   return (
-    <section className="w-full" >
+    <section className="w-full">
       <div className="flex justify-center w-full">
         <div className={`horario-layout ${soloLectura ? "horario-layout--solo-grid" : ""}`}>
           <div>
@@ -78,7 +85,7 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
             />
           </div>
 
-          {!soloLectura && (
+          {!soloLectura && !modoEdicion && (
             <HorarioFilters
               lugares={lugares}
               lugaresActivos={lugaresActivos}
@@ -87,8 +94,24 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
               limpiarTodos={limpiarTodos}
             />
           )}
+
+          {!soloLectura && modoEdicion && (
+            <PanelTalleresSinAsignar
+              talleres={talleresSinAsignar}
+              onAbrirModal={() => setMostrarModalTaller(true)}
+              onDesasignar={desasignarTaller}
+            />
+          )}
         </div>
       </div>
+
+      {!soloLectura && mostrarModalTaller && (
+        <ModalAgregarTaller
+          lugares={lugares}
+          onAgregar={agregarTaller}
+          onCerrar={() => setMostrarModalTaller(false)}
+        />
+      )}
 
       {!soloLectura && !modoEdicion && celdaSeleccionada && (
         <ModalCelda
