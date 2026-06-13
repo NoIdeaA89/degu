@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import ListaTalleres from './components/listaTalleres';
+import Talleres from './pages/Talleres';
 import FormularioAsistencia from './components/formularioAsistencia';
 import Inicio from './pages/Inicio';
 import Horario from './pages/Horario';
@@ -30,12 +30,11 @@ function App() {
         {/* ======================================= */}
         <Route element={<ProtectedRoute />}>
           <Route path='/inicio' element={<Inicio />} />
-          <Route path='/talleres' element={<ListaTalleres />} />
+          <Route path='/talleres' element={<Talleres />} />
           <Route path='/horario' element={<Horario />} />
           <Route path='/estudiantes' element={<BuscadorEstudiantes />} />
           <Route path='/perfil' element={<Perfil />} />
           <Route path='/admin/perfil' element={<PerfilAdmin />} />
-          <Route path='/talleres' element={<ListaTalleres/>} />
         </Route>
 
         {/* ======================================= */}

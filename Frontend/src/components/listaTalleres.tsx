@@ -21,6 +21,7 @@ interface Asistencia {
   satisfaccion?: number;
 }
 
+//Datos Mock
 const asistenciaData: Asistencia[] = [ 
 
   {"id":"AS001","alumno":"ALU001","taller":"Club TCG","dia":"Lunes","bloque":"3","fecha":"2026-06-01","satisfaccion":4},
@@ -225,7 +226,7 @@ const ListaTalleres: React.FC = () => {
     });
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-gray-50 min-h-screen">
+    <div className="max-w-6xl mx-auto p-6 min-h-screen">
       <div className="mb-8">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-800 text-left">Control de Asistencia</h1>
