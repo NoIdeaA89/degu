@@ -1,25 +1,41 @@
 ﻿import type { ReactElement } from "react"
+import { useState } from "react"
 import "./Horario.css"
 import HorarioGrid from "./HorarioGrid"
 import HorarioFilters from "./HorarioFilters"
 import ModalCelda from "./ModalCelda"
 import ModalAsistencia from "./ModalAsistencia"
 import ModalQr from "./ModalQr"
+import ModalAgregarTaller from "../ModalAgregarTaller"
+import PanelTalleresSinAsignar from "../PanelTalleresSinAsignar"
 import useHorario from "./hooks/useHorario"
 
-export default function Horario(): ReactElement {
+type HorarioProps = {
+  modo?: "completo" | "inicio"
+}
+
+export default function Horario({ modo = "completo" }: HorarioProps): ReactElement {
+  const soloLectura = modo === "inicio"
+  const [mostrarModalTaller, setMostrarModalTaller] = useState(false)
+
   const {
     dias,
     bloques,
     lugares,
     lugaresActivos,
     talleresPorCelda,
+    talleresSinAsignar,
+    agregarTaller,
     celdaSeleccionada,
     tallerSeleccionado,
     asistenciaActual,
     hayCambios,
     mostrarQrModal,
     estudiantes,
+    modoEdicion,
+    desasignarTaller,
+    toggleModoEdicion,
+    moverTaller,
     toggleLugar,
     seleccionarTodos,
     limpiarTodos,
@@ -35,22 +51,69 @@ export default function Horario(): ReactElement {
   } = useHorario()
 
   return (
-    <section>
-      <div className="flex justify-center">
-        <div className="horario-layout">
-          <HorarioGrid dias={dias} bloques={bloques} talleresPorCelda={talleresPorCelda} abrirCelda={abrirCelda} />
+    <section className="w-full">
+      <div className="flex justify-center w-full">
+        <div className={`horario-layout ${soloLectura ? "horario-layout--solo-grid" : ""}`}>
+          <div>
+            {!soloLectura && (
+              <div className="panel-check" style={{ marginBottom: "10px" }}>
+                <span className="panel-check-texto">Modo edición</span>
+                <div className="asistencia-switch-wrap">
+                  <span className={`asistencia-estado ${modoEdicion ? "activo" : ""}`}>
+                    {modoEdicion ? "Activado" : "Desactivado"}
+                  </span>
+                  <label className="asistencia-switch">
+                    <input
+                      type="checkbox"
+                      checked={modoEdicion}
+                      onChange={toggleModoEdicion}
+                      aria-label="Activar modo edición del horario"
+                    />
+                    <span className="asistencia-slider" />
+                  </label>
+                </div>
+              </div>
+            )}
 
-          <HorarioFilters
-            lugares={lugares}
-            lugaresActivos={lugaresActivos}
-            toggleLugar={toggleLugar}
-            seleccionarTodos={seleccionarTodos}
-            limpiarTodos={limpiarTodos}
-          />
+            <HorarioGrid
+              dias={dias}
+              bloques={bloques}
+              talleresPorCelda={talleresPorCelda}
+              abrirCelda={soloLectura ? () => {} : abrirCelda}
+              modoEdicion={!soloLectura && modoEdicion}
+              moverTaller={moverTaller}
+            />
+          </div>
+
+          {!soloLectura && !modoEdicion && (
+            <HorarioFilters
+              lugares={lugares}
+              lugaresActivos={lugaresActivos}
+              toggleLugar={toggleLugar}
+              seleccionarTodos={seleccionarTodos}
+              limpiarTodos={limpiarTodos}
+            />
+          )}
+
+          {!soloLectura && modoEdicion && (
+            <PanelTalleresSinAsignar
+              talleres={talleresSinAsignar}
+              onAbrirModal={() => setMostrarModalTaller(true)}
+              onDesasignar={desasignarTaller}
+            />
+          )}
         </div>
       </div>
 
-      {celdaSeleccionada && (
+      {!soloLectura && mostrarModalTaller && (
+        <ModalAgregarTaller
+          lugares={lugares}
+          onAgregar={agregarTaller}
+          onCerrar={() => setMostrarModalTaller(false)}
+        />
+      )}
+
+      {!soloLectura && !modoEdicion && celdaSeleccionada && (
         <ModalCelda
           celdaSeleccionada={celdaSeleccionada}
           dias={dias}
@@ -60,7 +123,7 @@ export default function Horario(): ReactElement {
         />
       )}
 
-      {tallerSeleccionado && (
+      {!soloLectura && !modoEdicion && tallerSeleccionado && (
         <ModalAsistencia
           tallerSeleccionado={tallerSeleccionado}
           estudiantes={estudiantes}
@@ -74,7 +137,7 @@ export default function Horario(): ReactElement {
         />
       )}
 
-      {mostrarQrModal && tallerSeleccionado && (
+      {!soloLectura && !modoEdicion && mostrarQrModal && tallerSeleccionado && (
         <ModalQr
           tallerSeleccionado={tallerSeleccionado}
           bloqueText={bloques[tallerSeleccionado.taller.bloque - 1]}

@@ -21,7 +21,7 @@ export default function ModalQr({ tallerSeleccionado, bloqueText, cerrarQrModal 
 
         <div className="flex justify-center p-4">
           <GeneradorQR
-            tallerId={tallerSeleccionado.id}
+            tallerId={Number(tallerSeleccionado.id)}
             nombreTaller={tallerSeleccionado.taller.titulo}
             bloque={bloqueText}
           />

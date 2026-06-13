@@ -1,3 +1,5 @@
+import type { Taller } from "./Taller"
+
 export type CeldaSeleccionada = {
   dia: number
   bloque: number
