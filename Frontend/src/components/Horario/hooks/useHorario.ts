@@ -10,7 +10,7 @@ import type { CeldaSeleccionada, TallerSeleccionado } from "../../../interfaces/
 export default function useHorario() {
   const [talleresState, setTalleresState] = useState<Taller[]>(() => cargarTalleres())
   const [modoEdicion, setModoEdicion] = useState(false)
-  const [bloques, setBloques] = useState<string[]>(() => cargarBloques())
+  const [bloques] = useState<string[]>(() => cargarBloques())
 
   const lugares = useMemo(
     () => Array.from(new Set(talleresState.map((t) => t.lugar))).sort(),
