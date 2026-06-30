@@ -10,3 +10,4 @@ export async function obtenerMetricasDashboard(): Promise<MetricasDashboard> {
 
   return response.json();
 }
+
