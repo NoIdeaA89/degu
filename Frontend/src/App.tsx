@@ -36,6 +36,7 @@ function App() {
             <Route path='/estudiantes' element={<BuscadorEstudiantes />} />
             <Route path='/admin/perfil' element={<PerfilAdmin />} />
             <Route path='/perfil' element={<Perfil />} />
+            <Route path='/perfilAdmin' element={<PerfilAdmin />} />
           </Route>
 
           {/* ======================================= */}

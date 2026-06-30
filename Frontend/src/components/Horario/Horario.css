@@ -594,3 +594,28 @@ rgba(143, 151, 159, 0.08)
     grid-template-columns: 1fr;
   }
 }
+.celda-editable {
+    border-style: dashed;
+    cursor: default;
+}
+
+.celda-editable .contenido-item {
+    cursor: grab;
+}
+
+.celda-editable .contenido-item:active {
+    cursor: grabbing;
+}
+
+.celda-editable.drag-over {
+    background: color-mix(in srgb, var(--accent-bg) 50%, transparent);
+    border-color: var(--accent-border-horario);
+}
+
+.horario-layout--solo-grid {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.horario-layout--solo-grid .malla {
+    margin-inline: auto;
+}

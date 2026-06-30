@@ -6,9 +6,18 @@ interface Props {
   bloques: string[]
   talleresPorCelda: Map<string, Taller[]>
   abrirCelda: (dia: number, bloque: number) => void
+  modoEdicion?: boolean
+  moverTaller?: (origen: Taller, nuevoDia: number, nuevoBloque: number) => void
 }
 
-export default function HorarioGrid({ dias, bloques, talleresPorCelda, abrirCelda }: Props) {
+export default function HorarioGrid({
+  dias,
+  bloques,
+  talleresPorCelda,
+  abrirCelda,
+  modoEdicion = false,
+  moverTaller
+}: Props) {
   return (
     <div className="malla">
       <div className="celda esquina" />
@@ -29,23 +38,57 @@ export default function HorarioGrid({ dias, bloques, talleresPorCelda, abrirCeld
             return (
               <div
                 key={key}
-                className={`celda contenido ${items.length > 0 ? "con-taller" : ""}`}
-                role="button"
-                tabIndex={0}
-                aria-label={`Ver talleres del bloque ${bloque} del día ${dia}`}
+                className={`celda contenido ${items.length > 0 ? "con-taller" : ""} ${modoEdicion ? "celda-editable" : ""}`}
+                role={modoEdicion ? undefined : "button"}
+                tabIndex={modoEdicion ? undefined : 0}
+                aria-label={modoEdicion ? undefined : `Ver talleres del bloque ${bloque} del día ${dia}`}
                 onClick={() => abrirCelda(diaNum, bloqueNum)}
                 onKeyDown={(event) => {
+                  if (modoEdicion) return
                   if (event.key === "Enter" || event.key === " ") {
                     event.preventDefault()
                     abrirCelda(diaNum, bloqueNum)
                   }
                 }}
+                onDragOver={(event) => {
+                  if (!modoEdicion) return
+                  event.preventDefault()
+                  event.currentTarget.classList.add("drag-over")
+                }}
+                onDragLeave={(event) => {
+                  if (!modoEdicion) return
+                  event.currentTarget.classList.remove("drag-over")
+                }}
+                onDrop={(event) => {
+                  if (!modoEdicion || !moverTaller) return
+                  event.preventDefault()
+                  event.currentTarget.classList.remove("drag-over")
+
+                  const data = event.dataTransfer.getData("text/plain")
+                  if (!data) return
+
+                  const origen: Taller = JSON.parse(data)
+                  if (origen.dia === diaNum && origen.bloque === bloqueNum) return
+
+                  moverTaller(origen, diaNum, bloqueNum)
+                }}
               >
-                {items.map((t, idx) => (
-                  <span key={`${t.nombre}-${idx}`} className="contenido-item">
-                    {t.nombre}
-                  </span>
-                ))}
+                <div className="contenido-lista">
+                  {items.map((t, idx) => (
+                    <span
+                      key={`${t.titulo}-${idx}`}
+                      className="contenido-item"
+                      draggable={modoEdicion}
+                      onDragStart={(event) => {
+                        if (!modoEdicion) return
+                        event.dataTransfer.setData("text/plain", JSON.stringify(t))
+                        event.dataTransfer.effectAllowed = "move"
+                      }}
+                    >
+                      {t.titulo}
+                    </span>
+                  ))}
+                </div>
               </div>
             )
           })}
