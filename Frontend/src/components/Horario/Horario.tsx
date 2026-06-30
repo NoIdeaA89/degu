@@ -140,7 +140,7 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
       {!soloLectura && !modoEdicion && mostrarQrModal && tallerSeleccionado && (
         <ModalQr
           tallerSeleccionado={tallerSeleccionado}
-          bloqueText={bloques[tallerSeleccionado.taller.bloque - 1]}
+          bloqueText={tallerSeleccionado.taller.horario}
           cerrarQrModal={cerrarQrModal}
         />
       )}

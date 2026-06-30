@@ -6,7 +6,7 @@ interface Props {
   dias: string[]
   bloques: string[]
   cerrarModal: () => void
-  abrirTaller: (taller: any, idx: number) => void
+  abrirTaller: (taller: any) => void
 }
 
 export default function ModalCelda({ celdaSeleccionada, dias, bloques, cerrarModal, abrirTaller }: Props) {
@@ -25,17 +25,17 @@ export default function ModalCelda({ celdaSeleccionada, dias, bloques, cerrarMod
         <div className="modal-cuerpo">
           {celdaSeleccionada.items.length > 0 ? (
             <ul className="modal-lista">
-              {celdaSeleccionada.items.map((t, idx) => {
-                const id = crearIdTaller(t, idx)
+              {celdaSeleccionada.items.map((t) => {
+                const id = crearIdTaller(t)
                 return (
                   <li key={id}>
                     <button
                       type="button"
                       className="modal-item-btn"
-                      onClick={() => abrirTaller(t, idx)}
-                      aria-label={`Abrir taller ${t.titulo}`}
+                      onClick={() => abrirTaller(t)}
+                      aria-label={`Abrir taller ${t.nombre}`}
                     >
-                      <strong>{t.titulo}</strong>
+                      <strong>{t.nombre}</strong>
                       <span>{t.lugar}</span>
                     </button>
                   </li>
