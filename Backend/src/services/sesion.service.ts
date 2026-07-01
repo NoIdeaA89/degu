@@ -1,9 +1,14 @@
-import { prisma } from '../lib/prisma';
+import { prisma } from '../lib/prisma'; // Asegúrate de importar desde tu cliente generado
 import crypto from 'crypto';
 
 export class SesionService {
   
-  async crear(tallerId: number, bloque: any, minutos: number) {
+  // ✅ CAMBIO: 'bloque' ahora es explícitamente 'number'
+  async crear(tallerId: number, bloque: number, minutos: number) {
+    if (typeof bloque !== 'number') {
+      throw new Error("El bloque debe ser un número entero.");
+    }
+
     const token = crypto.randomBytes(16).toString('hex');
     const fechaExpiracion = new Date();
     fechaExpiracion.setMinutes(fechaExpiracion.getMinutes() + minutos);
@@ -11,7 +16,7 @@ export class SesionService {
     return await prisma.sesion.create({
       data: {
         tallerId,
-        bloque,
+        bloque, // Ahora TypeScript te obligará a pasar un número
         qrToken: token,
         validoHasta: fechaExpiracion,
         fecha: new Date()

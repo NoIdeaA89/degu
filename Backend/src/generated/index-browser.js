@@ -137,6 +137,9 @@ exports.Prisma.TallerScalarFieldEnum = {
   horario: 'horario',
   semestre: 'semestre',
   estado: 'estado',
+  lugar: 'lugar',
+  dia: 'dia',
+  bloque: 'bloque',
   profesorId: 'profesorId'
 };
 
@@ -185,16 +188,6 @@ exports.RolUsuario = exports.$Enums.RolUsuario = {
   Profesor: 'Profesor',
   Ayudante: 'Ayudante',
   Estudiante: 'Estudiante'
-};
-
-exports.BloqueHorario = exports.$Enums.BloqueHorario = {
-  A: 'A',
-  B: 'B',
-  C: 'C',
-  C2: 'C2',
-  D: 'D',
-  E: 'E',
-  F: 'F'
 };
 
 exports.Prisma.ModelName = {
