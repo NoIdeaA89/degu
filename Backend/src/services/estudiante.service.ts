@@ -1,6 +1,6 @@
 import { prisma } from '../lib/prisma';
 import bcrypt from 'bcrypt';
-import { RolUsuario } from '../generated';
+import { RolUsuario } from '@prisma/client'
 
 export const obtenerTodos = async (busqueda?: string) => {
   return await prisma.usuario.findMany({

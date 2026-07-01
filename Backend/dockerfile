@@ -1,34 +1,19 @@
-# 1. Usar una imagen basada en Debian (slim) para total compatibilidad con Prisma
 FROM node:24-slim
 
-# 2. Instalar OpenSSL y certificados (dependencias físicas obligatorias del motor de Prisma)
 RUN apt-get update -y && apt-get install -y openssl ca-certificates
 
 WORKDIR /app
 
-# 3. Copiar las definiciones de paquetes
 COPY package*.json ./
 
-# 4. Instalar tsx globalmente para que Prisma pueda interpretar prisma.config.ts en la nube
-RUN npm install -g tsx
-
-# 5. Instalar todas las dependencias del proyecto
 RUN npm install
 
-# 6. Copiar la carpeta de Prisma y el archivo de configuración
-COPY prisma ./prisma/
-COPY prisma.config.ts ./
-
-# 7. Generar el cliente de Prisma (crea los tipos de TS basados en tu esquema)
-RUN npx prisma generate
-
-# 8. Copiar el resto de tu código fuente
 COPY . .
 
-# 9. Compilar Express de TypeScript a JavaScript puro
+RUN npx prisma generate
+
 RUN npm run build
 
 EXPOSE 3000
 
-# 10. Inyectar temporalmente DIRECT_URL (5432) para la migración y arrancar el servidor compilado
-CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node dist/index.js"]
