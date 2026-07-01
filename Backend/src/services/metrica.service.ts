@@ -1,6 +1,7 @@
 import { prisma } from '../lib/prisma';
 
 export const obtenerResumenMetricas = async () => {
+
   const [totalAsistenciasGlobal, estudiantesAgrupados, agregacionSatisfaccion, talleresBD] = await Promise.all([
     prisma.asistencia.count({ where: { estado: { not: 'Ausente' } } }),
     prisma.asistencia.groupBy({ by: ['estudianteId'], where: { estado: { not: 'Ausente' } } }),
@@ -63,13 +64,10 @@ export const obtenerResumenMetricas = async () => {
     rendimiento: {
       mejoresAsistencia: [...talleresConAsistencia]
         .sort((a, b) => b.totalAsistenciasReal - a.totalAsistenciasReal).slice(0, 3),
-      
       peoresAsistencia: [...talleresConAsistencia]
         .sort((a, b) => a.totalAsistenciasReal - b.totalAsistenciasReal).slice(0, 3),
-      
       mejoresCalificaciones: [...talleresEvaluados]
         .sort((a, b) => (b.promedioCalificacion as number) - (a.promedioCalificacion as number)).slice(0, 3),
-
       peoresCalificaciones: [...talleresEvaluados]
         .sort((a, b) => (a.promedioCalificacion as number) - (b.promedioCalificacion as number)).slice(0, 3)
     }

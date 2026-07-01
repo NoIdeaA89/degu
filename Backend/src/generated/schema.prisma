@@ -8,6 +8,13 @@ datasource db {
   provider = "postgresql"
 }
 
+enum RolUsuario {
+  Administrador
+  Profesor
+  Ayudante
+  Estudiante
+}
+
 model Usuario {
   id               Int           @id @default(autoincrement())
   nombre           String
@@ -22,12 +29,16 @@ model Usuario {
 }
 
 model Taller {
-  id            Int           @id @default(autoincrement())
-  nombre        String
-  descripcion   String
-  horario       String
-  semestre      String
-  estado        Boolean       @default(true)
+  id          Int     @id @default(autoincrement())
+  nombre      String
+  descripcion String  @db.Text
+  horario     String
+  semestre    String
+  estado      Boolean @default(true)
+  lugar       String  @default("Galpón Cultural")
+  dia         Int     @default(1)
+  bloque      Int     @default(1)
+
   profesorId    Int
   inscripciones Inscripcion[]
   sesiones      Sesion[]
@@ -46,11 +57,13 @@ model Inscripcion {
 }
 
 model Sesion {
-  id          Int           @id @default(autoincrement())
-  tallerId    Int
-  fecha       DateTime      @default(now()) @db.Date
-  bloque      BloqueHorario
-  qrToken     String        @unique
+  id       Int      @id @default(autoincrement())
+  tallerId Int
+  taller   Taller   @relation(fields: [tallerId], references: [id])
+  fecha    DateTime @default(now()) @db.Date
+  bloque   Int
+
+  qrToken     String   @unique
   validoHasta DateTime
   asistencias Asistencia[]
   taller      Taller        @relation(fields: [tallerId], references: [id])

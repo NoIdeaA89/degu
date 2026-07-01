@@ -7,7 +7,7 @@ export type CeldaSeleccionada = {
 }
 
 export type TallerSeleccionado = {
-  id: string
+  id: number
   taller: Taller
 }
 

@@ -28,7 +28,7 @@ export default function ModalAsistencia({
     <div className="modal-overlay-sec" onClick={cerrarModalAsistencia}>
       <div className="modal-contenido-sec" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h3>{tallerSeleccionado.taller.titulo}</h3>
+          <h3>{tallerSeleccionado.taller.nombre}</h3>
           <button type="button" className="panel-btn panel-btn-sec" onClick={cerrarModalAsistencia}>
             Cerrar
           </button>
