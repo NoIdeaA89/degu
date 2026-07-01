@@ -190,6 +190,16 @@ exports.RolUsuario = exports.$Enums.RolUsuario = {
   Estudiante: 'Estudiante'
 };
 
+exports.BloqueHorario = exports.$Enums.BloqueHorario = {
+  A: 'A',
+  B: 'B',
+  C: 'C',
+  C2: 'C2',
+  D: 'D',
+  E: 'E',
+  F: 'F'
+};
+
 exports.Prisma.ModelName = {
   Usuario: 'Usuario',
   Taller: 'Taller',
