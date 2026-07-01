@@ -1,11 +1,12 @@
+import { env } from '../config/env';
 import { prisma } from '../lib/prisma';
 import bcrypt from 'bcrypt'; 
 import jwt from 'jsonwebtoken';
 import { OAuth2Client } from 'google-auth-library';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'tu_clave_secreta_super_segura';
+const JWT_SECRET = env.JWT_SECRET;
 
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || 'TU_CLIENT_ID_DE_GOOGLE.apps.googleusercontent.com';
+const GOOGLE_CLIENT_ID = env.GOOGLE_CLIENT_ID;
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 export const autenticarUsuario = async (correo: string, passwordPlan: string) => {
@@ -14,13 +15,13 @@ export const autenticarUsuario = async (correo: string, passwordPlan: string) =>
   });
 
   if (!usuario) {
-    throw new Error('El correo ingresado no está registrado');
+    throw new Error('Credenciales incorrectas');
   }
 
   const passwordCorrecto = await bcrypt.compare(passwordPlan, usuario.password);
   
   if (!passwordCorrecto) {
-    throw new Error('Contraseña incorrecta');
+    throw new Error('Credenciales incorrectas');
   }
 
   const token = jwt.sign(

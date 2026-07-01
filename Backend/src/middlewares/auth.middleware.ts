@@ -1,3 +1,4 @@
+import { env } from '../config/env';
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { RolUsuario } from '../generated'; 
@@ -21,7 +22,7 @@ export const verificarToken = (req: AuthRequest, res: Response, next: NextFuncti
     }
 
     const token = authHeader.split(' ')[1];
-    const secreto = process.env.JWT_SECRET || 'tu_secreto_super_seguro';
+    const secreto = env.JWT_SECRET;
     
     const decoded = jwt.verify(token, secreto) as any;
 
@@ -47,7 +48,7 @@ export const middlewareVerificarAdmin = (req: AuthRequest, res: Response, next: 
     }
 
     const token = authHeader.split(' ')[1];
-    const secreto = process.env.JWT_SECRET || 'tu_secreto_super_seguro';
+    const secreto = env.JWT_SECRET;
     
     const decoded = jwt.verify(token, secreto) as any;
     const userData = decoded.user ? decoded.user : decoded;

@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+dotenv.config();
+require("./config/env")
+import { env } from './config/env';
 import express from 'express';
 import cors from 'cors';
 import sesionRoutes from './routes/sesion.routes';
@@ -9,7 +13,7 @@ import { middlewareVerificarAdmin } from './middlewares/auth.middleware';
 import metricaRoutes from './routes/metrica.routes';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = env.PORT || 3000;
 
 app.use(cors({
   origin: function (origin, callback) {

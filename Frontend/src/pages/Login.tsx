@@ -30,12 +30,10 @@ export default function Login(): JSX.Element {
       const data = await response.json()
 
       if (!response.ok) {
-        if (response.status === 404) {
-          throw new Error('No encontramos ninguna cuenta asociada a este correo.');
-        } else if (response.status === 401) {
-          throw new Error('La contraseña ingresada es incorrecta. Inténtalo nuevamente.');
+        if (response.status === 404 || response.status === 401) {
+          throw new Error('Correo o contraseña incorrectos.');
         } else {
-          throw new Error(data.message || data.error || "Credenciales incorrectas");
+          throw new Error(data.message || data.error || 'Ocurrió un error. Inténtalo nuevamente.');
         }
       }
 
