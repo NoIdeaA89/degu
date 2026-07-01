@@ -7,15 +7,15 @@ services:
     container_name: app_database
     restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password123
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASS}
       POSTGRES_DB: app_db
     ports:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d app_db"]
+      test: ["CMD-SHELL", "pg_isready -U ${PG_USER} -d app_db"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -34,7 +34,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: "postgresql://postgres:password123@database:5432/app_db"
+      DATABASE_URL: "postgresql://${PG_USER}:${PG_PASS}@database:5432/app_db"
     volumes:
       # Hot Reloading: sincroniza tu código local con el contenedor
       - ./Backend:/app
