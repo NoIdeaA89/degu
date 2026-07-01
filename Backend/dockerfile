@@ -1,27 +1,27 @@
 FROM node:24-slim
 
-# Instalar dependencias físicas requeridas por el motor de Prisma
+# Dependencias físicas del motor
 RUN apt-get update -y && apt-get install -y openssl ca-certificates
 
 WORKDIR /app
 
-# Copiar archivos de dependencias
 COPY package*.json ./
 
-# Instalar todas las dependencias (incluyendo TypeScript y las de desarrollo para poder compilar)
+# Instalamos tsx globalmente para que Prisma pueda leer el config en TypeScript
+RUN npm install -g tsx
 RUN npm install
 
-# Copiar el esquema y generar el cliente de Prisma (con sus tipos de TypeScript)
 COPY prisma ./prisma/
+# Copiamos explícitamente el archivo de configuración TypeScript
+COPY prisma.config.ts ./  
+
 RUN npx prisma generate
 
-# Copiar todo el código fuente (aquí se incluye tu tsconfig.json y archivos .ts)
 COPY . .
-
-# ¡CRUCIAL! Compilar TypeScript a JavaScript antes de empaquetar la imagen
 RUN npm run build
 
 EXPOSE 3000
 
-# Ejecutar las migraciones en Supabase y arrancar el código ya compilado
-CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]
+# Usamos DIRECT_URL (puerto 5432) temporalmente para la migración,
+# y dejamos que npm start corra con DATABASE_URL (puerto 6543)
+CMD ["sh", "-c", "DATABASE_URL=$DIRECT_URL npx prisma migrate deploy && npm start"]
