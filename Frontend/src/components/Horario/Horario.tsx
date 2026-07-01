@@ -25,6 +25,8 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
     lugaresActivos,
     talleresPorCelda,
     talleresSinAsignar,
+    isLoadingTalleres,
+    errorTalleres,
     agregarTaller,
     celdaSeleccionada,
     tallerSeleccionado,
@@ -49,6 +51,22 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
     abrirQrModal,
     cerrarQrModal
   } = useHorario()
+
+  if (isLoadingTalleres) {
+    return (
+      <div className="p-10 text-center text-gray-500">
+        Cargando talleres...
+      </div>
+    )
+  }
+
+  if (errorTalleres) {
+    return (
+      <div className="p-4 bg-red-50 text-red-600 rounded-md border border-red-200 text-center">
+        {errorTalleres}
+      </div>
+    )
+  }
 
   return (
     <section className="w-full">
@@ -140,7 +158,7 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
       {!soloLectura && !modoEdicion && mostrarQrModal && tallerSeleccionado && (
         <ModalQr
           tallerSeleccionado={tallerSeleccionado}
-          bloqueText={tallerSeleccionado.taller.horario}
+          bloqueText={tallerSeleccionado.taller.bloque}
           cerrarQrModal={cerrarQrModal}
         />
       )}

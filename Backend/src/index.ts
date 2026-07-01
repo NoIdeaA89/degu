@@ -7,6 +7,7 @@ import estudianteRoutes from './routes/estudiante.routes';
 import adminRoutes from './routes/admin.routes';
 import { middlewareVerificarAdmin } from './middlewares/auth.middleware';
 import metricaRoutes from './routes/metrica.routes';
+import tallerRoutes from './routes/taller.route';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -32,6 +33,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/estudiantes', estudianteRoutes);
 app.use('/api/admin', middlewareVerificarAdmin, adminRoutes);
 app.use('/api/metricas', metricaRoutes);
+app.use('/api/talleres', tallerRoutes);
 
 app.get('/health', (req, res) => {
   res.status(200).send('OK');

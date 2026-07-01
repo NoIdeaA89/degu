@@ -2,15 +2,37 @@ import { useEffect, useMemo, useState } from "react"
 import { DIAS as dias } from "../../../constants/Horario"
 import { estudiantes } from "../../../data/Estudiantes"
 import { crearAsistenciaInicial, crearIdTaller } from "../../../utils/Asistencia"
-import { cargarBloques, cargarTalleres, guardarTalleres } from "../../../utils/Horariostorage"
+import { cargarBloques, guardarTalleres } from "../../../utils/Horariostorage"
+import { obtenerTalleresUI } from "../../../services/taller.service"
 import type { TallerUI } from "../../../interfaces/Taller"
 import type { CeldaSeleccionada, TallerSeleccionado } from "../../../interfaces/Horario"
 
 
 export default function useHorario() {
-  const [talleresState, setTalleresState] = useState<TallerUI[]>(() => cargarTalleres())
+  const [talleresState, setTalleresState] = useState<TallerUI[]>([])
+  const [isLoadingTalleres, setIsLoadingTalleres] = useState(true)
+  const [errorTalleres, setErrorTalleres] = useState<string | null>(null)
   const [modoEdicion, setModoEdicion] = useState(false)
   const [bloques] = useState<string[]>(() => cargarBloques())
+
+  // Carga los talleres reales desde el backend al montar
+  useEffect(() => {
+    const cargarTalleresDesdeBackend = async () => {
+      setIsLoadingTalleres(true)
+      setErrorTalleres(null)
+
+      try {
+        const talleres = await obtenerTalleresUI()
+        setTalleresState(talleres)
+      } catch (err: any) {
+        setErrorTalleres(err.message || "Error al cargar los talleres")
+      } finally {
+        setIsLoadingTalleres(false)
+      }
+    }
+
+    cargarTalleresDesdeBackend()
+  }, [])
 
   const lugares = useMemo(
     () => Array.from(new Set(talleresState.map((t) => t.lugar))).sort(),
@@ -230,6 +252,8 @@ export default function useHorario() {
     lugaresActivos,
     talleresPorCelda,
     talleresSinAsignar,
+    isLoadingTalleres,
+    errorTalleres,
     celdaSeleccionada,
     tallerSeleccionado,
     asistenciaActual,

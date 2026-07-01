@@ -1,14 +1,16 @@
 import { prisma } from '../lib/prisma';
 
-export const obtenerTalleres = async () => {
-  try {
-    const talleres = await prisma.taller.findMany({
-      include: {
-        profesor: true,
-      },
+export class TallerService {
+  async listar() {
+    return await prisma.taller.findMany({
+      where: { estado: true },
+      orderBy: { id: 'asc' },
     });
-    return talleres;
-  } catch (error: any) {
-    throw new Error(`Error al obtener los talleres: ${error.message}`);
   }
-};
+
+  async obtenerPorId(id: number) {
+    return await prisma.taller.findUnique({
+      where: { id },
+    });
+  }
+}
