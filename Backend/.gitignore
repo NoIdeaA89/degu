@@ -31,3 +31,4 @@ coverage/
 # --- Otros ---
 temp/
 tmp/
+generated/
