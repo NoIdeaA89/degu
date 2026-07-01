@@ -128,17 +128,17 @@ export default function useHorario() {
 
   const abrirTaller = (taller: TallerUI, indice: number) => {
     if (modoEdicion) return
-    const id = crearIdTaller(taller, indice)
-    const asistenciaBase = asistenciaPorTaller[id] ?? crearAsistenciaInicial(estudiantes)
+    const idCompuesto = crearIdTaller(taller, indice)
+    const asistenciaBase = asistenciaPorTaller[idCompuesto] ?? crearAsistenciaInicial(estudiantes)
 
-    setTallerSeleccionado({ id, taller })
+    setTallerSeleccionado({ id: taller.id, taller })
     setAsistenciaPorTaller((prev) => ({
       ...prev,
-      [id]: asistenciaBase
+      [idCompuesto]: asistenciaBase
     }))
     setAsistenciaOriginalPorTaller((prev) => ({
       ...prev,
-      [id]: asistenciaBase
+      [idCompuesto]: asistenciaBase
     }))
   }
 

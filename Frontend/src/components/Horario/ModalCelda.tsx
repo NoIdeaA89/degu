@@ -1,4 +1,5 @@
 import type { CeldaSeleccionada } from "../../interfaces/Horario"
+import type { TallerUI } from "../../interfaces/Taller"
 import { crearIdTaller } from "../../utils/Asistencia"
 
 interface Props {
@@ -6,7 +7,7 @@ interface Props {
   dias: string[]
   bloques: string[]
   cerrarModal: () => void
-  abrirTaller: (taller: any) => void
+  abrirTaller: (taller: TallerUI) => void
 }
 
 export default function ModalCelda({ celdaSeleccionada, dias, bloques, cerrarModal, abrirTaller }: Props) {
@@ -26,7 +27,7 @@ export default function ModalCelda({ celdaSeleccionada, dias, bloques, cerrarMod
           {celdaSeleccionada.items.length > 0 ? (
             <ul className="modal-lista">
               {celdaSeleccionada.items.map((t) => {
-                const id = crearIdTaller(t)
+                const id = crearIdTaller(t, t.id)
                 return (
                   <li key={id}>
                     <button

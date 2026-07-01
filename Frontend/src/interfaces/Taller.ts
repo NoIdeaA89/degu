@@ -4,4 +4,5 @@ export interface TallerUI {
   dia: number;
   bloque: number;
   lugar: string;
+  horario?: number;
 }

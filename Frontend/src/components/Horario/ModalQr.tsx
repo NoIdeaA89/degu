@@ -4,7 +4,7 @@ import GeneradorQR from "../generadorQR"
 
 interface Props {
   tallerSeleccionado: TallerSeleccionado
-  bloqueText: string
+  bloqueText?: number
   cerrarQrModal: () => void
 }
 
@@ -22,7 +22,7 @@ export default function ModalQr({ tallerSeleccionado, bloqueText, cerrarQrModal 
         <div className="flex justify-center p-4">
           <GeneradorQR
             tallerId={Number(tallerSeleccionado.id)}
-            nombreTaller={tallerSeleccionado.taller.titulo}
+            nombreTaller={tallerSeleccionado.taller.nombre}
             bloque={bloqueText}
           />
         </div>

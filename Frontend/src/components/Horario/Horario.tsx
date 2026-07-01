@@ -119,7 +119,7 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
           dias={dias}
           bloques={bloques}
           cerrarModal={cerrarModal}
-          abrirTaller={abrirTaller}
+          abrirTaller={(taller) => abrirTaller(taller, 0)}
         />
       )}
 

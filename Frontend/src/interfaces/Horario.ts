@@ -1,13 +1,13 @@
-import type { Taller } from "./Taller"
+import type { TallerUI } from "./Taller"
 
 export type CeldaSeleccionada = {
   dia: number
   bloque: number
-  items: Taller[]
+  items: TallerUI[]
 }
 
 export type TallerSeleccionado = {
   id: number
-  taller: Taller
+  taller: TallerUI
 }
 
