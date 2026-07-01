@@ -3,12 +3,12 @@ import { DIAS as dias } from "../../../constants/Horario"
 import { estudiantes } from "../../../data/Estudiantes"
 import { crearAsistenciaInicial, crearIdTaller } from "../../../utils/Asistencia"
 import { cargarBloques, cargarTalleres, guardarTalleres } from "../../../utils/Horariostorage"
-import type { Taller } from "../../../interfaces/Taller"
+import type { TallerUI } from "../../../interfaces/Taller"
 import type { CeldaSeleccionada, TallerSeleccionado } from "../../../interfaces/Horario"
 
 
 export default function useHorario() {
-  const [talleresState, setTalleresState] = useState<Taller[]>(() => cargarTalleres())
+  const [talleresState, setTalleresState] = useState<TallerUI[]>(() => cargarTalleres())
   const [modoEdicion, setModoEdicion] = useState(false)
   const [bloques] = useState<string[]>(() => cargarBloques())
 
@@ -45,7 +45,7 @@ export default function useHorario() {
   )
 
   const talleresPorCelda = useMemo(() => {
-    const map = new Map<string, Taller[]>()
+    const map = new Map<string, TallerUI[]>()
 
     for (const taller of talleresFiltrados) {
       const key = `${taller.bloque}-${taller.dia}`
@@ -72,17 +72,17 @@ export default function useHorario() {
     if (!tituloLimpio || !lugarLimpio) return
 
     setTalleresState((prev) => {
-      const actualizado = [...prev, { dia: 0, bloque: 0, titulo: tituloLimpio, lugar: lugarLimpio }]
+      const actualizado = [...prev, { id: Date.now(), nombre: "Taller de Programación", dia: 0, bloque: 0, titulo: tituloLimpio, lugar: lugarLimpio }]
       guardarTalleres(actualizado)
       return actualizado
     })
   }
-  const desasignarTaller = (origen: Taller) => {
+  const desasignarTaller = (origen: TallerUI) => {
     setTalleresState((prev) => {
       const actualizado = prev.map((t) =>
         t.dia === origen.dia &&
         t.bloque === origen.bloque &&
-        t.titulo === origen.titulo &&
+        t.nombre === origen.nombre &&
         t.lugar === origen.lugar
           ? { ...t, dia: 0, bloque: 0 }
           : t
@@ -91,12 +91,12 @@ export default function useHorario() {
       return actualizado
     })
   }
-  const moverTaller = (origen: Taller, nuevoDia: number, nuevoBloque: number) => {
+  const moverTaller = (origen: TallerUI, nuevoDia: number, nuevoBloque: number) => {
     setTalleresState((prev) => {
       const actualizado = prev.map((t) =>
         t.dia === origen.dia &&
         t.bloque === origen.bloque &&
-        t.titulo === origen.titulo &&
+        t.nombre === origen.nombre &&
         t.lugar === origen.lugar
           ? { ...t, dia: nuevoDia, bloque: nuevoBloque }
           : t
@@ -126,19 +126,19 @@ export default function useHorario() {
   const abrirQrModal = () => setMostrarQrModal(true)
   const cerrarQrModal = () => setMostrarQrModal(false)
 
-  const abrirTaller = (taller: Taller, indice: number) => {
+  const abrirTaller = (taller: TallerUI, indice: number) => {
     if (modoEdicion) return
-    const id = crearIdTaller(taller, indice)
-    const asistenciaBase = asistenciaPorTaller[id] ?? crearAsistenciaInicial(estudiantes)
+    const idCompuesto = crearIdTaller(taller, indice)
+    const asistenciaBase = asistenciaPorTaller[idCompuesto] ?? crearAsistenciaInicial(estudiantes)
 
-    setTallerSeleccionado({ id, taller })
+    setTallerSeleccionado({ id: taller.id, taller })
     setAsistenciaPorTaller((prev) => ({
       ...prev,
-      [id]: asistenciaBase
+      [idCompuesto]: asistenciaBase
     }))
     setAsistenciaOriginalPorTaller((prev) => ({
       ...prev,
-      [id]: asistenciaBase
+      [idCompuesto]: asistenciaBase
     }))
   }
 

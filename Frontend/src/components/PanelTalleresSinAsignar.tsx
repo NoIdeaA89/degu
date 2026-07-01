@@ -1,11 +1,11 @@
 import { useState } from "react"
 import type { ReactElement } from "react"
-import type { Taller } from "../interfaces/Taller"
+import type { TallerUI } from "../interfaces/Taller"
 
 interface Props {
-  talleres: Taller[]
+  talleres: TallerUI[]
   onAbrirModal: () => void
-  onDesasignar: (origen: Taller) => void
+  onDesasignar: (origen: TallerUI) => void
 }
 
 export default function PanelTalleresSinAsignar({ talleres, onAbrirModal, onDesasignar }: Props): ReactElement {
@@ -26,7 +26,7 @@ export default function PanelTalleresSinAsignar({ talleres, onAbrirModal, onDesa
         const data = event.dataTransfer.getData("text/plain")
         if (!data) return
 
-        const origen: Taller = JSON.parse(data)
+        const origen: TallerUI = JSON.parse(data)
         if (origen.dia === 0 && origen.bloque === 0) return
 
         onDesasignar(origen)
@@ -50,7 +50,7 @@ export default function PanelTalleresSinAsignar({ talleres, onAbrirModal, onDesa
 
         {talleres.map((t, idx) => (
           <div
-            key={`${t.titulo}-${t.lugar}-${idx}`}
+            key={`${t.nombre}-${t.lugar}-${idx}`}
             className="panel-card"
             draggable
             onDragStart={(event) => {
@@ -59,7 +59,7 @@ export default function PanelTalleresSinAsignar({ talleres, onAbrirModal, onDesa
             }}
             style={{ cursor: "grab" }}
           >
-            <div className="panel-card-titulo">{t.titulo}</div>
+            <div className="panel-card-titulo">{t.nombre}</div>
             <div className="panel-card-meta">{t.lugar}</div>
           </div>
         ))}

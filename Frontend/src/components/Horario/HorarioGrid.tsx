@@ -1,13 +1,13 @@
 import { Fragment } from "react"
-import type { Taller } from "../../interfaces/Taller"
+import type { TallerUI } from "../../interfaces/Taller"
 
 interface Props {
   dias: string[]
   bloques: string[]
-  talleresPorCelda: Map<string, Taller[]>
+  talleresPorCelda: Map<string, TallerUI[]>
   abrirCelda: (dia: number, bloque: number) => void
   modoEdicion?: boolean
-  moverTaller?: (origen: Taller, nuevoDia: number, nuevoBloque: number) => void
+  moverTaller?: (origen: TallerUI, nuevoDia: number, nuevoBloque: number) => void
 }
 
 export default function HorarioGrid({
@@ -67,7 +67,7 @@ export default function HorarioGrid({
                   const data = event.dataTransfer.getData("text/plain")
                   if (!data) return
 
-                  const origen: Taller = JSON.parse(data)
+                  const origen: TallerUI = JSON.parse(data)
                   if (origen.dia === diaNum && origen.bloque === bloqueNum) return
 
                   moverTaller(origen, diaNum, bloqueNum)
@@ -76,7 +76,7 @@ export default function HorarioGrid({
                 <div className="contenido-lista">
                   {items.map((t, idx) => (
                     <span
-                      key={`${t.titulo}-${idx}`}
+                      key={`${t.nombre}-${idx}`}
                       className="contenido-item"
                       draggable={modoEdicion}
                       onDragStart={(event) => {
@@ -85,7 +85,7 @@ export default function HorarioGrid({
                         event.dataTransfer.effectAllowed = "move"
                       }}
                     >
-                      {t.titulo}
+                      {t.nombre}
                     </span>
                   ))}
                 </div>

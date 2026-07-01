@@ -4,7 +4,7 @@ import { QRCodeSVG } from 'qrcode.react';
 interface GeneradorQRProps {
   tallerId: number;
   nombreTaller: string;
-  bloque: number;
+  bloque?: number;
 }
 
 export default function GeneradorQR({ tallerId, nombreTaller, bloque }: GeneradorQRProps) {

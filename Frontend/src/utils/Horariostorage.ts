@@ -1,12 +1,12 @@
 import { talleres as talleresIniciales } from "../data/Taller"
-import type { Taller } from "../interfaces/Taller"
+import type { TallerUI } from "../interfaces/Taller"
 import { BLOQUES as bloquesIniciales } from "../constants/Horario"
 
 const BLOQUES_STORAGE_KEY = "horario_bloques"
 
 const STORAGE_KEY = "horario_talleres"
 
-export function cargarTalleres(): Taller[] {
+export function cargarTalleres(): TallerUI[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (!raw) return [...talleresIniciales]
@@ -14,13 +14,13 @@ export function cargarTalleres(): Taller[] {
     const parsed = JSON.parse(raw)
     if (!Array.isArray(parsed)) return [...talleresIniciales]
 
-    return parsed as Taller[]
+    return parsed as TallerUI[]
   } catch {
     return [...talleresIniciales]
   }
 }
 
-export function guardarTalleres(talleres: Taller[]): void {
+export function guardarTalleres(talleres: TallerUI[]): void {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(talleres))
   } catch {
