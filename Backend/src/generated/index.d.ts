@@ -52,11 +52,28 @@ export namespace $Enums {
 
 export type RolUsuario = (typeof RolUsuario)[keyof typeof RolUsuario]
 
+
+export const BloqueHorario: {
+  A: 'A',
+  B: 'B',
+  C: 'C',
+  C2: 'C2',
+  D: 'D',
+  E: 'E',
+  F: 'F'
+};
+
+export type BloqueHorario = (typeof BloqueHorario)[keyof typeof BloqueHorario]
+
 }
 
 export type RolUsuario = $Enums.RolUsuario
 
 export const RolUsuario: typeof $Enums.RolUsuario
+
+export type BloqueHorario = $Enums.BloqueHorario
+
+export const BloqueHorario: typeof $Enums.BloqueHorario
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1249,15 +1266,15 @@ export namespace Prisma {
    */
 
   export type UsuarioCountOutputType = {
-    asistencias: number
-    inscripciones: number
     talleresDictados: number
+    inscripciones: number
+    asistencias: number
   }
 
   export type UsuarioCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    asistencias?: boolean | UsuarioCountOutputTypeCountAsistenciasArgs
-    inscripciones?: boolean | UsuarioCountOutputTypeCountInscripcionesArgs
     talleresDictados?: boolean | UsuarioCountOutputTypeCountTalleresDictadosArgs
+    inscripciones?: boolean | UsuarioCountOutputTypeCountInscripcionesArgs
+    asistencias?: boolean | UsuarioCountOutputTypeCountAsistenciasArgs
   }
 
   // Custom InputTypes
@@ -1274,8 +1291,8 @@ export namespace Prisma {
   /**
    * UsuarioCountOutputType without action
    */
-  export type UsuarioCountOutputTypeCountAsistenciasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AsistenciaWhereInput
+  export type UsuarioCountOutputTypeCountTalleresDictadosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TallerWhereInput
   }
 
   /**
@@ -1288,8 +1305,8 @@ export namespace Prisma {
   /**
    * UsuarioCountOutputType without action
    */
-  export type UsuarioCountOutputTypeCountTalleresDictadosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TallerWhereInput
+  export type UsuarioCountOutputTypeCountAsistenciasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AsistenciaWhereInput
   }
 
 
@@ -1582,9 +1599,9 @@ export namespace Prisma {
     correo?: boolean
     password?: boolean
     rol?: boolean
-    asistencias?: boolean | Usuario$asistenciasArgs<ExtArgs>
-    inscripciones?: boolean | Usuario$inscripcionesArgs<ExtArgs>
     talleresDictados?: boolean | Usuario$talleresDictadosArgs<ExtArgs>
+    inscripciones?: boolean | Usuario$inscripcionesArgs<ExtArgs>
+    asistencias?: boolean | Usuario$asistenciasArgs<ExtArgs>
     _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuario"]>
 
@@ -1620,9 +1637,9 @@ export namespace Prisma {
 
   export type UsuarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "apellido" | "rut" | "correo" | "password" | "rol", ExtArgs["result"]["usuario"]>
   export type UsuarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    asistencias?: boolean | Usuario$asistenciasArgs<ExtArgs>
-    inscripciones?: boolean | Usuario$inscripcionesArgs<ExtArgs>
     talleresDictados?: boolean | Usuario$talleresDictadosArgs<ExtArgs>
+    inscripciones?: boolean | Usuario$inscripcionesArgs<ExtArgs>
+    asistencias?: boolean | Usuario$asistenciasArgs<ExtArgs>
     _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UsuarioIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1631,9 +1648,9 @@ export namespace Prisma {
   export type $UsuarioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Usuario"
     objects: {
-      asistencias: Prisma.$AsistenciaPayload<ExtArgs>[]
-      inscripciones: Prisma.$InscripcionPayload<ExtArgs>[]
       talleresDictados: Prisma.$TallerPayload<ExtArgs>[]
+      inscripciones: Prisma.$InscripcionPayload<ExtArgs>[]
+      asistencias: Prisma.$AsistenciaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2037,9 +2054,9 @@ export namespace Prisma {
    */
   export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    asistencias<T extends Usuario$asistenciasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$asistenciasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AsistenciaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    inscripciones<T extends Usuario$inscripcionesArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$inscripcionesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InscripcionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     talleresDictados<T extends Usuario$talleresDictadosArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$talleresDictadosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TallerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    inscripciones<T extends Usuario$inscripcionesArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$inscripcionesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InscripcionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    asistencias<T extends Usuario$asistenciasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$asistenciasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AsistenciaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2469,27 +2486,27 @@ export namespace Prisma {
   }
 
   /**
-   * Usuario.asistencias
+   * Usuario.talleresDictados
    */
-  export type Usuario$asistenciasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Usuario$talleresDictadosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Asistencia
+     * Select specific fields to fetch from the Taller
      */
-    select?: AsistenciaSelect<ExtArgs> | null
+    select?: TallerSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Asistencia
+     * Omit specific fields from the Taller
      */
-    omit?: AsistenciaOmit<ExtArgs> | null
+    omit?: TallerOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AsistenciaInclude<ExtArgs> | null
-    where?: AsistenciaWhereInput
-    orderBy?: AsistenciaOrderByWithRelationInput | AsistenciaOrderByWithRelationInput[]
-    cursor?: AsistenciaWhereUniqueInput
+    include?: TallerInclude<ExtArgs> | null
+    where?: TallerWhereInput
+    orderBy?: TallerOrderByWithRelationInput | TallerOrderByWithRelationInput[]
+    cursor?: TallerWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: AsistenciaScalarFieldEnum | AsistenciaScalarFieldEnum[]
+    distinct?: TallerScalarFieldEnum | TallerScalarFieldEnum[]
   }
 
   /**
@@ -2517,27 +2534,27 @@ export namespace Prisma {
   }
 
   /**
-   * Usuario.talleresDictados
+   * Usuario.asistencias
    */
-  export type Usuario$talleresDictadosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Usuario$asistenciasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Taller
+     * Select specific fields to fetch from the Asistencia
      */
-    select?: TallerSelect<ExtArgs> | null
+    select?: AsistenciaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Taller
+     * Omit specific fields from the Asistencia
      */
-    omit?: TallerOmit<ExtArgs> | null
+    omit?: AsistenciaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TallerInclude<ExtArgs> | null
-    where?: TallerWhereInput
-    orderBy?: TallerOrderByWithRelationInput | TallerOrderByWithRelationInput[]
-    cursor?: TallerWhereUniqueInput
+    include?: AsistenciaInclude<ExtArgs> | null
+    where?: AsistenciaWhereInput
+    orderBy?: AsistenciaOrderByWithRelationInput | AsistenciaOrderByWithRelationInput[]
+    cursor?: AsistenciaWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TallerScalarFieldEnum | TallerScalarFieldEnum[]
+    distinct?: AsistenciaScalarFieldEnum | AsistenciaScalarFieldEnum[]
   }
 
   /**
@@ -2574,14 +2591,12 @@ export namespace Prisma {
   export type TallerAvgAggregateOutputType = {
     id: number | null
     dia: number | null
-    bloque: number | null
     profesorId: number | null
   }
 
   export type TallerSumAggregateOutputType = {
     id: number | null
     dia: number | null
-    bloque: number | null
     profesorId: number | null
   }
 
@@ -2594,7 +2609,7 @@ export namespace Prisma {
     estado: boolean | null
     lugar: string | null
     dia: number | null
-    bloque: number | null
+    bloque: $Enums.BloqueHorario | null
     profesorId: number | null
   }
 
@@ -2607,7 +2622,7 @@ export namespace Prisma {
     estado: boolean | null
     lugar: string | null
     dia: number | null
-    bloque: number | null
+    bloque: $Enums.BloqueHorario | null
     profesorId: number | null
   }
 
@@ -2629,14 +2644,12 @@ export namespace Prisma {
   export type TallerAvgAggregateInputType = {
     id?: true
     dia?: true
-    bloque?: true
     profesorId?: true
   }
 
   export type TallerSumAggregateInputType = {
     id?: true
     dia?: true
-    bloque?: true
     profesorId?: true
   }
 
@@ -2775,7 +2788,7 @@ export namespace Prisma {
     estado: boolean
     lugar: string
     dia: number
-    bloque: number
+    bloque: $Enums.BloqueHorario
     profesorId: number
     _count: TallerCountAggregateOutputType | null
     _avg: TallerAvgAggregateOutputType | null
@@ -2809,9 +2822,9 @@ export namespace Prisma {
     dia?: boolean
     bloque?: boolean
     profesorId?: boolean
+    profesor?: boolean | UsuarioDefaultArgs<ExtArgs>
     inscripciones?: boolean | Taller$inscripcionesArgs<ExtArgs>
     sesiones?: boolean | Taller$sesionesArgs<ExtArgs>
-    profesor?: boolean | UsuarioDefaultArgs<ExtArgs>
     _count?: boolean | TallerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taller"]>
 
@@ -2858,9 +2871,9 @@ export namespace Prisma {
 
   export type TallerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "descripcion" | "horario" | "semestre" | "estado" | "lugar" | "dia" | "bloque" | "profesorId", ExtArgs["result"]["taller"]>
   export type TallerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    profesor?: boolean | UsuarioDefaultArgs<ExtArgs>
     inscripciones?: boolean | Taller$inscripcionesArgs<ExtArgs>
     sesiones?: boolean | Taller$sesionesArgs<ExtArgs>
-    profesor?: boolean | UsuarioDefaultArgs<ExtArgs>
     _count?: boolean | TallerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TallerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2873,9 +2886,9 @@ export namespace Prisma {
   export type $TallerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Taller"
     objects: {
+      profesor: Prisma.$UsuarioPayload<ExtArgs>
       inscripciones: Prisma.$InscripcionPayload<ExtArgs>[]
       sesiones: Prisma.$SesionPayload<ExtArgs>[]
-      profesor: Prisma.$UsuarioPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2886,7 +2899,7 @@ export namespace Prisma {
       estado: boolean
       lugar: string
       dia: number
-      bloque: number
+      bloque: $Enums.BloqueHorario
       profesorId: number
     }, ExtArgs["result"]["taller"]>
     composites: {}
@@ -3282,9 +3295,9 @@ export namespace Prisma {
    */
   export interface Prisma__TallerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    profesor<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     inscripciones<T extends Taller$inscripcionesArgs<ExtArgs> = {}>(args?: Subset<T, Taller$inscripcionesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InscripcionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sesiones<T extends Taller$sesionesArgs<ExtArgs> = {}>(args?: Subset<T, Taller$sesionesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SesionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    profesor<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3322,7 +3335,7 @@ export namespace Prisma {
     readonly estado: FieldRef<"Taller", 'Boolean'>
     readonly lugar: FieldRef<"Taller", 'String'>
     readonly dia: FieldRef<"Taller", 'Int'>
-    readonly bloque: FieldRef<"Taller", 'Int'>
+    readonly bloque: FieldRef<"Taller", 'BloqueHorario'>
     readonly profesorId: FieldRef<"Taller", 'Int'>
   }
     
@@ -5105,8 +5118,8 @@ export namespace Prisma {
     bloque?: boolean
     qrToken?: boolean
     validoHasta?: boolean
-    asistencias?: boolean | Sesion$asistenciasArgs<ExtArgs>
     taller?: boolean | TallerDefaultArgs<ExtArgs>
+    asistencias?: boolean | Sesion$asistenciasArgs<ExtArgs>
     _count?: boolean | SesionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sesion"]>
 
@@ -5141,8 +5154,8 @@ export namespace Prisma {
 
   export type SesionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tallerId" | "fecha" | "bloque" | "qrToken" | "validoHasta", ExtArgs["result"]["sesion"]>
   export type SesionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    asistencias?: boolean | Sesion$asistenciasArgs<ExtArgs>
     taller?: boolean | TallerDefaultArgs<ExtArgs>
+    asistencias?: boolean | Sesion$asistenciasArgs<ExtArgs>
     _count?: boolean | SesionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SesionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5155,8 +5168,8 @@ export namespace Prisma {
   export type $SesionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Sesion"
     objects: {
-      asistencias: Prisma.$AsistenciaPayload<ExtArgs>[]
       taller: Prisma.$TallerPayload<ExtArgs>
+      asistencias: Prisma.$AsistenciaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -5559,8 +5572,8 @@ export namespace Prisma {
    */
   export interface Prisma__SesionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    asistencias<T extends Sesion$asistenciasArgs<ExtArgs> = {}>(args?: Subset<T, Sesion$asistenciasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AsistenciaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     taller<T extends TallerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TallerDefaultArgs<ExtArgs>>): Prisma__TallerClient<$Result.GetResult<Prisma.$TallerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    asistencias<T extends Sesion$asistenciasArgs<ExtArgs> = {}>(args?: Subset<T, Sesion$asistenciasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AsistenciaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7339,6 +7352,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'BloqueHorario'
+   */
+  export type EnumBloqueHorarioFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BloqueHorario'>
+    
+
+
+  /**
+   * Reference to a field of type 'BloqueHorario[]'
+   */
+  export type ListEnumBloqueHorarioFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BloqueHorario[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -7380,9 +7407,9 @@ export namespace Prisma {
     correo?: StringFilter<"Usuario"> | string
     password?: StringFilter<"Usuario"> | string
     rol?: EnumRolUsuarioFilter<"Usuario"> | $Enums.RolUsuario
-    asistencias?: AsistenciaListRelationFilter
-    inscripciones?: InscripcionListRelationFilter
     talleresDictados?: TallerListRelationFilter
+    inscripciones?: InscripcionListRelationFilter
+    asistencias?: AsistenciaListRelationFilter
   }
 
   export type UsuarioOrderByWithRelationInput = {
@@ -7393,9 +7420,9 @@ export namespace Prisma {
     correo?: SortOrder
     password?: SortOrder
     rol?: SortOrder
-    asistencias?: AsistenciaOrderByRelationAggregateInput
-    inscripciones?: InscripcionOrderByRelationAggregateInput
     talleresDictados?: TallerOrderByRelationAggregateInput
+    inscripciones?: InscripcionOrderByRelationAggregateInput
+    asistencias?: AsistenciaOrderByRelationAggregateInput
   }
 
   export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
@@ -7409,9 +7436,9 @@ export namespace Prisma {
     apellido?: StringFilter<"Usuario"> | string
     password?: StringFilter<"Usuario"> | string
     rol?: EnumRolUsuarioFilter<"Usuario"> | $Enums.RolUsuario
-    asistencias?: AsistenciaListRelationFilter
-    inscripciones?: InscripcionListRelationFilter
     talleresDictados?: TallerListRelationFilter
+    inscripciones?: InscripcionListRelationFilter
+    asistencias?: AsistenciaListRelationFilter
   }, "id" | "rut" | "correo">
 
   export type UsuarioOrderByWithAggregationInput = {
@@ -7454,11 +7481,11 @@ export namespace Prisma {
     estado?: BoolFilter<"Taller"> | boolean
     lugar?: StringFilter<"Taller"> | string
     dia?: IntFilter<"Taller"> | number
-    bloque?: IntFilter<"Taller"> | number
+    bloque?: EnumBloqueHorarioFilter<"Taller"> | $Enums.BloqueHorario
     profesorId?: IntFilter<"Taller"> | number
+    profesor?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     inscripciones?: InscripcionListRelationFilter
     sesiones?: SesionListRelationFilter
-    profesor?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
   }
 
   export type TallerOrderByWithRelationInput = {
@@ -7472,9 +7499,9 @@ export namespace Prisma {
     dia?: SortOrder
     bloque?: SortOrder
     profesorId?: SortOrder
+    profesor?: UsuarioOrderByWithRelationInput
     inscripciones?: InscripcionOrderByRelationAggregateInput
     sesiones?: SesionOrderByRelationAggregateInput
-    profesor?: UsuarioOrderByWithRelationInput
   }
 
   export type TallerWhereUniqueInput = Prisma.AtLeast<{
@@ -7489,11 +7516,11 @@ export namespace Prisma {
     estado?: BoolFilter<"Taller"> | boolean
     lugar?: StringFilter<"Taller"> | string
     dia?: IntFilter<"Taller"> | number
-    bloque?: IntFilter<"Taller"> | number
+    bloque?: EnumBloqueHorarioFilter<"Taller"> | $Enums.BloqueHorario
     profesorId?: IntFilter<"Taller"> | number
+    profesor?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     inscripciones?: InscripcionListRelationFilter
     sesiones?: SesionListRelationFilter
-    profesor?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
   }, "id">
 
   export type TallerOrderByWithAggregationInput = {
@@ -7526,7 +7553,7 @@ export namespace Prisma {
     estado?: BoolWithAggregatesFilter<"Taller"> | boolean
     lugar?: StringWithAggregatesFilter<"Taller"> | string
     dia?: IntWithAggregatesFilter<"Taller"> | number
-    bloque?: IntWithAggregatesFilter<"Taller"> | number
+    bloque?: EnumBloqueHorarioWithAggregatesFilter<"Taller"> | $Enums.BloqueHorario
     profesorId?: IntWithAggregatesFilter<"Taller"> | number
   }
 
@@ -7596,8 +7623,8 @@ export namespace Prisma {
     bloque?: IntFilter<"Sesion"> | number
     qrToken?: StringFilter<"Sesion"> | string
     validoHasta?: DateTimeFilter<"Sesion"> | Date | string
-    asistencias?: AsistenciaListRelationFilter
     taller?: XOR<TallerScalarRelationFilter, TallerWhereInput>
+    asistencias?: AsistenciaListRelationFilter
   }
 
   export type SesionOrderByWithRelationInput = {
@@ -7607,8 +7634,8 @@ export namespace Prisma {
     bloque?: SortOrder
     qrToken?: SortOrder
     validoHasta?: SortOrder
-    asistencias?: AsistenciaOrderByRelationAggregateInput
     taller?: TallerOrderByWithRelationInput
+    asistencias?: AsistenciaOrderByRelationAggregateInput
   }
 
   export type SesionWhereUniqueInput = Prisma.AtLeast<{
@@ -7621,8 +7648,8 @@ export namespace Prisma {
     fecha?: DateTimeFilter<"Sesion"> | Date | string
     bloque?: IntFilter<"Sesion"> | number
     validoHasta?: DateTimeFilter<"Sesion"> | Date | string
-    asistencias?: AsistenciaListRelationFilter
     taller?: XOR<TallerScalarRelationFilter, TallerWhereInput>
+    asistencias?: AsistenciaListRelationFilter
   }, "id" | "qrToken">
 
   export type SesionOrderByWithAggregationInput = {
@@ -7729,9 +7756,9 @@ export namespace Prisma {
     correo: string
     password: string
     rol: $Enums.RolUsuario
-    asistencias?: AsistenciaCreateNestedManyWithoutEstudianteInput
-    inscripciones?: InscripcionCreateNestedManyWithoutEstudianteInput
     talleresDictados?: TallerCreateNestedManyWithoutProfesorInput
+    inscripciones?: InscripcionCreateNestedManyWithoutEstudianteInput
+    asistencias?: AsistenciaCreateNestedManyWithoutEstudianteInput
   }
 
   export type UsuarioUncheckedCreateInput = {
@@ -7742,9 +7769,9 @@ export namespace Prisma {
     correo: string
     password: string
     rol: $Enums.RolUsuario
-    asistencias?: AsistenciaUncheckedCreateNestedManyWithoutEstudianteInput
-    inscripciones?: InscripcionUncheckedCreateNestedManyWithoutEstudianteInput
     talleresDictados?: TallerUncheckedCreateNestedManyWithoutProfesorInput
+    inscripciones?: InscripcionUncheckedCreateNestedManyWithoutEstudianteInput
+    asistencias?: AsistenciaUncheckedCreateNestedManyWithoutEstudianteInput
   }
 
   export type UsuarioUpdateInput = {
@@ -7754,9 +7781,9 @@ export namespace Prisma {
     correo?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     rol?: EnumRolUsuarioFieldUpdateOperationsInput | $Enums.RolUsuario
-    asistencias?: AsistenciaUpdateManyWithoutEstudianteNestedInput
-    inscripciones?: InscripcionUpdateManyWithoutEstudianteNestedInput
     talleresDictados?: TallerUpdateManyWithoutProfesorNestedInput
+    inscripciones?: InscripcionUpdateManyWithoutEstudianteNestedInput
+    asistencias?: AsistenciaUpdateManyWithoutEstudianteNestedInput
   }
 
   export type UsuarioUncheckedUpdateInput = {
@@ -7767,9 +7794,9 @@ export namespace Prisma {
     correo?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     rol?: EnumRolUsuarioFieldUpdateOperationsInput | $Enums.RolUsuario
-    asistencias?: AsistenciaUncheckedUpdateManyWithoutEstudianteNestedInput
-    inscripciones?: InscripcionUncheckedUpdateManyWithoutEstudianteNestedInput
     talleresDictados?: TallerUncheckedUpdateManyWithoutProfesorNestedInput
+    inscripciones?: InscripcionUncheckedUpdateManyWithoutEstudianteNestedInput
+    asistencias?: AsistenciaUncheckedUpdateManyWithoutEstudianteNestedInput
   }
 
   export type UsuarioCreateManyInput = {
@@ -7809,11 +7836,10 @@ export namespace Prisma {
     estado?: boolean
     lugar?: string
     dia?: number
-    bloque?: number
+    bloque?: $Enums.BloqueHorario
     profesor: UsuarioCreateNestedOneWithoutTalleresDictadosInput
     inscripciones?: InscripcionCreateNestedManyWithoutTallerInput
     sesiones?: SesionCreateNestedManyWithoutTallerInput
-    profesor: UsuarioCreateNestedOneWithoutTalleresDictadosInput
   }
 
   export type TallerUncheckedCreateInput = {
@@ -7825,7 +7851,7 @@ export namespace Prisma {
     estado?: boolean
     lugar?: string
     dia?: number
-    bloque?: number
+    bloque?: $Enums.BloqueHorario
     profesorId: number
     inscripciones?: InscripcionUncheckedCreateNestedManyWithoutTallerInput
     sesiones?: SesionUncheckedCreateNestedManyWithoutTallerInput
@@ -7839,11 +7865,10 @@ export namespace Prisma {
     estado?: BoolFieldUpdateOperationsInput | boolean
     lugar?: StringFieldUpdateOperationsInput | string
     dia?: IntFieldUpdateOperationsInput | number
-    bloque?: IntFieldUpdateOperationsInput | number
+    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
     profesor?: UsuarioUpdateOneRequiredWithoutTalleresDictadosNestedInput
     inscripciones?: InscripcionUpdateManyWithoutTallerNestedInput
     sesiones?: SesionUpdateManyWithoutTallerNestedInput
-    profesor?: UsuarioUpdateOneRequiredWithoutTalleresDictadosNestedInput
   }
 
   export type TallerUncheckedUpdateInput = {
@@ -7855,7 +7880,7 @@ export namespace Prisma {
     estado?: BoolFieldUpdateOperationsInput | boolean
     lugar?: StringFieldUpdateOperationsInput | string
     dia?: IntFieldUpdateOperationsInput | number
-    bloque?: IntFieldUpdateOperationsInput | number
+    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
     profesorId?: IntFieldUpdateOperationsInput | number
     inscripciones?: InscripcionUncheckedUpdateManyWithoutTallerNestedInput
     sesiones?: SesionUncheckedUpdateManyWithoutTallerNestedInput
@@ -7870,7 +7895,7 @@ export namespace Prisma {
     estado?: boolean
     lugar?: string
     dia?: number
-    bloque?: number
+    bloque?: $Enums.BloqueHorario
     profesorId: number
   }
 
@@ -7882,7 +7907,7 @@ export namespace Prisma {
     estado?: BoolFieldUpdateOperationsInput | boolean
     lugar?: StringFieldUpdateOperationsInput | string
     dia?: IntFieldUpdateOperationsInput | number
-    bloque?: IntFieldUpdateOperationsInput | number
+    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
   }
 
   export type TallerUncheckedUpdateManyInput = {
@@ -7894,7 +7919,7 @@ export namespace Prisma {
     estado?: BoolFieldUpdateOperationsInput | boolean
     lugar?: StringFieldUpdateOperationsInput | string
     dia?: IntFieldUpdateOperationsInput | number
-    bloque?: IntFieldUpdateOperationsInput | number
+    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
     profesorId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -7947,8 +7972,8 @@ export namespace Prisma {
     bloque: number
     qrToken: string
     validoHasta: Date | string
-    asistencias?: AsistenciaCreateNestedManyWithoutSesionInput
     taller: TallerCreateNestedOneWithoutSesionesInput
+    asistencias?: AsistenciaCreateNestedManyWithoutSesionInput
   }
 
   export type SesionUncheckedCreateInput = {
@@ -7966,8 +7991,8 @@ export namespace Prisma {
     bloque?: IntFieldUpdateOperationsInput | number
     qrToken?: StringFieldUpdateOperationsInput | string
     validoHasta?: DateTimeFieldUpdateOperationsInput | Date | string
-    asistencias?: AsistenciaUpdateManyWithoutSesionNestedInput
     taller?: TallerUpdateOneRequiredWithoutSesionesNestedInput
+    asistencias?: AsistenciaUpdateManyWithoutSesionNestedInput
   }
 
   export type SesionUncheckedUpdateInput = {
@@ -8103,10 +8128,10 @@ export namespace Prisma {
     not?: NestedEnumRolUsuarioFilter<$PrismaModel> | $Enums.RolUsuario
   }
 
-  export type AsistenciaListRelationFilter = {
-    every?: AsistenciaWhereInput
-    some?: AsistenciaWhereInput
-    none?: AsistenciaWhereInput
+  export type TallerListRelationFilter = {
+    every?: TallerWhereInput
+    some?: TallerWhereInput
+    none?: TallerWhereInput
   }
 
   export type InscripcionListRelationFilter = {
@@ -8115,13 +8140,13 @@ export namespace Prisma {
     none?: InscripcionWhereInput
   }
 
-  export type TallerListRelationFilter = {
-    every?: TallerWhereInput
-    some?: TallerWhereInput
-    none?: TallerWhereInput
+  export type AsistenciaListRelationFilter = {
+    every?: AsistenciaWhereInput
+    some?: AsistenciaWhereInput
+    none?: AsistenciaWhereInput
   }
 
-  export type AsistenciaOrderByRelationAggregateInput = {
+  export type TallerOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -8129,7 +8154,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type TallerOrderByRelationAggregateInput = {
+  export type AsistenciaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -8220,15 +8245,22 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type SesionListRelationFilter = {
-    every?: SesionWhereInput
-    some?: SesionWhereInput
-    none?: SesionWhereInput
+  export type EnumBloqueHorarioFilter<$PrismaModel = never> = {
+    equals?: $Enums.BloqueHorario | EnumBloqueHorarioFieldRefInput<$PrismaModel>
+    in?: $Enums.BloqueHorario[] | ListEnumBloqueHorarioFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BloqueHorario[] | ListEnumBloqueHorarioFieldRefInput<$PrismaModel>
+    not?: NestedEnumBloqueHorarioFilter<$PrismaModel> | $Enums.BloqueHorario
   }
 
   export type UsuarioScalarRelationFilter = {
     is?: UsuarioWhereInput
     isNot?: UsuarioWhereInput
+  }
+
+  export type SesionListRelationFilter = {
+    every?: SesionWhereInput
+    some?: SesionWhereInput
+    none?: SesionWhereInput
   }
 
   export type SesionOrderByRelationAggregateInput = {
@@ -8251,7 +8283,6 @@ export namespace Prisma {
   export type TallerAvgOrderByAggregateInput = {
     id?: SortOrder
     dia?: SortOrder
-    bloque?: SortOrder
     profesorId?: SortOrder
   }
 
@@ -8284,7 +8315,6 @@ export namespace Prisma {
   export type TallerSumOrderByAggregateInput = {
     id?: SortOrder
     dia?: SortOrder
-    bloque?: SortOrder
     profesorId?: SortOrder
   }
 
@@ -8294,6 +8324,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type EnumBloqueHorarioWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BloqueHorario | EnumBloqueHorarioFieldRefInput<$PrismaModel>
+    in?: $Enums.BloqueHorario[] | ListEnumBloqueHorarioFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BloqueHorario[] | ListEnumBloqueHorarioFieldRefInput<$PrismaModel>
+    not?: NestedEnumBloqueHorarioWithAggregatesFilter<$PrismaModel> | $Enums.BloqueHorario
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBloqueHorarioFilter<$PrismaModel>
+    _max?: NestedEnumBloqueHorarioFilter<$PrismaModel>
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -8522,11 +8562,11 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type AsistenciaCreateNestedManyWithoutEstudianteInput = {
-    create?: XOR<AsistenciaCreateWithoutEstudianteInput, AsistenciaUncheckedCreateWithoutEstudianteInput> | AsistenciaCreateWithoutEstudianteInput[] | AsistenciaUncheckedCreateWithoutEstudianteInput[]
-    connectOrCreate?: AsistenciaCreateOrConnectWithoutEstudianteInput | AsistenciaCreateOrConnectWithoutEstudianteInput[]
-    createMany?: AsistenciaCreateManyEstudianteInputEnvelope
-    connect?: AsistenciaWhereUniqueInput | AsistenciaWhereUniqueInput[]
+  export type TallerCreateNestedManyWithoutProfesorInput = {
+    create?: XOR<TallerCreateWithoutProfesorInput, TallerUncheckedCreateWithoutProfesorInput> | TallerCreateWithoutProfesorInput[] | TallerUncheckedCreateWithoutProfesorInput[]
+    connectOrCreate?: TallerCreateOrConnectWithoutProfesorInput | TallerCreateOrConnectWithoutProfesorInput[]
+    createMany?: TallerCreateManyProfesorInputEnvelope
+    connect?: TallerWhereUniqueInput | TallerWhereUniqueInput[]
   }
 
   export type InscripcionCreateNestedManyWithoutEstudianteInput = {
@@ -8536,25 +8576,11 @@ export namespace Prisma {
     connect?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
   }
 
-  export type TallerCreateNestedManyWithoutProfesorInput = {
-    create?: XOR<TallerCreateWithoutProfesorInput, TallerUncheckedCreateWithoutProfesorInput> | TallerCreateWithoutProfesorInput[] | TallerUncheckedCreateWithoutProfesorInput[]
-    connectOrCreate?: TallerCreateOrConnectWithoutProfesorInput | TallerCreateOrConnectWithoutProfesorInput[]
-    createMany?: TallerCreateManyProfesorInputEnvelope
-    connect?: TallerWhereUniqueInput | TallerWhereUniqueInput[]
-  }
-
-  export type AsistenciaUncheckedCreateNestedManyWithoutEstudianteInput = {
+  export type AsistenciaCreateNestedManyWithoutEstudianteInput = {
     create?: XOR<AsistenciaCreateWithoutEstudianteInput, AsistenciaUncheckedCreateWithoutEstudianteInput> | AsistenciaCreateWithoutEstudianteInput[] | AsistenciaUncheckedCreateWithoutEstudianteInput[]
     connectOrCreate?: AsistenciaCreateOrConnectWithoutEstudianteInput | AsistenciaCreateOrConnectWithoutEstudianteInput[]
     createMany?: AsistenciaCreateManyEstudianteInputEnvelope
     connect?: AsistenciaWhereUniqueInput | AsistenciaWhereUniqueInput[]
-  }
-
-  export type InscripcionUncheckedCreateNestedManyWithoutEstudianteInput = {
-    create?: XOR<InscripcionCreateWithoutEstudianteInput, InscripcionUncheckedCreateWithoutEstudianteInput> | InscripcionCreateWithoutEstudianteInput[] | InscripcionUncheckedCreateWithoutEstudianteInput[]
-    connectOrCreate?: InscripcionCreateOrConnectWithoutEstudianteInput | InscripcionCreateOrConnectWithoutEstudianteInput[]
-    createMany?: InscripcionCreateManyEstudianteInputEnvelope
-    connect?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
   }
 
   export type TallerUncheckedCreateNestedManyWithoutProfesorInput = {
@@ -8564,40 +8590,26 @@ export namespace Prisma {
     connect?: TallerWhereUniqueInput | TallerWhereUniqueInput[]
   }
 
+  export type InscripcionUncheckedCreateNestedManyWithoutEstudianteInput = {
+    create?: XOR<InscripcionCreateWithoutEstudianteInput, InscripcionUncheckedCreateWithoutEstudianteInput> | InscripcionCreateWithoutEstudianteInput[] | InscripcionUncheckedCreateWithoutEstudianteInput[]
+    connectOrCreate?: InscripcionCreateOrConnectWithoutEstudianteInput | InscripcionCreateOrConnectWithoutEstudianteInput[]
+    createMany?: InscripcionCreateManyEstudianteInputEnvelope
+    connect?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
+  }
+
+  export type AsistenciaUncheckedCreateNestedManyWithoutEstudianteInput = {
+    create?: XOR<AsistenciaCreateWithoutEstudianteInput, AsistenciaUncheckedCreateWithoutEstudianteInput> | AsistenciaCreateWithoutEstudianteInput[] | AsistenciaUncheckedCreateWithoutEstudianteInput[]
+    connectOrCreate?: AsistenciaCreateOrConnectWithoutEstudianteInput | AsistenciaCreateOrConnectWithoutEstudianteInput[]
+    createMany?: AsistenciaCreateManyEstudianteInputEnvelope
+    connect?: AsistenciaWhereUniqueInput | AsistenciaWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
   export type EnumRolUsuarioFieldUpdateOperationsInput = {
     set?: $Enums.RolUsuario
-  }
-
-  export type AsistenciaUpdateManyWithoutEstudianteNestedInput = {
-    create?: XOR<AsistenciaCreateWithoutEstudianteInput, AsistenciaUncheckedCreateWithoutEstudianteInput> | AsistenciaCreateWithoutEstudianteInput[] | AsistenciaUncheckedCreateWithoutEstudianteInput[]
-    connectOrCreate?: AsistenciaCreateOrConnectWithoutEstudianteInput | AsistenciaCreateOrConnectWithoutEstudianteInput[]
-    upsert?: AsistenciaUpsertWithWhereUniqueWithoutEstudianteInput | AsistenciaUpsertWithWhereUniqueWithoutEstudianteInput[]
-    createMany?: AsistenciaCreateManyEstudianteInputEnvelope
-    set?: AsistenciaWhereUniqueInput | AsistenciaWhereUniqueInput[]
-    disconnect?: AsistenciaWhereUniqueInput | AsistenciaWhereUniqueInput[]
-    delete?: AsistenciaWhereUniqueInput | AsistenciaWhereUniqueInput[]
-    connect?: AsistenciaWhereUniqueInput | AsistenciaWhereUniqueInput[]
-    update?: AsistenciaUpdateWithWhereUniqueWithoutEstudianteInput | AsistenciaUpdateWithWhereUniqueWithoutEstudianteInput[]
-    updateMany?: AsistenciaUpdateManyWithWhereWithoutEstudianteInput | AsistenciaUpdateManyWithWhereWithoutEstudianteInput[]
-    deleteMany?: AsistenciaScalarWhereInput | AsistenciaScalarWhereInput[]
-  }
-
-  export type InscripcionUpdateManyWithoutEstudianteNestedInput = {
-    create?: XOR<InscripcionCreateWithoutEstudianteInput, InscripcionUncheckedCreateWithoutEstudianteInput> | InscripcionCreateWithoutEstudianteInput[] | InscripcionUncheckedCreateWithoutEstudianteInput[]
-    connectOrCreate?: InscripcionCreateOrConnectWithoutEstudianteInput | InscripcionCreateOrConnectWithoutEstudianteInput[]
-    upsert?: InscripcionUpsertWithWhereUniqueWithoutEstudianteInput | InscripcionUpsertWithWhereUniqueWithoutEstudianteInput[]
-    createMany?: InscripcionCreateManyEstudianteInputEnvelope
-    set?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
-    disconnect?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
-    delete?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
-    connect?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
-    update?: InscripcionUpdateWithWhereUniqueWithoutEstudianteInput | InscripcionUpdateWithWhereUniqueWithoutEstudianteInput[]
-    updateMany?: InscripcionUpdateManyWithWhereWithoutEstudianteInput | InscripcionUpdateManyWithWhereWithoutEstudianteInput[]
-    deleteMany?: InscripcionScalarWhereInput | InscripcionScalarWhereInput[]
   }
 
   export type TallerUpdateManyWithoutProfesorNestedInput = {
@@ -8614,15 +8626,21 @@ export namespace Prisma {
     deleteMany?: TallerScalarWhereInput | TallerScalarWhereInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type InscripcionUpdateManyWithoutEstudianteNestedInput = {
+    create?: XOR<InscripcionCreateWithoutEstudianteInput, InscripcionUncheckedCreateWithoutEstudianteInput> | InscripcionCreateWithoutEstudianteInput[] | InscripcionUncheckedCreateWithoutEstudianteInput[]
+    connectOrCreate?: InscripcionCreateOrConnectWithoutEstudianteInput | InscripcionCreateOrConnectWithoutEstudianteInput[]
+    upsert?: InscripcionUpsertWithWhereUniqueWithoutEstudianteInput | InscripcionUpsertWithWhereUniqueWithoutEstudianteInput[]
+    createMany?: InscripcionCreateManyEstudianteInputEnvelope
+    set?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
+    disconnect?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
+    delete?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
+    connect?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
+    update?: InscripcionUpdateWithWhereUniqueWithoutEstudianteInput | InscripcionUpdateWithWhereUniqueWithoutEstudianteInput[]
+    updateMany?: InscripcionUpdateManyWithWhereWithoutEstudianteInput | InscripcionUpdateManyWithWhereWithoutEstudianteInput[]
+    deleteMany?: InscripcionScalarWhereInput | InscripcionScalarWhereInput[]
   }
 
-  export type AsistenciaUncheckedUpdateManyWithoutEstudianteNestedInput = {
+  export type AsistenciaUpdateManyWithoutEstudianteNestedInput = {
     create?: XOR<AsistenciaCreateWithoutEstudianteInput, AsistenciaUncheckedCreateWithoutEstudianteInput> | AsistenciaCreateWithoutEstudianteInput[] | AsistenciaUncheckedCreateWithoutEstudianteInput[]
     connectOrCreate?: AsistenciaCreateOrConnectWithoutEstudianteInput | AsistenciaCreateOrConnectWithoutEstudianteInput[]
     upsert?: AsistenciaUpsertWithWhereUniqueWithoutEstudianteInput | AsistenciaUpsertWithWhereUniqueWithoutEstudianteInput[]
@@ -8636,18 +8654,12 @@ export namespace Prisma {
     deleteMany?: AsistenciaScalarWhereInput | AsistenciaScalarWhereInput[]
   }
 
-  export type InscripcionUncheckedUpdateManyWithoutEstudianteNestedInput = {
-    create?: XOR<InscripcionCreateWithoutEstudianteInput, InscripcionUncheckedCreateWithoutEstudianteInput> | InscripcionCreateWithoutEstudianteInput[] | InscripcionUncheckedCreateWithoutEstudianteInput[]
-    connectOrCreate?: InscripcionCreateOrConnectWithoutEstudianteInput | InscripcionCreateOrConnectWithoutEstudianteInput[]
-    upsert?: InscripcionUpsertWithWhereUniqueWithoutEstudianteInput | InscripcionUpsertWithWhereUniqueWithoutEstudianteInput[]
-    createMany?: InscripcionCreateManyEstudianteInputEnvelope
-    set?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
-    disconnect?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
-    delete?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
-    connect?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
-    update?: InscripcionUpdateWithWhereUniqueWithoutEstudianteInput | InscripcionUpdateWithWhereUniqueWithoutEstudianteInput[]
-    updateMany?: InscripcionUpdateManyWithWhereWithoutEstudianteInput | InscripcionUpdateManyWithWhereWithoutEstudianteInput[]
-    deleteMany?: InscripcionScalarWhereInput | InscripcionScalarWhereInput[]
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type TallerUncheckedUpdateManyWithoutProfesorNestedInput = {
@@ -8664,6 +8676,40 @@ export namespace Prisma {
     deleteMany?: TallerScalarWhereInput | TallerScalarWhereInput[]
   }
 
+  export type InscripcionUncheckedUpdateManyWithoutEstudianteNestedInput = {
+    create?: XOR<InscripcionCreateWithoutEstudianteInput, InscripcionUncheckedCreateWithoutEstudianteInput> | InscripcionCreateWithoutEstudianteInput[] | InscripcionUncheckedCreateWithoutEstudianteInput[]
+    connectOrCreate?: InscripcionCreateOrConnectWithoutEstudianteInput | InscripcionCreateOrConnectWithoutEstudianteInput[]
+    upsert?: InscripcionUpsertWithWhereUniqueWithoutEstudianteInput | InscripcionUpsertWithWhereUniqueWithoutEstudianteInput[]
+    createMany?: InscripcionCreateManyEstudianteInputEnvelope
+    set?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
+    disconnect?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
+    delete?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
+    connect?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
+    update?: InscripcionUpdateWithWhereUniqueWithoutEstudianteInput | InscripcionUpdateWithWhereUniqueWithoutEstudianteInput[]
+    updateMany?: InscripcionUpdateManyWithWhereWithoutEstudianteInput | InscripcionUpdateManyWithWhereWithoutEstudianteInput[]
+    deleteMany?: InscripcionScalarWhereInput | InscripcionScalarWhereInput[]
+  }
+
+  export type AsistenciaUncheckedUpdateManyWithoutEstudianteNestedInput = {
+    create?: XOR<AsistenciaCreateWithoutEstudianteInput, AsistenciaUncheckedCreateWithoutEstudianteInput> | AsistenciaCreateWithoutEstudianteInput[] | AsistenciaUncheckedCreateWithoutEstudianteInput[]
+    connectOrCreate?: AsistenciaCreateOrConnectWithoutEstudianteInput | AsistenciaCreateOrConnectWithoutEstudianteInput[]
+    upsert?: AsistenciaUpsertWithWhereUniqueWithoutEstudianteInput | AsistenciaUpsertWithWhereUniqueWithoutEstudianteInput[]
+    createMany?: AsistenciaCreateManyEstudianteInputEnvelope
+    set?: AsistenciaWhereUniqueInput | AsistenciaWhereUniqueInput[]
+    disconnect?: AsistenciaWhereUniqueInput | AsistenciaWhereUniqueInput[]
+    delete?: AsistenciaWhereUniqueInput | AsistenciaWhereUniqueInput[]
+    connect?: AsistenciaWhereUniqueInput | AsistenciaWhereUniqueInput[]
+    update?: AsistenciaUpdateWithWhereUniqueWithoutEstudianteInput | AsistenciaUpdateWithWhereUniqueWithoutEstudianteInput[]
+    updateMany?: AsistenciaUpdateManyWithWhereWithoutEstudianteInput | AsistenciaUpdateManyWithWhereWithoutEstudianteInput[]
+    deleteMany?: AsistenciaScalarWhereInput | AsistenciaScalarWhereInput[]
+  }
+
+  export type UsuarioCreateNestedOneWithoutTalleresDictadosInput = {
+    create?: XOR<UsuarioCreateWithoutTalleresDictadosInput, UsuarioUncheckedCreateWithoutTalleresDictadosInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutTalleresDictadosInput
+    connect?: UsuarioWhereUniqueInput
+  }
+
   export type InscripcionCreateNestedManyWithoutTallerInput = {
     create?: XOR<InscripcionCreateWithoutTallerInput, InscripcionUncheckedCreateWithoutTallerInput> | InscripcionCreateWithoutTallerInput[] | InscripcionUncheckedCreateWithoutTallerInput[]
     connectOrCreate?: InscripcionCreateOrConnectWithoutTallerInput | InscripcionCreateOrConnectWithoutTallerInput[]
@@ -8676,12 +8722,6 @@ export namespace Prisma {
     connectOrCreate?: SesionCreateOrConnectWithoutTallerInput | SesionCreateOrConnectWithoutTallerInput[]
     createMany?: SesionCreateManyTallerInputEnvelope
     connect?: SesionWhereUniqueInput | SesionWhereUniqueInput[]
-  }
-
-  export type UsuarioCreateNestedOneWithoutTalleresDictadosInput = {
-    create?: XOR<UsuarioCreateWithoutTalleresDictadosInput, UsuarioUncheckedCreateWithoutTalleresDictadosInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutTalleresDictadosInput
-    connect?: UsuarioWhereUniqueInput
   }
 
   export type InscripcionUncheckedCreateNestedManyWithoutTallerInput = {
@@ -8700,6 +8740,18 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type EnumBloqueHorarioFieldUpdateOperationsInput = {
+    set?: $Enums.BloqueHorario
+  }
+
+  export type UsuarioUpdateOneRequiredWithoutTalleresDictadosNestedInput = {
+    create?: XOR<UsuarioCreateWithoutTalleresDictadosInput, UsuarioUncheckedCreateWithoutTalleresDictadosInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutTalleresDictadosInput
+    upsert?: UsuarioUpsertWithoutTalleresDictadosInput
+    connect?: UsuarioWhereUniqueInput
+    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutTalleresDictadosInput, UsuarioUpdateWithoutTalleresDictadosInput>, UsuarioUncheckedUpdateWithoutTalleresDictadosInput>
   }
 
   export type InscripcionUpdateManyWithoutTallerNestedInput = {
@@ -8728,14 +8780,6 @@ export namespace Prisma {
     update?: SesionUpdateWithWhereUniqueWithoutTallerInput | SesionUpdateWithWhereUniqueWithoutTallerInput[]
     updateMany?: SesionUpdateManyWithWhereWithoutTallerInput | SesionUpdateManyWithWhereWithoutTallerInput[]
     deleteMany?: SesionScalarWhereInput | SesionScalarWhereInput[]
-  }
-
-  export type UsuarioUpdateOneRequiredWithoutTalleresDictadosNestedInput = {
-    create?: XOR<UsuarioCreateWithoutTalleresDictadosInput, UsuarioUncheckedCreateWithoutTalleresDictadosInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutTalleresDictadosInput
-    upsert?: UsuarioUpsertWithoutTalleresDictadosInput
-    connect?: UsuarioWhereUniqueInput
-    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutTalleresDictadosInput, UsuarioUpdateWithoutTalleresDictadosInput>, UsuarioUncheckedUpdateWithoutTalleresDictadosInput>
   }
 
   export type InscripcionUncheckedUpdateManyWithoutTallerNestedInput = {
@@ -8798,17 +8842,17 @@ export namespace Prisma {
     update?: XOR<XOR<TallerUpdateToOneWithWhereWithoutInscripcionesInput, TallerUpdateWithoutInscripcionesInput>, TallerUncheckedUpdateWithoutInscripcionesInput>
   }
 
+  export type TallerCreateNestedOneWithoutSesionesInput = {
+    create?: XOR<TallerCreateWithoutSesionesInput, TallerUncheckedCreateWithoutSesionesInput>
+    connectOrCreate?: TallerCreateOrConnectWithoutSesionesInput
+    connect?: TallerWhereUniqueInput
+  }
+
   export type AsistenciaCreateNestedManyWithoutSesionInput = {
     create?: XOR<AsistenciaCreateWithoutSesionInput, AsistenciaUncheckedCreateWithoutSesionInput> | AsistenciaCreateWithoutSesionInput[] | AsistenciaUncheckedCreateWithoutSesionInput[]
     connectOrCreate?: AsistenciaCreateOrConnectWithoutSesionInput | AsistenciaCreateOrConnectWithoutSesionInput[]
     createMany?: AsistenciaCreateManySesionInputEnvelope
     connect?: AsistenciaWhereUniqueInput | AsistenciaWhereUniqueInput[]
-  }
-
-  export type TallerCreateNestedOneWithoutSesionesInput = {
-    create?: XOR<TallerCreateWithoutSesionesInput, TallerUncheckedCreateWithoutSesionesInput>
-    connectOrCreate?: TallerCreateOrConnectWithoutSesionesInput
-    connect?: TallerWhereUniqueInput
   }
 
   export type AsistenciaUncheckedCreateNestedManyWithoutSesionInput = {
@@ -8838,14 +8882,6 @@ export namespace Prisma {
     update?: AsistenciaUpdateWithWhereUniqueWithoutSesionInput | AsistenciaUpdateWithWhereUniqueWithoutSesionInput[]
     updateMany?: AsistenciaUpdateManyWithWhereWithoutSesionInput | AsistenciaUpdateManyWithWhereWithoutSesionInput[]
     deleteMany?: AsistenciaScalarWhereInput | AsistenciaScalarWhereInput[]
-  }
-
-  export type TallerUpdateOneRequiredWithoutSesionesNestedInput = {
-    create?: XOR<TallerCreateWithoutSesionesInput, TallerUncheckedCreateWithoutSesionesInput>
-    connectOrCreate?: TallerCreateOrConnectWithoutSesionesInput
-    upsert?: TallerUpsertWithoutSesionesInput
-    connect?: TallerWhereUniqueInput
-    update?: XOR<XOR<TallerUpdateToOneWithWhereWithoutSesionesInput, TallerUpdateWithoutSesionesInput>, TallerUncheckedUpdateWithoutSesionesInput>
   }
 
   export type AsistenciaUncheckedUpdateManyWithoutSesionNestedInput = {
@@ -8993,12 +9029,29 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type NestedEnumBloqueHorarioFilter<$PrismaModel = never> = {
+    equals?: $Enums.BloqueHorario | EnumBloqueHorarioFieldRefInput<$PrismaModel>
+    in?: $Enums.BloqueHorario[] | ListEnumBloqueHorarioFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BloqueHorario[] | ListEnumBloqueHorarioFieldRefInput<$PrismaModel>
+    not?: NestedEnumBloqueHorarioFilter<$PrismaModel> | $Enums.BloqueHorario
+  }
+
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedEnumBloqueHorarioWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BloqueHorario | EnumBloqueHorarioFieldRefInput<$PrismaModel>
+    in?: $Enums.BloqueHorario[] | ListEnumBloqueHorarioFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BloqueHorario[] | ListEnumBloqueHorarioFieldRefInput<$PrismaModel>
+    not?: NestedEnumBloqueHorarioWithAggregatesFilter<$PrismaModel> | $Enums.BloqueHorario
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBloqueHorarioFilter<$PrismaModel>
+    _max?: NestedEnumBloqueHorarioFilter<$PrismaModel>
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -9103,12 +9156,12 @@ export namespace Prisma {
     estado?: boolean
     lugar?: string
     dia?: number
-    bloque?: number
+    bloque?: $Enums.BloqueHorario
     inscripciones?: InscripcionCreateNestedManyWithoutTallerInput
     sesiones?: SesionCreateNestedManyWithoutTallerInput
   }
 
-  export type AsistenciaUncheckedCreateWithoutEstudianteInput = {
+  export type TallerUncheckedCreateWithoutProfesorInput = {
     id?: number
     nombre: string
     descripcion: string
@@ -9117,18 +9170,18 @@ export namespace Prisma {
     estado?: boolean
     lugar?: string
     dia?: number
-    bloque?: number
+    bloque?: $Enums.BloqueHorario
     inscripciones?: InscripcionUncheckedCreateNestedManyWithoutTallerInput
     sesiones?: SesionUncheckedCreateNestedManyWithoutTallerInput
   }
 
-  export type AsistenciaCreateOrConnectWithoutEstudianteInput = {
-    where: AsistenciaWhereUniqueInput
-    create: XOR<AsistenciaCreateWithoutEstudianteInput, AsistenciaUncheckedCreateWithoutEstudianteInput>
+  export type TallerCreateOrConnectWithoutProfesorInput = {
+    where: TallerWhereUniqueInput
+    create: XOR<TallerCreateWithoutProfesorInput, TallerUncheckedCreateWithoutProfesorInput>
   }
 
-  export type AsistenciaCreateManyEstudianteInputEnvelope = {
-    data: AsistenciaCreateManyEstudianteInput | AsistenciaCreateManyEstudianteInput[]
+  export type TallerCreateManyProfesorInputEnvelope = {
+    data: TallerCreateManyProfesorInput | TallerCreateManyProfesorInput[]
     skipDuplicates?: boolean
   }
 
@@ -9153,51 +9206,47 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type TallerCreateWithoutProfesorInput = {
-    nombre: string
-    descripcion: string
-    horario: string
-    semestre: string
-    estado?: boolean
-    inscripciones?: InscripcionCreateNestedManyWithoutTallerInput
-    sesiones?: SesionCreateNestedManyWithoutTallerInput
+  export type AsistenciaCreateWithoutEstudianteInput = {
+    fechaHora?: Date | string
+    estado?: string
+    notaSatisfaccion?: number | null
+    comentario?: string | null
+    sesion: SesionCreateNestedOneWithoutAsistenciasInput
   }
 
-  export type TallerUncheckedCreateWithoutProfesorInput = {
+  export type AsistenciaUncheckedCreateWithoutEstudianteInput = {
     id?: number
-    nombre: string
-    descripcion: string
-    horario: string
-    semestre: string
-    estado?: boolean
-    inscripciones?: InscripcionUncheckedCreateNestedManyWithoutTallerInput
-    sesiones?: SesionUncheckedCreateNestedManyWithoutTallerInput
+    sesionId: number
+    fechaHora?: Date | string
+    estado?: string
+    notaSatisfaccion?: number | null
+    comentario?: string | null
   }
 
-  export type TallerCreateOrConnectWithoutProfesorInput = {
-    where: TallerWhereUniqueInput
-    create: XOR<TallerCreateWithoutProfesorInput, TallerUncheckedCreateWithoutProfesorInput>
-  }
-
-  export type TallerCreateManyProfesorInputEnvelope = {
-    data: TallerCreateManyProfesorInput | TallerCreateManyProfesorInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type AsistenciaUpsertWithWhereUniqueWithoutEstudianteInput = {
+  export type AsistenciaCreateOrConnectWithoutEstudianteInput = {
     where: AsistenciaWhereUniqueInput
-    update: XOR<AsistenciaUpdateWithoutEstudianteInput, AsistenciaUncheckedUpdateWithoutEstudianteInput>
     create: XOR<AsistenciaCreateWithoutEstudianteInput, AsistenciaUncheckedCreateWithoutEstudianteInput>
   }
 
-  export type AsistenciaUpdateWithWhereUniqueWithoutEstudianteInput = {
-    where: AsistenciaWhereUniqueInput
-    data: XOR<AsistenciaUpdateWithoutEstudianteInput, AsistenciaUncheckedUpdateWithoutEstudianteInput>
+  export type AsistenciaCreateManyEstudianteInputEnvelope = {
+    data: AsistenciaCreateManyEstudianteInput | AsistenciaCreateManyEstudianteInput[]
+    skipDuplicates?: boolean
   }
 
-  export type AsistenciaUpdateManyWithWhereWithoutEstudianteInput = {
-    where: AsistenciaScalarWhereInput
-    data: XOR<AsistenciaUpdateManyMutationInput, AsistenciaUncheckedUpdateManyWithoutEstudianteInput>
+  export type TallerUpsertWithWhereUniqueWithoutProfesorInput = {
+    where: TallerWhereUniqueInput
+    update: XOR<TallerUpdateWithoutProfesorInput, TallerUncheckedUpdateWithoutProfesorInput>
+    create: XOR<TallerCreateWithoutProfesorInput, TallerUncheckedCreateWithoutProfesorInput>
+  }
+
+  export type TallerUpdateWithWhereUniqueWithoutProfesorInput = {
+    where: TallerWhereUniqueInput
+    data: XOR<TallerUpdateWithoutProfesorInput, TallerUncheckedUpdateWithoutProfesorInput>
+  }
+
+  export type TallerUpdateManyWithWhereWithoutProfesorInput = {
+    where: TallerScalarWhereInput
+    data: XOR<TallerUpdateManyMutationInput, TallerUncheckedUpdateManyWithoutProfesorInput>
   }
 
   export type TallerScalarWhereInput = {
@@ -9212,7 +9261,7 @@ export namespace Prisma {
     estado?: BoolFilter<"Taller"> | boolean
     lugar?: StringFilter<"Taller"> | string
     dia?: IntFilter<"Taller"> | number
-    bloque?: IntFilter<"Taller"> | number
+    bloque?: EnumBloqueHorarioFilter<"Taller"> | $Enums.BloqueHorario
     profesorId?: IntFilter<"Taller"> | number
   }
 
@@ -9242,33 +9291,61 @@ export namespace Prisma {
     tallerId?: IntFilter<"Inscripcion"> | number
   }
 
-  export type TallerUpsertWithWhereUniqueWithoutProfesorInput = {
-    where: TallerWhereUniqueInput
-    update: XOR<TallerUpdateWithoutProfesorInput, TallerUncheckedUpdateWithoutProfesorInput>
-    create: XOR<TallerCreateWithoutProfesorInput, TallerUncheckedCreateWithoutProfesorInput>
+  export type AsistenciaUpsertWithWhereUniqueWithoutEstudianteInput = {
+    where: AsistenciaWhereUniqueInput
+    update: XOR<AsistenciaUpdateWithoutEstudianteInput, AsistenciaUncheckedUpdateWithoutEstudianteInput>
+    create: XOR<AsistenciaCreateWithoutEstudianteInput, AsistenciaUncheckedCreateWithoutEstudianteInput>
   }
 
-  export type TallerUpdateWithWhereUniqueWithoutProfesorInput = {
-    where: TallerWhereUniqueInput
-    data: XOR<TallerUpdateWithoutProfesorInput, TallerUncheckedUpdateWithoutProfesorInput>
+  export type AsistenciaUpdateWithWhereUniqueWithoutEstudianteInput = {
+    where: AsistenciaWhereUniqueInput
+    data: XOR<AsistenciaUpdateWithoutEstudianteInput, AsistenciaUncheckedUpdateWithoutEstudianteInput>
   }
 
-  export type TallerUpdateManyWithWhereWithoutProfesorInput = {
-    where: TallerScalarWhereInput
-    data: XOR<TallerUpdateManyMutationInput, TallerUncheckedUpdateManyWithoutProfesorInput>
+  export type AsistenciaUpdateManyWithWhereWithoutEstudianteInput = {
+    where: AsistenciaScalarWhereInput
+    data: XOR<AsistenciaUpdateManyMutationInput, AsistenciaUncheckedUpdateManyWithoutEstudianteInput>
   }
 
-  export type TallerScalarWhereInput = {
-    AND?: TallerScalarWhereInput | TallerScalarWhereInput[]
-    OR?: TallerScalarWhereInput[]
-    NOT?: TallerScalarWhereInput | TallerScalarWhereInput[]
-    id?: IntFilter<"Taller"> | number
-    nombre?: StringFilter<"Taller"> | string
-    descripcion?: StringFilter<"Taller"> | string
-    horario?: StringFilter<"Taller"> | string
-    semestre?: StringFilter<"Taller"> | string
-    estado?: BoolFilter<"Taller"> | boolean
-    profesorId?: IntFilter<"Taller"> | number
+  export type AsistenciaScalarWhereInput = {
+    AND?: AsistenciaScalarWhereInput | AsistenciaScalarWhereInput[]
+    OR?: AsistenciaScalarWhereInput[]
+    NOT?: AsistenciaScalarWhereInput | AsistenciaScalarWhereInput[]
+    id?: IntFilter<"Asistencia"> | number
+    sesionId?: IntFilter<"Asistencia"> | number
+    estudianteId?: IntFilter<"Asistencia"> | number
+    fechaHora?: DateTimeFilter<"Asistencia"> | Date | string
+    estado?: StringFilter<"Asistencia"> | string
+    notaSatisfaccion?: IntNullableFilter<"Asistencia"> | number | null
+    comentario?: StringNullableFilter<"Asistencia"> | string | null
+  }
+
+  export type UsuarioCreateWithoutTalleresDictadosInput = {
+    nombre: string
+    apellido: string
+    rut: string
+    correo: string
+    password: string
+    rol: $Enums.RolUsuario
+    inscripciones?: InscripcionCreateNestedManyWithoutEstudianteInput
+    asistencias?: AsistenciaCreateNestedManyWithoutEstudianteInput
+  }
+
+  export type UsuarioUncheckedCreateWithoutTalleresDictadosInput = {
+    id?: number
+    nombre: string
+    apellido: string
+    rut: string
+    correo: string
+    password: string
+    rol: $Enums.RolUsuario
+    inscripciones?: InscripcionUncheckedCreateNestedManyWithoutEstudianteInput
+    asistencias?: AsistenciaUncheckedCreateNestedManyWithoutEstudianteInput
+  }
+
+  export type UsuarioCreateOrConnectWithoutTalleresDictadosInput = {
+    where: UsuarioWhereUniqueInput
+    create: XOR<UsuarioCreateWithoutTalleresDictadosInput, UsuarioUncheckedCreateWithoutTalleresDictadosInput>
   }
 
   export type InscripcionCreateWithoutTallerInput = {
@@ -9319,32 +9396,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UsuarioCreateWithoutTalleresDictadosInput = {
-    nombre: string
-    apellido: string
-    rut: string
-    correo: string
-    password: string
-    rol: $Enums.RolUsuario
-    asistencias?: AsistenciaCreateNestedManyWithoutEstudianteInput
-    inscripciones?: InscripcionCreateNestedManyWithoutEstudianteInput
-  }
-
-  export type UsuarioUncheckedCreateWithoutTalleresDictadosInput = {
-    id?: number
-    nombre: string
-    apellido: string
-    rut: string
-    correo: string
-    password: string
-    rol: $Enums.RolUsuario
-    asistencias?: AsistenciaUncheckedCreateNestedManyWithoutEstudianteInput
-    inscripciones?: InscripcionUncheckedCreateNestedManyWithoutEstudianteInput
-  }
-
-  export type UsuarioCreateOrConnectWithoutTalleresDictadosInput = {
-    where: UsuarioWhereUniqueInput
+  export type UsuarioUpsertWithoutTalleresDictadosInput = {
+    update: XOR<UsuarioUpdateWithoutTalleresDictadosInput, UsuarioUncheckedUpdateWithoutTalleresDictadosInput>
     create: XOR<UsuarioCreateWithoutTalleresDictadosInput, UsuarioUncheckedCreateWithoutTalleresDictadosInput>
+    where?: UsuarioWhereInput
+  }
+
+  export type UsuarioUpdateToOneWithWhereWithoutTalleresDictadosInput = {
+    where?: UsuarioWhereInput
+    data: XOR<UsuarioUpdateWithoutTalleresDictadosInput, UsuarioUncheckedUpdateWithoutTalleresDictadosInput>
+  }
+
+  export type UsuarioUpdateWithoutTalleresDictadosInput = {
+    nombre?: StringFieldUpdateOperationsInput | string
+    apellido?: StringFieldUpdateOperationsInput | string
+    rut?: StringFieldUpdateOperationsInput | string
+    correo?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    rol?: EnumRolUsuarioFieldUpdateOperationsInput | $Enums.RolUsuario
+    inscripciones?: InscripcionUpdateManyWithoutEstudianteNestedInput
+    asistencias?: AsistenciaUpdateManyWithoutEstudianteNestedInput
+  }
+
+  export type UsuarioUncheckedUpdateWithoutTalleresDictadosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nombre?: StringFieldUpdateOperationsInput | string
+    apellido?: StringFieldUpdateOperationsInput | string
+    rut?: StringFieldUpdateOperationsInput | string
+    correo?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    rol?: EnumRolUsuarioFieldUpdateOperationsInput | $Enums.RolUsuario
+    inscripciones?: InscripcionUncheckedUpdateManyWithoutEstudianteNestedInput
+    asistencias?: AsistenciaUncheckedUpdateManyWithoutEstudianteNestedInput
   }
 
   export type InscripcionUpsertWithWhereUniqueWithoutTallerInput = {
@@ -9391,40 +9474,6 @@ export namespace Prisma {
     validoHasta?: DateTimeFilter<"Sesion"> | Date | string
   }
 
-  export type UsuarioUpsertWithoutTalleresDictadosInput = {
-    update: XOR<UsuarioUpdateWithoutTalleresDictadosInput, UsuarioUncheckedUpdateWithoutTalleresDictadosInput>
-    create: XOR<UsuarioCreateWithoutTalleresDictadosInput, UsuarioUncheckedCreateWithoutTalleresDictadosInput>
-    where?: UsuarioWhereInput
-  }
-
-  export type UsuarioUpdateToOneWithWhereWithoutTalleresDictadosInput = {
-    where?: UsuarioWhereInput
-    data: XOR<UsuarioUpdateWithoutTalleresDictadosInput, UsuarioUncheckedUpdateWithoutTalleresDictadosInput>
-  }
-
-  export type UsuarioUpdateWithoutTalleresDictadosInput = {
-    nombre?: StringFieldUpdateOperationsInput | string
-    apellido?: StringFieldUpdateOperationsInput | string
-    rut?: StringFieldUpdateOperationsInput | string
-    correo?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    rol?: EnumRolUsuarioFieldUpdateOperationsInput | $Enums.RolUsuario
-    asistencias?: AsistenciaUpdateManyWithoutEstudianteNestedInput
-    inscripciones?: InscripcionUpdateManyWithoutEstudianteNestedInput
-  }
-
-  export type UsuarioUncheckedUpdateWithoutTalleresDictadosInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nombre?: StringFieldUpdateOperationsInput | string
-    apellido?: StringFieldUpdateOperationsInput | string
-    rut?: StringFieldUpdateOperationsInput | string
-    correo?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    rol?: EnumRolUsuarioFieldUpdateOperationsInput | $Enums.RolUsuario
-    asistencias?: AsistenciaUncheckedUpdateManyWithoutEstudianteNestedInput
-    inscripciones?: InscripcionUncheckedUpdateManyWithoutEstudianteNestedInput
-  }
-
   export type UsuarioCreateWithoutInscripcionesInput = {
     nombre: string
     apellido: string
@@ -9432,8 +9481,8 @@ export namespace Prisma {
     correo: string
     password: string
     rol: $Enums.RolUsuario
-    asistencias?: AsistenciaCreateNestedManyWithoutEstudianteInput
     talleresDictados?: TallerCreateNestedManyWithoutProfesorInput
+    asistencias?: AsistenciaCreateNestedManyWithoutEstudianteInput
   }
 
   export type UsuarioUncheckedCreateWithoutInscripcionesInput = {
@@ -9444,8 +9493,8 @@ export namespace Prisma {
     correo: string
     password: string
     rol: $Enums.RolUsuario
-    asistencias?: AsistenciaUncheckedCreateNestedManyWithoutEstudianteInput
     talleresDictados?: TallerUncheckedCreateNestedManyWithoutProfesorInput
+    asistencias?: AsistenciaUncheckedCreateNestedManyWithoutEstudianteInput
   }
 
   export type UsuarioCreateOrConnectWithoutInscripcionesInput = {
@@ -9461,10 +9510,9 @@ export namespace Prisma {
     estado?: boolean
     lugar?: string
     dia?: number
-    bloque?: number
+    bloque?: $Enums.BloqueHorario
     profesor: UsuarioCreateNestedOneWithoutTalleresDictadosInput
     sesiones?: SesionCreateNestedManyWithoutTallerInput
-    profesor: UsuarioCreateNestedOneWithoutTalleresDictadosInput
   }
 
   export type TallerUncheckedCreateWithoutInscripcionesInput = {
@@ -9476,7 +9524,7 @@ export namespace Prisma {
     estado?: boolean
     lugar?: string
     dia?: number
-    bloque?: number
+    bloque?: $Enums.BloqueHorario
     profesorId: number
     sesiones?: SesionUncheckedCreateNestedManyWithoutTallerInput
   }
@@ -9504,8 +9552,8 @@ export namespace Prisma {
     correo?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     rol?: EnumRolUsuarioFieldUpdateOperationsInput | $Enums.RolUsuario
-    asistencias?: AsistenciaUpdateManyWithoutEstudianteNestedInput
     talleresDictados?: TallerUpdateManyWithoutProfesorNestedInput
+    asistencias?: AsistenciaUpdateManyWithoutEstudianteNestedInput
   }
 
   export type UsuarioUncheckedUpdateWithoutInscripcionesInput = {
@@ -9516,8 +9564,8 @@ export namespace Prisma {
     correo?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     rol?: EnumRolUsuarioFieldUpdateOperationsInput | $Enums.RolUsuario
-    asistencias?: AsistenciaUncheckedUpdateManyWithoutEstudianteNestedInput
     talleresDictados?: TallerUncheckedUpdateManyWithoutProfesorNestedInput
+    asistencias?: AsistenciaUncheckedUpdateManyWithoutEstudianteNestedInput
   }
 
   export type TallerUpsertWithoutInscripcionesInput = {
@@ -9539,10 +9587,9 @@ export namespace Prisma {
     estado?: BoolFieldUpdateOperationsInput | boolean
     lugar?: StringFieldUpdateOperationsInput | string
     dia?: IntFieldUpdateOperationsInput | number
-    bloque?: IntFieldUpdateOperationsInput | number
+    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
     profesor?: UsuarioUpdateOneRequiredWithoutTalleresDictadosNestedInput
     sesiones?: SesionUpdateManyWithoutTallerNestedInput
-    profesor?: UsuarioUpdateOneRequiredWithoutTalleresDictadosNestedInput
   }
 
   export type TallerUncheckedUpdateWithoutInscripcionesInput = {
@@ -9554,9 +9601,41 @@ export namespace Prisma {
     estado?: BoolFieldUpdateOperationsInput | boolean
     lugar?: StringFieldUpdateOperationsInput | string
     dia?: IntFieldUpdateOperationsInput | number
-    bloque?: IntFieldUpdateOperationsInput | number
+    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
     profesorId?: IntFieldUpdateOperationsInput | number
     sesiones?: SesionUncheckedUpdateManyWithoutTallerNestedInput
+  }
+
+  export type TallerCreateWithoutSesionesInput = {
+    nombre: string
+    descripcion: string
+    horario: string
+    semestre: string
+    estado?: boolean
+    lugar?: string
+    dia?: number
+    bloque?: $Enums.BloqueHorario
+    profesor: UsuarioCreateNestedOneWithoutTalleresDictadosInput
+    inscripciones?: InscripcionCreateNestedManyWithoutTallerInput
+  }
+
+  export type TallerUncheckedCreateWithoutSesionesInput = {
+    id?: number
+    nombre: string
+    descripcion: string
+    horario: string
+    semestre: string
+    estado?: boolean
+    lugar?: string
+    dia?: number
+    bloque?: $Enums.BloqueHorario
+    profesorId: number
+    inscripciones?: InscripcionUncheckedCreateNestedManyWithoutTallerInput
+  }
+
+  export type TallerCreateOrConnectWithoutSesionesInput = {
+    where: TallerWhereUniqueInput
+    create: XOR<TallerCreateWithoutSesionesInput, TallerUncheckedCreateWithoutSesionesInput>
   }
 
   export type AsistenciaCreateWithoutSesionInput = {
@@ -9586,55 +9665,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type TallerCreateWithoutSesionesInput = {
-    nombre: string
-    descripcion: string
-    horario: string
-    semestre: string
-    estado?: boolean
-    lugar?: string
-    dia?: number
-    bloque?: number
-    profesor: UsuarioCreateNestedOneWithoutTalleresDictadosInput
-    inscripciones?: InscripcionCreateNestedManyWithoutTallerInput
-    profesor: UsuarioCreateNestedOneWithoutTalleresDictadosInput
-  }
-
-  export type TallerUncheckedCreateWithoutSesionesInput = {
-    id?: number
-    nombre: string
-    descripcion: string
-    horario: string
-    semestre: string
-    estado?: boolean
-    lugar?: string
-    dia?: number
-    bloque?: number
-    profesorId: number
-    inscripciones?: InscripcionUncheckedCreateNestedManyWithoutTallerInput
-  }
-
-  export type TallerCreateOrConnectWithoutSesionesInput = {
-    where: TallerWhereUniqueInput
-    create: XOR<TallerCreateWithoutSesionesInput, TallerUncheckedCreateWithoutSesionesInput>
-  }
-
-  export type AsistenciaUpsertWithWhereUniqueWithoutSesionInput = {
-    where: AsistenciaWhereUniqueInput
-    update: XOR<AsistenciaUpdateWithoutSesionInput, AsistenciaUncheckedUpdateWithoutSesionInput>
-    create: XOR<AsistenciaCreateWithoutSesionInput, AsistenciaUncheckedCreateWithoutSesionInput>
-  }
-
-  export type AsistenciaUpdateWithWhereUniqueWithoutSesionInput = {
-    where: AsistenciaWhereUniqueInput
-    data: XOR<AsistenciaUpdateWithoutSesionInput, AsistenciaUncheckedUpdateWithoutSesionInput>
-  }
-
-  export type AsistenciaUpdateManyWithWhereWithoutSesionInput = {
-    where: AsistenciaScalarWhereInput
-    data: XOR<AsistenciaUpdateManyMutationInput, AsistenciaUncheckedUpdateManyWithoutSesionInput>
-  }
-
   export type TallerUpsertWithoutSesionesInput = {
     update: XOR<TallerUpdateWithoutSesionesInput, TallerUncheckedUpdateWithoutSesionesInput>
     create: XOR<TallerCreateWithoutSesionesInput, TallerUncheckedCreateWithoutSesionesInput>
@@ -9654,10 +9684,9 @@ export namespace Prisma {
     estado?: BoolFieldUpdateOperationsInput | boolean
     lugar?: StringFieldUpdateOperationsInput | string
     dia?: IntFieldUpdateOperationsInput | number
-    bloque?: IntFieldUpdateOperationsInput | number
+    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
     profesor?: UsuarioUpdateOneRequiredWithoutTalleresDictadosNestedInput
     inscripciones?: InscripcionUpdateManyWithoutTallerNestedInput
-    profesor?: UsuarioUpdateOneRequiredWithoutTalleresDictadosNestedInput
   }
 
   export type TallerUncheckedUpdateWithoutSesionesInput = {
@@ -9669,7 +9698,7 @@ export namespace Prisma {
     estado?: BoolFieldUpdateOperationsInput | boolean
     lugar?: StringFieldUpdateOperationsInput | string
     dia?: IntFieldUpdateOperationsInput | number
-    bloque?: IntFieldUpdateOperationsInput | number
+    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
     profesorId?: IntFieldUpdateOperationsInput | number
     inscripciones?: InscripcionUncheckedUpdateManyWithoutTallerNestedInput
   }
@@ -9688,6 +9717,34 @@ export namespace Prisma {
   export type AsistenciaUpdateManyWithWhereWithoutSesionInput = {
     where: AsistenciaScalarWhereInput
     data: XOR<AsistenciaUpdateManyMutationInput, AsistenciaUncheckedUpdateManyWithoutSesionInput>
+  }
+
+  export type UsuarioCreateWithoutAsistenciasInput = {
+    nombre: string
+    apellido: string
+    rut: string
+    correo: string
+    password: string
+    rol: $Enums.RolUsuario
+    talleresDictados?: TallerCreateNestedManyWithoutProfesorInput
+    inscripciones?: InscripcionCreateNestedManyWithoutEstudianteInput
+  }
+
+  export type UsuarioUncheckedCreateWithoutAsistenciasInput = {
+    id?: number
+    nombre: string
+    apellido: string
+    rut: string
+    correo: string
+    password: string
+    rol: $Enums.RolUsuario
+    talleresDictados?: TallerUncheckedCreateNestedManyWithoutProfesorInput
+    inscripciones?: InscripcionUncheckedCreateNestedManyWithoutEstudianteInput
+  }
+
+  export type UsuarioCreateOrConnectWithoutAsistenciasInput = {
+    where: UsuarioWhereUniqueInput
+    create: XOR<UsuarioCreateWithoutAsistenciasInput, UsuarioUncheckedCreateWithoutAsistenciasInput>
   }
 
   export type SesionCreateWithoutAsistenciasInput = {
@@ -9712,59 +9769,6 @@ export namespace Prisma {
     create: XOR<SesionCreateWithoutAsistenciasInput, SesionUncheckedCreateWithoutAsistenciasInput>
   }
 
-  export type UsuarioCreateWithoutAsistenciasInput = {
-    nombre: string
-    apellido: string
-    rut: string
-    correo: string
-    password: string
-    rol: $Enums.RolUsuario
-    inscripciones?: InscripcionCreateNestedManyWithoutEstudianteInput
-    talleresDictados?: TallerCreateNestedManyWithoutProfesorInput
-  }
-
-  export type UsuarioUncheckedCreateWithoutAsistenciasInput = {
-    id?: number
-    nombre: string
-    apellido: string
-    rut: string
-    correo: string
-    password: string
-    rol: $Enums.RolUsuario
-    inscripciones?: InscripcionUncheckedCreateNestedManyWithoutEstudianteInput
-    talleresDictados?: TallerUncheckedCreateNestedManyWithoutProfesorInput
-  }
-
-  export type UsuarioCreateOrConnectWithoutAsistenciasInput = {
-    where: UsuarioWhereUniqueInput
-    create: XOR<UsuarioCreateWithoutAsistenciasInput, UsuarioUncheckedCreateWithoutAsistenciasInput>
-  }
-
-  export type SesionCreateWithoutAsistenciasInput = {
-    fecha?: Date | string
-    bloque: $Enums.BloqueHorario
-    qrToken: string
-    validoHasta: Date | string
-    taller: TallerCreateNestedOneWithoutSesionesInput
-  }
-
-  export type SesionUpdateWithoutAsistenciasInput = {
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    bloque?: IntFieldUpdateOperationsInput | number
-    qrToken?: StringFieldUpdateOperationsInput | string
-    validoHasta?: DateTimeFieldUpdateOperationsInput | Date | string
-    taller?: TallerUpdateOneRequiredWithoutSesionesNestedInput
-  }
-
-  export type SesionUncheckedUpdateWithoutAsistenciasInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    tallerId?: IntFieldUpdateOperationsInput | number
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    bloque?: IntFieldUpdateOperationsInput | number
-    qrToken?: StringFieldUpdateOperationsInput | string
-    validoHasta?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type UsuarioUpsertWithoutAsistenciasInput = {
     update: XOR<UsuarioUpdateWithoutAsistenciasInput, UsuarioUncheckedUpdateWithoutAsistenciasInput>
     create: XOR<UsuarioCreateWithoutAsistenciasInput, UsuarioUncheckedCreateWithoutAsistenciasInput>
@@ -9783,8 +9787,8 @@ export namespace Prisma {
     correo?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     rol?: EnumRolUsuarioFieldUpdateOperationsInput | $Enums.RolUsuario
-    inscripciones?: InscripcionUpdateManyWithoutEstudianteNestedInput
     talleresDictados?: TallerUpdateManyWithoutProfesorNestedInput
+    inscripciones?: InscripcionUpdateManyWithoutEstudianteNestedInput
   }
 
   export type UsuarioUncheckedUpdateWithoutAsistenciasInput = {
@@ -9795,8 +9799,36 @@ export namespace Prisma {
     correo?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     rol?: EnumRolUsuarioFieldUpdateOperationsInput | $Enums.RolUsuario
-    inscripciones?: InscripcionUncheckedUpdateManyWithoutEstudianteNestedInput
     talleresDictados?: TallerUncheckedUpdateManyWithoutProfesorNestedInput
+    inscripciones?: InscripcionUncheckedUpdateManyWithoutEstudianteNestedInput
+  }
+
+  export type SesionUpsertWithoutAsistenciasInput = {
+    update: XOR<SesionUpdateWithoutAsistenciasInput, SesionUncheckedUpdateWithoutAsistenciasInput>
+    create: XOR<SesionCreateWithoutAsistenciasInput, SesionUncheckedCreateWithoutAsistenciasInput>
+    where?: SesionWhereInput
+  }
+
+  export type SesionUpdateToOneWithWhereWithoutAsistenciasInput = {
+    where?: SesionWhereInput
+    data: XOR<SesionUpdateWithoutAsistenciasInput, SesionUncheckedUpdateWithoutAsistenciasInput>
+  }
+
+  export type SesionUpdateWithoutAsistenciasInput = {
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    bloque?: IntFieldUpdateOperationsInput | number
+    qrToken?: StringFieldUpdateOperationsInput | string
+    validoHasta?: DateTimeFieldUpdateOperationsInput | Date | string
+    taller?: TallerUpdateOneRequiredWithoutSesionesNestedInput
+  }
+
+  export type SesionUncheckedUpdateWithoutAsistenciasInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tallerId?: IntFieldUpdateOperationsInput | number
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    bloque?: IntFieldUpdateOperationsInput | number
+    qrToken?: StringFieldUpdateOperationsInput | string
+    validoHasta?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TallerCreateManyProfesorInput = {
@@ -9808,29 +9840,13 @@ export namespace Prisma {
     estado?: boolean
     lugar?: string
     dia?: number
-    bloque?: number
+    bloque?: $Enums.BloqueHorario
   }
 
-  export type SesionUpdateToOneWithWhereWithoutAsistenciasInput = {
-    where?: SesionWhereInput
-    data: XOR<SesionUpdateWithoutAsistenciasInput, SesionUncheckedUpdateWithoutAsistenciasInput>
-  }
-
-  export type SesionUpdateWithoutAsistenciasInput = {
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
-    qrToken?: StringFieldUpdateOperationsInput | string
-    validoHasta?: DateTimeFieldUpdateOperationsInput | Date | string
-    taller?: TallerUpdateOneRequiredWithoutSesionesNestedInput
-  }
-
-  export type SesionUncheckedUpdateWithoutAsistenciasInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    tallerId?: IntFieldUpdateOperationsInput | number
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
-    qrToken?: StringFieldUpdateOperationsInput | string
-    validoHasta?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type InscripcionCreateManyEstudianteInput = {
+    id?: number
+    fechaRegistro?: Date | string
+    tallerId: number
   }
 
   export type AsistenciaCreateManyEstudianteInput = {
@@ -9850,29 +9866,12 @@ export namespace Prisma {
     estado?: BoolFieldUpdateOperationsInput | boolean
     lugar?: StringFieldUpdateOperationsInput | string
     dia?: IntFieldUpdateOperationsInput | number
-    bloque?: IntFieldUpdateOperationsInput | number
+    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
     inscripciones?: InscripcionUpdateManyWithoutTallerNestedInput
     sesiones?: SesionUpdateManyWithoutTallerNestedInput
   }
 
-  export type TallerCreateManyProfesorInput = {
-    id?: number
-    nombre: string
-    descripcion: string
-    horario: string
-    semestre: string
-    estado?: boolean
-  }
-
-  export type AsistenciaUpdateWithoutEstudianteInput = {
-    fechaHora?: DateTimeFieldUpdateOperationsInput | Date | string
-    estado?: StringFieldUpdateOperationsInput | string
-    notaSatisfaccion?: NullableIntFieldUpdateOperationsInput | number | null
-    comentario?: NullableStringFieldUpdateOperationsInput | string | null
-    sesion?: SesionUpdateOneRequiredWithoutAsistenciasNestedInput
-  }
-
-  export type AsistenciaUncheckedUpdateWithoutEstudianteInput = {
+  export type TallerUncheckedUpdateWithoutProfesorInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombre?: StringFieldUpdateOperationsInput | string
     descripcion?: StringFieldUpdateOperationsInput | string
@@ -9881,12 +9880,12 @@ export namespace Prisma {
     estado?: BoolFieldUpdateOperationsInput | boolean
     lugar?: StringFieldUpdateOperationsInput | string
     dia?: IntFieldUpdateOperationsInput | number
-    bloque?: IntFieldUpdateOperationsInput | number
+    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
     inscripciones?: InscripcionUncheckedUpdateManyWithoutTallerNestedInput
     sesiones?: SesionUncheckedUpdateManyWithoutTallerNestedInput
   }
 
-  export type AsistenciaUncheckedUpdateManyWithoutEstudianteInput = {
+  export type TallerUncheckedUpdateManyWithoutProfesorInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombre?: StringFieldUpdateOperationsInput | string
     descripcion?: StringFieldUpdateOperationsInput | string
@@ -9895,7 +9894,7 @@ export namespace Prisma {
     estado?: BoolFieldUpdateOperationsInput | boolean
     lugar?: StringFieldUpdateOperationsInput | string
     dia?: IntFieldUpdateOperationsInput | number
-    bloque?: IntFieldUpdateOperationsInput | number
+    bloque?: EnumBloqueHorarioFieldUpdateOperationsInput | $Enums.BloqueHorario
   }
 
   export type InscripcionUpdateWithoutEstudianteInput = {
@@ -9915,34 +9914,30 @@ export namespace Prisma {
     tallerId?: IntFieldUpdateOperationsInput | number
   }
 
-  export type TallerUpdateWithoutProfesorInput = {
-    nombre?: StringFieldUpdateOperationsInput | string
-    descripcion?: StringFieldUpdateOperationsInput | string
-    horario?: StringFieldUpdateOperationsInput | string
-    semestre?: StringFieldUpdateOperationsInput | string
-    estado?: BoolFieldUpdateOperationsInput | boolean
-    inscripciones?: InscripcionUpdateManyWithoutTallerNestedInput
-    sesiones?: SesionUpdateManyWithoutTallerNestedInput
+  export type AsistenciaUpdateWithoutEstudianteInput = {
+    fechaHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    estado?: StringFieldUpdateOperationsInput | string
+    notaSatisfaccion?: NullableIntFieldUpdateOperationsInput | number | null
+    comentario?: NullableStringFieldUpdateOperationsInput | string | null
+    sesion?: SesionUpdateOneRequiredWithoutAsistenciasNestedInput
   }
 
-  export type TallerUncheckedUpdateWithoutProfesorInput = {
+  export type AsistenciaUncheckedUpdateWithoutEstudianteInput = {
     id?: IntFieldUpdateOperationsInput | number
-    nombre?: StringFieldUpdateOperationsInput | string
-    descripcion?: StringFieldUpdateOperationsInput | string
-    horario?: StringFieldUpdateOperationsInput | string
-    semestre?: StringFieldUpdateOperationsInput | string
-    estado?: BoolFieldUpdateOperationsInput | boolean
-    inscripciones?: InscripcionUncheckedUpdateManyWithoutTallerNestedInput
-    sesiones?: SesionUncheckedUpdateManyWithoutTallerNestedInput
+    sesionId?: IntFieldUpdateOperationsInput | number
+    fechaHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    estado?: StringFieldUpdateOperationsInput | string
+    notaSatisfaccion?: NullableIntFieldUpdateOperationsInput | number | null
+    comentario?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type TallerUncheckedUpdateManyWithoutProfesorInput = {
+  export type AsistenciaUncheckedUpdateManyWithoutEstudianteInput = {
     id?: IntFieldUpdateOperationsInput | number
-    nombre?: StringFieldUpdateOperationsInput | string
-    descripcion?: StringFieldUpdateOperationsInput | string
-    horario?: StringFieldUpdateOperationsInput | string
-    semestre?: StringFieldUpdateOperationsInput | string
-    estado?: BoolFieldUpdateOperationsInput | boolean
+    sesionId?: IntFieldUpdateOperationsInput | number
+    fechaHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    estado?: StringFieldUpdateOperationsInput | string
+    notaSatisfaccion?: NullableIntFieldUpdateOperationsInput | number | null
+    comentario?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InscripcionCreateManyTallerInput = {
