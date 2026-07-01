@@ -1,20 +1,26 @@
-FROM node:24-alpine AS dev
+FROM node:24-alpine
 
 WORKDIR /app
 
-# Copia package.json y package-lock.json
+# 1. Copia solo los archivos de dependencias primero (optimiza el caché de Docker)
 COPY package*.json ./
 
-# Instala todas las deps (incluyendo dev)
+# 2. Instala TODAS las dependencias (necesitas las devDependencies como TypeScript para compilar)
 RUN npm install
 
-# Instala ts-node-dev globalmente (para live reload)
-
-RUN npm install -g ts-node-dev
-
+# 3. Copia el resto de tu código
 COPY . .
 
+# 4. Genera el cliente de Prisma (Crucial antes de compilar)
+RUN npx prisma generate
+
+# 5. Compila el código de TypeScript a JavaScript
+# (Esto requiere que tengas un script "build": "tsc" en tu package.json)
+RUN npm run build
+
+# 6. Expone el puerto (Railway inyectará su propio PORT, pero es buena práctica mantenerlo)
 EXPOSE 3000
 
-# CMD para desarrollo
-CMD ["ts-node-dev", "--poll", "--respawn", "--transpile-only", "src/index.ts"]
+# 7. CMD para Producción
+# Ejecuta las migraciones de forma segura y levanta el código compilado
+CMD ["sh", "-c", "npx prisma migrate deploy && node dist/index.js"]
