@@ -1,25 +1,16 @@
-FROM node:24-slim
-
-# Dependencias físicas del motor
-RUN apt-get update -y && apt-get install -y openssl ca-certificates
+FROM node:24-alpine AS dev
 
 WORKDIR /app
 
+# Copia package.json y package-lock.json
 COPY package*.json ./
 
-# Instalamos tsx globalmente para que Prisma pueda leer el config en TypeScript
-RUN npm install -g tsx
+# Instala todas las deps (incluyendo dev)
 RUN npm install
 
-COPY prisma ./prisma/
-
-RUN npx prisma generate
-
 COPY . .
-RUN npm run build
 
 EXPOSE 3000
 
-# Usamos DIRECT_URL (puerto 5432) temporalmente para la migración,
-# y dejamos que npm start corra con DATABASE_URL (puerto 6543)
-CMD ["sh", "-c", "DATABASE_URL=$DIRECT_URL npx prisma migrate deploy && npm start"]
+# CMD para desarrollo
+CMD ["ts-node-dev", "--transpile-only", "src/index.ts"]
