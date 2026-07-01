@@ -31,5 +31,3 @@ coverage/
 # --- Otros ---
 temp/
 tmp/
-
-src/generated/*
