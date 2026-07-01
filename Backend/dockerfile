@@ -12,8 +12,6 @@ RUN npm install -g tsx
 RUN npm install
 
 COPY prisma ./prisma/
-# Copiamos explícitamente el archivo de configuración TypeScript
-COPY prisma.config.ts ./  
 
 RUN npx prisma generate
 
