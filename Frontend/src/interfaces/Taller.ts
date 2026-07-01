@@ -1,6 +1,15 @@
+import type { Sesion } from "./Sesion";
+
 export interface Taller {
-  dia: number
-  bloque: number
-  titulo: string
-  lugar: string
+  id: number;
+  nombre: string;
+  descripcion: string;
+  horario: string;
+  semestre: string;
+  estado: boolean;
+  profesorId: number;
+  sesiones: Sesion[];
+  lugar: string;
+  bloque: number;
+  dia: number;
 }

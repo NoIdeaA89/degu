@@ -20,16 +20,6 @@ enum RolUsuario {
   Estudiante
 }
 
-enum BloqueHorario {
-  A
-  B
-  C
-  C2
-  D
-  E
-  F
-}
-
 model Usuario {
   id       Int        @id @default(autoincrement())
   nombre   String
@@ -51,6 +41,9 @@ model Taller {
   horario     String
   semestre    String
   estado      Boolean @default(true)
+  lugar       String  @default("Galpón Cultural")
+  dia         Int     @default(1)
+  bloque      Int     @default(1)
 
   profesorId    Int
   profesor      Usuario       @relation("ProfesorTaller", fields: [profesorId], references: [id])
@@ -71,11 +64,11 @@ model Inscripcion {
 }
 
 model Sesion {
-  id       Int           @id @default(autoincrement())
+  id       Int      @id @default(autoincrement())
   tallerId Int
-  taller   Taller        @relation(fields: [tallerId], references: [id])
-  fecha    DateTime      @default(now()) @db.Date
-  bloque   BloqueHorario
+  taller   Taller   @relation(fields: [tallerId], references: [id])
+  fecha    DateTime @default(now()) @db.Date
+  bloque   Int
 
   qrToken     String   @unique
   validoHasta DateTime
