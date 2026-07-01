@@ -11,15 +11,22 @@ import metricaRoutes from './routes/metrica.routes';
 const app = express();
 const port = process.env.PORT || 3000;
 
+const dominiosPermitidos = [
+  'http://localhost:3000',      // Para desarrollo local
+  'http://localhost:5173',      // (Si usas Vite localmente)
+  'https://degu-hazel.vercel.app/'
+];
+
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || /^http:\/\/(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+):\d+$/.test(origin)) {
+    // Permitir peticiones sin origen (como Postman) o si el origen está en la lista
+    if (!origin || dominiosPermitidos.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Bloqueado por CORS: Origen no permitido'));
     }
   },
-  credentials: true,
+  credentials: true, // Esto es vital para que las cookies o el JWT en LocalStorage funcionen bien entre dominios
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
