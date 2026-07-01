@@ -1,6 +1,7 @@
-export interface Taller {
-  dia: number
-  bloque: number
-  titulo: string
-  lugar: string
+export interface TallerUI {
+  id: number;
+  nombre: string;
+  dia: number;
+  bloque: number;
+  lugar: string;
 }
