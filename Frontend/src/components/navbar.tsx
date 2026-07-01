@@ -38,7 +38,7 @@ export default function Navbar(): ReactElement {
           </Link>
           <Link 
             to="/talleres" 
-            className="text-gray-700 hover:text-gray-900 font-medium transition-colors"
+            className="text-white hover:text-gray-900 font-medium transition-colors"
           >
             Talleres
           </Link>
