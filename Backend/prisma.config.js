@@ -1,4 +1,4 @@
-import { defineConfig } from "prisma/config";
+import { defineConfig, env} from "prisma/config";
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
@@ -7,6 +7,6 @@ export default defineConfig({
     seed: "npx ts-node prisma/seed.ts",
   },
   datasource: {
-    url: "postgresql://postgres:password123@localhost:5432/app_db?schema=public",
+    url: env("DATABASE_URL"),
   },
 });
