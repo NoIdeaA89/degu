@@ -1,7 +1,7 @@
 import request from 'supertest';
 import express from 'express';
 import asistenciaRoutes from '../src/routes/asistencia.routes';
-import { PrismaClient } from '../../Backend/Database/src/generated'; 
+import { PrismaClient } from '@prisma/client'; 
 
 const app = express();
 app.use(express.json());

@@ -24,7 +24,7 @@ const AsistenciaForm = () => {
     setError('');
 
     try {
-      const baseUrl = `http://${window.location.hostname}:3000/api`;
+      const baseUrl = import.meta.env.VITE_API_URL;
       
       const response = await fetch(`${baseUrl}/asistencia/registrar`, {
         method: 'POST',

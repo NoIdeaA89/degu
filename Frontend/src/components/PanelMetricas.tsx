@@ -11,16 +11,21 @@ interface MetricasDashboard {
   };
 }
 
+
 export default function PanelMetricas(): ReactElement {
   const [metricas, setMetricas] = useState<MetricasDashboard | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+
   useEffect(() => {
+      
     const fetchMetricas = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:3000/api/metricas/dashboard', {
+        const baseUrl = import.meta.env.VITE_API_URL;
+
+        const response = await fetch(`${baseUrl}/metricas/dashboard`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
 
