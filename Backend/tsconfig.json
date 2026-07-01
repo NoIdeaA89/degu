@@ -13,5 +13,5 @@
     "src/**/*",
     "database/**/*",
     "tests/**/*"
-, "src/lib", "prisma", "prisma.config.ts"  ]
+, "src/lib", "prisma", "prisma.config.js"  ]
 }

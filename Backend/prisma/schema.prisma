@@ -1,11 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated"
+  provider        = "prisma-client-js"
+  output          = "../src/generated"
   previewFeatures = ["driverAdapters"]
 }
 
@@ -34,7 +29,9 @@ model Usuario {
   talleresDictados Taller[]      @relation("ProfesorTaller")
   inscripciones    Inscripcion[]
   asistencias      Asistencia[]
-} 
+  inscripciones    Inscripcion[]
+  talleresDictados Taller[]      @relation("ProfesorTaller")
+}
 
 model Taller {
   id          Int     @id @default(autoincrement())
@@ -48,21 +45,20 @@ model Taller {
   bloque      Int      @default(1)
 
   profesorId    Int
-  profesor      Usuario       @relation("ProfesorTaller", fields: [profesorId], references: [id])
   inscripciones Inscripcion[]
   sesiones      Sesion[]
+  profesor      Usuario       @relation("ProfesorTaller", fields: [profesorId], references: [id])
 }
 
 model Inscripcion {
   id            Int      @id @default(autoincrement())
   fechaRegistro DateTime @default(now())
+  estudianteId  Int
+  tallerId      Int
+  estudiante    Usuario  @relation(fields: [estudianteId], references: [id])
+  taller        Taller   @relation(fields: [tallerId], references: [id])
 
-  estudianteId Int
-  estudiante   Usuario @relation(fields: [estudianteId], references: [id])
-  tallerId     Int
-  taller       Taller  @relation(fields: [tallerId], references: [id])
-
-  @@unique([estudianteId, tallerId]) 
+  @@unique([estudianteId, tallerId])
 }
 
 model Sesion {
@@ -81,14 +77,30 @@ model Sesion {
 model Asistencia {
   id               Int      @id @default(autoincrement())
   sesionId         Int
-  sesion           Sesion   @relation(fields: [sesionId], references: [id])
   estudianteId     Int
-  estudiante       Usuario  @relation(fields: [estudianteId], references: [id])  
-
   fechaHora        DateTime @default(now())
-  estado           String   @default("Ausente") 
-  notaSatisfaccion Int? 
-  comentario       String?  @db.Text    
+  estado           String   @default("Ausente")
+  notaSatisfaccion Int?
+  comentario       String?
+  estudiante       Usuario  @relation(fields: [estudianteId], references: [id])
+  sesion           Sesion   @relation(fields: [sesionId], references: [id])
 
   @@unique([sesionId, estudianteId])
+}
+
+enum RolUsuario {
+  Administrador
+  Profesor
+  Ayudante
+  Estudiante
+}
+
+enum BloqueHorario {
+  A
+  B
+  C
+  C2
+  D
+  E
+  F
 }
