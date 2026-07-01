@@ -1,5 +1,5 @@
 import { prisma } from '../lib/prisma';
-import { RolUsuario } from '../generated'; // Ajusta la ruta si es necesario
+import { RolUsuario } from '@prisma/client' // Ajusta la ruta si es necesario
 
 export const transferirMando = async (rutAdminActual: string, rutNuevoAdmin: string, palabraConfirmacion: string) => {
   // 1. Validación de seguridad de la intención

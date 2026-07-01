@@ -2,20 +2,17 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "commonjs",
-    "rootDir": ".",
+    "rootDir": "src",
     "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "types": ["jest", "node"],
-    "baseUrl": ".",
-    "paths": {
-      "@generated/*": ["src/generated/*"]
-    }
   },
-  "include": [
-    "src/**/*",
-    "database/**/*",
-    "tests/**/*"
-, "src/lib", "prisma", "prisma.config.js"  ]
+  "include": ["src/**/*"],
+  "exclude": [
+    "tests",
+    "prisma",
+    "database"
+  ]
 }
