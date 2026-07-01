@@ -31,4 +31,4 @@ RUN npm run build
 EXPOSE 3000
 
 # 10. Inyectar temporalmente DIRECT_URL (5432) para la migración y arrancar el servidor compilado
-CMD ["sh", "-c", "DATABASE_URL=$DIRECT_URL npx prisma migrate deploy && npm start"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]
