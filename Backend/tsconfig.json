@@ -8,9 +8,6 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "types": ["jest", "node"],
-    "paths": {
-      "@generated/*": ["src/generated/*"]
-    }
   },
   "include": [
     "src/**/*",
