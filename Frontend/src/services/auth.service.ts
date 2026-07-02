@@ -15,7 +15,7 @@ export async function loginConCorreo(
   correo: string,
   password: string
 ): Promise<LoginResponse> {
-  const response = await fetch(`${baseUrl}auth/login`, {
+  const response = await fetch(`${baseUrl}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ correo, password }),

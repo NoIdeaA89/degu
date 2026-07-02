@@ -22,7 +22,7 @@ export async function generarSesion({
   bloque,
   minutosValidez = 15,
 }: GenerarSesionParams): Promise<GenerarSesionResponse> {
-  const response = await fetch(`${baseUrl}sesion/generar`, {
+  const response = await fetch(`${baseUrl}/sesion/generar`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
