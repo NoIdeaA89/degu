@@ -29,7 +29,7 @@ app.use(cors({
       callback(new Error('Bloqueado por CORS: Origen no permitido'));
     }
   },
-  credentials: true,
+  credentials: true, // Esto es vital para que las cookies o el JWT en LocalStorage funcionen bien entre dominios
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));

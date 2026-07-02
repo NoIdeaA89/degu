@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../src/index'; // Ajusta la ruta a tu archivo principal donde exportas 'app'
 import { prisma } from '../src/lib/prisma'; // Ajusta la ruta a tu instancia de Prisma
 import jwt from 'jsonwebtoken';
-import { RolUsuario } from '../src/generated';
+import { RolUsuario } from '@prisma/client';
 
 // 1. Mockeamos Prisma para que no toque la base de datos real
 jest.mock('../src/lib/prisma', () => ({
