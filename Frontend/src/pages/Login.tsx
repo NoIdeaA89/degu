@@ -19,7 +19,7 @@ export default function Login(): JSX.Element {
     setCargando(true)
 
     try {
-      const baseUrl = `http://${window.location.hostname}:3000/api`;
+      const baseUrl = import.meta.env.VITE_API_URL;
       
       const response = await fetch(`${baseUrl}/auth/login`, {
         method: "POST",
@@ -64,7 +64,7 @@ export default function Login(): JSX.Element {
         throw new Error('Acceso denegado: Por favor, utiliza tu correo institucional de la UCN.');
       }
 
-      const baseUrl = `http://${window.location.hostname}:3000/api`;
+      const baseUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${baseUrl}/auth/google`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

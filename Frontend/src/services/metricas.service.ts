@@ -2,7 +2,9 @@ import type { MetricasDashboard } from "../interfaces/MetricasDashBoard"
 
 export async function obtenerMetricasDashboard(): Promise<MetricasDashboard> {
   const token = localStorage.getItem('token');
-  const response = await fetch('http://localhost:3000/api/metricas/dashboard', {
+  const baseUrl = import.meta.env.VITE_API_URL;
+
+  const response = await fetch(`${baseUrl}/metricas/dashboard`, {
     headers: { 'Authorization': `Bearer ${token}` }
   });
 

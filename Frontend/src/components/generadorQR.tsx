@@ -18,7 +18,7 @@ export default function GeneradorQR({ tallerId, nombreTaller, bloque }: Generado
       setError('');
 
       try {
-        const baseUrl = `http://${window.location.hostname}:3000/api`;
+        const baseUrl = import.meta.env.VITE_API_URL;
 
         const response = await fetch(`${baseUrl}/sesion/generar`, {
           method: 'POST',
