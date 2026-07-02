@@ -62,26 +62,4 @@ export class AsistenciaController {
       res.status(500).json({ message: error.message });
     }
   };
-
-  obtenerResumenSemestre = async (req: Request, res: Response) => {
-    try {
-      const { semestre, mes, dia, fechaInicio, fechaFin } = req.query;
-
-      if (!semestre) {
-        return res.status(400).json({ message: 'El semestre es requerido' });
-      }
-
-      const reporte = await this.asistenciaService.resumenPorSemestre({
-        semestre: String(semestre),
-        mes:          mes          ? Number(mes)           : undefined,
-        dia:          dia          ? Number(dia)           : undefined,
-        fechaInicio:  fechaInicio  ? new Date(String(fechaInicio))  : undefined,
-        fechaFin:     fechaFin     ? new Date(String(fechaFin))     : undefined,
-      });
-
-      res.json(reporte);
-    } catch (error: any) {
-      res.status(500).json({ message: error.message });
-    }
-  };
 }
