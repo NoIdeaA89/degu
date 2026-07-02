@@ -33,8 +33,10 @@ export async function obtenerResumenAsistencia(
     headers.Authorization = `Bearer ${token}`;
   }
 
+  const baseUrl = import.meta.env.VITE_API_URL;
+
   const response = await fetch(
-    `http://localhost:3000/api/asistencia/resumen?${params.toString()}`,
+    `${baseUrl}/api/asistencia/resumen?${params.toString()}`,
     { headers }
   );
 
