@@ -36,7 +36,7 @@ export async function obtenerResumenAsistencia(
   const baseUrl = import.meta.env.VITE_API_URL;
 
   const response = await fetch(
-    `${baseUrl}/api/asistencia/resumen?${params.toString()}`,
+    `${baseUrl}asistencia/resumen?${params.toString()}`,
     { headers }
   );
 
