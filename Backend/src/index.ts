@@ -11,9 +11,19 @@ import metricaRoutes from './routes/metrica.routes';
 const app = express();
 const port = process.env.PORT || 3000;
 
+const dominiosPermitidos = [
+  'http://localhost:3000',
+  'http://localhost:5173',          // Para cuando corras Vite localmente
+  'https://degu-hazel.vercel.app'   // Tu frontend en producción
+];
+
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || /^http:\/\/(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+):\d+$/.test(origin)) {
+    // Permitir si no hay origen (Postman) o si está en nuestra lista exacta
+    if (!origin || dominiosPermitidos.includes(origin)) {
+      callback(null, true);
+    // Mantenemos tu Regex original por si estás probando en red local con tu celular
+    } else if (/^http:\/\/(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+):\d+$/.test(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Bloqueado por CORS: Origen no permitido'));
