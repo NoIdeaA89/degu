@@ -1,8 +1,9 @@
 import { useState, type JSX } from "react"
 import { useNavigate } from "react-router-dom"
-import { useAuth } from "../context/AuthContext" 
+import { useAuth } from "../context/AuthContext"
 import { GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
+import { loginConCorreo, loginConGoogle } from "../services/auth.service"
 
 export default function Login(): JSX.Element {
   const [correo, setCorreo] = useState("")
@@ -19,30 +20,9 @@ export default function Login(): JSX.Element {
     setCargando(true)
 
     try {
-      const baseUrl = import.meta.env.VITE_API_URL;
-      console.log("VITE_API_URL =", import.meta.env.VITE_API_URL);
-      const response = await fetch(`${baseUrl}auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ correo, password }),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        if (response.status === 404) {
-          throw new Error('No encontramos ninguna cuenta asociada a este correo.');
-        } else if (response.status === 401) {
-          throw new Error('La contraseña ingresada es incorrecta. Inténtalo nuevamente.');
-        } else {
-          throw new Error(data.message || data.error || "Credenciales incorrectas");
-        }
-      }
-
+      const data = await loginConCorreo(correo, password)
       login(data.token)
-      
       navigate("/inicio")
-      
     } catch (err: any) {
       setError(err.message)
     } finally {
@@ -52,41 +32,28 @@ export default function Login(): JSX.Element {
 
   const handleGoogleSuccess = async (credentialResponse: any) => {
     setError("")
-    setCargando(true) 
-    
+    setCargando(true)
+
     try {
-      const decoded: any = jwtDecode(credentialResponse.credential);
-      const email = decoded.email.toLowerCase();
-      
-      const esCorreoUCN = email.endsWith('@ucn.cl') || email.endsWith('.ucn.cl');
+      const decoded: any = jwtDecode(credentialResponse.credential)
+      const email = decoded.email.toLowerCase()
+
+      const esCorreoUCN = email.endsWith('@ucn.cl') || email.endsWith('.ucn.cl')
 
       if (!esCorreoUCN) {
-        throw new Error('Acceso denegado: Por favor, utiliza tu correo institucional de la UCN.');
+        throw new Error('Acceso denegado: Por favor, utiliza tu correo institucional de la UCN.')
       }
 
-      const baseUrl = import.meta.env.VITE_API_URL;
-      console.log("VITE_API_URL =", baseUrl);
-      const response = await fetch(`${baseUrl}auth/google`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: credentialResponse.credential }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Error al autenticar con Google en el servidor.');
-      }
-
-      login(data.token);
-      navigate("/inicio");
+      const data = await loginConGoogle(credentialResponse.credential)
+      login(data.token)
+      navigate("/inicio")
 
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message)
     } finally {
       setCargando(false)
     }
-  };
+  }
 
   return (
     <main className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-12">
@@ -95,14 +62,12 @@ export default function Login(): JSX.Element {
           <h1 className=" text-2xl font-semibold ">Inicio de sesión</h1>
         </div>
 
-        {/* Mostramos el error si el backend rechaza las credenciales */}
         {error && (
           <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-sm text-red-600 text-center">
             {error}
           </div>
         )}
 
-        {/* Conectamos el formulario a la función handleSubmit */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <label className="block text-sm font-medium text-slate-700 text-left">
             Correo
@@ -162,7 +127,7 @@ export default function Login(): JSX.Element {
             />
           </div>
         </div>
-        
+
         <div className="mt-8 grid grid-cols-2 text-sm text-slate-400">
           <p className="text-left">
             ¿Olvidaste tu contraseña?{' '}
