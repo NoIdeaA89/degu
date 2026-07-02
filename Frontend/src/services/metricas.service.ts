@@ -4,7 +4,7 @@ export async function obtenerMetricasDashboard(): Promise<MetricasDashboard> {
   const token = localStorage.getItem('token');
   const baseUrl = import.meta.env.VITE_API_URL;
 
-  const response = await fetch(`${baseUrl}/metricas/dashboard`, {
+  const response = await fetch(`${baseUrl}/api/metricas/dashboard`, {
     headers: { 'Authorization': `Bearer ${token}` }
   });
 

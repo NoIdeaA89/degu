@@ -20,8 +20,8 @@ export default function Login(): JSX.Element {
 
     try {
       const baseUrl = import.meta.env.VITE_API_URL;
-      
-      const response = await fetch(`${baseUrl}/auth/login`, {
+      console.log("VITE_API_URL =", import.meta.env.VITE_API_URL);
+      const response = await fetch(`${baseUrl}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ correo, password }),
@@ -65,7 +65,8 @@ export default function Login(): JSX.Element {
       }
 
       const baseUrl = import.meta.env.VITE_API_URL;
-      const response = await fetch(`${baseUrl}/auth/google`, {
+      console.log("VITE_API_URL =", baseUrl);
+      const response = await fetch(`${baseUrl}/api/auth/google`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: credentialResponse.credential }),
