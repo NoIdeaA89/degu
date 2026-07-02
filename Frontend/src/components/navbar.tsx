@@ -36,6 +36,12 @@ export default function Navbar(): ReactElement {
           >
             Estudiantes
           </Link>
+          <Link 
+            to="/talleres" 
+            className="text-white hover:text-gray-900 font-medium transition-colors"
+          >
+            Talleres
+          </Link>
 
           {user && (
             <div className="flex items-center gap-4 ml-2 border-l border-gray-400 pl-6">
