@@ -19,17 +19,31 @@ const dominiosPermitidos = [
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Permitir si no hay origen (Postman) o si está en nuestra lista exacta
+    const dominiosPermitidos = [
+      'http://localhost:3000',
+      'http://localhost:5173',
+      'https://degu-hazel.vercel.app' // Tu dominio principal
+    ];
+
+    // 1. Permitir peticiones sin origen (Postman) o dominios de la lista estricta
     if (!origin || dominiosPermitidos.includes(origin)) {
       callback(null, true);
-    // Mantenemos tu Regex original por si estás probando en red local con tu celular
-    } else if (/^http:\/\/(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+):\d+$/.test(origin)) {
+    } 
+    // 2. EL COMODÍN MAGICO: Permitir cualquier URL dinámica que genere Vercel para las vistas previas
+    else if (/\.vercel\.app$/.test(origin)) {
       callback(null, true);
-    } else {
+    } 
+    // 3. Permitir peticiones desde la red local (para probar con el celular)
+    else if (/^http:\/\/(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+):\d+$/.test(origin)) {
+      callback(null, true);
+    } 
+    // 4. Si no es ninguna de las anteriores, bloquear por seguridad
+    else {
+      console.error('Bloqueado por CORS: Origen no permitido ->', origin);
       callback(new Error('Bloqueado por CORS: Origen no permitido'));
     }
   },
-  credentials: true, // Esto es vital para que las cookies o el JWT en LocalStorage funcionen bien entre dominios
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
