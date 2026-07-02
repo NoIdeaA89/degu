@@ -11,12 +11,6 @@ import metricaRoutes from './routes/metrica.routes';
 const app = express();
 const port = process.env.PORT || 3000;
 
-const dominiosPermitidos = [
-  'http://localhost:3000',
-  'http://localhost:5173',          // Para cuando corras Vite localmente
-  'https://degu-hazel.vercel.app'   // Tu frontend en producción
-];
-
 app.use(cors({
   origin: function (origin, callback) {
     const dominiosPermitidos = [
