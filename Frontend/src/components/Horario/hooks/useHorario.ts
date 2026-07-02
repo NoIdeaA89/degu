@@ -3,7 +3,8 @@ import { DIAS as dias } from "../../../constants/Horario"
 import { estudiantes } from "../../../data/Estudiantes"
 import { crearAsistenciaInicial, crearIdTaller } from "../../../utils/Asistencia"
 import { cargarBloques, guardarTalleres } from "../../../utils/Horariostorage"
-import { obtenerTalleresUI } from "../../../services/taller.service"
+import { obtenerTalleresUI, crearTallerUI } from "../../../services/taller.service"
+import type { CrearTallerParams } from "../../../services/taller.service"
 import type { TallerUI } from "../../../interfaces/Taller"
 import type { CeldaSeleccionada, TallerSeleccionado } from "../../../interfaces/Horario"
 
@@ -88,16 +89,16 @@ export default function useHorario() {
     [talleresState]
   )
 
-  const agregarTaller = (titulo: string, lugar: string) => {
-    const tituloLimpio = titulo.trim()
-    const lugarLimpio = lugar.trim()
-    if (!tituloLimpio || !lugarLimpio) return
+  const [errorAgregarTaller, setErrorAgregarTaller] = useState<string | null>(null)
 
-    setTalleresState((prev) => {
-      const actualizado = [...prev, { id: Date.now(), nombre: "Taller de Programación", dia: 0, bloque: 0, titulo: tituloLimpio, lugar: lugarLimpio }]
-      guardarTalleres(actualizado)
-      return actualizado
-    })
+  const agregarTaller = async (datos: CrearTallerParams) => {
+    setErrorAgregarTaller(null)
+    try {
+      const nuevoTaller = await crearTallerUI(datos)
+      setTalleresState((prev) => [...prev, nuevoTaller])
+    } catch (err: any) {
+      setErrorAgregarTaller(err.message || "Error al agregar el taller")
+    }
   }
   const desasignarTaller = (origen: TallerUI) => {
     setTalleresState((prev) => {
@@ -254,6 +255,7 @@ export default function useHorario() {
     talleresSinAsignar,
     isLoadingTalleres,
     errorTalleres,
+    errorAgregarTaller,
     celdaSeleccionada,
     tallerSeleccionado,
     asistenciaActual,

@@ -40,15 +40,15 @@ model Usuario {
 }
 
 model Taller {
-  id          Int           @id @default(autoincrement())
+  id          Int            @id @default(autoincrement())
   nombre      String
-  descripcion String        @db.Text
-  horario     String
+  descripcion String         @db.Text
+  horario     String?
   semestre    String
-  estado      Boolean       @default(true)
-  lugar       String        @default("Galpón Cultural")
-  dia         Int           @default(1)
-  bloque      BloqueHorario @default(A) // Changed to use Enum
+  estado      Boolean        @default(true)
+  lugar       String         @default("Galpón Cultural")
+  dia         Int?
+  bloque      BloqueHorario?
 
   profesorId Int
   profesor   Usuario @relation("ProfesorTaller", fields: [profesorId], references: [id])

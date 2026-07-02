@@ -5,6 +5,7 @@ export function bloqueLetraANumero(letra: string): number {
   return indice === -1 ? 0 : indice + 1
 }
 
-export function bloqueNumeroALetra(numero: number): string {
-  return BLOQUES[numero - 1] ?? BLOQUES[0]
+export function bloqueNumeroALetra(numero: number): string | null {
+  if (numero <= 0) return null
+  return BLOQUES[numero - 1] ?? null
 }

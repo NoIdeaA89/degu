@@ -27,6 +27,7 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
     talleresSinAsignar,
     isLoadingTalleres,
     errorTalleres,
+    errorAgregarTaller,
     agregarTaller,
     celdaSeleccionada,
     tallerSeleccionado,
@@ -129,6 +130,12 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
           onAgregar={agregarTaller}
           onCerrar={() => setMostrarModalTaller(false)}
         />
+      )}
+
+      {!soloLectura && errorAgregarTaller && (
+        <div className="p-3 bg-red-50 text-red-600 rounded-md border border-red-200 text-center text-sm">
+          {errorAgregarTaller}
+        </div>
       )}
 
       {!soloLectura && !modoEdicion && celdaSeleccionada && (
