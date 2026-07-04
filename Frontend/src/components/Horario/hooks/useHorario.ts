@@ -1,210 +1,71 @@
 import { useEffect, useMemo, useState } from "react"
 import { DIAS as dias } from "../../../constants/Horario"
-import { estudiantes } from "../../../data/Estudiantes"
-import { crearAsistenciaInicial, crearIdTaller } from "../../../utils/Asistencia"
-import { cargarBloques, cargarTalleres, guardarTalleres } from "../../../utils/Horariostorage"
-import type { TallerUI } from "../../../interfaces/Taller"
-import type { CeldaSeleccionada, TallerSeleccionado } from "../../../interfaces/Horario"
-
+import { cargarBloques } from "../../../utils/Horariostorage"
+import type { CeldaSeleccionada } from "../../../interfaces/Horario"
+import { useTalleres } from "./useTalleres"
+import { useAsistencia } from "./useAsistencia"
+import { useFiltros } from "./useFiltros"
 
 export default function useHorario() {
-  const [talleresState, setTalleresState] = useState<TallerUI[]>(() => cargarTalleres())
+  // Sub-hooks para responsabilidades específicas
+  const { talleresState, lugares, talleresSinAsignar, agregarTaller, desasignarTaller, moverTaller } = useTalleres()
+  const { lugaresActivos, toggleLugar, seleccionarTodos, limpiarTodos } = useFiltros(lugares)
+  const {
+    tallerSeleccionado,
+    asistenciaActual,
+    hayCambios,
+    estudiantes,
+    abrirTaller,
+    cerrarTaller,
+    guardarAsistencia,
+    alternarAsistencia,
+    marcarTodos,
+  } = useAsistencia()
+
+  // Estados locales
   const [modoEdicion, setModoEdicion] = useState(false)
   const [bloques] = useState<string[]>(() => cargarBloques())
-
-  const lugares = useMemo(
-    () => Array.from(new Set(talleresState.map((t) => t.lugar))).sort(),
-    [talleresState]
-  )
-
-  const [lugaresActivos, setLugaresActivos] = useState<string[]>(lugares)
   const [celdaSeleccionada, setCeldaSeleccionada] = useState<CeldaSeleccionada | null>(null)
-  const [tallerSeleccionado, setTallerSeleccionado] = useState<TallerSeleccionado | null>(null)
-  const [asistenciaPorTaller, setAsistenciaPorTaller] = useState<Record<string, Record<string, boolean>>>({})
-  const [asistenciaOriginalPorTaller, setAsistenciaOriginalPorTaller] = useState<Record<string, Record<string, boolean>>>({})
   const [mostrarQrModal, setMostrarQrModal] = useState(false)
 
-  // Sincroniza lugaresActivos si aparecen lugares nuevos (poco probable pero seguro)
-  useEffect(() => {
-    setLugaresActivos((prev) => {
-      const nuevos = lugares.filter((l) => !prev.includes(l) && !prev.some((p) => !lugares.includes(p)))
-      if (nuevos.length === 0) return prev
-      return [...prev, ...nuevos]
-    })
-  }, [lugares])
-
-  const toggleLugar = (lugar: string) => {
-    setLugaresActivos((prev) =>
-      prev.includes(lugar) ? prev.filter((item) => item !== lugar) : [...prev, lugar]
-    )
-  }
-
+  // Cálculos derivados
   const talleresFiltrados = useMemo(
     () => talleresState.filter((t) => t.bloque > 0 && t.dia > 0 && lugaresActivos.includes(t.lugar)),
     [talleresState, lugaresActivos]
   )
 
   const talleresPorCelda = useMemo(() => {
-    const map = new Map<string, TallerUI[]>()
-
+    const map = new Map<string, typeof talleresState>()
     for (const taller of talleresFiltrados) {
       const key = `${taller.bloque}-${taller.dia}`
       const prev = map.get(key) ?? []
       prev.push(taller)
       map.set(key, prev)
     }
-
     return map
   }, [talleresFiltrados])
 
-  const seleccionarTodos = () => setLugaresActivos(lugares)
-  const limpiarTodos = () => setLugaresActivos([])
-
-  const toggleModoEdicion = () => setModoEdicion((prev) => !prev)
-  const talleresSinAsignar = useMemo(
-    () => talleresState.filter((t) => t.dia === 0 || t.bloque === 0),
-    [talleresState]
-  )
-
-  const agregarTaller = (titulo: string, lugar: string) => {
-    const tituloLimpio = titulo.trim()
-    const lugarLimpio = lugar.trim()
-    if (!tituloLimpio || !lugarLimpio) return
-
-    setTalleresState((prev) => {
-      const actualizado = [...prev, { id: Date.now(), nombre: "Taller de Programación", dia: 0, bloque: 0, titulo: tituloLimpio, lugar: lugarLimpio }]
-      guardarTalleres(actualizado)
-      return actualizado
-    })
-  }
-  const desasignarTaller = (origen: TallerUI) => {
-    setTalleresState((prev) => {
-      const actualizado = prev.map((t) =>
-        t.dia === origen.dia &&
-        t.bloque === origen.bloque &&
-        t.nombre === origen.nombre &&
-        t.lugar === origen.lugar
-          ? { ...t, dia: 0, bloque: 0 }
-          : t
-      )
-      guardarTalleres(actualizado)
-      return actualizado
-    })
-  }
-  const moverTaller = (origen: TallerUI, nuevoDia: number, nuevoBloque: number) => {
-    setTalleresState((prev) => {
-      const actualizado = prev.map((t) =>
-        t.dia === origen.dia &&
-        t.bloque === origen.bloque &&
-        t.nombre === origen.nombre &&
-        t.lugar === origen.lugar
-          ? { ...t, dia: nuevoDia, bloque: nuevoBloque }
-          : t
-      )
-      guardarTalleres(actualizado)
-      return actualizado
-    })
-  }
-
+  // Métodos de modal
   const abrirCelda = (dia: number, bloque: number) => {
     if (modoEdicion) return
     const items = talleresPorCelda.get(`${bloque}-${dia}`) ?? []
     setCeldaSeleccionada({ dia, bloque, items })
-    setTallerSeleccionado(null)
   }
 
   const cerrarModal = () => {
     setCeldaSeleccionada(null)
-    setTallerSeleccionado(null)
   }
 
   const cerrarModalAsistencia = () => {
-    setTallerSeleccionado(null)
+    cerrarTaller()
     setMostrarQrModal(false)
   }
 
+  const toggleModoEdicion = () => setModoEdicion((prev) => !prev)
   const abrirQrModal = () => setMostrarQrModal(true)
   const cerrarQrModal = () => setMostrarQrModal(false)
 
-  const abrirTaller = (taller: TallerUI, indice: number) => {
-    if (modoEdicion) return
-    const idCompuesto = crearIdTaller(taller, indice)
-    const asistenciaBase = asistenciaPorTaller[idCompuesto] ?? crearAsistenciaInicial(estudiantes)
-
-    setTallerSeleccionado({ id: taller.id, taller })
-    setAsistenciaPorTaller((prev) => ({
-      ...prev,
-      [idCompuesto]: asistenciaBase
-    }))
-    setAsistenciaOriginalPorTaller((prev) => ({
-      ...prev,
-      [idCompuesto]: asistenciaBase
-    }))
-  }
-
-  const guardarAsistencia = () => {
-    if (!tallerSeleccionado) return
-
-    setAsistenciaOriginalPorTaller((prev) => ({
-      ...prev,
-      [tallerSeleccionado.id]:
-        asistenciaPorTaller[tallerSeleccionado.id] ?? crearAsistenciaInicial(estudiantes)
-    }))
-
-    cerrarModalAsistencia()
-  }
-
-  const alternarAsistencia = (rut: string) => {
-    if (!tallerSeleccionado) return
-
-    setAsistenciaPorTaller((prev) => {
-      const actual = prev[tallerSeleccionado.id] ?? crearAsistenciaInicial(estudiantes)
-
-      return {
-        ...prev,
-        [tallerSeleccionado.id]: {
-          ...actual,
-          [rut]: !actual[rut]
-        }
-      }
-    })
-  }
-
-  const marcarTodos = (presente: boolean) => {
-    if (!tallerSeleccionado) return
-
-    setAsistenciaPorTaller((prev) => ({
-      ...prev,
-      [tallerSeleccionado.id]: Object.fromEntries(
-        estudiantes.map((estudiante) => [estudiante.rut, presente])
-      ) as Record<string, boolean>
-    }))
-  }
-
-  const asistenciaActual = useMemo(
-    () =>
-      tallerSeleccionado
-        ? asistenciaPorTaller[tallerSeleccionado.id] ?? crearAsistenciaInicial(estudiantes)
-        : null,
-    [tallerSeleccionado, asistenciaPorTaller]
-  )
-
-  const asistenciaOriginal = useMemo(
-    () =>
-      tallerSeleccionado
-        ? asistenciaOriginalPorTaller[tallerSeleccionado.id] ?? crearAsistenciaInicial(estudiantes)
-        : null,
-    [tallerSeleccionado, asistenciaOriginalPorTaller]
-  )
-
-  const hayCambios = Boolean(
-    tallerSeleccionado &&
-      estudiantes.some(
-        (estudiante) =>
-          asistenciaActual?.[estudiante.rut] !== asistenciaOriginal?.[estudiante.rut]
-      )
-  )
-
+  // Event listeners para cerrar modales con ESC
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return
@@ -252,6 +113,6 @@ export default function useHorario() {
     alternarAsistencia,
     guardarAsistencia,
     abrirQrModal,
-    cerrarQrModal
+    cerrarQrModal,
   }
 }

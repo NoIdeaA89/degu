@@ -1,26 +1,8 @@
-import { type ReactElement, useState, useEffect } from "react"
-import { obtenerMetricasDashboard } from "../services/metricas.service"
-import type { MetricasDashboard } from "../interfaces/MetricasDashBoard"
+import { type ReactElement } from "react"
+import { useMetricas } from "../pages/hooks/useMetricas"
 
 export default function PanelMetricas(): ReactElement {
-  const [metricas, setMetricas] = useState<MetricasDashboard | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchMetricas = async () => {
-      try {
-        const data = await obtenerMetricasDashboard();
-        setMetricas(data);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchMetricas();
-  }, []);
+  const { metricas, isLoading, error } = useMetricas();
 
   if (isLoading) {
     return (

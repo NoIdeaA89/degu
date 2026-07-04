@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { obtenerResumenAsistencia, type ResumenAsistenciaTallerApi } from '../services/talleres.service';
+import { obtenerSemestreActual, obtenerSemestreAnterior } from '../utils/semestre.utils';
 
 interface Taller {
   id: number;
@@ -15,25 +16,6 @@ const obtenerColorBarra = (porcentaje: number): string => {
   if (porcentaje >= 80) return 'bg-green-500';
   if (porcentaje >= 50) return 'bg-yellow-500';
   return 'bg-red-500';
-};
-
-const obtenerSemestreActual = (): string => {
-  const fecha = new Date();
-  const anio = fecha.getFullYear();
-  const semestre = fecha.getMonth() + 1 <= 7 ? 1 : 2;
-  return `${anio}-${semestre}`;
-};
-
-const obtenerSemestreAnterior = (semestre: string): string => {
-  const [anioTexto, semestreTexto] = semestre.split('-');
-  const anio = Number(anioTexto);
-  const numeroSemestre = Number(semestreTexto);
-
-  if (numeroSemestre === 2) {
-    return `${anio}-1`;
-  }
-
-  return `${anio - 1}-2`;
 };
 
 const ListaTalleres: React.FC = () => {
