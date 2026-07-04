@@ -1,21 +1,15 @@
 import { useMemo, useState, useEffect } from "react"
 import { cargarTalleres, guardarTalleres } from "../../../utils/Horariostorage"
-import { obtenerTalleresPorSemestre, type TallerApi } from "../../../services/talleres.service"
+import { obtenerTalleresPorSemestre, type TallerApi, actualizarTallerEnBD } from "../../../services/talleres.service"
 import { obtenerSemestreActual } from "../../../utils/semestre.utils"
 import { BLOQUES } from "../../../constants/Horario"
 import type { TallerUI } from "../../../interfaces/Taller"
-import { actualizarTallerEnBD } from "../../../services/talleres.service"
-/**
- * Mapea un bloque (A, B, C, etc.) a su índice numérico
- */
+
 function mapearBloqueANumero(bloque: string): number {
   const index = BLOQUES.indexOf(bloque)
   return index >= 0 ? index + 1 : 0
 }
 
-/**
- * Convierte un TallerApi a TallerUI
- */
 function convertirTallerApiAUI(taller: TallerApi): TallerUI {
   return {
     id: taller.id,
@@ -23,18 +17,15 @@ function convertirTallerApiAUI(taller: TallerApi): TallerUI {
     dia: taller.dia || 0,
     bloque: mapearBloqueANumero(taller.bloque),
     lugar: taller.lugar || "Galpón Cultural",
+    pendienteAsignacion: taller.dia === 0 || !taller.bloque,
   }
 }
 
-/**
- * Hook para gestionar talleres (CRUD, movimiento, asignación)
- */
 export function useTalleres() {
   const [talleresState, setTalleresState] = useState<TallerUI[]>(() => cargarTalleres())
   const [cargando, setCargando] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // Cargar talleres del backend al montar el componente
   useEffect(() => {
     const cargarTalleresDelBackend = async () => {
       try {
@@ -49,7 +40,6 @@ export function useTalleres() {
         const mensaje = err instanceof Error ? err.message : 'Error al cargar los talleres'
         setError(mensaje)
         console.error('Error cargando talleres:', err)
-        // Mantener los datos locales como fallback
       } finally {
         setCargando(false)
       }
@@ -64,7 +54,7 @@ export function useTalleres() {
   )
 
   const talleresSinAsignar = useMemo(
-    () => talleresState.filter((t) => t.dia === 0 || t.bloque === 0),
+    () => talleresState.filter((t) => t.pendienteAsignacion || t.dia === 0 || t.bloque === 0),
     [talleresState]
   )
 
@@ -78,11 +68,11 @@ export function useTalleres() {
         ...prev,
         {
           id: Date.now(),
-          nombre: "Taller de Programación",
+          nombre: tituloLimpio,
           dia: 0,
           bloque: 0,
-          titulo: tituloLimpio,
           lugar: lugarLimpio,
+          pendienteAsignacion: true,
         },
       ]
       guardarTalleres(actualizado)
@@ -90,44 +80,76 @@ export function useTalleres() {
     })
   }
 
-  const desasignarTaller = (origen: TallerUI) => {
-    setTalleresState((prev) => {
-      const actualizado = prev.map((t) =>
-        t.dia === origen.dia &&
-        t.bloque === origen.bloque &&
-        t.nombre === origen.nombre &&
-        t.lugar === origen.lugar
-          ? { ...t, dia: 0, bloque: 0 }
-          : t
-      )
-      guardarTalleres(actualizado)
-      return actualizado
-    })
-  }
+  const desasignarTaller = async (origen: TallerUI) => {
+  const previo = talleresState
+  const bloqueString = BLOQUES[origen.bloque - 1] ?? "A" // mantiene un valor válido del enum
 
-const moverTaller = async (origen: TallerUI, nuevoDia: number, nuevoBloque: number) => {
+  setTalleresState((prev) => {
+    const actualizado = prev.map((t) =>
+      t.id === origen.id
+        ? { ...t, dia: 0, bloque: 0, pendienteAsignacion: true }
+        : t
+    )
+    guardarTalleres(actualizado)
+    return actualizado
+  })
+
   try {
-    // Convertir número de bloque a string (ej: 1 → "A")
-    const bloqueString = BLOQUES[nuevoBloque - 1] ?? ""
+    await actualizarTallerEnBD(origen.id, 0, bloqueString)
+  } catch (err) {
+    console.error("Error al desasignar taller:", err)
+    setError("No se pudo desasignar el taller")
+    setTalleresState(previo)
+    guardarTalleres(previo)
+  }
+}
 
-    // Llamada al backend
+  const moverTaller = async (origen: TallerUI, nuevoDia: number, nuevoBloque: number) => {
+  const previo = talleresState
+  const bloqueString = BLOQUES[nuevoBloque - 1] ?? "A"
+
+  setTalleresState((prev) => {
+    const actualizado = prev.map((t) =>
+      t.id === origen.id
+        ? {
+            ...t,
+            dia: nuevoDia,
+            bloque: nuevoBloque,
+            pendienteAsignacion: false, // 👈 antes estaba en `true`
+          }
+        : t
+    )
+    guardarTalleres(actualizado)
+    return actualizado
+  })
+
+  try {
     await actualizarTallerEnBD(origen.id, nuevoDia, bloqueString)
-
-    // Actualizar estado local
-    setTalleresState((prev) => {
-      const actualizado = prev.map((t) =>
-        t.id === origen.id
-          ? { ...t, dia: nuevoDia, bloque: nuevoBloque }
-          : t
-      )
-      guardarTalleres(actualizado)
-      return actualizado
-    })
   } catch (err) {
     console.error("Error al mover taller:", err)
     setError("No se pudo mover el taller")
+    setTalleresState(previo)
+    guardarTalleres(previo)
   }
 }
+
+  const confirmarAsignacion = async (id: number, bloque: number) => {
+    try {
+      const bloqueString = BLOQUES[bloque - 1] ?? "A"
+      await actualizarTallerEnBD(id, 0, bloqueString)
+
+      setTalleresState((prev) => {
+        const actualizado = prev.map((t) =>
+          t.id === id ? { ...t, dia: 0, bloque: 0, pendienteAsignacion: false } : t
+        )
+        guardarTalleres(actualizado)
+        return actualizado
+      })
+    } catch (err) {
+      console.error("Error al confirmar asignación:", err)
+      setError("No se pudo confirmar la asignación")
+    }
+  }
 
   return {
     talleresState,
@@ -136,6 +158,7 @@ const moverTaller = async (origen: TallerUI, nuevoDia: number, nuevoBloque: numb
     agregarTaller,
     desasignarTaller,
     moverTaller,
+    confirmarAsignacion,
     cargando,
     error,
   }

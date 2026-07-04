@@ -5,6 +5,7 @@ import type { CeldaSeleccionada } from "../../../interfaces/Horario"
 import { useTalleres } from "./useTalleres"
 import { useAsistencia } from "./useAsistencia"
 import { useFiltros } from "./useFiltros"
+import type { TallerUI } from "../../../interfaces/Taller"
 
 export default function useHorario() {
   // Sub-hooks para responsabilidades específicas
@@ -34,23 +35,31 @@ export default function useHorario() {
     [talleresState, lugaresActivos]
   )
 
-  const talleresPorCelda = useMemo(() => {
-    const map = new Map<string, typeof talleresState>()
-    for (const taller of talleresFiltrados) {
-      const key = `${taller.bloque}-${taller.dia}`
-      const prev = map.get(key) ?? []
-      prev.push(taller)
-      map.set(key, prev)
-    }
-    return map
-  }, [talleresFiltrados])
+ const talleresPorCelda = useMemo(() => {
+  const mapa = new Map<string, TallerUI[]>()
 
-  // Métodos de modal
+  talleresFiltrados.forEach((t) => {
+    if (!t.pendienteAsignacion) {
+      const key = `${t.bloque}-${t.dia}`
+      if (!mapa.has(key)) {
+        mapa.set(key, [])
+      }
+      mapa.get(key)!.push(t)
+    }
+  })
+
+  return mapa
+}, [talleresFiltrados])
+
+
+
   const abrirCelda = (dia: number, bloque: number) => {
-    if (modoEdicion) return
-    const items = talleresPorCelda.get(`${bloque}-${dia}`) ?? []
-    setCeldaSeleccionada({ dia, bloque, items })
-  }
+  if (modoEdicion) return
+  const items = talleresPorCelda.get(`${bloque}-${dia}`) ?? []
+  setCeldaSeleccionada({ dia, bloque, items })
+}
+
+
 
   const cerrarModal = () => {
     setCeldaSeleccionada(null)
