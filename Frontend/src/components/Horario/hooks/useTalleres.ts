@@ -1,12 +1,62 @@
-import { useMemo, useState } from "react"
+import { useMemo, useState, useEffect } from "react"
 import { cargarTalleres, guardarTalleres } from "../../../utils/Horariostorage"
+import { obtenerTalleresPorSemestre, type TallerApi } from "../../../services/talleres.service"
+import { obtenerSemestreActual } from "../../../utils/semestre.utils"
+import { BLOQUES } from "../../../constants/Horario"
 import type { TallerUI } from "../../../interfaces/Taller"
+
+/**
+ * Mapea un bloque (A, B, C, etc.) a su índice numérico
+ */
+function mapearBloqueANumero(bloque: string): number {
+  const index = BLOQUES.indexOf(bloque)
+  return index >= 0 ? index + 1 : 0
+}
+
+/**
+ * Convierte un TallerApi a TallerUI
+ */
+function convertirTallerApiAUI(taller: TallerApi): TallerUI {
+  return {
+    id: taller.id,
+    nombre: taller.nombre,
+    dia: taller.dia || 0,
+    bloque: mapearBloqueANumero(taller.bloque),
+    lugar: taller.lugar || "Galpón Cultural",
+  }
+}
 
 /**
  * Hook para gestionar talleres (CRUD, movimiento, asignación)
  */
 export function useTalleres() {
   const [talleresState, setTalleresState] = useState<TallerUI[]>(() => cargarTalleres())
+  const [cargando, setCargando] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  // Cargar talleres del backend al montar el componente
+  useEffect(() => {
+    const cargarTalleresDelBackend = async () => {
+      try {
+        setCargando(true)
+        setError(null)
+        const semestre = obtenerSemestreActual()
+        const talleresApi = await obtenerTalleresPorSemestre(semestre)
+        const talleresUI = talleresApi.map(convertirTallerApiAUI)
+        setTalleresState(talleresUI)
+        guardarTalleres(talleresUI)
+      } catch (err) {
+        const mensaje = err instanceof Error ? err.message : 'Error al cargar los talleres'
+        setError(mensaje)
+        console.error('Error cargando talleres:', err)
+        // Mantener los datos locales como fallback
+      } finally {
+        setCargando(false)
+      }
+    }
+
+    cargarTalleresDelBackend()
+  }, [])
 
   const lugares = useMemo(
     () => Array.from(new Set(talleresState.map((t) => t.lugar))).sort(),
@@ -77,5 +127,7 @@ export function useTalleres() {
     agregarTaller,
     desasignarTaller,
     moverTaller,
+    cargando,
+    error,
   }
 }

@@ -15,6 +15,19 @@ export interface ResumenAsistenciaTallerApi {
   promedioSatisfaccion: number | null;
 }
 
+export interface TallerApi {
+  id: number;
+  nombre: string;
+  descripcion: string;
+  horario: string;
+  semestre: string;
+  estado: boolean;
+  lugar: string;
+  dia: number;
+  bloque: string;
+  profesorId: number;
+}
+
 export async function obtenerResumenAsistencia(
   query: ResumenAsistenciaQuery
 ): Promise<ResumenAsistenciaTallerApi[]> {
@@ -42,6 +55,28 @@ export async function obtenerResumenAsistencia(
 
   if (!response.ok) {
     throw new Error('Error al cargar el resumen de asistencia.');
+  }
+
+  return response.json();
+}
+
+export async function obtenerTalleresPorSemestre(semestre: string): Promise<TallerApi[]> {
+  const token = localStorage.getItem('token');
+  const headers: HeadersInit = {};
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const baseUrl = import.meta.env.VITE_API_URL;
+
+  const response = await fetch(
+    `${baseUrl}/talleres?semestre=${encodeURIComponent(semestre)}`,
+    { headers }
+  );
+
+  if (!response.ok) {
+    throw new Error('Error al cargar los talleres.');
   }
 
   return response.json();

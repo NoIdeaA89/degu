@@ -1,13 +1,16 @@
 import { useState } from "react"
 import type { ReactElement } from "react"
+import { lugares } from "../constants/Lugares"
 
 interface Props {
-  lugares: string[]
   onAgregar: (titulo: string, lugar: string) => void
   onCerrar: () => void
 }
 
-export default function ModalAgregarTaller({ lugares, onAgregar, onCerrar }: Props): ReactElement {
+export default function ModalAgregarTaller({
+  onAgregar,
+  onCerrar,
+}: Props): ReactElement {
   const [titulo, setTitulo] = useState("")
   const [lugar, setLugar] = useState(lugares[0] ?? "")
 
@@ -20,14 +23,21 @@ export default function ModalAgregarTaller({ lugares, onAgregar, onCerrar }: Pro
 
   return (
     <div className="modal-overlay-sec" onClick={onCerrar}>
-      <div className="modal-contenido-sec" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="modal-contenido-sec"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="modal-header">
           <h3>Agregar taller</h3>
-          <button className="panel-btn panel-btn-sec" onClick={onCerrar}>
+          <button
+            className="panel-btn panel-btn-sec"
+            onClick={onCerrar}
+          >
             Cerrar
           </button>
         </div>
 
+        {/* Campo título */}
         <input
           className="panel-busqueda"
           type="text"
@@ -37,6 +47,7 @@ export default function ModalAgregarTaller({ lugares, onAgregar, onCerrar }: Pro
           autoFocus
         />
 
+        {/* Select de lugares */}
         <select
           className="panel-busqueda"
           value={lugar}
@@ -49,11 +60,19 @@ export default function ModalAgregarTaller({ lugares, onAgregar, onCerrar }: Pro
           ))}
         </select>
 
+        {/* Botones de acción */}
         <div className="asistencia-acciones">
-          <button className="panel-btn" onClick={handleSubmit} disabled={!titulo.trim() || !lugar}>
+          <button
+            className="panel-btn"
+            onClick={handleSubmit}
+            disabled={!titulo.trim() || !lugar}
+          >
             Agregar
           </button>
-          <button className="panel-btn panel-btn-sec" onClick={onCerrar}>
+          <button
+            className="panel-btn panel-btn-sec"
+            onClick={onCerrar}
+          >
             Cancelar
           </button>
         </div>

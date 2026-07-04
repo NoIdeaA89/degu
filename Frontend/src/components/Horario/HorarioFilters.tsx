@@ -1,7 +1,7 @@
 import type { ReactElement } from "react"
+import { lugares } from "../../constants/Lugares"
 
 interface Props {
-  lugares: string[]
   lugaresActivos: string[]
   toggleLugar: (lugar: string) => void
   seleccionarTodos: () => void
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function HorarioFilters({
-  lugares,
+
   lugaresActivos,
   toggleLugar,
   seleccionarTodos,
