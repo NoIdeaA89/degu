@@ -40,7 +40,7 @@ export async function loginConCorreo(
  * Llama al backend para autenticar con un token de Google (JWT credential).
  */
 export async function loginConGoogle(credentialToken: string): Promise<LoginResponse> {
-  const response = await fetch(`${baseUrl}/api/auth/google`, {
+  const response = await fetch(`${baseUrl}/auth/google`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ token: credentialToken }),

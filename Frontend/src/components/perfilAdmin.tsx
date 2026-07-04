@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { transferirMando } from '../services/admin.service';
 import Navbar from '../components/navbar'; 
 
 export const PerfilAdmin = () => {
@@ -21,25 +22,10 @@ export const PerfilAdmin = () => {
     setErrorMensaje(null);
 
     try {
-      const token = localStorage.getItem('token'); 
-
-      const response = await fetch('/api/admin/transferir-mando', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          rutNuevoAdmin,
-          palabraConfirmacion
-        })
+      await transferirMando({
+        rutNuevoAdmin,
+        palabraConfirmacion
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.detalle || data.error || 'Error al transferir el mando');
-      }
 
       logout(); 
       
