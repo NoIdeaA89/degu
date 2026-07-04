@@ -77,7 +77,7 @@ async function main() {
       data: { nombre: "Taller de Cine", descripcion: "Producción de cortometrajes.", horario: "Viernes 14:00 - 16:00", dia: 5, bloque: "C", semestre: "2026-2", lugar: "Sala de Música", profesorId: profesor.id } 
     });
     const tallerMusicaElectronica = await prisma.taller.create({ 
-      data: { nombre: "Música Electrónica", descripcion: "Producción musical digital.", horario: "Jueves 18:00 - 20:00", dia: 4, bloque: "G", semestre: "2026-2", lugar: "Salón Graciela Ramos (Sala de Espejos)", profesorId: profesor.id } 
+      data: { nombre: "Música Electrónica", descripcion: "Producción musical digital.", horario: "Jueves 18:00 - 20:00", dia: 4, bloque: "D", semestre: "2026-2", lugar: "Salón Graciela Ramos (Sala de Espejos)", profesorId: profesor.id } 
     });
 
     console.log('📝 Inscribiendo alumnos en múltiples talleres...');

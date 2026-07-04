@@ -1,4 +1,5 @@
 import { prisma } from '../lib/prisma';
+import { BloqueHorario } from "@prisma/client"
 
 export const obtenerTalleres = async () => {
   try {
@@ -40,7 +41,7 @@ export const obtenerTalleresPorSemestre = async (semestre: string) => {
   }
 };
 
-export const actualizarTaller = async (tallerId: number, dia: number, bloque: string) => {
+export const actualizarTaller = async (tallerId: number, dia: number, bloque: BloqueHorario) => {
   try {
     const tallerActualizado = await prisma.taller.update({
       where: { id: tallerId },
