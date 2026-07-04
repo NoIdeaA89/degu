@@ -81,3 +81,32 @@ export async function obtenerTalleresPorSemestre(semestre: string): Promise<Tall
 
   return response.json();
 }
+
+export async function actualizarTallerEnBD(tallerId: number, dia: number, bloque: string): Promise<TallerApi> {
+  const token = localStorage.getItem('token');
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json'
+  };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const baseUrl = import.meta.env.VITE_API_URL;
+
+  const response = await fetch(
+    `${baseUrl}/talleres/${tallerId}`,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ dia, bloque })
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error('Error al actualizar el taller.');
+  }
+
+  const data = await response.json();
+  return data.data;
+}

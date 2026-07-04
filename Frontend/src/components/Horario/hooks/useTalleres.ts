@@ -4,7 +4,7 @@ import { obtenerTalleresPorSemestre, type TallerApi } from "../../../services/ta
 import { obtenerSemestreActual } from "../../../utils/semestre.utils"
 import { BLOQUES } from "../../../constants/Horario"
 import type { TallerUI } from "../../../interfaces/Taller"
-
+import { actualizarTallerEnBD } from "../../../services/talleres.service"
 /**
  * Mapea un bloque (A, B, C, etc.) a su índice numérico
  */
@@ -105,20 +105,29 @@ export function useTalleres() {
     })
   }
 
-  const moverTaller = (origen: TallerUI, nuevoDia: number, nuevoBloque: number) => {
+const moverTaller = async (origen: TallerUI, nuevoDia: number, nuevoBloque: number) => {
+  try {
+    // Convertir número de bloque a string (ej: 1 → "A")
+    const bloqueString = BLOQUES[nuevoBloque - 1] ?? ""
+
+    // Llamada al backend
+    await actualizarTallerEnBD(origen.id, nuevoDia, bloqueString)
+
+    // Actualizar estado local
     setTalleresState((prev) => {
       const actualizado = prev.map((t) =>
-        t.dia === origen.dia &&
-        t.bloque === origen.bloque &&
-        t.nombre === origen.nombre &&
-        t.lugar === origen.lugar
+        t.id === origen.id
           ? { ...t, dia: nuevoDia, bloque: nuevoBloque }
           : t
       )
       guardarTalleres(actualizado)
       return actualizado
     })
+  } catch (err) {
+    console.error("Error al mover taller:", err)
+    setError("No se pudo mover el taller")
   }
+}
 
   return {
     talleresState,

@@ -32,3 +32,23 @@ export const obtenerPorSemestre = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const actualizarTaller = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { dia, bloque } = req.body;
+    
+    if (!id || dia === undefined || !bloque) {
+      return res.status(400).json({ error: 'El id, dia y bloque son requeridos' });
+    }
+
+    const tallerActualizado = await talleresService.actualizarTaller(Number(id), Number(dia), String(bloque));
+    res.status(200).json({ message: 'Taller actualizado correctamente', data: tallerActualizado });
+  } catch (error: any) {
+    console.error("=== ERROR AL ACTUALIZAR TALLER ===", error);
+    res.status(500).json({ 
+      error: 'Error interno al actualizar el taller.',
+      detalle: error.message 
+    });
+  }
+};

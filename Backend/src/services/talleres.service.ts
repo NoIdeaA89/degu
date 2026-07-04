@@ -39,3 +39,27 @@ export const obtenerTalleresPorSemestre = async (semestre: string) => {
     throw new Error(`Error al obtener los talleres del semestre: ${error.message}`);
   }
 };
+
+export const actualizarTaller = async (tallerId: number, dia: number, bloque: string) => {
+  try {
+    const tallerActualizado = await prisma.taller.update({
+      where: { id: tallerId },
+      data: {
+        dia: dia,
+        bloque: bloque
+      },
+      include: {
+        profesor: {
+          select: {
+            id: true,
+            nombre: true,
+            apellido: true
+          }
+        }
+      }
+    });
+    return tallerActualizado;
+  } catch (error: any) {
+    throw new Error(`Error al actualizar el taller: ${error.message}`);
+  }
+};
