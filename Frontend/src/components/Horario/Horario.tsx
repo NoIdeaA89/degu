@@ -10,6 +10,7 @@ import ModalAgregarTaller from "../ModalAgregarTaller"
 import PanelTalleresSinAsignar from "../PanelTalleresSinAsignar"
 import useHorario from "./hooks/useHorario"
 
+
 type HorarioProps = {
   modo?: "completo" | "inicio"
 }
@@ -21,7 +22,6 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
   const {
     dias,
     bloques,
-    lugares,
     lugaresActivos,
     talleresPorCelda,
     talleresSinAsignar,
@@ -87,7 +87,6 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
 
           {!soloLectura && !modoEdicion && (
             <HorarioFilters
-              lugares={lugares}
               lugaresActivos={lugaresActivos}
               toggleLugar={toggleLugar}
               seleccionarTodos={seleccionarTodos}
@@ -107,7 +106,7 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
 
       {!soloLectura && mostrarModalTaller && (
         <ModalAgregarTaller
-          lugares={lugares}
+         
           onAgregar={agregarTaller}
           onCerrar={() => setMostrarModalTaller(false)}
         />
@@ -140,7 +139,7 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
       {!soloLectura && !modoEdicion && mostrarQrModal && tallerSeleccionado && (
         <ModalQr
           tallerSeleccionado={tallerSeleccionado}
-          bloqueText={tallerSeleccionado.taller.horario}
+          bloqueText={tallerSeleccionado.taller.bloque}
           cerrarQrModal={cerrarQrModal}
         />
       )}

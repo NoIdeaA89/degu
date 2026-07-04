@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { registrarAsistencia } from '../services/asistencia.service';
 
 const AsistenciaForm = () => {
   const [searchParams] = useSearchParams();
@@ -24,24 +25,12 @@ const AsistenciaForm = () => {
     setError('');
 
     try {
-      const baseUrl = import.meta.env.VITE_API_URL;
-      
-      const response = await fetch(`${baseUrl}/asistencia/registrar`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          rut, 
-          qrToken: token, 
-          satisfaccion,
-          comentarios // <-- Enviamos los comentarios a la API
-        }),
+      await registrarAsistencia({ 
+        rut, 
+        qrToken: token, 
+        satisfaccion: satisfaccion || 0,
+        comentarios
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Error al registrar asistencia');
-      }
 
       setEnviado(true);
     } catch (err: any) {

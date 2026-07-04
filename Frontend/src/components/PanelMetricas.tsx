@@ -1,47 +1,8 @@
-import { type ReactElement, useState, useEffect } from "react"
-
-interface MetricasDashboard {
-  volumen: { totalAsistenciasFisicas: number; estudiantesUnicos: number; };
-  calidad: { satisfaccionPromedio: number; };
-  rendimiento: {
-    mejoresAsistencia: Array<{ id: number; nombre: string; totalAsistenciasReal: number }>;
-    peoresAsistencia: Array<{ id: number; nombre: string; totalAsistenciasReal: number }>;
-    mejoresCalificaciones: Array<{ id: number; nombre: string; promedioCalificacion: number }>;
-    peoresCalificaciones: Array<{ id: number; nombre: string; promedioCalificacion: number }>;
-  };
-}
-
+import { type ReactElement } from "react"
+import { useMetricas } from "../pages/hooks/useMetricas"
 
 export default function PanelMetricas(): ReactElement {
-  const [metricas, setMetricas] = useState<MetricasDashboard | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-
-  useEffect(() => {
-      
-    const fetchMetricas = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const baseUrl = import.meta.env.VITE_API_URL;
-
-        const response = await fetch(`${baseUrl}/metricas/dashboard`, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-
-        if (!response.ok) throw new Error('Error al cargar el panel directivo.');
-        
-        const data = await response.json();
-        setMetricas(data);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchMetricas();
-  }, []);
+  const { metricas, isLoading, error } = useMetricas();
 
   if (isLoading) {
     return (
