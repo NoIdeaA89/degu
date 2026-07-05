@@ -1,6 +1,5 @@
 import { Router } from 'express';
-import * as talleresController from '../controllers/taller.controller'; // ojo: singular, como ya lo tenías
-
+import * as talleresController from '../controllers/taller.controller';
 const router = Router();
 
 router.get('/todos', talleresController.obtenerDashboard);
