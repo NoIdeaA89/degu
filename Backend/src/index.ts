@@ -10,6 +10,7 @@ import adminRoutes from './routes/admin.routes';
 import { middlewareVerificarAdmin } from './middlewares/auth.middleware';
 import metricaRoutes from './routes/metrica.routes';
 import { obtenerPorSemestre, actualizarTaller } from './controllers/taller.controller';
+import  talleresRoutes from './routes/talleres.routes';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -57,7 +58,7 @@ app.use('/api/admin', middlewareVerificarAdmin, adminRoutes);
 app.use('/api/metricas', metricaRoutes);
 app.get('/api/talleres', obtenerPorSemestre);
 app.post('/api/talleres/:id', actualizarTaller);
-app.post('/api/talleres/:id', actualizarTaller); // Ruta para actualizar un taller por ID
+app.use('/api/talleres', talleresRoutes);
 
 app.get('/health', (req, res) => {
   res.status(200).send('OK');

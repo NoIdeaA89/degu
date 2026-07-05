@@ -53,3 +53,51 @@ export const actualizarTaller = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const crearTaller = async (req: Request, res: Response) => {
+  try {
+    const { nombre, descripcion, horario, semestre, lugar, profesorId, dia, bloque } = req.body;
+
+    if (!nombre || !semestre || !lugar || !profesorId) {
+      return res.status(400).json({ error: 'nombre, semestre, lugar y profesorId son requeridos' });
+    }
+
+    let bloqueEnum: BloqueHorario | undefined = undefined;
+    if (bloque) {
+      const bloqueKey = bloque as keyof typeof BloqueHorario;
+      bloqueEnum = BloqueHorario[bloqueKey];
+    }
+
+    const nuevoTaller = await talleresService.crearTaller({
+      nombre,
+      descripcion,
+      horario,
+      semestre,
+      lugar,
+      profesorId: Number(profesorId),
+      dia: dia !== undefined ? Number(dia) : undefined,
+      bloque: bloqueEnum,
+    });
+
+    res.status(201).json({ message: 'Taller creado correctamente', data: nuevoTaller });
+  } catch (error: any) {
+    console.error("=== ERROR AL CREAR TALLER ===", error);
+    res.status(500).json({
+      error: 'Error interno al crear el taller.',
+      detalle: error.message
+    });
+  }
+};
+
+export const obtenerProfesores = async (req: Request, res: Response) => {
+  try {
+    const profesores = await talleresService.obtenerProfesores();
+    res.status(200).json(profesores);
+  } catch (error: any) {
+    console.error("=== ERROR AL OBTENER PROFESORES ===", error);
+    res.status(500).json({
+      error: 'Error interno al obtener los profesores.',
+      detalle: error.message
+    });
+  }
+};

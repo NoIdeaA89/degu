@@ -4,6 +4,7 @@ import { obtenerTalleresPorSemestre, type TallerApi, actualizarTallerEnBD } from
 import { obtenerSemestreActual } from "../../../utils/semestre.utils"
 import { BLOQUES } from "../../../constants/Horario"
 import type { TallerUI } from "../../../interfaces/Taller"
+import { crearTallerEnBD } from "../../../services/talleres.service"
 
 function mapearBloqueANumero(bloque: string): number {
   const index = BLOQUES.indexOf(bloque)
@@ -58,27 +59,34 @@ export function useTalleres() {
     [talleresState]
   )
 
-  const agregarTaller = (titulo: string, lugar: string) => {
-    const tituloLimpio = titulo.trim()
-    const lugarLimpio = lugar.trim()
-    if (!tituloLimpio || !lugarLimpio) return
+  const agregarTaller = async (titulo: string, lugar: string, profesorId: number) => {
+  const tituloLimpio = titulo.trim()
+  const lugarLimpio = lugar.trim()
+  if (!tituloLimpio || !lugarLimpio || !profesorId) return
+
+  try {
+    const semestre = obtenerSemestreActual()
+    const nuevoTallerApi = await crearTallerEnBD({
+      nombre: tituloLimpio,
+      lugar: lugarLimpio,
+      semestre,
+      profesorId,
+      dia: 0,
+      bloque: "A", // placeholder válido del enum; dia:0 ya marca "pendiente"
+    })
+
+    const nuevoTallerUI = convertirTallerApiAUI(nuevoTallerApi)
 
     setTalleresState((prev) => {
-      const actualizado = [
-        ...prev,
-        {
-          id: Date.now(),
-          nombre: tituloLimpio,
-          dia: 0,
-          bloque: 0,
-          lugar: lugarLimpio,
-          pendienteAsignacion: true,
-        },
-      ]
+      const actualizado = [...prev, nuevoTallerUI]
       guardarTalleres(actualizado)
       return actualizado
     })
+  } catch (err) {
+    console.error("Error al agregar taller:", err)
+    setError("No se pudo agregar el taller")
   }
+}
 
   const desasignarTaller = async (origen: TallerUI) => {
   const previo = talleresState
