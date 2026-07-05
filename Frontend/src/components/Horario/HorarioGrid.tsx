@@ -68,6 +68,10 @@ export default function HorarioGrid({
                   if (!data) return
 
                   const origen: TallerUI = JSON.parse(data)
+
+                  // 👇 LOG TEMPORAL DE DIAGNÓSTICO
+                  console.log("🔴 drop origen:", { id: origen.id, nombre: origen.nombre, diaOrigen: origen.dia, bloqueOrigen: origen.bloque })
+
                   if (origen.dia === diaNum && origen.bloque === bloqueNum) return
 
                   moverTaller(origen, diaNum, bloqueNum)
@@ -81,6 +85,10 @@ export default function HorarioGrid({
                       draggable={modoEdicion}
                       onDragStart={(event) => {
                         if (!modoEdicion) return
+
+                        // 👇 LOG TEMPORAL DE DIAGNÓSTICO
+                        console.log("🟢 dragstart:", { id: t.id, nombre: t.nombre, dia: t.dia, bloque: t.bloque })
+
                         event.dataTransfer.setData("text/plain", JSON.stringify(t))
                         event.dataTransfer.effectAllowed = "move"
                       }}

@@ -20,7 +20,3 @@ router.post(
 router.get("/", middlewareVerificarAdmin, obtenerProfesoresController);
 
 export default router;
-
-// En tu archivo principal de rutas (ej. app.ts o index.ts):
-// import profesorRoutes from "./routes/profesor.routes";
-// app.use("/profesores", profesorRoutes);
