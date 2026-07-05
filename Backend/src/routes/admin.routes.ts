@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import * as ctrl from '../controllers/admin.controller';
 import { validate } from '../middlewares/validate.middleware';
-import * as schema from '../middlewares/admin.scheme'; // Tendrías que crear este archivo
+import * as schema from '../schemes/admin.scheme'; // Tendrías que crear este archivo
 // import { verificarToken, verificarRolAdmin } from '../middlewares/auth.middleware'; // Middlewares hipotéticos
 
 const router = Router();

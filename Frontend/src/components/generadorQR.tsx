@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
+import { generarSesion, construirUrlAsistencia } from '../services/generadorQR.service';
 
 interface GeneradorQRProps {
   tallerId: number;
@@ -18,33 +19,8 @@ export default function GeneradorQR({ tallerId, nombreTaller, bloque }: Generado
       setError('');
 
       try {
-        const baseUrl = import.meta.env.VITE_API_URL;
-
-        const response = await fetch(`${baseUrl}/sesion/generar`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            tallerId, 
-            bloque: Number(bloque),
-            minutosValidez: 15 
-          }),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.message || 'Error al conectar con el servidor');
-        }
-
-        const token = data.qrToken;
-
-        if (!token) {
-          throw new Error("El servidor no generó un token de seguridad");
-        }
-
-        const urlAsistencia = `${window.location.origin}/formularioAsistencia?token=${token}`;
-        setQrUrl(urlAsistencia);
-
+        const data = await generarSesion({ tallerId, bloque, minutosValidez: 15 });
+        setQrUrl(construirUrlAsistencia(data.qrToken));
       } catch (err: any) {
         console.error("Fallo en la generación de sesión:", err.message);
         setError(err.message);

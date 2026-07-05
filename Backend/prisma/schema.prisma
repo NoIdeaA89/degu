@@ -22,6 +22,7 @@ enum BloqueHorario {
   D
   E
   F
+  G
 }
 
 model Usuario {

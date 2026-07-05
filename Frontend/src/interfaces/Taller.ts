@@ -5,4 +5,5 @@ export interface TallerUI {
   bloque: number;
   lugar: string;
   horario?: number;
+  pendienteAsignacion?: boolean;
 }
