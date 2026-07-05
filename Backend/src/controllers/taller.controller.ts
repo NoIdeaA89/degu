@@ -89,15 +89,3 @@ export const crearTaller = async (req: Request, res: Response) => {
   }
 };
 
-export const obtenerProfesores = async (req: Request, res: Response) => {
-  try {
-    const profesores = await talleresService.obtenerProfesores();
-    res.status(200).json(profesores);
-  } catch (error: any) {
-    console.error("=== ERROR AL OBTENER PROFESORES ===", error);
-    res.status(500).json({
-      error: 'Error interno al obtener los profesores.',
-      detalle: error.message
-    });
-  }
-};

@@ -27,11 +27,6 @@ export interface TallerApi {
   bloque: string;
   profesorId: number;
 }
-export interface ProfesorApi {
-  id: number;
-  nombre: string;
-  apellido: string;
-}
 
 export interface CrearTallerPayload {
   nombre: string;
@@ -42,21 +37,6 @@ export interface CrearTallerPayload {
   profesorId: number;
   dia?: number;
   bloque?: string;
-}
-
-export async function obtenerProfesores(): Promise<ProfesorApi[]> {
-  const token = localStorage.getItem('token');
-  const headers: HeadersInit = {};
-  if (token) headers.Authorization = `Bearer ${token}`;
-
-  const baseUrl = import.meta.env.VITE_API_URL;
-  const response = await fetch(`${baseUrl}/talleres/profesores`, { headers });
-
-  if (!response.ok) {
-    throw new Error('Error al cargar los profesores.');
-  }
-
-  return response.json();
 }
 
 export async function crearTallerEnBD(payload: CrearTallerPayload): Promise<TallerApi> {
@@ -78,6 +58,7 @@ export async function crearTallerEnBD(payload: CrearTallerPayload): Promise<Tall
   const data = await response.json();
   return data.data;
 }
+
 
 export async function obtenerResumenAsistencia(
   query: ResumenAsistenciaQuery

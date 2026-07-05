@@ -1,12 +1,10 @@
 import { Router } from 'express';
-import * as talleresController from '../controllers/taller.controller';
-// import { authMiddleware } from '../middlewares/auth.middleware'; // si ya tienes uno, agrégalo aquí
+import * as talleresController from '../controllers/taller.controller'; // ojo: singular, como ya lo tenías
 
 const router = Router();
 
-router.get('/', talleresController.obtenerDashboard);
-router.get('/profesores', talleresController.obtenerProfesores);
-router.get('/', talleresController.obtenerPorSemestre); // ⚠️ ver nota abajo
+router.get('/todos', talleresController.obtenerDashboard);
+router.get('/', talleresController.obtenerPorSemestre);
 router.post('/', talleresController.crearTaller);
 router.post('/:id', talleresController.actualizarTaller);
 

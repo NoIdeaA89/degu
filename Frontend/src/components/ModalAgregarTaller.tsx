@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import type { ReactElement } from "react"
 import { lugares } from "../constants/Lugares"
-import { obtenerProfesores, type ProfesorApi } from "../services/talleres.service"
+import { obtenerProfesores } from "../services/profesor.service"
+import type { Profesor } from "../interfaces/Profesor"
 
 interface Props {
   onAgregar: (titulo: string, lugar: string, profesorId: number) => void
@@ -14,7 +15,7 @@ export default function ModalAgregarTaller({
 }: Props): ReactElement {
   const [titulo, setTitulo] = useState("")
   const [lugar, setLugar] = useState(lugares[0] ?? "")
-  const [profesores, setProfesores] = useState<ProfesorApi[]>([])
+  const [profesores, setProfesores] = useState<Profesor[]>([])
   const [profesorId, setProfesorId] = useState<number | "">("")
   const [cargandoProfesores, setCargandoProfesores] = useState(true)
 
