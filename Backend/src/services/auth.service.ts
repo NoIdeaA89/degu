@@ -5,7 +5,7 @@ import { OAuth2Client } from 'google-auth-library';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'tu_clave_secreta_super_segura';
 
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || 'TU_CLIENT_ID_DE_GOOGLE.apps.googleusercontent.com';
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '831255732165-rsl1a8jr0qk1udq3sc12876p0b66rs5a.apps.googleusercontent.com';
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 export const autenticarUsuario = async (correo: string, passwordPlan: string) => {
