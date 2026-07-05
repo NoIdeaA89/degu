@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import * as ctrl from '../controllers/estudiante.controller';  
 import { validate } from '../middlewares/validate.middleware';
-import * as schema from '../schemas/estudiante.schema';
+import * as schema from '../schemes/estudiante.scheme';
 
 const router = Router();
 
