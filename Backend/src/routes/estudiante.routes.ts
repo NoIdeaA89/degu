@@ -6,6 +6,7 @@ import * as schema from '../schemes/estudiante.scheme';
 const router = Router();
 
 router.get('/', validate(schema.buscarEstudianteSchema), ctrl.listarEstudiantes);
+router.get('/buscar', ctrl.buscarEstudiantesController);
 router.get('/:rut', validate(schema.rutParamSchema), ctrl.obtenerPerfil);
 router.get('/:rut/historial', validate(schema.rutParamSchema), ctrl.obtenerHistorial);
 router.patch('/:rut', validate(schema.actualizarEstudianteSchema), ctrl.modificarDatos);

@@ -1,5 +1,3 @@
-
-
 const baseUrl = import.meta.env.VITE_API_URL;
 
 export interface Estudiante {
@@ -10,45 +8,40 @@ export interface Estudiante {
   correo: string;
 }
 
-/**
- * Obtiene la lista de estudiantes del backend
- */
-export async function obtenerEstudiantes(): Promise<Estudiante[]> {
-  const token = localStorage.getItem("token");
-  const headers: HeadersInit = {};
-
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
-
-  const response = await fetch(`${baseUrl}/estudiante/listar`, {
-    headers,
-  });
-
-  if (!response.ok) {
-    throw new Error("Error al cargar estudiantes");
-  }
-
-  return response.json();
+export interface BusquedaEstudiantesResponse {
+  data: Estudiante[];
+  meta: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+    hasNextPage: boolean;
+    hasPrevPage: boolean;
+  };
 }
 
-/**
- * Obtiene los detalles de un estudiante específico
- */
-export async function obtenerEstudiante(id: number): Promise<Estudiante> {
+export async function buscarEstudiantes(
+  query: string,
+  page = 1,
+  limit = 10
+): Promise<BusquedaEstudiantesResponse> {
   const token = localStorage.getItem("token");
   const headers: HeadersInit = {};
 
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
+  if (token) headers.Authorization = `Bearer ${token}`;
 
-  const response = await fetch(`${baseUrl}/estudiante/${id}`, {
+  const params = new URLSearchParams({
+    query,
+    page: String(page),
+    limit: String(limit),
+  });
+
+  const response = await fetch(`${baseUrl}/estudiantes/buscar?${params.toString()}`, {
     headers,
   });
 
   if (!response.ok) {
-    throw new Error("Error al cargar estudiante");
+    throw new Error("Error al buscar estudiantes");
   }
 
   return response.json();
