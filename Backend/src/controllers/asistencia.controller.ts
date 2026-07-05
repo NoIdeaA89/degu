@@ -84,4 +84,19 @@ export class AsistenciaController {
       res.status(500).json({ message: error.message });
     }
   };
+  
+  obtenerResumenEstudiante = async (req: Request, res: Response) => {
+    try {
+      const { estudianteId } = req.params;
+
+      if (!estudianteId || isNaN(Number(estudianteId))) {
+        return res.status(400).json({ message: 'estudianteId inválido' });
+      }
+
+      const reporte = await this.asistenciaService.resumenPorEstudiante(Number(estudianteId));
+      res.json(reporte);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  };
 }

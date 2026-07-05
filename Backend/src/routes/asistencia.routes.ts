@@ -14,6 +14,8 @@ router.get('/estudiante/:rut', asistenciaController.obtenerPorEstudiante);
 
 router.get('/resumen', asistenciaController.obtenerResumenSemestre);
 
+router.get('/resumen/estudiante/:estudianteId', asistenciaController.obtenerResumenEstudiante);
+
 router.patch('/:id/estado', asistenciaController.modificarEstadoManual);
 
 export default router;
