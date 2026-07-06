@@ -195,7 +195,6 @@ export class AsistenciaService {
       select: {
         estudianteId: true,
         tallerId: true,
-        taller: { select: { id: true, nombre: true } },
       },
     });
 
@@ -209,7 +208,12 @@ export class AsistenciaService {
       alumnosPorTaller.get(insc.tallerId)!.push(porcentaje);
     }
 
-    const talleresMap = new Map(inscripciones.map((i) => [i.tallerId, i.taller]));
+    // 👇 FIX: nombre traído directo desde Taller, no depende de que tenga inscritos
+    const talleresInfo = await prisma.taller.findMany({
+      where: { id: { in: tallerIds } },
+      select: { id: true, nombre: true },
+    });
+    const talleresMap = new Map(talleresInfo.map((t) => [t.id, t]));
 
     return tallerIds.map((tallerId) => {
       const porcentajes = alumnosPorTaller.get(tallerId) ?? [];
@@ -311,25 +315,25 @@ export class AsistenciaService {
       };
     });
   }
-  
+
   async guardarAsistenciaManual(sesionId: number, registros: { estudianteId: number; presente: boolean }[]) {
-  return await prisma.$transaction(
-    registros.map((r) =>
-      prisma.asistencia.upsert({
-        where: {
-          sesionId_estudianteId: { sesionId, estudianteId: r.estudianteId }
-        },
-        update: {
-          estado: r.presente ? 'Presente' : 'Ausente'
-        },
-        create: {
-          sesionId,
-          estudianteId: r.estudianteId,
-          estado: r.presente ? 'Presente' : 'Ausente',
-          fechaHora: new Date()
-        }
-      })
-    )
-  );
-}
+    return await prisma.$transaction(
+      registros.map((r) =>
+        prisma.asistencia.upsert({
+          where: {
+            sesionId_estudianteId: { sesionId, estudianteId: r.estudianteId }
+          },
+          update: {
+            estado: r.presente ? 'Presente' : 'Ausente'
+          },
+          create: {
+            sesionId,
+            estudianteId: r.estudianteId,
+            estado: r.presente ? 'Presente' : 'Ausente',
+            fechaHora: new Date()
+          }
+        })
+      )
+    );
+  }
 }
