@@ -72,6 +72,7 @@ export const crearTaller = async (data: {
   semestre: string;
   lugar: string;
   profesorId: number;
+
   dia?: number;
   bloque?: BloqueHorario;
 }) => {
@@ -96,4 +97,25 @@ export const crearTaller = async (data: {
   } catch (error: any) {
     throw new Error(`Error al crear el taller: ${error.message}`);
   }
+};
+// talleres.service.ts — agregar
+export const vincularPareja = async (tallerId: number, parejaId: number) => {
+  if (tallerId === parejaId) {
+    throw new Error('Un taller no puede ser pareja de sí mismo');
+  }
+
+  return await prisma.$transaction([
+    prisma.taller.update({ where: { id: tallerId }, data: { parejaId } }),
+    prisma.taller.update({ where: { id: parejaId }, data: { parejaId: tallerId } }),
+  ]);
+};
+
+export const desvincularPareja = async (tallerId: number) => {
+  const taller = await prisma.taller.findUnique({ where: { id: tallerId }, select: { parejaId: true } });
+  if (!taller?.parejaId) return null;
+
+  return await prisma.$transaction([
+    prisma.taller.update({ where: { id: tallerId }, data: { parejaId: null } }),
+    prisma.taller.update({ where: { id: taller.parejaId }, data: { parejaId: null } }),
+  ]);
 };

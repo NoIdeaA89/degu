@@ -48,11 +48,15 @@ model Taller {
   estado      Boolean  @default(true)
   lugar       String   @default("Galpón Cultural")
   dia         Int      @default(1)
-  bloque      BloqueHorario @default(A) // Changed to use Enum
+  bloque      BloqueHorario @default(A)
 
   profesorId  Int
   profesor    Usuario  @relation("ProfesorTaller", fields: [profesorId], references: [id])
-  
+
+  parejaId    Int?     @unique                                    // 👈 NUEVO
+  pareja      Taller?  @relation("TallerPareja", fields: [parejaId], references: [id]) // 👈 NUEVO
+  parejaDe    Taller?  @relation("TallerPareja")                  // 👈 NUEVO
+
   inscripciones Inscripcion[]
   sesiones      Sesion[]
 }
