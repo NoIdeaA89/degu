@@ -41,13 +41,13 @@ export const obtenerTalleresPorSemestre = async (semestre: string) => {
   }
 };
 
-export const actualizarTaller = async (tallerId: number, dia: number, bloques: BloqueHorario[]) => {
+export const actualizarTaller = async (tallerId: number, dia: number, bloque: BloqueHorario) => {
   try {
     const tallerActualizado = await prisma.taller.update({
       where: { id: tallerId },
       data: {
         dia: dia,
-        bloques: [bloques]
+        bloque: bloque
       },
       include: {
         profesor: {
@@ -73,7 +73,7 @@ export const crearTaller = async (data: {
   lugar: string;
   profesorId: number;
   dia?: number;
-  bloque?: BloqueHorario[];
+  bloque?: BloqueHorario;
 }) => {
   try {
     const taller = await prisma.taller.create({
@@ -85,7 +85,7 @@ export const crearTaller = async (data: {
         estado: true,
         lugar: data.lugar,
         dia: data.dia ?? 0,
-        bloques: [data.bloque ?? BloqueHorario.A],
+        bloque: data.bloque ?? BloqueHorario.A,
         profesorId: data.profesorId,
       },
       include: {

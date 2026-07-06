@@ -41,16 +41,12 @@ export const actualizarTaller = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { dia, bloque } = req.body;
     
-    if (!id || dia === undefined || !Array.isArray(bloque) || bloque.length === 0) {
+    if (!id || dia === undefined || !bloque) {
       return res.status(400).json({ error: 'El id, dia y bloque son requeridos' });
     }
-    const bloquesEnum = bloque.map((b: string) => {
-      const bloqueKey = b as keyof typeof BloqueHorario;
-      return BloqueHorario[bloqueKey];
-    });
-
-    const tallerActualizado = await talleresService.actualizarTaller(Number(id), Number(dia), bloquesEnum);
-
+    const bloqueKey = bloque as keyof typeof BloqueHorario
+    const bloqueEnum = BloqueHorario[bloqueKey]
+    const tallerActualizado = await talleresService.actualizarTaller(Number(id), Number(dia), bloqueEnum);
     res.status(200).json({ message: 'Taller actualizado correctamente', data: tallerActualizado });
   } catch (error: any) {
     console.error("=== ERROR AL ACTUALIZAR TALLER ===", error);
@@ -69,13 +65,10 @@ export const crearTaller = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'nombre, semestre, lugar y profesorId son requeridos' });
     }
 
-    let bloquesEnum: BloqueHorario[] | undefined = undefined;
-
-    if (Array.isArray(bloque)) {
-      bloquesEnum = bloque.map((b: string) => {
-        const bloqueKey = b as keyof typeof BloqueHorario;
-        return BloqueHorario[bloqueKey];
-      });
+    let bloqueEnum: BloqueHorario | undefined = undefined;
+    if (bloque) {
+      const bloqueKey = bloque as keyof typeof BloqueHorario;
+      bloqueEnum = BloqueHorario[bloqueKey];
     }
 
     const nuevoTaller = await talleresService.crearTaller({
@@ -86,7 +79,7 @@ export const crearTaller = async (req: Request, res: Response) => {
       lugar,
       profesorId: Number(profesorId),
       dia: dia !== undefined ? Number(dia) : undefined,
-      bloque: bloquesEnum,
+      bloque: bloqueEnum,
     });
 
     res.status(201).json({ message: 'Taller creado correctamente', data: nuevoTaller });

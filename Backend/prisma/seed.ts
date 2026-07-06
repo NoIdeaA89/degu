@@ -1,187 +1,202 @@
-import { RolUsuario, BloqueHorario } from '@prisma/client';
-import * as fs from 'fs';
 import { prisma } from '../src/lib/prisma';
+import { randomUUID } from 'crypto'; 
+import bcrypt from 'bcrypt'; 
 
 async function main() {
-  console.log('Iniciando el seeding de la base de datos de forma segura...');
-  
-  const rawData = fs.readFileSync('./seed_data.json', 'utf8');
-  const data = JSON.parse(rawData);
+  console.log('🌱 Iniciando seed analítico para el Galpón Cultural...');
 
-  // 1. Crear Usuario "Administrador oficial" (Para login de Google)
-  const admin = await prisma.usuario.upsert({
-    where: { correo: 'galponcultural@ucn.cl' },
-    update: {
-      nombre: 'Edgar',
-      apellido: 'Gallardo',
-      rol: RolUsuario.Administrador
-    },
-    create: {
-      nombre: 'Edgar',
-      apellido: 'Gallardo',
-      rut: '14321789-2', // RUT genérico, lo vital para Google es el correo
-      correo: 'galponcultural@ucn.cl', 
-      password: 'password123', // La contraseña no importará mucho si entra con Google
-      rol: RolUsuario.Administrador
-    }
-  });
-  console.log(`Administrador listo (ID real: ${admin.id}, Correo: ${admin.correo}).`);
-  
-  // 2. Crear Usuario "Profesor por defecto" (Usando dominio @ucn.cl)
-  const profesor = await prisma.usuario.upsert({
-    where: { correo: 'profesor@ucn.cl' },
-    update: {},
-    create: {
-      nombre: 'Profesor',
-      apellido: 'Galpón',
-      rut: '11111111-1',
-      correo: 'profesor@ucn.cl', 
-      password: 'password123',
-      rol: RolUsuario.Profesor
-    }
-  });
-  console.log(`Profesor por defecto listo (ID real: ${profesor.id}, Correo: ${profesor.correo}).`);
+  try {
+    console.log('🧹 Limpiando tablas viejas...');
+    await prisma.asistencia.deleteMany();
+    await prisma.sesion.deleteMany();
+    await prisma.inscripcion.deleteMany();
+    await prisma.taller.deleteMany();
+    await prisma.usuario.deleteMany();
 
-  // Mapas para guardar la relación entre el ID del JSON y el ID real de Supabase
-  const mapEstudiantes = new Map();
-  const mapTalleres = new Map();
-  const mapSesiones = new Map();
+    console.log('🔐 Encriptando contraseñas por defecto...');
+    const passwordHasheada = await bcrypt.hash('password123', 10);
 
-  // 3. Crear Estudiantes
-  for (const est of data.estudiantes) {
-    // Forzar el dominio del correo a @alumnos.ucn.cl tomando solo la parte antes del @
-    const username = est.correo.split('@')[0];
-    const correoEstudiante = `${username}@alumnos.ucn.cl`;
-
-    const dbEst = await prisma.usuario.upsert({
-      where: { rut: est.rut },
-      update: { 
-        correo: correoEstudiante 
-      },
-      create: {
-        nombre: est.nombre,
-        apellido: est.apellido,
-        rut: est.rut,
-        correo: correoEstudiante, 
-        password: est.password,
-        rol: RolUsuario.Estudiante
+    console.log('👨‍🏫 Creando usuarios (Administrador y Equipo de Estudiantes)...');
+    const profesor = await prisma.usuario.create({
+      data: {
+        nombre: "Edgar",
+        apellido: "Gallardo",
+        rut: "12.345.678-9",
+        correo: "Edgar.Gallardo@ucn.cl",
+        password: passwordHasheada, 
+        rol: "Administrador" 
       }
     });
-    mapEstudiantes.set(est.id, dbEst.id);
-  }
-  console.log(`Se procesaron ${data.estudiantes.length} estudiantes con dominio @alumnos.ucn.cl.`);
 
-  // 4. Crear Talleres
-  for (const tallerData of data.talleres) {
-    let tallerDb = await prisma.taller.findFirst({
-      where: { nombre: tallerData.nombre }
+    // Creación masiva de estudiantes
+    const estudiantesData = [
+      { nombre: "Lucas", apellido: "Guidotti", rut: "19.876.543-2", correo: "lucas@alumnos.ucn.cl" },
+      { nombre: "Joaquín", apellido: "Iriarte", rut: "20.123.456-7", correo: "joaquin@alumnos.ucn.cl" },
+      { nombre: "Luciano", apellido: "Bastías", rut: "21.111.111-1", correo: "luciano@alumnos.ucn.cl" },
+      { nombre: "José", apellido: "Gonzalez", rut: "22.222.222-2", correo: "jose@alumnos.ucn.cl" },
+      { nombre: "Matías", apellido: "Manríquez", rut: "23.333.333-3", correo: "matias@alumnos.ucn.cl" }
+    ];
+
+    const estudiantes = await Promise.all(
+      estudiantesData.map(est => prisma.usuario.create({
+        data: { ...est, password: passwordHasheada, rol: "Estudiante" }
+      }))
+    );
+
+    const [lucas, joaquin, luciano, jose, matias] = estudiantes;
+
+    console.log('📚 Abriendo catálogo de talleres...');
+    // AÑADIDO: Ahora declaramos explícitamente el 'dia' y 'bloque' numérico para alimentar tu grilla de React
+    const tallerGuitarra = await prisma.taller.create({ 
+      data: { nombre: "Taller de Guitarra", descripcion: "Nivel básico e intermedio.", horario: "Lunes 15:00 - 17:00", dia: 1, bloque: "D", semestre: "2026-1", lugar: "Sala de Piano", profesorId: profesor.id } 
+    });
+    const tallerTeatro = await prisma.taller.create({ 
+      data: { nombre: "Taller de Teatro", descripcion: "Expresión corporal.", horario: "Miércoles 17:00 - 19:00", dia: 3, bloque: "F", semestre: "2026-1", lugar: "Salón de Artes Escénicas (Salón Exterior)", profesorId: profesor.id } 
+    });
+    const tallerDanza = await prisma.taller.create({ 
+      data: { nombre: "Danza Contemporánea", descripcion: "Ritmo y movimiento.", horario: "Martes 10:00 - 12:00", dia: 2, bloque: "B", semestre: "2026-1", lugar: "Salón Graciela Ramos (Sala de Espejos)", profesorId: profesor.id } 
+    });
+    const tallerPintura = await prisma.taller.create({ 
+      data: { nombre: "Pintura al Óleo", descripcion: "Técnicas clásicas.", horario: "Viernes 14:00 - 16:00", dia: 5, bloque: "D", semestre: "2026-1", lugar: "Sala de Música", profesorId: profesor.id } 
+    });
+    const tallerFoto = await prisma.taller.create({ 
+      data: { nombre: "Fotografía Digital", descripcion: "Uso de cámara manual.", horario: "Jueves 08:00 - 10:00", dia: 4, bloque: "A", semestre: "2026-1", lugar: "Salón de Artes Escénicas (Salón Exterior)", profesorId: profesor.id } 
     });
 
-    if (!tallerDb) {
-      tallerDb = await prisma.taller.create({
-        data: {
-          nombre: tallerData.nombre,
-          descripcion: tallerData.descripcion,
-          horario: tallerData.horario,
-          semestre: tallerData.semestre,
-          estado: tallerData.estado,
-          lugar: tallerData.lugar,
-          profesorId: profesor.id, 
-          bloques: [BloqueHorario.A]
-        }
-      });
-    }
-    mapTalleres.set(tallerData.id, tallerDb.id);
-  }
-  console.log(`Se procesaron ${data.talleres.length} talleres.`);
+    // Talleres para 2026-2 (semestre actual)
+    const tallerGuitarra2 = await prisma.taller.create({ 
+      data: { nombre: "Taller de Guitarra", descripcion: "Nivel intermedio y avanzado.", horario: "Lunes 15:00 - 17:00", dia: 1, bloque: "D", semestre: "2026-2", lugar: "Sala de Piano", profesorId: profesor.id } 
+    });
+    const tallerTeatro2 = await prisma.taller.create({ 
+      data: { nombre: "Taller de Teatro", descripcion: "Técnicas de actuación.", horario: "Miércoles 17:00 - 19:00", dia: 3, bloque: "F", semestre: "2026-2", lugar: "Salón de Artes Escénicas (Salón Exterior)", profesorId: profesor.id } 
+    });
+    const tallerDanza2 = await prisma.taller.create({ 
+      data: { nombre: "Danza Contemporánea", descripcion: "Movimiento moderno.", horario: "Martes 10:00 - 12:00", dia: 2, bloque: "B", semestre: "2026-2", lugar: "Salón Graciela Ramos (Sala de Espejos)", profesorId: profesor.id } 
+    });
+    const tallerCine = await prisma.taller.create({ 
+      data: { nombre: "Taller de Cine", descripcion: "Producción de cortometrajes.", horario: "Viernes 14:00 - 16:00", dia: 5, bloque: "C", semestre: "2026-2", lugar: "Sala de Música", profesorId: profesor.id } 
+    });
+    const tallerMusicaElectronica = await prisma.taller.create({ 
+      data: { nombre: "Música Electrónica", descripcion: "Producción musical digital.", horario: "Jueves 18:00 - 20:00", dia: 4, bloque: "D", semestre: "2026-2", lugar: "Salón Graciela Ramos (Sala de Espejos)", profesorId: profesor.id } 
+    });
 
-  // 5. Crear Sesiones
-  for (const sesion of data.sesiones) {
-    const realTallerId = mapTalleres.get(sesion.tallerId);
+    console.log('📝 Inscribiendo alumnos en múltiples talleres...');
+    const inscripciones = [
+      // 2026-1
+      { estudianteId: lucas.id, tallerId: tallerGuitarra.id }, { estudianteId: joaquin.id, tallerId: tallerGuitarra.id }, { estudianteId: luciano.id, tallerId: tallerGuitarra.id }, { estudianteId: jose.id, tallerId: tallerGuitarra.id }, { estudianteId: matias.id, tallerId: tallerGuitarra.id },
+      { estudianteId: lucas.id, tallerId: tallerTeatro.id }, { estudianteId: joaquin.id, tallerId: tallerTeatro.id }, { estudianteId: luciano.id, tallerId: tallerTeatro.id },
+      { estudianteId: jose.id, tallerId: tallerPintura.id }, { estudianteId: matias.id, tallerId: tallerPintura.id },
+      { estudianteId: lucas.id, tallerId: tallerDanza.id }, { estudianteId: luciano.id, tallerId: tallerDanza.id },
+      { estudianteId: joaquin.id, tallerId: tallerFoto.id },
+      // 2026-2
+      { estudianteId: lucas.id, tallerId: tallerGuitarra2.id }, { estudianteId: joaquin.id, tallerId: tallerGuitarra2.id }, { estudianteId: luciano.id, tallerId: tallerGuitarra2.id }, { estudianteId: jose.id, tallerId: tallerGuitarra2.id }, { estudianteId: matias.id, tallerId: tallerGuitarra2.id },
+      { estudianteId: lucas.id, tallerId: tallerTeatro2.id }, { estudianteId: joaquin.id, tallerId: tallerTeatro2.id }, { estudianteId: luciano.id, tallerId: tallerTeatro2.id },
+      { estudianteId: jose.id, tallerId: tallerCine.id }, { estudianteId: matias.id, tallerId: tallerCine.id },
+      { estudianteId: lucas.id, tallerId: tallerDanza2.id }, { estudianteId: luciano.id, tallerId: tallerDanza2.id },
+      { estudianteId: joaquin.id, tallerId: tallerMusicaElectronica.id }
+    ];
+    await prisma.inscripcion.createMany({ data: inscripciones });
+
+    console.log('⏰ Generando sesiones históricas y activas...');
+    const ahora = new Date();
+    const validez = new Date(ahora.getTime() + 60 * 60000); // 1 hora de validez
+
+    // 2026-1
+    const sesionGuitarra = await prisma.sesion.create({ data: { tallerId: tallerGuitarra.id, fecha: ahora, bloque: 4, qrToken: crypto.randomUUID(), validoHasta: validez } });
+    const sesionTeatro = await prisma.sesion.create({ data: { tallerId: tallerTeatro.id, fecha: ahora, bloque: 6, qrToken: crypto.randomUUID(), validoHasta: validez } });
+    const sesionPintura = await prisma.sesion.create({ data: { tallerId: tallerPintura.id, fecha: ahora, bloque: 4, qrToken: crypto.randomUUID(), validoHasta: validez } });
+    const sesionDanza = await prisma.sesion.create({ data: { tallerId: tallerDanza.id, fecha: ahora, bloque: 2, qrToken: crypto.randomUUID(), validoHasta: validez } });
+    const sesionFoto = await prisma.sesion.create({ data: { tallerId: tallerFoto.id, fecha: ahora, bloque: 1, qrToken: crypto.randomUUID(), validoHasta: validez } });
+
+    // 2026-2
+    const sesionGuitarra2 = await prisma.sesion.create({ data: { tallerId: tallerGuitarra2.id, fecha: ahora, bloque: 4, qrToken: crypto.randomUUID(), validoHasta: validez } });
+    const sesionTeatro2 = await prisma.sesion.create({ data: { tallerId: tallerTeatro2.id, fecha: ahora, bloque: 6, qrToken: crypto.randomUUID(), validoHasta: validez } });
+    const sesionDanza2 = await prisma.sesion.create({ data: { tallerId: tallerDanza2.id, fecha: ahora, bloque: 2, qrToken: crypto.randomUUID(), validoHasta: validez } });
+    const sesionCine = await prisma.sesion.create({ data: { tallerId: tallerCine.id, fecha: ahora, bloque: 3, qrToken: crypto.randomUUID(), validoHasta: validez } });
+    const sesionMusica = await prisma.sesion.create({ data: { tallerId: tallerMusicaElectronica.id, fecha: ahora, bloque: 7, qrToken: crypto.randomUUID(), validoHasta: validez } });
+
+    console.log('🙋 Registrando asistencias y encuestas de satisfacción...');
     
-    if (realTallerId) {
-      const sesionDb = await prisma.sesion.upsert({
-        where: { qrToken: sesion.qrToken },
-        update: {},
-        create: {
-          tallerId: realTallerId,
-          fecha: new Date(sesion.fecha),
-          bloque: 1, 
-          qrToken: sesion.qrToken,
-          validoHasta: new Date(sesion.validoHasta)
-        }
-      });
-      mapSesiones.set(sesion.id, sesionDb.id);
-    }
+    // 2026-1
+    // TALLER ESTRELLA (Guitarra): Alta asistencia, notas perfectas
+    await prisma.asistencia.createMany({ data: [
+      { sesionId: sesionGuitarra.id, estudianteId: lucas.id, estado: "Presente", notaSatisfaccion: 5 },
+      { sesionId: sesionGuitarra.id, estudianteId: joaquin.id, estado: "Presente", notaSatisfaccion: 5 },
+      { sesionId: sesionGuitarra.id, estudianteId: luciano.id, estado: "Presente", notaSatisfaccion: 4 },
+      { sesionId: sesionGuitarra.id, estudianteId: jose.id, estado: "Presente", notaSatisfaccion: 5 }
+    ]});
+
+    // TALLER BUENO (Teatro): Buena asistencia, notas mixtas
+    await prisma.asistencia.createMany({ data: [
+      { sesionId: sesionTeatro.id, estudianteId: lucas.id, estado: "Presente", notaSatisfaccion: 4 },
+      { sesionId: sesionTeatro.id, estudianteId: joaquin.id, estado: "Presente", notaSatisfaccion: 3 },
+      { sesionId: sesionTeatro.id, estudianteId: luciano.id, estado: "Atrasado", notaSatisfaccion: 4 }
+    ]});
+
+    // TALLER DECEPCIONANTE (Pintura): Asistencia regular, pésimas notas
+    await prisma.asistencia.createMany({ data: [
+      { sesionId: sesionPintura.id, estudianteId: jose.id, estado: "Presente", notaSatisfaccion: 2, comentario: "Faltan materiales" },
+      { sesionId: sesionPintura.id, estudianteId: matias.id, estado: "Presente", notaSatisfaccion: 1, comentario: "El profe llegó tarde" }
+    ]});
+
+    // TALLER FANTASMA (Fotografía): Casi nula asistencia, notas promedio
+    await prisma.asistencia.createMany({ data: [
+      { sesionId: sesionFoto.id, estudianteId: joaquin.id, estado: "Presente", notaSatisfaccion: 3 }
+    ]});
+
+    // TALLER EXCELENTE PERO VACÍO (Danza): Poca asistencia, pero a los que van les encanta
+    await prisma.asistencia.createMany({ data: [
+      { sesionId: sesionDanza.id, estudianteId: lucas.id, estado: "Presente", notaSatisfaccion: 5 }
+    ]});
+
+    // 2026-2 - SEMESTRE ACTUAL
+    // Guitarra 2026-2
+    await prisma.asistencia.createMany({ data: [
+      { sesionId: sesionGuitarra2.id, estudianteId: lucas.id, estado: "Presente", notaSatisfaccion: 5 },
+      { sesionId: sesionGuitarra2.id, estudianteId: joaquin.id, estado: "Presente", notaSatisfaccion: 5 },
+      { sesionId: sesionGuitarra2.id, estudianteId: luciano.id, estado: "Presente", notaSatisfaccion: 4 },
+      { sesionId: sesionGuitarra2.id, estudianteId: jose.id, estado: "Presente", notaSatisfaccion: 5 },
+      { sesionId: sesionGuitarra2.id, estudianteId: matias.id, estado: "Presente", notaSatisfaccion: 5 }
+    ]});
+
+    // Teatro 2026-2
+    await prisma.asistencia.createMany({ data: [
+      { sesionId: sesionTeatro2.id, estudianteId: lucas.id, estado: "Presente", notaSatisfaccion: 4 },
+      { sesionId: sesionTeatro2.id, estudianteId: joaquin.id, estado: "Presente", notaSatisfaccion: 3 },
+      { sesionId: sesionTeatro2.id, estudianteId: luciano.id, estado: "Presente", notaSatisfaccion: 4 }
+    ]});
+
+    // Danza 2026-2
+    await prisma.asistencia.createMany({ data: [
+      { sesionId: sesionDanza2.id, estudianteId: lucas.id, estado: "Presente", notaSatisfaccion: 5 },
+      { sesionId: sesionDanza2.id, estudianteId: luciano.id, estado: "Presente", notaSatisfaccion: 5 }
+    ]});
+
+    // Cine 2026-2
+    await prisma.asistencia.createMany({ data: [
+      { sesionId: sesionCine.id, estudianteId: jose.id, estado: "Presente", notaSatisfaccion: 4 },
+      { sesionId: sesionCine.id, estudianteId: matias.id, estado: "Presente", notaSatisfaccion: 4 }
+    ]});
+
+    // Música Electrónica 2026-2
+    await prisma.asistencia.createMany({ data: [
+      { sesionId: sesionMusica.id, estudianteId: joaquin.id, estado: "Presente", notaSatisfaccion: 5 }
+    ]});
+
+    console.log('✅ Seed completado impecablemente.');
+    console.log('----------------------------------------------------');
+    console.log('Inicia sesión con:');
+    console.log('Correo: Edgar.Gallardo@ucn.cl');
+    console.log('Clave:  password123');
+    console.log('Ve a /inicio para ver la matriz de métricas en acción.');
+    console.log('----------------------------------------------------');
+
+  } catch (e) {
+    console.error('❌ Error fatal en el seed:', e);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
   }
-  console.log(`Se procesaron ${data.sesiones.length} sesiones.`);
-
-  // 6. Crear Inscripciones
-  let inscripcionesCount = 0;
-  for (const insc of data.inscripciones) {
-    const realEstudianteId = mapEstudiantes.get(insc.estudianteId);
-    const realTallerId = mapTalleres.get(insc.tallerId);
-
-    if (realEstudianteId && realTallerId) {
-      try {
-        await prisma.inscripcion.upsert({
-          where: {
-            estudianteId_tallerId: {
-              estudianteId: realEstudianteId,
-              tallerId: realTallerId,
-            }
-          },
-          update: {},
-          create: {
-            estudianteId: realEstudianteId,
-            tallerId: realTallerId
-          }
-        });
-        inscripcionesCount++;
-      } catch (e) {
-      }
-    }
-  }
-  console.log(`Se procesaron las inscripciones.`);
-
-  // 7. Crear Asistencias
-  let asistenciasCount = 0;
-  for (const asis of data.asistencias) {
-    const realSesionId = mapSesiones.get(asis.sesionId);
-    const realEstudianteId = mapEstudiantes.get(asis.estudianteId);
-
-    if (realSesionId && realEstudianteId) {
-      try {
-        await prisma.asistencia.upsert({
-          where: {
-            sesionId_estudianteId: {
-              sesionId: realSesionId,
-              estudianteId: realEstudianteId,
-            }
-          },
-          update: {},
-          create: {
-            sesionId: realSesionId,
-            estudianteId: realEstudianteId,
-            estado: asis.estado,
-            fechaHora: new Date()
-          }
-        });
-        asistenciasCount++;
-      } catch (e) {
-      }
-    }
-  }
-  console.log(`Se procesaron las asistencias.`);
-  
-  console.log('¡Seeding completado con éxito, sin alterar datos anteriores y con dominios de correo correctos!');
 }
 
-main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+main();
