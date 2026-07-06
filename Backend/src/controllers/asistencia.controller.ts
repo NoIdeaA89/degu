@@ -63,6 +63,24 @@ export class AsistenciaController {
     }
   };
 
+  // 👇 NUEVO: guardar asistencia manual en lote para una sesión
+  guardarManual = async (req: Request, res: Response) => {
+    try {
+      const { sesionId } = req.params;
+      const { registros } = req.body;
+
+      if (!Array.isArray(registros)) {
+        return res.status(400).json({ message: 'registros debe ser un arreglo de { estudianteId, presente }' });
+      }
+
+      const resultado = await this.asistenciaService.guardarAsistenciaManual(Number(sesionId), registros);
+      res.status(200).json({ message: 'Asistencia guardada correctamente', data: resultado });
+    } catch (error: any) {
+      console.error("=== ERROR AL GUARDAR ASISTENCIA MANUAL ===", error);
+      res.status(500).json({ message: error.message });
+    }
+  };
+
   obtenerResumenSemestre = async (req: Request, res: Response) => {
     try {
       const { semestre, mes, dia, fechaInicio, fechaFin } = req.query;
@@ -84,7 +102,7 @@ export class AsistenciaController {
       res.status(500).json({ message: error.message });
     }
   };
-  
+
   obtenerResumenEstudiante = async (req: Request, res: Response) => {
     try {
       const { estudianteId } = req.params;

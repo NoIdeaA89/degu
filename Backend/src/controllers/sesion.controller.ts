@@ -60,6 +60,23 @@ export class SesionController {
       res.status(500).json({ message: error.message });
     }
   };
+  obtenerOCrearSesionDeHoy = async (req: Request, res: Response) => {
+  try {
+    const { tallerId, bloque, minutosValidez } = req.body;
+    if (!tallerId || bloque === undefined) {
+      return res.status(400).json({ message: 'tallerId y bloque son obligatorios' });
+    }
+
+    const sesion = await this.sesionService.obtenerOCrearDeHoy(
+      Number(tallerId),
+      Number(bloque),
+      minutosValidez || 15
+    );
+    res.status(200).json(sesion);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
 }
 
 export const sesionController = new SesionController();
@@ -67,3 +84,4 @@ export const crearSesion = sesionController.crearSesion;
 export const validarEnlace = sesionController.validarEnlace;
 export const listarSesionesPorTaller = sesionController.listarSesionesPorTaller;
 export const finalizarSesion = sesionController.finalizarSesion;
+export const obtenerOCrearSesionDeHoy = sesionController.obtenerOCrearSesionDeHoy;

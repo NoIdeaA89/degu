@@ -6,6 +6,8 @@ interface Props {
   estudiantes: Estudiante[]
   asistenciaActual: Record<string, boolean>
   hayCambios: boolean
+  cargando?: boolean
+  error?: string | null
   alternarAsistencia: (rut: string) => void
   marcarTodos: (presente: boolean) => void
   guardarAsistencia: () => void
@@ -18,6 +20,8 @@ export default function ModalAsistencia({
   estudiantes,
   asistenciaActual,
   hayCambios,
+  cargando = false,
+  error = null,
   alternarAsistencia,
   marcarTodos,
   guardarAsistencia,
@@ -34,54 +38,65 @@ export default function ModalAsistencia({
           </button>
         </div>
 
-        <div className="asistencia-acciones">
-          <button type="button" className="panel-btn" onClick={() => marcarTodos(true)}>
-            Todos presentes
-          </button>
-          <button type="button" className="panel-btn panel-btn-sec" onClick={() => marcarTodos(false)}>
-            Todos ausentes
-          </button>
-          <button type="button" className="panel-btn panel-btn-sec" onClick={abrirQrModal}>
-            Ver código QR
-          </button>
-        </div>
+        {cargando && <p className="panel-subtitulo">Cargando estudiantes...</p>}
+        {error && <p className="panel-subtitulo" style={{ color: "red" }}>{error}</p>}
 
-        <ul className="asistencia-lista">
-          {estudiantes.map((estudiante) => {
-            const presente = asistenciaActual[estudiante.rut] ?? false
+        {!cargando && !error && (
+          <>
+            <div className="asistencia-acciones">
+              <button type="button" className="panel-btn" onClick={() => marcarTodos(true)}>
+                Todos presentes
+              </button>
+              <button type="button" className="panel-btn panel-btn-sec" onClick={() => marcarTodos(false)}>
+                Todos ausentes
+              </button>
+              <button type="button" className="panel-btn panel-btn-sec" onClick={abrirQrModal}>
+                Ver código QR
+              </button>
+            </div>
 
-            return (
-              <li
-                key={estudiante.rut}
-                className={`asistencia-card ${presente ? "presente" : "ausente"}`}
-              >
-                <div className="asistencia-card-info">
-                  <strong>{estudiante.nombre}</strong>
-                  <span>{estudiante.rut}</span>
-                </div>
+            {estudiantes.length === 0 && (
+              <p className="panel-subtitulo">No hay estudiantes inscritos en este taller.</p>
+            )}
 
-                <div className="asistencia-switch-wrap">
-                  <span className={`asistencia-estado ${presente ? "activo" : ""}`}>
-                    {presente ? "Presente" : "Ausente"}
-                  </span>
+            <ul className="asistencia-lista">
+              {estudiantes.map((estudiante) => {
+                const presente = asistenciaActual[estudiante.rut] ?? false
 
-                  <label className="asistencia-switch" aria-label={`Cambiar asistencia de ${estudiante.nombre}`}>
-                    <input
-                      type="checkbox"
-                      checked={presente}
-                      onChange={() => alternarAsistencia(estudiante.rut)}
-                    />
-                    <span className="asistencia-slider" />
-                  </label>
-                </div>
-              </li>
-            )
-          })}
-        </ul>
+                return (
+                  <li
+                    key={estudiante.rut}
+                    className={`asistencia-card ${presente ? "presente" : "ausente"}`}
+                  >
+                    <div className="asistencia-card-info">
+                      <strong>{estudiante.nombre}</strong>
+                      <span>{estudiante.rut}</span>
+                    </div>
 
-        <button type="button" className="panel-btn" onClick={guardarAsistencia} disabled={!hayCambios}>
-          Guardar
-        </button>
+                    <div className="asistencia-switch-wrap">
+                      <span className={`asistencia-estado ${presente ? "activo" : ""}`}>
+                        {presente ? "Presente" : "Ausente"}
+                      </span>
+
+                      <label className="asistencia-switch" aria-label={`Cambiar asistencia de ${estudiante.nombre}`}>
+                        <input
+                          type="checkbox"
+                          checked={presente}
+                          onChange={() => alternarAsistencia(estudiante.rut)}
+                        />
+                        <span className="asistencia-slider" />
+                      </label>
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+
+            <button type="button" className="panel-btn" onClick={guardarAsistencia} disabled={!hayCambios}>
+              Guardar
+            </button>
+          </>
+        )}
       </div>
     </div>
   )

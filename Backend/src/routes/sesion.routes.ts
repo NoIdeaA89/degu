@@ -3,7 +3,8 @@ import {
   crearSesion, 
   validarEnlace, 
   listarSesionesPorTaller, 
-  finalizarSesion 
+  finalizarSesion, 
+  obtenerOCrearSesionDeHoy
 } from '../controllers/sesion.controller';
 
 const router = Router();
@@ -15,5 +16,7 @@ router.get('/validar/:token', validarEnlace);
 router.get('/taller/:tallerId', listarSesionesPorTaller);
 
 router.patch('/:id/finalizar', finalizarSesion);
+
+router.post('/hoy', obtenerOCrearSesionDeHoy);
 
 export default router;

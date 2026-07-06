@@ -1,111 +1,115 @@
-import { useMemo, useState } from "react"
-
-// Mock de estudiantes - TODO: Reemplazar con fetch del backend cuando esté disponible
-const estudiantes = Array.from({ length: 100 }, (_, i) => ({
-  id: i + 1,
-  nombre: `Estudiante ${i + 1}`,
-  rut: `${1000000 + i}-k`,
-  correo: `estudiante${i + 1}@ucn.cl`,
-}))
-
-import { crearAsistenciaInicial, crearIdTaller } from "../../../utils/Asistencia"
+import { useEffect, useMemo, useState } from "react"
+import { obtenerInscritosPorTaller, type EstudianteApi } from "../../../services/inscripcion.service"
+import { obtenerOCrearSesionDeHoy } from "../../../services/sesion.service"
+import { obtenerAsistenciaPorSesion, guardarAsistenciaManual } from "../../../services/asistencia.service"
 import type { TallerUI } from "../../../interfaces/Taller"
 import type { TallerSeleccionado } from "../../../interfaces/Horario"
+import type { Estudiante } from "../../../interfaces/Estudiante"
 
-/**
- * Hook para gestionar asistencia de talleres
- */
+function convertirEstudianteApi(e: EstudianteApi): Estudiante {
+  return {
+    id: e.id,
+    nombre: `${e.nombre} ${e.apellido}`,
+    rut: e.rut,
+    correo: e.correo,
+  }
+}
+
 export function useAsistencia() {
-  const [asistenciaPorTaller, setAsistenciaPorTaller] = useState<Record<string, Record<string, boolean>>>({})
-  const [asistenciaOriginalPorTaller, setAsistenciaOriginalPorTaller] = useState<Record<string, Record<string, boolean>>>({})
+  const [estudiantes, setEstudiantes] = useState<Estudiante[]>([])
+  const [sesionId, setSesionId] = useState<number | null>(null)
+  const [asistenciaActual, setAsistenciaActual] = useState<Record<string, boolean> | null>(null)
+  const [asistenciaOriginal, setAsistenciaOriginal] = useState<Record<string, boolean> | null>(null)
   const [tallerSeleccionado, setTallerSeleccionado] = useState<TallerSeleccionado | null>(null)
+  const [cargando, setCargando] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const abrirTaller = (taller: TallerUI, indice: number) => {
-    const idCompuesto = crearIdTaller(taller, indice)
-    const asistenciaBase = asistenciaPorTaller[idCompuesto] ?? crearAsistenciaInicial(estudiantes)
-
+  const abrirTaller = async (taller: TallerUI) => {
     setTallerSeleccionado({ id: taller.id, taller })
-    setAsistenciaPorTaller((prev) => ({
-      ...prev,
-      [idCompuesto]: asistenciaBase,
-    }))
-    setAsistenciaOriginalPorTaller((prev) => ({
-      ...prev,
-      [idCompuesto]: asistenciaBase,
-    }))
+    setCargando(true)
+    setError(null)
+
+    try {
+      const [inscritos, sesion] = await Promise.all([
+        obtenerInscritosPorTaller(taller.id),
+        obtenerOCrearSesionDeHoy(taller.id, taller.bloque),
+      ])
+
+      const estudiantesUI = inscritos.map(convertirEstudianteApi)
+      setEstudiantes(estudiantesUI)
+      setSesionId(sesion.id)
+
+      const asistenciaExistente = await obtenerAsistenciaPorSesion(sesion.id)
+      const porEstudianteId = new Map(asistenciaExistente.map((a) => [a.estudianteId, a.estado === "Presente"]))
+
+      const base: Record<string, boolean> = {}
+      estudiantesUI.forEach((e) => {
+        base[e.rut] = porEstudianteId.get(e.id) ?? false
+      })
+
+      setAsistenciaActual(base)
+      setAsistenciaOriginal(base)
+    } catch (err) {
+      console.error("Error al abrir taller para asistencia:", err)
+      setError("No se pudo cargar la asistencia del taller")
+    } finally {
+      setCargando(false)
+    }
   }
 
   const cerrarTaller = () => {
     setTallerSeleccionado(null)
-  }
-
-  const guardarAsistencia = () => {
-    if (!tallerSeleccionado) return
-
-    setAsistenciaOriginalPorTaller((prev) => ({
-      ...prev,
-      [tallerSeleccionado.id]: asistenciaPorTaller[tallerSeleccionado.id] ?? crearAsistenciaInicial(estudiantes),
-    }))
-
-    cerrarTaller()
+    setAsistenciaActual(null)
+    setAsistenciaOriginal(null)
+    setSesionId(null)
+    setEstudiantes([])
   }
 
   const alternarAsistencia = (rut: string) => {
-    if (!tallerSeleccionado) return
-
-    setAsistenciaPorTaller((prev) => {
-      const actual = prev[tallerSeleccionado.id] ?? crearAsistenciaInicial(estudiantes)
-
-      return {
-        ...prev,
-        [tallerSeleccionado.id]: {
-          ...actual,
-          [rut]: !actual[rut],
-        },
-      }
-    })
+    setAsistenciaActual((prev) => (prev ? { ...prev, [rut]: !prev[rut] } : prev))
   }
 
   const marcarTodos = (presente: boolean) => {
-    if (!tallerSeleccionado) return
-
-    setAsistenciaPorTaller((prev) => ({
-      ...prev,
-      [tallerSeleccionado.id]: Object.fromEntries(
-        estudiantes.map((estudiante) => [estudiante.rut, presente])
-      ) as Record<string, boolean>,
-    }))
+    setAsistenciaActual(
+      Object.fromEntries(estudiantes.map((e) => [e.rut, presente])) as Record<string, boolean>
+    )
   }
 
-  const asistenciaActual = useMemo(
-    () =>
-      tallerSeleccionado
-        ? asistenciaPorTaller[tallerSeleccionado.id] ?? crearAsistenciaInicial(estudiantes)
-        : null,
-    [tallerSeleccionado, asistenciaPorTaller]
-  )
+  const guardarAsistencia = async () => {
+    if (!sesionId || !asistenciaActual) return
 
-  const asistenciaOriginal = useMemo(
-    () =>
-      tallerSeleccionado
-        ? asistenciaOriginalPorTaller[tallerSeleccionado.id] ?? crearAsistenciaInicial(estudiantes)
-        : null,
-    [tallerSeleccionado, asistenciaOriginalPorTaller]
-  )
+    const registros = estudiantes.map((e) => ({
+      estudianteId: e.id,
+      presente: asistenciaActual[e.rut] ?? false,
+    }))
 
-  const hayCambios = Boolean(
-    tallerSeleccionado &&
-      estudiantes.some(
-        (estudiante) =>
-          asistenciaActual?.[estudiante.rut] !== asistenciaOriginal?.[estudiante.rut]
-      )
+    try {
+      await guardarAsistenciaManual(sesionId, registros)
+      setAsistenciaOriginal(asistenciaActual)
+      cerrarTaller()
+    } catch (err) {
+      console.error("Error al guardar asistencia:", err)
+      setError("No se pudo guardar la asistencia")
+    }
+  }
+
+  const hayCambios = useMemo(
+    () =>
+      Boolean(
+        asistenciaActual &&
+          asistenciaOriginal &&
+          estudiantes.some((e) => asistenciaActual[e.rut] !== asistenciaOriginal[e.rut])
+      ),
+    [asistenciaActual, asistenciaOriginal, estudiantes]
   )
 
   return {
     tallerSeleccionado,
-    asistenciaActual,
+    asistenciaActual: asistenciaActual ?? {},
     hayCambios,
     estudiantes,
+    cargando,
+    error,
     abrirTaller,
     cerrarTaller,
     guardarAsistencia,

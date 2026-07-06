@@ -20,35 +20,37 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
   const [mostrarModalTaller, setMostrarModalTaller] = useState(false)
 
   const {
-    dias,
-    bloques,
-    lugaresActivos,
-    talleresPorCelda,
-    talleresSinAsignar,
-    agregarTaller,
-    celdaSeleccionada,
-    tallerSeleccionado,
-    asistenciaActual,
-    hayCambios,
-    mostrarQrModal,
-    estudiantes,
-    modoEdicion,
-    desasignarTaller,
-    toggleModoEdicion,
-    moverTaller,
-    toggleLugar,
-    seleccionarTodos,
-    limpiarTodos,
-    abrirCelda,
-    cerrarModal,
-    abrirTaller,
-    cerrarModalAsistencia,
-    marcarTodos,
-    alternarAsistencia,
-    guardarAsistencia,
-    abrirQrModal,
-    cerrarQrModal
-  } = useHorario()
+  dias,
+  bloques,
+  lugaresActivos,
+  talleresPorCelda,
+  talleresSinAsignar,
+  agregarTaller,
+  celdaSeleccionada,
+  tallerSeleccionado,
+  asistenciaActual,
+  hayCambios,
+  mostrarQrModal,
+  estudiantes,
+  cargandoAsistencia,   
+  errorAsistencia,      
+  modoEdicion,
+  desasignarTaller,
+  toggleModoEdicion,
+  moverTaller,
+  toggleLugar,
+  seleccionarTodos,
+  limpiarTodos,
+  abrirCelda,
+  cerrarModal,
+  abrirTaller,
+  cerrarModalAsistencia,
+  marcarTodos,
+  alternarAsistencia,
+  guardarAsistencia,
+  abrirQrModal,
+  cerrarQrModal
+} = useHorario()
 
   return (
     <section className="w-full">
@@ -118,7 +120,7 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
           dias={dias}
           bloques={bloques}
           cerrarModal={cerrarModal}
-          abrirTaller={(taller) => abrirTaller(taller, 0)}
+          abrirTaller={abrirTaller}
         />
       )}
 
@@ -128,6 +130,8 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
           estudiantes={estudiantes}
           asistenciaActual={asistenciaActual ?? {}}
           hayCambios={hayCambios}
+          cargando={cargandoAsistencia}
+          error={errorAsistencia}
           alternarAsistencia={alternarAsistencia}
           marcarTodos={marcarTodos}
           guardarAsistencia={guardarAsistencia}

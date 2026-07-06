@@ -311,4 +311,25 @@ export class AsistenciaService {
       };
     });
   }
+  
+  async guardarAsistenciaManual(sesionId: number, registros: { estudianteId: number; presente: boolean }[]) {
+  return await prisma.$transaction(
+    registros.map((r) =>
+      prisma.asistencia.upsert({
+        where: {
+          sesionId_estudianteId: { sesionId, estudianteId: r.estudianteId }
+        },
+        update: {
+          estado: r.presente ? 'Presente' : 'Ausente'
+        },
+        create: {
+          sesionId,
+          estudianteId: r.estudianteId,
+          estado: r.presente ? 'Presente' : 'Ausente',
+          fechaHora: new Date()
+        }
+      })
+    )
+  );
+}
 }
