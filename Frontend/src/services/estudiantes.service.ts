@@ -20,6 +20,27 @@ export interface BusquedaEstudiantesResponse {
   };
 }
 
+export interface RegistroUsuarioPayload {
+  nombre: string
+  apellido: string
+  rut: string
+  correo: string
+  password: string
+  rol: 'Administrador' | 'Profesor' | 'Ayudante' | 'Estudiante'
+}
+
+export interface RegistroUsuarioResponse {
+  mensaje: string
+  usuario: {
+    id: number
+    nombre: string
+    apellido: string
+    rut: string
+    correo: string
+    rol: string
+  }
+}
+
 export async function buscarEstudiantes(
   query: string,
   page = 1,
@@ -45,4 +66,22 @@ export async function buscarEstudiantes(
   }
 
   return response.json();
+}
+
+export async function registrarUsuario(
+  payload: RegistroUsuarioPayload
+): Promise<RegistroUsuarioResponse> {
+  const response = await fetch(`${baseUrl}/auth/registro`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+
+  const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.error || data.message || 'Error al registrar usuario')
+  }
+
+  return data as RegistroUsuarioResponse
 }

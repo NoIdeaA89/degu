@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { transferirMando } from '../services/admin.service';
 import Navbar from '../components/navbar';
 import { AgregarProfesor } from './ModalAgregarProfesor';
+import { AgregarEstudiante } from './ModalAgregarEstudiante';
 
 export const PerfilAdmin = () => {
   const navigate = useNavigate();
@@ -89,12 +90,15 @@ export const PerfilAdmin = () => {
             </ul>
           </div>
 
-          <div className="mt-8 pt-6 border-t flex justify-between">
-            <AgregarProfesor />
+          <div className="mt-8 pt-6 border-t flex flex-col sm:flex-row gap-3 sm:justify-between">
+            <div className="flex gap-3 flex-wrap">
+              <AgregarProfesor />
+              <AgregarEstudiante />
+            </div>
 
             <button
               onClick={() => setIsModalOpen(true)}
-              className="text-red-600 hover:text-red-800 text-sm font-medium hover:underline transition-colors"
+              className="text-red-600 hover:text-red-800 text-sm font-medium hover:underline transition-colors sm:self-center"
             >
               Transferir propiedad del sistema
             </button>

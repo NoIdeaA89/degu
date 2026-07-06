@@ -12,6 +12,35 @@ export const listarEstudiantes = async (req: Request, res: Response) => {
   }
 };
 
+export const crearEstudiante = async (req: Request, res: Response) => {
+  try {
+    const { nombre, apellido, rut, correo, password } = req.body;
+
+    if (!nombre || !apellido || !rut || !correo || !password) {
+      return res.status(400).json({
+        error: 'Faltan campos obligatorios: nombre, apellido, rut, correo, password.',
+      });
+    }
+
+    const estudiante = await service.crearEstudiante({
+      nombre,
+      apellido,
+      rut,
+      correo,
+      password,
+    });
+
+    return res.status(201).json({
+      mensaje: 'Estudiante creado con éxito',
+      usuario: estudiante,
+    });
+  } catch (error: any) {
+    const status = error.status || 500;
+    const message = error.message || 'Error al crear el estudiante.';
+    return res.status(status).json({ detalle: message });
+  }
+};
+
 export const obtenerPerfil = async (req: Request, res: Response) => {
   try {
     const { rut } = req.params;
