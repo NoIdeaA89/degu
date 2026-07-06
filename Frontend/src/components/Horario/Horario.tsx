@@ -54,7 +54,7 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
 } = useHorario()
 
   return (
-    <section className="w-full">
+    <section className="w-full my-8">
       <div className="flex justify-center w-full">
         <div className={`horario-layout ${soloLectura ? "horario-layout--solo-grid" : ""}`}>
           <div>
