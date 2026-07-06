@@ -10,6 +10,14 @@ interface BuscarEstudiantesParams {
   take?: number;
 }
 
+interface CrearEstudianteInput {
+  nombre: string;
+  apellido: string;
+  rut: string;
+  correo: string;
+  password: string;
+}
+
 export const obtenerTodos = async (busqueda?: string) => {
   return await prisma.usuario.findMany({
     where: {
@@ -26,6 +34,47 @@ export const obtenerTodos = async (busqueda?: string) => {
     orderBy: { nombre: 'asc' }
   });
 };
+
+export async function crearEstudiante(input: CrearEstudianteInput) {
+  const { nombre, apellido, rut, correo, password } = input;
+
+  const usuarioExistente = await prisma.usuario.findFirst({
+    where: {
+      OR: [{ rut }, { correo }],
+    },
+  });
+
+  if (usuarioExistente) {
+    if (usuarioExistente.rut === rut) {
+      throw { status: 409, message: 'Ya existe un usuario registrado con ese RUT.' };
+    }
+
+    throw { status: 409, message: 'Ya existe un usuario registrado con ese correo.' };
+  }
+
+  const passwordHasheada = await bcrypt.hash(password, 10);
+
+  const nuevoEstudiante = await prisma.usuario.create({
+    data: {
+      nombre,
+      apellido,
+      rut,
+      correo,
+      password: passwordHasheada,
+      rol: RolUsuario.Estudiante,
+    },
+    select: {
+      id: true,
+      nombre: true,
+      apellido: true,
+      rut: true,
+      correo: true,
+      rol: true,
+    },
+  });
+
+  return nuevoEstudiante;
+}
 
 export const obtenerPorRut = async (rut: string) => {
   return await prisma.usuario.findUnique({

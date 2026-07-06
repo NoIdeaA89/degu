@@ -24,6 +24,16 @@ export const actualizarEstudianteSchema = z.object({
   })
 });
 
+export const crearEstudianteSchema = z.object({
+  body: z.object({
+    nombre: z.string().min(1, "El nombre es obligatorio"),
+    apellido: z.string().min(1, "El apellido es obligatorio"),
+    rut: z.string().min(1, "El RUT es obligatorio"),
+    correo: z.string().email("Formato de correo inválido"),
+    password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
+  })
+});
+
 export const cambioRolSchema = z.object({
   params: z.object({
     rut: z.string().min(1),
