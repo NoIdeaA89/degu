@@ -39,28 +39,19 @@ export const obtenerPorSemestre = async (req: Request, res: Response) => {
 export const actualizarTaller = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { dia, bloques } = req.body;
-
-    if (!id || dia === undefined || !Array.isArray(bloques) || bloques.length === 0) {
-      return res.status(400).json({ error: 'El id, dia y bloques son requeridos' });
+    const { dia, bloque } = req.body;
+    
+    if (!id || dia === undefined || !Array.isArray(bloque) || bloque.length === 0) {
+      return res.status(400).json({ error: 'El id, dia y bloque son requeridos' });
     }
-
-    const bloquesEnum = bloques.map((b: string) => {
+    const bloquesEnum = bloque.map((b: string) => {
       const bloqueKey = b as keyof typeof BloqueHorario;
       return BloqueHorario[bloqueKey];
     });
 
-    const tallerActualizado = await talleresService.actualizarTaller(
-      Number(id),
-      Number(dia),
-      bloquesEnum
-    );
+    const tallerActualizado = await talleresService.actualizarTaller(Number(id), Number(dia), bloquesEnum);
 
-    res.status(200).json({
-      message: 'Taller actualizado correctamente',
-      data: tallerActualizado
-    });
-
+    res.status(200).json({ message: 'Taller actualizado correctamente', data: tallerActualizado });
   } catch (error: any) {
     console.error("=== ERROR AL ACTUALIZAR TALLER ===", error);
     res.status(500).json({ 
