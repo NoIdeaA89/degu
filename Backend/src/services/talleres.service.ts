@@ -47,7 +47,7 @@ export const actualizarTaller = async (tallerId: number, dia: number, bloque: Bl
       where: { id: tallerId },
       data: {
         dia: dia,
-        bloques: [bloque]
+        bloques: bloque
       },
       include: {
         profesor: {
