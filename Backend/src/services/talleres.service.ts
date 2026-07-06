@@ -32,7 +32,7 @@ export const obtenerTalleresPorSemestre = async (semestre: string) => {
       },
       orderBy: [
         { dia: 'asc' },
-        { bloques: 'asc' }
+        { bloque: 'asc' }
       ]
     });
     return talleres;
