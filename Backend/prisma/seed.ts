@@ -1,8 +1,10 @@
 import { RolUsuario, BloqueHorario } from '@prisma/client';
 import * as fs from 'fs';
 import { prisma } from '../src/lib/prisma';
+import bcrypt from 'bcrypt';
 
 async function main() {
+  const passwordDefault = await bcrypt.hash('password123', 10);
   console.log('Iniciando el seeding de la base de datos de forma segura...');
   
   const rawData = fs.readFileSync('./seed_data.json', 'utf8');
@@ -14,14 +16,15 @@ async function main() {
     update: {
       nombre: 'Edgar',
       apellido: 'Gallardo',
-      rol: RolUsuario.Administrador
+      rol: RolUsuario.Administrador,
+      password: passwordDefault
     },
     create: {
       nombre: 'Edgar',
       apellido: 'Gallardo',
       rut: '14321789-2', // RUT genérico, lo vital para Google es el correo
       correo: 'galponcultural@ucn.cl', 
-      password: 'password123', // La contraseña no importará mucho si entra con Google
+      password: passwordDefault, 
       rol: RolUsuario.Administrador
     }
   });
@@ -30,13 +33,13 @@ async function main() {
   // 2. Crear Usuario "Profesor por defecto" (Usando dominio @ucn.cl)
   const profesor = await prisma.usuario.upsert({
     where: { correo: 'profesor@ucn.cl' },
-    update: {},
+    update: {password: passwordDefault},
     create: {
       nombre: 'Profesor',
       apellido: 'Galpón',
       rut: '11111111-1',
       correo: 'profesor@ucn.cl', 
-      password: 'password123',
+      password: passwordDefault,
       rol: RolUsuario.Profesor
     }
   });
@@ -49,21 +52,22 @@ async function main() {
 
   // 3. Crear Estudiantes
   for (const est of data.estudiantes) {
-    // Forzar el dominio del correo a @alumnos.ucn.cl tomando solo la parte antes del @
+    const passwordHash = await bcrypt.hash(est.password, 10);
     const username = est.correo.split('@')[0];
     const correoEstudiante = `${username}@alumnos.ucn.cl`;
 
     const dbEst = await prisma.usuario.upsert({
       where: { rut: est.rut },
       update: { 
-        correo: correoEstudiante 
+        correo: correoEstudiante,
+        password: passwordHash
       },
       create: {
         nombre: est.nombre,
         apellido: est.apellido,
         rut: est.rut,
         correo: correoEstudiante, 
-        password: est.password,
+        password: passwordHash,
         rol: RolUsuario.Estudiante
       }
     });
