@@ -86,7 +86,7 @@ export const crearTaller = async (req: Request, res: Response) => {
       lugar,
       profesorId: Number(profesorId),
       dia: dia !== undefined ? Number(dia) : undefined,
-      bloques: bloquesEnum,
+      bloque: bloquesEnum,
     });
 
     res.status(201).json({ message: 'Taller creado correctamente', data: nuevoTaller });
