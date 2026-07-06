@@ -48,7 +48,7 @@ model Taller {
   estado      Boolean  @default(true)
   lugar       String   @default("Galpón Cultural")
   dia         Int      @default(1)
-  bloque      BloqueHorario[] 
+  bloque      BloqueHorario @default(A) // Changed to use Enum
 
   profesorId  Int
   profesor    Usuario  @relation("ProfesorTaller", fields: [profesorId], references: [id])
