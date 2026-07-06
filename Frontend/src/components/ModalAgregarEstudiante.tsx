@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
+import ExcelJS from 'exceljs';
 import { registrarUsuario } from '../services/estudiantes.service';
+import { obtenerTextoCelda } from '../utils/excel.utils';
+
+type EstudianteExcelRow = {
+  nombre: string;
+  apellido: string;
+  rut: string;
+  correo: string;
+  password: string;
+};
 
 export const AgregarEstudiante = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,6 +24,8 @@ export const AgregarEstudiante = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMensaje, setErrorMensaje] = useState<string | null>(null);
   const [exitoMensaje, setExitoMensaje] = useState<string | null>(null);
+  const [filasPreview, setFilasPreview] = useState<EstudianteExcelRow[]>([]);
+  const [mostrarPreview, setMostrarPreview] = useState(false);
 
   const resetForm = () => {
     setNombre('');
@@ -61,6 +73,71 @@ export const AgregarEstudiante = () => {
     }
   };
 
+  const handleImportarExcel = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const archivo = event.target.files?.[0];
+    if (!archivo) return;
+    setIsLoading(true);
+    setErrorMensaje(null);
+    setExitoMensaje(null);
+    try {
+      const workbook = new ExcelJS.Workbook();
+      await workbook.xlsx.load(await archivo.arrayBuffer());
+      const worksheet = workbook.worksheets[0];
+      if (!worksheet) throw new Error('El archivo no tiene hojas válidas.');
+
+      const filas: EstudianteExcelRow[] = [];
+      worksheet.eachRow((row, rowNumber) => {
+        if (rowNumber === 1) return;
+        filas.push({
+          nombre: obtenerTextoCelda(row.getCell(1).value),
+          apellido: obtenerTextoCelda(row.getCell(2).value),
+          rut: obtenerTextoCelda(row.getCell(3).value),
+          correo: obtenerTextoCelda(row.getCell(4).value).toLowerCase(),
+          password: obtenerTextoCelda(row.getCell(5).value),
+        });
+      });
+
+      if (filas.length === 0) throw new Error('El archivo no tiene filas de datos.');
+
+      const filasInvalidas = filas.filter(
+        (f) => !f.nombre || !f.apellido || !f.rut || !f.correo || !f.password
+      );
+      if (filasInvalidas.length > 0) {
+        throw new Error(`Hay ${filasInvalidas.length} fila(s) incompleta(s) en el Excel.`);
+      }
+
+      setFilasPreview(filas);
+      setMostrarPreview(true);
+    } catch (error: any) {
+      setErrorMensaje(error.message || 'Error al leer el archivo Excel.');
+    } finally {
+      setIsLoading(false);
+      event.target.value = '';
+    }
+  };
+
+  const handleConfirmarImportacion = async () => {
+    setIsLoading(true);
+    setErrorMensaje(null);
+    try {
+      for (const fila of filasPreview) {
+        await registrarUsuario({ ...fila, rol: 'Estudiante' });
+      }
+      setExitoMensaje(`Se importaron ${filasPreview.length} estudiantes correctamente.`);
+      setMostrarPreview(false);
+      setFilasPreview([]);
+    } catch (error: any) {
+      setErrorMensaje(error.message || 'Error al importar los estudiantes.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleCancelarImportacion = () => {
+    setMostrarPreview(false);
+    setFilasPreview([]);
+  };
+
   return (
     <>
       <button
@@ -72,13 +149,14 @@ export const AgregarEstudiante = () => {
       </button>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 gap-4">
           <div className="bg-white rounded-lg shadow-xl max-w-lg w-full p-6">
             <div className="flex items-center gap-3 mb-4 text-emerald-600">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
               </svg>
               <h3 className="text-xl font-bold">Agregar estudiante</h3>
+              
             </div>
 
             <p className="text-sm text-gray-600 mb-4">
@@ -205,6 +283,72 @@ export const AgregarEstudiante = () => {
                 </button>
               </div>
             </form>
+          </div>
+          <div className="bg-white rounded-lg shadow-xl max-w-lg w-full p-6">
+            <div className="flex items-center gap-3 mb-4 text-emerald-600">
+              <h3 className="text-xl font-bold">Agregar desde excel</h3>
+            </div>
+            
+            {!mostrarPreview && (
+              <label className="px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium cursor-pointer">
+                Examinar...
+                <input
+                  type="file"
+                  accept=".xlsx"
+                  onChange={handleImportarExcel}
+                  className="hidden"
+                  disabled={isLoading}
+                />
+              </label>
+            )}
+
+            {mostrarPreview && (
+              <div className="mt-2">
+                <p className="text-sm text-gray-600 mb-2">
+                  Se encontraron <strong>{filasPreview.length}</strong> estudiantes. Revisa antes de confirmar:
+                </p>
+
+                <div className="max-h-64 overflow-y-auto border rounded mb-4">
+                  <table className="w-full text-sm text-left">
+                    <thead className="bg-gray-100 sticky top-0">
+                      <tr>
+                        <th className="px-2 py-1">Nombre</th>
+                        <th className="px-2 py-1">Apellido</th>
+                        <th className="px-2 py-1">RUT</th>
+                        <th className="px-2 py-1">Correo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filasPreview.map((fila, i) => (
+                        <tr key={i} className="border-t">
+                          <td className="px-2 py-1">{fila.nombre}</td>
+                          <td className="px-2 py-1">{fila.apellido}</td>
+                          <td className="px-2 py-1">{fila.rut}</td>
+                          <td className="px-2 py-1">{fila.correo}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                    
+                <div className="flex gap-2 justify-end">
+                  <button
+                    onClick={handleCancelarImportacion}
+                    disabled={isLoading}
+                    className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-all font-medium"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={handleConfirmarImportacion}
+                    disabled={isLoading}
+                    className="px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 disabled:opacity-50 transition-all font-medium"
+                  >
+                    {isLoading ? 'Importando...' : 'Confirmar e importar'}
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
