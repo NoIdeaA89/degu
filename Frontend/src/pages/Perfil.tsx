@@ -5,6 +5,8 @@ import {
   obtenerResumenAsistenciaEstudiante,
   type ResumenAsistenciaEstudianteItem,
 } from "../services/perfilAsistencia.service"
+import { exportarPerfilEstudianteExcel } from "../utils/excel.utils"
+
 
 export interface EstudiantePerfil {
   id?: number
@@ -129,6 +131,23 @@ export default function Perfil({ estudiante, historialTalleres }: PerfilProps): 
     }
   }, [estudianteBase])
 
+  const manejarExportacionExcel = async () => {
+    if (!estudianteFinal) return
+
+    await exportarPerfilEstudianteExcel({
+      nombre: estudianteFinal.nombre,
+      apellido: estudianteFinal.apellido,
+      rut: estudianteFinal.rut,
+      correo: estudianteFinal.correo,
+      promedioAsistencia: estudianteFinal.promedioAsistencia ?? 0,
+      talleresInscritos: estudianteFinal.talleresInscritos ?? historialFinal.length,
+      talleresAprobados:
+        estudianteFinal.talleresAprobados ??
+        historialFinal.filter((item) => item.estado === "Calificado").length,
+      historial: historialFinal,
+    })
+  }
+
   const resumenAsistencia = useMemo(() => {
     if (!estudianteFinal?.promedioAsistencia) return 0
     return estudianteFinal.promedioAsistencia
@@ -238,6 +257,12 @@ export default function Perfil({ estudiante, historialTalleres }: PerfilProps): 
                 <div className="mb-4 flex items-center justify-between">
                   <h2 className="text-lg font-semibold text-[#2f363d]">Historial de talleres</h2>
                   <span className="text-sm font-medium text-[#5a636d]">Total: {historialFinal.length}</span>
+                  <button
+                    onClick={manejarExportacionExcel}
+                    className="inline-flex items-center justify-center rounded-xl border border-[#dfe3e7] bg-[#2f363d] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#1f252b]"
+                  >
+                    Exportar Excel
+                  </button>
                 </div>
 
                 <div className="grid gap-3">
