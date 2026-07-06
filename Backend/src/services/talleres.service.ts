@@ -32,7 +32,6 @@ export const obtenerTalleresPorSemestre = async (semestre: string) => {
       },
       orderBy: [
         { dia: 'asc' },
-        { bloques: 'asc' }
       ]
     });
     return talleres;
@@ -73,7 +72,7 @@ export const crearTaller = async (data: {
   lugar: string;
   profesorId: number;
   dia?: number;
-  bloque?: BloqueHorario[];
+  bloques?: BloqueHorario[];
 }) => {
   try {
     const taller = await prisma.taller.create({
@@ -85,7 +84,7 @@ export const crearTaller = async (data: {
         estado: true,
         lugar: data.lugar,
         dia: data.dia ?? 0,
-        bloques: data.bloque ?? [BloqueHorario.A],
+        bloques: data.bloques ?? [BloqueHorario.A],
         profesorId: data.profesorId,
       },
       include: {
