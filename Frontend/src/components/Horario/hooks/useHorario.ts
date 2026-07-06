@@ -16,6 +16,9 @@ export default function useHorario() {
     asistenciaActual,
     hayCambios,
     estudiantes,
+    qrToken,
+    cargando: cargandoAsistencia,   
+    error: errorAsistencia,         
     abrirTaller,
     cerrarTaller,
     guardarAsistencia,
@@ -35,31 +38,27 @@ export default function useHorario() {
     [talleresState, lugaresActivos]
   )
 
- const talleresPorCelda = useMemo(() => {
-  const mapa = new Map<string, TallerUI[]>()
+  const talleresPorCelda = useMemo(() => {
+    const mapa = new Map<string, TallerUI[]>()
 
-  talleresFiltrados.forEach((t) => {
-    if (!t.pendienteAsignacion) {
-      const key = `${t.bloque}-${t.dia}`
-      if (!mapa.has(key)) {
-        mapa.set(key, [])
+    talleresFiltrados.forEach((t) => {
+      if (!t.pendienteAsignacion) {
+        const key = `${t.bloque}-${t.dia}`
+        if (!mapa.has(key)) {
+          mapa.set(key, [])
+        }
+        mapa.get(key)!.push(t)
       }
-      mapa.get(key)!.push(t)
-    }
-  })
+    })
 
-  return mapa
-}, [talleresFiltrados])
-
-
+    return mapa
+  }, [talleresFiltrados])
 
   const abrirCelda = (dia: number, bloque: number) => {
-  if (modoEdicion) return
-  const items = talleresPorCelda.get(`${bloque}-${dia}`) ?? []
-  setCeldaSeleccionada({ dia, bloque, items })
-}
-
-
+    if (modoEdicion) return
+    const items = talleresPorCelda.get(`${bloque}-${dia}`) ?? []
+    setCeldaSeleccionada({ dia, bloque, items })
+  }
 
   const cerrarModal = () => {
     setCeldaSeleccionada(null)
@@ -97,6 +96,7 @@ export default function useHorario() {
     dias,
     bloques,
     lugares,
+    qrToken,
     lugaresActivos,
     talleresPorCelda,
     talleresSinAsignar,
@@ -106,6 +106,8 @@ export default function useHorario() {
     hayCambios,
     mostrarQrModal,
     estudiantes,
+    cargandoAsistencia,   
+    errorAsistencia,      
     modoEdicion,
     desasignarTaller,
     agregarTaller,

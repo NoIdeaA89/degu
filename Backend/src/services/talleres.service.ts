@@ -64,3 +64,36 @@ export const actualizarTaller = async (tallerId: number, dia: number, bloque: Bl
     throw new Error(`Error al actualizar el taller: ${error.message}`);
   }
 };
+
+export const crearTaller = async (data: {
+  nombre: string;
+  descripcion?: string;
+  horario?: string;
+  semestre: string;
+  lugar: string;
+  profesorId: number;
+  dia?: number;
+  bloque?: BloqueHorario;
+}) => {
+  try {
+    const taller = await prisma.taller.create({
+      data: {
+        nombre: data.nombre,
+        descripcion: data.descripcion ?? "",
+        horario: data.horario ?? "",
+        semestre: data.semestre,
+        estado: true,
+        lugar: data.lugar,
+        dia: data.dia ?? 0,
+        bloque: data.bloque ?? BloqueHorario.A,
+        profesorId: data.profesorId,
+      },
+      include: {
+        profesor: { select: { id: true, nombre: true, apellido: true } }
+      }
+    });
+    return taller;
+  } catch (error: any) {
+    throw new Error(`Error al crear el taller: ${error.message}`);
+  }
+};

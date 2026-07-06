@@ -26,6 +26,44 @@ export const obtenerPerfil = async (req: Request, res: Response) => {
   }
 };
 
+export async function buscarEstudiantesController(req: Request, res: Response) {
+  try {
+    const { query } = req.query;
+    const { page, limit } = req.query;
+
+    if (!query || typeof query !== 'string' || !query.trim()) {
+      return res.status(400).json({
+        error: 'El parámetro "query" es requerido y debe ser un texto no vacío.',
+      });
+    }
+    const pageNum = Math.max(Number(page) || 1, 1);
+    const limitNum = Math.min(Math.max(Number(limit) || 10, 1), 100);
+
+    const skip = (pageNum - 1) * limitNum;
+
+    const { data, total } = await service.buscarEstudiantes({ query, skip, take: limitNum });
+
+    const totalPages = Math.ceil(total / limitNum);
+
+    return res.status(200).json({
+      data,
+      meta: {
+        page,
+        limit,
+        total,           
+        totalPages,       
+        hasNextPage: pageNum < totalPages,
+        hasPrevPage: pageNum > 1,
+      },
+    });
+  } catch (error) {
+    console.error('Error al buscar estudiantes:', error);
+    return res.status(500).json({
+      error: 'Ocurrió un error al buscar los estudiantes.',
+    });
+  }
+}
+
 export const obtenerHistorial = async (req: Request, res: Response) => {
   try {
     const rut = String(req.params.rut);

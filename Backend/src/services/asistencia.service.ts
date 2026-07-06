@@ -150,7 +150,7 @@ export class AsistenciaService {
 
     if (sesiones.length === 0) return [];
 
-    const sesionToTaller = new Map(sesiones.map((s) => [s.id, s.tallerId]));
+    const sesionToTaller = new Map<number, number>(sesiones.map((s) => [s.id, s.tallerId]));
 
     const sesionesPorTaller = new Map<number, number>();
     for (const s of sesiones) {
@@ -195,7 +195,6 @@ export class AsistenciaService {
       select: {
         estudianteId: true,
         tallerId: true,
-        taller: { select: { id: true, nombre: true } },
       },
     });
 
@@ -209,7 +208,12 @@ export class AsistenciaService {
       alumnosPorTaller.get(insc.tallerId)!.push(porcentaje);
     }
 
-    const talleresMap = new Map(inscripciones.map((i) => [i.tallerId, i.taller]));
+    // 👇 FIX: nombre traído directo desde Taller, no depende de que tenga inscritos
+    const talleresInfo = await prisma.taller.findMany({
+      where: { id: { in: tallerIds } },
+      select: { id: true, nombre: true },
+    });
+    const talleresMap = new Map(talleresInfo.map((t) => [t.id, t]));
 
     return tallerIds.map((tallerId) => {
       const porcentajes = alumnosPorTaller.get(tallerId) ?? [];
@@ -231,5 +235,105 @@ export class AsistenciaService {
         promedioSatisfaccion,
       };
     });
+  }
+
+  async resumenPorEstudiante(estudianteId: number) {
+
+    const inscripciones = await prisma.inscripcion.findMany({
+      where: { estudianteId },
+      select: {
+        tallerId: true,
+        taller: { select: { id: true, nombre: true, semestre: true } },
+      },
+    });
+
+    if (inscripciones.length === 0) return [];
+
+    const tallerIds = inscripciones.map((i) => i.tallerId);
+
+    const sesiones = await prisma.sesion.findMany({
+      where: { tallerId: { in: tallerIds } },
+      select: { id: true, tallerId: true },
+    });
+
+    const sesionesPorTaller = new Map<number, number>();
+    for (const s of sesiones) {
+      sesionesPorTaller.set(s.tallerId, (sesionesPorTaller.get(s.tallerId) ?? 0) + 1);
+    }
+
+    const asistencias = await prisma.asistencia.groupBy({
+      by: ['sesionId'],
+      where: {
+        estudianteId,
+        estado: 'Presente',
+        sesion: { tallerId: { in: tallerIds } },
+      },
+      _count: { _all: true },
+      _avg: { notaSatisfaccion: true },
+    });
+
+    const sesionToTaller = new Map<number, number>(sesiones.map((s) => [s.id, s.tallerId]));
+
+    const asistenciasPorTaller = new Map<number, number>();
+    const satisfaccionPorTaller = new Map<number, { suma: number; count: number }>();
+
+    for (const row of asistencias) {
+      const tallerId = sesionToTaller.get(row.sesionId);
+      if (!tallerId) continue;
+
+      asistenciasPorTaller.set(tallerId, (asistenciasPorTaller.get(tallerId) ?? 0) + 1);
+
+      if (row._avg.notaSatisfaccion !== null) {
+        const actual = satisfaccionPorTaller.get(tallerId) ?? { suma: 0, count: 0 };
+        satisfaccionPorTaller.set(tallerId, {
+          suma: actual.suma + row._avg.notaSatisfaccion,
+          count: actual.count + 1,
+        });
+      }
+    }
+
+    return inscripciones.map(({ tallerId, taller }) => {
+      const totalSesiones = sesionesPorTaller.get(tallerId) ?? 0;
+      const asistencias = asistenciasPorTaller.get(tallerId) ?? 0;
+      const porcentaje = totalSesiones > 0
+        ? Math.round((asistencias / totalSesiones) * 100)
+        : 0;
+
+      const sat = satisfaccionPorTaller.get(tallerId);
+      const promedioSatisfaccion = sat && sat.count > 0
+        ? Math.round((sat.suma / sat.count) * 10) / 10
+        : null;
+
+      return {
+        tallerId,
+        nombre: taller.nombre,
+        semestre: taller.semestre,
+        totalSesiones,
+        asistencias,
+        porcentaje,
+        promedioSatisfaccion,
+      };
+    });
+  }
+
+  async guardarAsistenciaManual(sesionId: number, registros: { estudianteId: number; presente: boolean }[]) {
+    return await prisma.$transaction(
+      registros.map((r) =>
+        prisma.asistencia.upsert({
+          where: {
+            sesionId_estudianteId: { sesionId, estudianteId: r.estudianteId }
+          },
+          update: {
+            estado: r.presente ? 'Presente' : 'Ausente'
+          },
+          create: {
+            sesionId,
+            estudianteId: r.estudianteId,
+            estado: r.presente ? 'Presente' : 'Ausente',
+            fechaHora: new Date()
+          }
+        })
+      )
+    );
   }
 }

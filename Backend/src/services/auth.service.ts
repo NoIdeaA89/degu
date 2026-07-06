@@ -3,9 +3,13 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { OAuth2Client } from 'google-auth-library';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'tu_clave_secreta_super_segura';
+const JWT_SECRET = process.env.JWT_SECRET;
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || 'TU_CLIENT_ID_DE_GOOGLE.apps.googleusercontent.com';
+if (!JWT_SECRET || !GOOGLE_CLIENT_ID) {
+  throw new Error('Faltan variables de entorno cruciales (JWT_SECRET o GOOGLE_CLIENT_ID)');
+}
+
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 export const autenticarUsuario = async (correo: string, passwordPlan: string) => {
@@ -41,7 +45,7 @@ export const autenticarUsuario = async (correo: string, passwordPlan: string) =>
   return token; 
 };
 
-export const registrarUsuario = async (datos: any) => {
+export const registrarUsuario = async (datos: any) => { 
   const salt = await bcrypt.genSalt(10);
   const passwordHash = await bcrypt.hash(datos.password, salt);
 
@@ -80,7 +84,6 @@ export const validarToken = async (token: string) => {
 };
 
 export const autenticarConGoogle = async (tokenGoogle: string) => {
-  
   const ticket = await googleClient.verifyIdToken({
     idToken: tokenGoogle,
     audience: GOOGLE_CLIENT_ID,
@@ -92,13 +95,22 @@ export const autenticarConGoogle = async (tokenGoogle: string) => {
   }
 
   const correo = payload.email.toLowerCase();
+  
+  const dominioUsuario = correo.split('@')[1];
+  const dominiosPermitidos = ['ucn.cl', 'alumnos.ucn.cl'];
+
+  if (!dominiosPermitidos.includes(dominioUsuario)) {
+    const error: any = new Error('Acceso denegado. Solo se permiten correos institucionales.');
+    error.status = 403; 
+    throw error;
+  }
 
   const usuario = await prisma.usuario.findUnique({
     where: { correo }
   });
 
   if (!usuario) {
-    const error: any = new Error('Tu correo UCN es válido, pero no estás registrado en el sistema.');
+    const error: any = new Error('Tu correo institucional es válido, pero no estás registrado en el sistema.');
     error.status = 404; 
     throw error;
   }

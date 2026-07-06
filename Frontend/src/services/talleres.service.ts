@@ -28,6 +28,38 @@ export interface TallerApi {
   profesorId: number;
 }
 
+export interface CrearTallerPayload {
+  nombre: string;
+  descripcion?: string;
+  horario?: string;
+  semestre: string;
+  lugar: string;
+  profesorId: number;
+  dia?: number;
+  bloque?: string;
+}
+
+export async function crearTallerEnBD(payload: CrearTallerPayload): Promise<TallerApi> {
+  const token = localStorage.getItem('token');
+  const headers: HeadersInit = { 'Content-Type': 'application/json' };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const baseUrl = import.meta.env.VITE_API_URL;
+  const response = await fetch(`${baseUrl}/talleres`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al crear el taller.');
+  }
+
+  const data = await response.json();
+  return data.data;
+}
+
+
 export async function obtenerResumenAsistencia(
   query: ResumenAsistenciaQuery
 ): Promise<ResumenAsistenciaTallerApi[]> {
@@ -63,23 +95,32 @@ export async function obtenerResumenAsistencia(
 export async function obtenerTalleresPorSemestre(semestre: string): Promise<TallerApi[]> {
   const token = localStorage.getItem('token');
   const headers: HeadersInit = {};
-
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
+  if (token) headers.Authorization = `Bearer ${token}`;
 
   const baseUrl = import.meta.env.VITE_API_URL;
-
   const response = await fetch(
     `${baseUrl}/talleres?semestre=${encodeURIComponent(semestre)}`,
     { headers }
   );
 
+  const text = await response.text();
+
   if (!response.ok) {
-    throw new Error('Error al cargar los talleres.');
+    console.error('Respuesta de error del backend:', response.status, text);
+    throw new Error(`Error al cargar los talleres (status ${response.status}).`);
   }
 
-  return response.json();
+  if (!text) {
+    console.warn('El backend devolvió un body vacío para talleres');
+    return [];
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch (err) {
+    console.error('Respuesta no es JSON válido:', text);
+    throw new Error('El servidor devolvió una respuesta inesperada.');
+  }
 }
 
 export async function actualizarTallerEnBD(tallerId: number, dia: number, bloque: string): Promise<TallerApi> {

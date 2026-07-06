@@ -6,6 +6,7 @@ interface Props {
   tallerSeleccionado: TallerSeleccionado
   bloqueText?: number
   cerrarQrModal: () => void
+  qrToken: string | null 
 }
 
 export default function ModalQr({ tallerSeleccionado, bloqueText, cerrarQrModal }: Props): ReactElement {

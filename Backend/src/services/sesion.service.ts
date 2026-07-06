@@ -55,4 +55,22 @@ export class SesionService {
       }
     });
   }
+  async obtenerOCrearDeHoy(tallerId: number, bloque: number, minutos: number) {
+  const hoy = new Date();
+  hoy.setHours(0, 0, 0, 0);
+  const manana = new Date(hoy);
+  manana.setDate(manana.getDate() + 1);
+
+  const existente = await prisma.sesion.findFirst({
+    where: {
+      tallerId,
+      bloque,
+      fecha: { gte: hoy, lt: manana }
+    }
+  });
+
+  if (existente) return existente;
+
+  return this.crear(tallerId, bloque, minutos);
+}
 }

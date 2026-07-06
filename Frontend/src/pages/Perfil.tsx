@@ -1,8 +1,24 @@
-import { type ReactElement } from "react"
+import { useEffect, useMemo, useState, type ReactElement } from "react"
 import { Link, useLocation } from "react-router-dom"
 import Navbar from "../components/navbar"
+import {
+  obtenerResumenAsistenciaEstudiante,
+  type ResumenAsistenciaEstudianteItem,
+} from "../services/perfilAsistencia.service"
 
-interface TallerHistorico {
+export interface EstudiantePerfil {
+  id?: number
+  nombre: string
+  apellido?: string
+  rut: string
+  correo: string
+  semestreActual?: string
+  promedioAsistencia?: number
+  talleresInscritos?: number
+  talleresAprobados?: number
+}
+
+interface ResumenTaller {
   id: number
   codigo: string
   nombre: string
@@ -11,39 +27,10 @@ interface TallerHistorico {
   estado: "Calificado" | "No califica"
 }
 
-export interface EstudiantePerfil {
-  nombre: string
-  rut: string
-  carrera: string
-  correo: string
-  semestreActual: string
-  promedioAsistencia: number
-  talleresInscritos: number
-  talleresAprobados: number
-}
-
 interface PerfilProps {
   estudiante?: EstudiantePerfil
-  historialTalleres?: TallerHistorico[]
+  historialTalleres?: ResumenTaller[]
 }
-
-const estudianteDefault: EstudiantePerfil = {
-  nombre: "Camila Rojas Pérez",
-  rut: "20123456-7",
-  carrera: "Pedagogía en Artes",
-  correo: "camila.rojas@ucn.cl",
-  semestreActual: "2026-1",
-  promedioAsistencia: 82,
-  talleresInscritos: 4,
-  talleresAprobados: 3,
-}
-
-const historialDefault: TallerHistorico[] = [
-  { id: 1, codigo: "TALL-001", nombre: "Teatro", semestre: "2025-1", asistencia: 92, estado: "Calificado" },
-  { id: 2, codigo: "TALL-002", nombre: "Danza Contemporánea", semestre: "2025-2", asistencia: 78, estado: "No califica" },
-  { id: 3, codigo: "TALL-003", nombre: "Pintura", semestre: "2024-2", asistencia: 61, estado: "No califica" },
-  { id: 4, codigo: "TALL-004", nombre: "Música Andina", semestre: "2024-1", asistencia: 95, estado: "Calificado" },
-]
 
 function colorAsistencia(asistencia: number): string {
   if (asistencia >= 80) return "bg-emerald-500"
@@ -51,26 +38,105 @@ function colorAsistencia(asistencia: number): string {
   return "bg-rose-500"
 }
 
-function colorEstado(estado: TallerHistorico["estado"]): string {
+function colorEstado(estado: ResumenTaller["estado"]): string {
   if (estado === "Calificado") return "bg-emerald-100 text-emerald-700 border border-emerald-200"
   if (estado === "No califica") return "bg-amber-100 text-amber-700 border border-amber-200"
   return "bg-rose-100 text-rose-700 border border-rose-200"
 }
 
-export default function Perfil({
-  estudiante = estudianteDefault,
-  historialTalleres = historialDefault,
-}: PerfilProps): ReactElement {
+function mapearHistorialDesdeResumen(resumen: ResumenAsistenciaEstudianteItem[]): ResumenTaller[] {
+  return resumen.map((item) => ({
+    id: item.tallerId,
+    codigo: `TALL-${String(item.tallerId).padStart(3, "0")}`,
+    nombre: item.nombre,
+    semestre: item.semestre,
+    asistencia: item.porcentaje,
+    estado: item.porcentaje >= 80 ? "Calificado" : "No califica",
+  }))
+}
+
+export default function Perfil({ estudiante, historialTalleres }: PerfilProps): ReactElement {
   const location = useLocation()
   const state = location.state as PerfilProps | null
 
-  const estudianteFinal = state?.estudiante ?? estudiante
-  const historialFinal = state?.historialTalleres ?? historialTalleres
+  const estudianteBase = state?.estudiante ?? estudiante
+
+  const [estudianteFinal, setEstudianteFinal] = useState<EstudiantePerfil | null>(
+    estudianteBase ?? null,
+  )
+  const [historialFinal, setHistorialFinal] = useState<ResumenTaller[]>(
+    historialTalleres ?? [],
+  )
+  const [cargando, setCargando] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    let activo = true
+
+    async function cargarPerfil() {
+      try {
+        setCargando(true)
+        setError(null)
+
+        if (!estudianteBase) {
+          setError("No hay datos del estudiante para cargar el perfil.")
+          return
+        }
+
+        if (!activo) return
+        setEstudianteFinal(estudianteBase)
+
+        if (!estudianteBase.id) {
+          setError("Falta el id del estudiante para cargar el resumen de asistencia.")
+          return
+        }
+
+        const resumen = await obtenerResumenAsistenciaEstudiante(estudianteBase.id)
+        if (!activo) return
+
+        const historialDesdeResumen = mapearHistorialDesdeResumen(resumen)
+        setHistorialFinal(historialDesdeResumen)
+
+        const promedioAsistencia = resumen.length
+          ? Math.round(resumen.reduce((acc, item) => acc + item.porcentaje, 0) / resumen.length)
+          : 0
+
+        const talleresInscritos = resumen.length
+        const talleresAprobados = resumen.filter((item) => item.porcentaje >= 80).length
+
+        setEstudianteFinal((actual) =>
+          actual
+            ? {
+                ...actual,
+                promedioAsistencia,
+                talleresInscritos,
+                talleresAprobados,
+              }
+            : actual,
+        )
+      } catch (fetchError) {
+        if (!activo) return
+        setError(fetchError instanceof Error ? fetchError.message : "Error al cargar el perfil")
+      } finally {
+        if (activo) setCargando(false)
+      }
+    }
+
+    cargarPerfil()
+
+    return () => {
+      activo = false
+    }
+  }, [estudianteBase])
+
+  const resumenAsistencia = useMemo(() => {
+    if (!estudianteFinal?.promedioAsistencia) return 0
+    return estudianteFinal.promedioAsistencia
+  }, [estudianteFinal])
 
   return (
     <div>
-      <Navbar>
-      </Navbar>
+      <Navbar />
       <main className="min-h-screen bg-[#f6f7f8] px-4 py-8 sm:px-6">
         <section className="mx-auto w-full max-w-6xl">
           <header className="mb-6 rounded-2xl border border-[#dfe3e7] bg-gradient-to-b from-[#f6f7f8] to-[#fcfcfd] p-6 shadow-[0_8px_22px_-18px_rgba(31,35,40,0.28)]">
@@ -96,107 +162,123 @@ export default function Perfil({
             </div>
           </header>
 
-          <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
-            <section className="rounded-2xl border border-[#dfe3e7] bg-gradient-to-b from-[#f6f7f8] to-[#fcfcfd] p-5 shadow-[0_8px_22px_-18px_rgba(31,35,40,0.28)]">
-              <h2 className="mb-4 text-lg font-semibold text-[#2f363d]">Información del estudiante</h2>
-
-              <div className="grid gap-3 sm:grid-cols-2">
-                <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Nombre</p>
-                  <p className="mt-1 text-[#2f363d]">{estudianteFinal.nombre}</p>
-                </article>
-
-                <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">RUT</p>
-                  <p className="mt-1 text-[#2f363d]">{estudianteFinal.rut}</p>
-                </article>
-
-                <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Carrera</p>
-                  <p className="mt-1 text-[#2f363d]">{estudianteFinal.carrera}</p>
-                </article>
-
-                <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Correo</p>
-                  <p className="mt-1 break-all text-[#2f363d]">{estudianteFinal.correo}</p>
-                </article>
-              </div>
-
-              <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Semestre actual</p>
-                  <p className="mt-1 text-xl font-semibold text-[#2f363d]">{estudianteFinal.semestreActual}</p>
-                </article>
-                <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Inscritos</p>
-                  <p className="mt-1 text-xl font-semibold text-[#2f363d]">{estudianteFinal.talleresInscritos}</p>
-                </article>
-                <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Aprobados</p>
-                  <p className="mt-1 text-xl font-semibold text-[#2f363d]">{estudianteFinal.talleresAprobados}</p>
-                </article>
-              </div>
-            </section>
-
-            <aside className="rounded-2xl border border-[#dfe3e7] bg-gradient-to-b from-[#f6f7f8] to-[#fcfcfd] p-5 shadow-[0_8px_22px_-18px_rgba(31,35,40,0.28)]">
-              <h3 className="text-base font-semibold text-[#2f363d]">Resumen</h3>
-              <p className="mt-2 text-sm text-[#5a636d]">Asistencia promedio general</p>
-              <p className="mt-1 text-3xl font-bold text-[#2f363d]">{estudianteFinal.promedioAsistencia}%</p>
-              <div className="mt-3 h-3 w-full rounded-full bg-[#e5e9ee]">
-                <div
-                  className={`h-3 rounded-full ${colorAsistencia(estudianteFinal.promedioAsistencia)}`}
-                  style={{ width: `${estudianteFinal.promedioAsistencia}%` }}
-                />
-              </div>
-
-              <p className="mt-6 text-sm text-[#5a636d]">Talleres históricos</p>
-              <p className="text-2xl font-semibold text-[#2f363d]">{historialFinal.length}</p>
-            </aside>
-          </div>
-
-          <section className="mt-4 rounded-2xl border border-[#dfe3e7] bg-gradient-to-b from-[#f6f7f8] to-[#fcfcfd] p-5 shadow-[0_8px_22px_-18px_rgba(31,35,40,0.28)]">
-            <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-[#2f363d]">Historial de talleres</h2>
-              <span className="text-sm font-medium text-[#5a636d]">Total: {historialFinal.length}</span>
+          {cargando && (
+            <div className="rounded-2xl border border-[#dfe3e7] bg-white p-6 text-sm text-[#5a636d]">
+              Cargando perfil...
             </div>
+          )}
 
-            <div className="grid gap-3">
-              {historialFinal.map((taller) => (
-                <article
-                  key={taller.id}
-                  className="rounded-xl border border-[#dfe3e7] bg-white p-4 transition hover:-translate-y-[1px] hover:border-[#b7c2cd] hover:shadow-[0_10px_20px_-16px_rgba(31,35,40,0.34)]"
-                >
-                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                    <div>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="rounded-full border border-[#cfd7df] bg-[#f3f6f9] px-2.5 py-1 text-xs font-semibold text-[#2f363d]">
-                          {taller.codigo}
-                        </span>
-                        <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${colorEstado(taller.estado)}`}>
-                          {taller.estado}
-                        </span>
-                      </div>
-                      <h3 className="mt-2 text-base font-semibold text-[#2f363d]">{taller.nombre}</h3>
-                      <p className="mt-1 text-sm text-[#5a636d]">Semestre {taller.semestre}</p>
-                    </div>
+          {error && !cargando && (
+            <div className="rounded-2xl border border-rose-200 bg-rose-50 p-6 text-sm text-rose-700">
+              {error}
+            </div>
+          )}
 
-                    <div className="min-w-40">
-                      <div className="mb-1 flex items-end justify-between">
-                        <span className="text-sm text-[#5a636d]">Asistencia</span>
-                        <span className="text-sm font-semibold text-[#2f363d]">{taller.asistencia}%</span>
-                      </div>
-                      <div className="h-2.5 w-full rounded-full bg-[#e5e9ee]">
-                        <div
-                          className={`h-2.5 rounded-full ${colorAsistencia(taller.asistencia)}`}
-                          style={{ width: `${taller.asistencia}%` }}
-                        />
-                      </div>
-                    </div>
+          {!cargando && estudianteFinal && (
+            <>
+              <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
+                <section className="rounded-2xl border border-[#dfe3e7] bg-gradient-to-b from-[#f6f7f8] to-[#fcfcfd] p-5 shadow-[0_8px_22px_-18px_rgba(31,35,40,0.28)]">
+                  <h2 className="mb-4 text-lg font-semibold text-[#2f363d]">Información del estudiante</h2>
+
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Nombre</p>
+                      <p className="mt-1 text-[#2f363d]">
+                        {estudianteFinal.nombre} {estudianteFinal.apellido ?? ""}
+                      </p>
+                    </article>
+
+                    <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">RUT</p>
+                      <p className="mt-1 text-[#2f363d]">{estudianteFinal.rut}</p>
+                    </article>
+
+                    <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Correo</p>
+                      <p className="mt-1 break-all text-[#2f363d]">{estudianteFinal.correo}</p>
+                    </article>
                   </div>
-                </article>
-              ))}
-            </div>
-          </section>
+
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
+
+                    <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Inscritos</p>
+                      <p className="mt-1 text-xl font-semibold text-[#2f363d]">
+                        {estudianteFinal.talleresInscritos ?? historialFinal.length}
+                      </p>
+                    </article>
+
+                    <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Aprobados</p>
+                      <p className="mt-1 text-xl font-semibold text-[#2f363d]">
+                        {estudianteFinal.talleresAprobados ??
+                          historialFinal.filter((item) => item.estado === "Calificado").length}
+                      </p>
+                    </article>
+                  </div>
+                </section>
+
+                <aside className="rounded-2xl border border-[#dfe3e7] bg-gradient-to-b from-[#f6f7f8] to-[#fcfcfd] p-5 shadow-[0_8px_22px_-18px_rgba(31,35,40,0.28)]">
+                  <h3 className="text-base font-semibold text-[#2f363d]">Resumen</h3>
+                  <p className="mt-2 text-sm text-[#5a636d]">Asistencia promedio general</p>
+                  <p className="mt-1 text-3xl font-bold text-[#2f363d]">{resumenAsistencia}%</p>
+                  <div className="mt-3 h-3 w-full rounded-full bg-[#e5e9ee]">
+                    <div
+                      className={`h-3 rounded-full ${colorAsistencia(resumenAsistencia)}`}
+                      style={{ width: `${resumenAsistencia}%` }}
+                    />
+                  </div>
+
+                  <p className="mt-6 text-sm text-[#5a636d]">Talleres históricos</p>
+                  <p className="text-2xl font-semibold text-[#2f363d]">{historialFinal.length}</p>
+                </aside>
+              </div>
+
+              <section className="mt-4 rounded-2xl border border-[#dfe3e7] bg-gradient-to-b from-[#f6f7f8] to-[#fcfcfd] p-5 shadow-[0_8px_22px_-18px_rgba(31,35,40,0.28)]">
+                <div className="mb-4 flex items-center justify-between">
+                  <h2 className="text-lg font-semibold text-[#2f363d]">Historial de talleres</h2>
+                  <span className="text-sm font-medium text-[#5a636d]">Total: {historialFinal.length}</span>
+                </div>
+
+                <div className="grid gap-3">
+                  {historialFinal.map((taller) => (
+                    <article
+                      key={taller.id}
+                      className="rounded-xl border border-[#dfe3e7] bg-white p-4 transition hover:-translate-y-[1px] hover:border-[#b7c2cd] hover:shadow-[0_10px_20px_-16px_rgba(31,35,40,0.34)]"
+                    >
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                        <div>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="rounded-full border border-[#cfd7df] bg-[#f3f6f9] px-2.5 py-1 text-xs font-semibold text-[#2f363d]">
+                              {taller.codigo}
+                            </span>
+                            <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${colorEstado(taller.estado)}`}>
+                              {taller.estado}
+                            </span>
+                          </div>
+                          <h3 className="mt-2 text-base font-semibold text-[#2f363d]">{taller.nombre}</h3>
+                          <p className="mt-1 text-sm text-[#5a636d]">Semestre {taller.semestre}</p>
+                        </div>
+
+                        <div className="min-w-40">
+                          <div className="mb-1 flex items-end justify-between">
+                            <span className="text-sm text-[#5a636d]">Asistencia</span>
+                            <span className="text-sm font-semibold text-[#2f363d]">{taller.asistencia}%</span>
+                          </div>
+                          <div className="h-2.5 w-full rounded-full bg-[#e5e9ee]">
+                            <div
+                              className={`h-2.5 rounded-full ${colorAsistencia(taller.asistencia)}`}
+                              style={{ width: `${taller.asistencia}%` }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            </>
+          )}
         </section>
       </main>
     </div>

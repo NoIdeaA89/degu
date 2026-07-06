@@ -1,9 +1,11 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import type { ReactElement } from "react"
 import { lugares } from "../constants/Lugares"
+import { obtenerProfesores } from "../services/profesor.service"
+import type { Profesor } from "../interfaces/Profesor"
 
 interface Props {
-  onAgregar: (titulo: string, lugar: string) => void
+  onAgregar: (titulo: string, lugar: string, profesorId: number, descripcion: string) => void
   onCerrar: () => void
 }
 
@@ -12,32 +14,45 @@ export default function ModalAgregarTaller({
   onCerrar,
 }: Props): ReactElement {
   const [titulo, setTitulo] = useState("")
+  const [descripcion, setDescripcion] = useState("") 
   const [lugar, setLugar] = useState(lugares[0] ?? "")
+  const [profesores, setProfesores] = useState<Profesor[]>([])
+  const [profesorId, setProfesorId] = useState<number | "">("")
+  const [cargandoProfesores, setCargandoProfesores] = useState(true)
+
+  useEffect(() => {
+    const cargar = async () => {
+      try {
+        const lista = await obtenerProfesores()
+        setProfesores(lista)
+        if (lista.length > 0) setProfesorId(lista[0].id)
+      } catch (err) {
+        console.error("Error al cargar profesores:", err)
+      } finally {
+        setCargandoProfesores(false)
+      }
+    }
+    cargar()
+  }, [])
 
   const handleSubmit = () => {
-    if (!titulo.trim() || !lugar) return
-    onAgregar(titulo, lugar)
+    if (!titulo.trim() || !lugar || !profesorId) return
+    onAgregar(titulo, lugar, Number(profesorId), descripcion)
     setTitulo("")
+    setDescripcion("")
     onCerrar()
   }
 
   return (
     <div className="modal-overlay-sec" onClick={onCerrar}>
-      <div
-        className="modal-contenido-sec"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="modal-contenido-sec" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h3>Agregar taller</h3>
-          <button
-            className="panel-btn panel-btn-sec"
-            onClick={onCerrar}
-          >
+          <button className="panel-btn panel-btn-sec" onClick={onCerrar}>
             Cerrar
           </button>
         </div>
 
-        {/* Campo título */}
         <input
           className="panel-busqueda"
           type="text"
@@ -46,33 +61,51 @@ export default function ModalAgregarTaller({
           onChange={(e) => setTitulo(e.target.value)}
           autoFocus
         />
+        <textarea
+          className="panel-busqueda"
+          placeholder="Descripción del taller (opcional)"
+          value={descripcion}
+          onChange={(e) => setDescripcion(e.target.value)}
+          rows={3}
+          style={{ resize: "vertical" }}
+        />
 
-        {/* Select de lugares */}
         <select
           className="panel-busqueda"
           value={lugar}
           onChange={(e) => setLugar(e.target.value)}
         >
           {lugares.map((l) => (
-            <option key={l} value={l}>
-              {l}
+            <option key={l} value={l}>{l}</option>
+          ))}
+        </select>
+
+        <select
+          className="panel-busqueda"
+          value={profesorId}
+          onChange={(e) => setProfesorId(Number(e.target.value))}
+          disabled={cargandoProfesores || profesores.length === 0}
+        >
+          {cargandoProfesores && <option value="">Cargando profesores...</option>}
+          {!cargandoProfesores && profesores.length === 0 && (
+            <option value="">No hay profesores disponibles</option>
+          )}
+          {profesores.map((p) => (
+            <option key={p.id} value={p.id}>
+              {p.nombre} {p.apellido}
             </option>
           ))}
         </select>
 
-        {/* Botones de acción */}
         <div className="asistencia-acciones">
           <button
             className="panel-btn"
             onClick={handleSubmit}
-            disabled={!titulo.trim() || !lugar}
+            disabled={!titulo.trim() || !lugar || !profesorId}
           >
             Agregar
           </button>
-          <button
-            className="panel-btn panel-btn-sec"
-            onClick={onCerrar}
-          >
+          <button className="panel-btn panel-btn-sec" onClick={onCerrar}>
             Cancelar
           </button>
         </div>

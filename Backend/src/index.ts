@@ -3,11 +3,13 @@ import cors from 'cors';
 import sesionRoutes from './routes/sesion.routes';
 import asistenciaRoutes from './routes/asistencia.routes';
 import authRoutes from './routes/auth.routes';
+import profesorRoutes from './routes/profesor.routes';
+
 import estudianteRoutes from './routes/estudiante.routes';
 import adminRoutes from './routes/admin.routes';
 import { middlewareVerificarAdmin } from './middlewares/auth.middleware';
 import metricaRoutes from './routes/metrica.routes';
-import { obtenerPorSemestre, actualizarTaller } from './controllers/taller.controller';
+import  talleresRoutes from './routes/talleres.routes';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -48,11 +50,12 @@ app.use(express.json());
 app.use('/api/sesion', sesionRoutes);
 app.use('/api/asistencia', asistenciaRoutes)
 app.use('/api/auth', authRoutes);
+app.use("/api/profesores", profesorRoutes);
+
 app.use('/api/estudiantes', estudianteRoutes);
 app.use('/api/admin', middlewareVerificarAdmin, adminRoutes);
 app.use('/api/metricas', metricaRoutes);
-app.get('/api/talleres', obtenerPorSemestre);
-app.post('/api/talleres/:id', actualizarTaller);
+app.use('/api/talleres', talleresRoutes);
 
 app.get('/health', (req, res) => {
   res.status(200).send('OK');
