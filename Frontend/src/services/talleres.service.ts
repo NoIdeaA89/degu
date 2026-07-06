@@ -24,7 +24,7 @@ export interface TallerApi {
   estado: boolean;
   lugar: string;
   dia: number;
-  bloque: string;
+  bloques: string[];
   profesorId: number;
 }
 
@@ -36,7 +36,7 @@ export interface CrearTallerPayload {
   lugar: string;
   profesorId: number;
   dia?: number;
-  bloque?: string;
+  bloques?: string[];
 }
 
 export async function crearTallerEnBD(payload: CrearTallerPayload): Promise<TallerApi> {
@@ -123,8 +123,14 @@ export async function obtenerTalleresPorSemestre(semestre: string): Promise<Tall
   }
 }
 
-export async function actualizarTallerEnBD(tallerId: number, dia: number, bloque: string): Promise<TallerApi> {
+export async function actualizarTallerEnBD(
+  tallerId: number,
+  dia: number,
+  bloques: string[]
+): Promise<TallerApi> {
+
   const token = localStorage.getItem('token');
+
   const headers: HeadersInit = {
     'Content-Type': 'application/json'
   };
@@ -140,11 +146,16 @@ export async function actualizarTallerEnBD(tallerId: number, dia: number, bloque
     {
       method: 'POST',
       headers,
-      body: JSON.stringify({ dia, bloque })
+      body: JSON.stringify({
+        dia,
+        bloques
+      })
     }
   );
 
   if (!response.ok) {
+    const error = await response.text();
+    console.error("Error backend:", error);
     throw new Error('Error al actualizar el taller.');
   }
 
