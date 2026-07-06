@@ -1,0 +1,8364 @@
+{
+  "talleres": [
+    {
+      "id": 1,
+      "nombre": "Taller de fotografia",
+      "descripcion": "Taller de Taller de fotografia impartido en el Galpón Cultural.",
+      "horario": "Por definir",
+      "semestre": "2026-1",
+      "estado": true,
+      "lugar": "Galpón Cultural",
+      "profesorId": 1
+    },
+    {
+      "id": 2,
+      "nombre": "Taller de musica y percusión",
+      "descripcion": "Taller de Taller de musica y percusión impartido en el Galpón Cultural.",
+      "horario": "Por definir",
+      "semestre": "2026-1",
+      "estado": true,
+      "lugar": "Galpón Cultural",
+      "profesorId": 1
+    },
+    {
+      "id": 3,
+      "nombre": "Taller de teatro",
+      "descripcion": "Taller de Taller de teatro impartido en el Galpón Cultural.",
+      "horario": "Por definir",
+      "semestre": "2026-1",
+      "estado": true,
+      "lugar": "Galpón Cultural",
+      "profesorId": 1
+    },
+    {
+      "id": 4,
+      "nombre": "Taller de Danza",
+      "descripcion": "Taller de Taller de Danza impartido en el Galpón Cultural.",
+      "horario": "Por definir",
+      "semestre": "2026-1",
+      "estado": true,
+      "lugar": "Galpón Cultural",
+      "profesorId": 1
+    },
+    {
+      "id": 5,
+      "nombre": "Taller de Canto",
+      "descripcion": "Taller de Taller de Canto impartido en el Galpón Cultural.",
+      "horario": "Por definir",
+      "semestre": "2026-1",
+      "estado": true,
+      "lugar": "Galpón Cultural",
+      "profesorId": 1
+    },
+    {
+      "id": 6,
+      "nombre": "Taller de Pintura",
+      "descripcion": "Taller de Taller de Pintura impartido en el Galpón Cultural.",
+      "horario": "Por definir",
+      "semestre": "2026-1",
+      "estado": true,
+      "lugar": "Galpón Cultural",
+      "profesorId": 1
+    },
+    {
+      "id": 7,
+      "nombre": "Taller de jazz band",
+      "descripcion": "Taller de Taller de jazz band impartido en el Galpón Cultural.",
+      "horario": "Por definir",
+      "semestre": "2026-1",
+      "estado": true,
+      "lugar": "Galpón Cultural",
+      "profesorId": 1
+    },
+    {
+      "id": 8,
+      "nombre": "Taller de pole dance",
+      "descripcion": "Taller de Taller de pole dance impartido en el Galpón Cultural.",
+      "horario": "Por definir",
+      "semestre": "2026-1",
+      "estado": true,
+      "lugar": "Galpón Cultural",
+      "profesorId": 1
+    },
+    {
+      "id": 9,
+      "nombre": "Taller de bandas",
+      "descripcion": "Taller de Taller de bandas impartido en el Galpón Cultural.",
+      "horario": "Por definir",
+      "semestre": "2026-1",
+      "estado": true,
+      "lugar": "Galpón Cultural",
+      "profesorId": 1
+    },
+    {
+      "id": 10,
+      "nombre": "Taller de Cueca",
+      "descripcion": "Taller de Taller de Cueca impartido en el Galpón Cultural.",
+      "horario": "Por definir",
+      "semestre": "2026-1",
+      "estado": true,
+      "lugar": "Galpón Cultural",
+      "profesorId": 1
+    }
+  ],
+  "estudiantes": [
+    {
+      "id": 1,
+      "nombre": "Yasiel",
+      "apellido": "Miranda",
+      "rut": "22270820-6",
+      "correo": "22270820@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 2,
+      "nombre": "Sebastián",
+      "apellido": "Hidalgo",
+      "rut": "21644476-0",
+      "correo": "21644476@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 3,
+      "nombre": "Oscar",
+      "apellido": "Merino",
+      "rut": "21279689-1",
+      "correo": "21279689@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 4,
+      "nombre": "Nicolás",
+      "apellido": "Oyanadel",
+      "rut": "22375252-7",
+      "correo": "22375252@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 5,
+      "nombre": "Skarleth",
+      "apellido": "Moroso",
+      "rut": "22135448-6",
+      "correo": "22135448@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 6,
+      "nombre": "Ayalén",
+      "apellido": "Bugueño",
+      "rut": "22155176-1",
+      "correo": "22155176@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 7,
+      "nombre": "Bairon",
+      "apellido": "Pizarro",
+      "rut": "22446050-3",
+      "correo": "22446050@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 8,
+      "nombre": "Ander",
+      "apellido": "Arias",
+      "rut": "22497608-K",
+      "correo": "22497608@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 9,
+      "nombre": "Vicente",
+      "apellido": "Durán",
+      "rut": "22401741-3",
+      "correo": "22401741@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 10,
+      "nombre": "Victoria",
+      "apellido": "Pardo",
+      "rut": "22644206-5",
+      "correo": "22644206@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 11,
+      "nombre": "Joaquin",
+      "apellido": "Toledo",
+      "rut": "21653845-5",
+      "correo": "21653845@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 12,
+      "nombre": "Diego",
+      "apellido": "Vielmo",
+      "rut": "22505644-7",
+      "correo": "22505644@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 13,
+      "nombre": "Amaru",
+      "apellido": "Pastén",
+      "rut": "22727399-2",
+      "correo": "22727399@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 14,
+      "nombre": "Benjamin",
+      "apellido": "vergara",
+      "rut": "20976973-0",
+      "correo": "20976973@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 15,
+      "nombre": "Jehieli",
+      "apellido": "Ocayo",
+      "rut": "21065982-K",
+      "correo": "21065982@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 16,
+      "nombre": "Diana",
+      "apellido": "Campillay",
+      "rut": "22432982-2",
+      "correo": "22432982@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 17,
+      "nombre": "Isaac",
+      "apellido": "Lopez",
+      "rut": "20817831-8",
+      "correo": "20817831@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 18,
+      "nombre": "Benjamin",
+      "apellido": "Muñoz",
+      "rut": "21225491-6",
+      "correo": "21225491@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 19,
+      "nombre": "nayén",
+      "apellido": "Leiva",
+      "rut": "22466746-9",
+      "correo": "22466746@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 20,
+      "nombre": "Tiago",
+      "apellido": "ferrer",
+      "rut": "22471799-1",
+      "correo": "22471799@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 21,
+      "nombre": "Joaquin",
+      "apellido": "Diaz",
+      "rut": "22175348-8",
+      "correo": "22175348@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 22,
+      "nombre": "Catalina",
+      "apellido": "Quezada",
+      "rut": "21540626-1",
+      "correo": "21540626@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 23,
+      "nombre": "Francisco",
+      "apellido": "Castillo",
+      "rut": "21717293-4",
+      "correo": "21717293@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 24,
+      "nombre": "Antonella",
+      "apellido": "Pujado",
+      "rut": "22274898-4",
+      "correo": "22274898@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 25,
+      "nombre": "Neshma",
+      "apellido": "González",
+      "rut": "22176494-3",
+      "correo": "22176494@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 26,
+      "nombre": "Belén",
+      "apellido": "Cortés",
+      "rut": "22416693-1",
+      "correo": "22416693@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 27,
+      "nombre": "Mikaela",
+      "apellido": "Carvajal",
+      "rut": "22473836-6",
+      "correo": "22473836@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 28,
+      "nombre": "Pia",
+      "apellido": "Cariaga",
+      "rut": "22292659-9",
+      "correo": "22292659@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 29,
+      "nombre": "Aidan",
+      "apellido": "(Nicol) González",
+      "rut": "22699326-6",
+      "correo": "22699326@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 30,
+      "nombre": "Christopher",
+      "apellido": "Pérez",
+      "rut": "22166247-4",
+      "correo": "22166247@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 31,
+      "nombre": "Catalina",
+      "apellido": "González",
+      "rut": "21940976-1",
+      "correo": "21940976@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 32,
+      "nombre": "Vicente",
+      "apellido": "Cárdenas",
+      "rut": "21803965-0",
+      "correo": "21803965@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 33,
+      "nombre": "Allison",
+      "apellido": "Toledo",
+      "rut": "22122608-9",
+      "correo": "22122608@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 34,
+      "nombre": "Gabriela",
+      "apellido": "Rojas",
+      "rut": "21326562-8",
+      "correo": "21326562@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 35,
+      "nombre": "Vicente",
+      "apellido": "Rojas",
+      "rut": "22717793-4",
+      "correo": "22717793@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 36,
+      "nombre": "Ander",
+      "apellido": "Arias",
+      "rut": "22477603-K",
+      "correo": "22477603@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 37,
+      "nombre": "Juan",
+      "apellido": "Meza",
+      "rut": "21927106-5",
+      "correo": "21927106@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 38,
+      "nombre": "Danilo",
+      "apellido": "Olivares",
+      "rut": "22553009-2",
+      "correo": "22553009@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 39,
+      "nombre": "Ignacio",
+      "apellido": "Catalán",
+      "rut": "22473183-3",
+      "correo": "22473183@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 40,
+      "nombre": "Luis",
+      "apellido": "Cortés",
+      "rut": "22002187-4",
+      "correo": "22002187@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 41,
+      "nombre": "Elias",
+      "apellido": "Galleguillos",
+      "rut": "21606536-0",
+      "correo": "21606536@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 42,
+      "nombre": "Emily",
+      "apellido": "Lillo",
+      "rut": "22405364-9",
+      "correo": "22405364@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 43,
+      "nombre": "Marco",
+      "apellido": "Castillo",
+      "rut": "22573499-2",
+      "correo": "22573499@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 44,
+      "nombre": "Moises",
+      "apellido": "choque",
+      "rut": "22127031-2",
+      "correo": "22127031@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 45,
+      "nombre": "Sofia",
+      "apellido": "Pantoja",
+      "rut": "22621835-1",
+      "correo": "22621835@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 46,
+      "nombre": "Mariana",
+      "apellido": "Barrera",
+      "rut": "19770961-8",
+      "correo": "19770961@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 47,
+      "nombre": "Alexander",
+      "apellido": "Córdova",
+      "rut": "22431186-9",
+      "correo": "22431186@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 48,
+      "nombre": "José",
+      "apellido": "cotacachi",
+      "rut": "27850915-K",
+      "correo": "27850915@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 49,
+      "nombre": "Itzel",
+      "apellido": "Acuña",
+      "rut": "27067365-1",
+      "correo": "27067365@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 50,
+      "nombre": "Colomba",
+      "apellido": "Thenoux",
+      "rut": "22406274-5",
+      "correo": "22406274@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 51,
+      "nombre": "Belén",
+      "apellido": "Michea",
+      "rut": "22471057-7",
+      "correo": "22471057@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 52,
+      "nombre": "Javiera",
+      "apellido": "Vasquez",
+      "rut": "21053772-4",
+      "correo": "21053772@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 53,
+      "nombre": "Leslie",
+      "apellido": "Ortiz",
+      "rut": "17514359-9",
+      "correo": "17514359@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 54,
+      "nombre": "Pablo",
+      "apellido": "Carvajal",
+      "rut": "21391659-9",
+      "correo": "21391659@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 55,
+      "nombre": "Javiera",
+      "apellido": "Berrios",
+      "rut": "20909540-8",
+      "correo": "20909540@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 56,
+      "nombre": "Yanixza",
+      "apellido": "Alfaro",
+      "rut": "17251631-6",
+      "correo": "17251631@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 57,
+      "nombre": "Carla",
+      "apellido": "Arratia",
+      "rut": "19661861-9",
+      "correo": "19661861@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 58,
+      "nombre": "Charel",
+      "apellido": " Gonzalez",
+      "rut": "19189598-3",
+      "correo": "19189598@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 59,
+      "nombre": "Juan",
+      "apellido": "Meza",
+      "rut": "21297106-5",
+      "correo": "21297106@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 60,
+      "nombre": "Joaquin",
+      "apellido": "Escobar",
+      "rut": "22080520-4",
+      "correo": "22080520@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 61,
+      "nombre": "Alanis",
+      "apellido": "Lorca",
+      "rut": "21088899-3",
+      "correo": "21088899@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 62,
+      "nombre": "Renato",
+      "apellido": "Nuñez",
+      "rut": "22289844-7",
+      "correo": "22289844@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 63,
+      "nombre": "Vicente",
+      "apellido": "Araya",
+      "rut": "21943798-6",
+      "correo": "21943798@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 64,
+      "nombre": "Jesus",
+      "apellido": "Barrera",
+      "rut": "22470328-8",
+      "correo": "22470328@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 65,
+      "nombre": "Sebastian",
+      "apellido": "Morgado",
+      "rut": "19949049-4",
+      "correo": "19949049@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 66,
+      "nombre": "Matias",
+      "apellido": "Alvarez",
+      "rut": "22288160-9",
+      "correo": "22288160@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 67,
+      "nombre": "Amanda",
+      "apellido": "Luna",
+      "rut": "22515438-4",
+      "correo": "22515438@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 68,
+      "nombre": "Antonella",
+      "apellido": "Rodríguez",
+      "rut": "22460395-9",
+      "correo": "22460395@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 69,
+      "nombre": "Sofía",
+      "apellido": "Moyano",
+      "rut": "22272838-K",
+      "correo": "22272838@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 70,
+      "nombre": "Gianella",
+      "apellido": "Araos",
+      "rut": "22610847-5",
+      "correo": "22610847@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 71,
+      "nombre": "Montserrat",
+      "apellido": "Zepeda",
+      "rut": "22240237-9",
+      "correo": "22240237@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 72,
+      "nombre": "Fernanda",
+      "apellido": "Galleguillos",
+      "rut": "21747818-9",
+      "correo": "21747818@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 73,
+      "nombre": "Lisette",
+      "apellido": "Espejo",
+      "rut": "22348646-0",
+      "correo": "22348646@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 74,
+      "nombre": "Cristobal",
+      "apellido": "Araya",
+      "rut": "22418123-K",
+      "correo": "22418123@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 75,
+      "nombre": "Jael",
+      "apellido": " Olivares",
+      "rut": "22240396-0",
+      "correo": "22240396@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 76,
+      "nombre": "Catalina",
+      "apellido": "Naranjo",
+      "rut": "22168813-9",
+      "correo": "22168813@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 77,
+      "nombre": "Vicente",
+      "apellido": "Garriga",
+      "rut": "22380392-K",
+      "correo": "22380392@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 78,
+      "nombre": "Valentina",
+      "apellido": "Valdés",
+      "rut": "22054822-8",
+      "correo": "22054822@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 79,
+      "nombre": "Pascalle",
+      "apellido": "Cataldo",
+      "rut": "22280688-7",
+      "correo": "22280688@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 80,
+      "nombre": "Genesis",
+      "apellido": "Guzmán",
+      "rut": "22017197-3",
+      "correo": "22017197@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 81,
+      "nombre": "Josefa",
+      "apellido": "Rojas",
+      "rut": "21853694-8",
+      "correo": "21853694@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 82,
+      "nombre": "Joshefa",
+      "apellido": "Godoy",
+      "rut": "21931160-5",
+      "correo": "21931160@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 83,
+      "nombre": "Agustina",
+      "apellido": "Castro",
+      "rut": "22611594-3",
+      "correo": "22611594@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 84,
+      "nombre": "Pedro",
+      "apellido": "Soto",
+      "rut": "22007260-6",
+      "correo": "22007260@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 85,
+      "nombre": "Vicente",
+      "apellido": "Rojas",
+      "rut": "22399525-K",
+      "correo": "22399525@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 86,
+      "nombre": "Antonia",
+      "apellido": "Lorca",
+      "rut": "22161801-7",
+      "correo": "22161801@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 87,
+      "nombre": "Manuel",
+      "apellido": "Hernández",
+      "rut": "22125425-2",
+      "correo": "22125425@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 88,
+      "nombre": "Ignacia",
+      "apellido": "Galleguillos",
+      "rut": "22479453-3",
+      "correo": "22479453@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 89,
+      "nombre": "Abraham",
+      "apellido": "Sepúlveda",
+      "rut": "21290036-2",
+      "correo": "21290036@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 90,
+      "nombre": "Jorge",
+      "apellido": "Diaz",
+      "rut": "22324416-5",
+      "correo": "22324416@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 91,
+      "nombre": "Gaspar",
+      "apellido": "Juárez",
+      "rut": "22020362-K",
+      "correo": "22020362@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 92,
+      "nombre": "Antonella",
+      "apellido": "Manso",
+      "rut": "22392932-K",
+      "correo": "22392932@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 93,
+      "nombre": "Nicol",
+      "apellido": "Campos",
+      "rut": "22226539-8",
+      "correo": "22226539@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    },
+    {
+      "id": 94,
+      "nombre": "Dylan",
+      "apellido": "Valenzuela",
+      "rut": "22425113-0",
+      "correo": "22425113@alumnos.ucn.cl",
+      "password": "password123",
+      "rol": "Estudiante"
+    }
+  ],
+  "inscripciones": [
+    {
+      "estudianteId": 1,
+      "tallerId": 1
+    },
+    {
+      "estudianteId": 2,
+      "tallerId": 1
+    },
+    {
+      "estudianteId": 3,
+      "tallerId": 2
+    },
+    {
+      "estudianteId": 4,
+      "tallerId": 2
+    },
+    {
+      "estudianteId": 5,
+      "tallerId": 2
+    },
+    {
+      "estudianteId": 6,
+      "tallerId": 2
+    },
+    {
+      "estudianteId": 7,
+      "tallerId": 2
+    },
+    {
+      "estudianteId": 8,
+      "tallerId": 2
+    },
+    {
+      "estudianteId": 9,
+      "tallerId": 2
+    },
+    {
+      "estudianteId": 10,
+      "tallerId": 2
+    },
+    {
+      "estudianteId": 11,
+      "tallerId": 2
+    },
+    {
+      "estudianteId": 12,
+      "tallerId": 2
+    },
+    {
+      "estudianteId": 13,
+      "tallerId": 2
+    },
+    {
+      "estudianteId": 14,
+      "tallerId": 2
+    },
+    {
+      "estudianteId": 15,
+      "tallerId": 2
+    },
+    {
+      "estudianteId": 16,
+      "tallerId": 2
+    },
+    {
+      "estudianteId": 17,
+      "tallerId": 2
+    },
+    {
+      "estudianteId": 17,
+      "tallerId": 3
+    },
+    {
+      "estudianteId": 18,
+      "tallerId": 3
+    },
+    {
+      "estudianteId": 11,
+      "tallerId": 3
+    },
+    {
+      "estudianteId": 19,
+      "tallerId": 3
+    },
+    {
+      "estudianteId": 20,
+      "tallerId": 3
+    },
+    {
+      "estudianteId": 21,
+      "tallerId": 3
+    },
+    {
+      "estudianteId": 22,
+      "tallerId": 4
+    },
+    {
+      "estudianteId": 23,
+      "tallerId": 4
+    },
+    {
+      "estudianteId": 24,
+      "tallerId": 4
+    },
+    {
+      "estudianteId": 25,
+      "tallerId": 4
+    },
+    {
+      "estudianteId": 26,
+      "tallerId": 4
+    },
+    {
+      "estudianteId": 27,
+      "tallerId": 4
+    },
+    {
+      "estudianteId": 28,
+      "tallerId": 4
+    },
+    {
+      "estudianteId": 29,
+      "tallerId": 4
+    },
+    {
+      "estudianteId": 30,
+      "tallerId": 4
+    },
+    {
+      "estudianteId": 31,
+      "tallerId": 4
+    },
+    {
+      "estudianteId": 32,
+      "tallerId": 5
+    },
+    {
+      "estudianteId": 33,
+      "tallerId": 5
+    },
+    {
+      "estudianteId": 34,
+      "tallerId": 5
+    },
+    {
+      "estudianteId": 6,
+      "tallerId": 5
+    },
+    {
+      "estudianteId": 34,
+      "tallerId": 5
+    },
+    {
+      "estudianteId": 35,
+      "tallerId": 5
+    },
+    {
+      "estudianteId": 36,
+      "tallerId": 5
+    },
+    {
+      "estudianteId": 11,
+      "tallerId": 5
+    },
+    {
+      "estudianteId": 37,
+      "tallerId": 5
+    },
+    {
+      "estudianteId": 38,
+      "tallerId": 5
+    },
+    {
+      "estudianteId": 21,
+      "tallerId": 5
+    },
+    {
+      "estudianteId": 39,
+      "tallerId": 5
+    },
+    {
+      "estudianteId": 40,
+      "tallerId": 5
+    },
+    {
+      "estudianteId": 41,
+      "tallerId": 6
+    },
+    {
+      "estudianteId": 4,
+      "tallerId": 6
+    },
+    {
+      "estudianteId": 42,
+      "tallerId": 6
+    },
+    {
+      "estudianteId": 43,
+      "tallerId": 6
+    },
+    {
+      "estudianteId": 10,
+      "tallerId": 6
+    },
+    {
+      "estudianteId": 44,
+      "tallerId": 6
+    },
+    {
+      "estudianteId": 45,
+      "tallerId": 6
+    },
+    {
+      "estudianteId": 46,
+      "tallerId": 6
+    },
+    {
+      "estudianteId": 47,
+      "tallerId": 6
+    },
+    {
+      "estudianteId": 4,
+      "tallerId": 7
+    },
+    {
+      "estudianteId": 17,
+      "tallerId": 7
+    },
+    {
+      "estudianteId": 48,
+      "tallerId": 7
+    },
+    {
+      "estudianteId": 15,
+      "tallerId": 7
+    },
+    {
+      "estudianteId": 49,
+      "tallerId": 8
+    },
+    {
+      "estudianteId": 50,
+      "tallerId": 8
+    },
+    {
+      "estudianteId": 51,
+      "tallerId": 8
+    },
+    {
+      "estudianteId": 52,
+      "tallerId": 8
+    },
+    {
+      "estudianteId": 53,
+      "tallerId": 8
+    },
+    {
+      "estudianteId": 54,
+      "tallerId": 8
+    },
+    {
+      "estudianteId": 55,
+      "tallerId": 8
+    },
+    {
+      "estudianteId": 56,
+      "tallerId": 8
+    },
+    {
+      "estudianteId": 57,
+      "tallerId": 8
+    },
+    {
+      "estudianteId": 58,
+      "tallerId": 8
+    },
+    {
+      "estudianteId": 3,
+      "tallerId": 9
+    },
+    {
+      "estudianteId": 59,
+      "tallerId": 9
+    },
+    {
+      "estudianteId": 17,
+      "tallerId": 9
+    },
+    {
+      "estudianteId": 32,
+      "tallerId": 9
+    },
+    {
+      "estudianteId": 60,
+      "tallerId": 9
+    },
+    {
+      "estudianteId": 61,
+      "tallerId": 9
+    },
+    {
+      "estudianteId": 62,
+      "tallerId": 9
+    },
+    {
+      "estudianteId": 63,
+      "tallerId": 9
+    },
+    {
+      "estudianteId": 64,
+      "tallerId": 9
+    },
+    {
+      "estudianteId": 65,
+      "tallerId": 9
+    },
+    {
+      "estudianteId": 66,
+      "tallerId": 9
+    },
+    {
+      "estudianteId": 4,
+      "tallerId": 9
+    },
+    {
+      "estudianteId": 67,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 68,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 69,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 42,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 5,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 70,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 71,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 72,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 73,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 74,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 75,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 76,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 77,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 78,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 79,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 80,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 81,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 82,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 83,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 84,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 85,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 86,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 87,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 88,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 89,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 90,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 91,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 92,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 93,
+      "tallerId": 10
+    },
+    {
+      "estudianteId": 94,
+      "tallerId": 10
+    }
+  ],
+  "sesiones": [
+    {
+      "id": 1,
+      "tallerId": 1,
+      "fecha": "2026-04-16T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-1-1",
+      "validoHasta": "2026-04-16T23:59:59.000Z"
+    },
+    {
+      "id": 2,
+      "tallerId": 1,
+      "fecha": "2026-05-28T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-1-2",
+      "validoHasta": "2026-05-28T23:59:59.000Z"
+    },
+    {
+      "id": 3,
+      "tallerId": 1,
+      "fecha": "2026-04-09T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-1-3",
+      "validoHasta": "2026-04-09T23:59:59.000Z"
+    },
+    {
+      "id": 4,
+      "tallerId": 1,
+      "fecha": "2026-04-23T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-1-4",
+      "validoHasta": "2026-04-23T23:59:59.000Z"
+    },
+    {
+      "id": 5,
+      "tallerId": 1,
+      "fecha": "2026-04-30T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-1-5",
+      "validoHasta": "2026-04-30T23:59:59.000Z"
+    },
+    {
+      "id": 6,
+      "tallerId": 2,
+      "fecha": "2026-04-15T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-2-6",
+      "validoHasta": "2026-04-15T23:59:59.000Z"
+    },
+    {
+      "id": 7,
+      "tallerId": 2,
+      "fecha": "2026-05-06T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-2-7",
+      "validoHasta": "2026-05-06T23:59:59.000Z"
+    },
+    {
+      "id": 8,
+      "tallerId": 2,
+      "fecha": "2026-04-01T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-2-8",
+      "validoHasta": "2026-04-01T23:59:59.000Z"
+    },
+    {
+      "id": 9,
+      "tallerId": 2,
+      "fecha": "2026-04-08T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-2-9",
+      "validoHasta": "2026-04-08T23:59:59.000Z"
+    },
+    {
+      "id": 10,
+      "tallerId": 2,
+      "fecha": "2026-05-27T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-2-10",
+      "validoHasta": "2026-05-27T23:59:59.000Z"
+    },
+    {
+      "id": 11,
+      "tallerId": 2,
+      "fecha": "2026-04-22T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-2-11",
+      "validoHasta": "2026-04-22T23:59:59.000Z"
+    },
+    {
+      "id": 12,
+      "tallerId": 3,
+      "fecha": "2026-04-16T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-3-12",
+      "validoHasta": "2026-04-16T23:59:59.000Z"
+    },
+    {
+      "id": 13,
+      "tallerId": 3,
+      "fecha": "2026-04-15T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-3-13",
+      "validoHasta": "2026-04-15T23:59:59.000Z"
+    },
+    {
+      "id": 14,
+      "tallerId": 3,
+      "fecha": "2026-04-29T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-3-14",
+      "validoHasta": "2026-04-29T23:59:59.000Z"
+    },
+    {
+      "id": 15,
+      "tallerId": 3,
+      "fecha": "2026-05-13T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-3-15",
+      "validoHasta": "2026-05-13T23:59:59.000Z"
+    },
+    {
+      "id": 16,
+      "tallerId": 3,
+      "fecha": "2026-06-03T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-3-16",
+      "validoHasta": "2026-06-03T23:59:59.000Z"
+    },
+    {
+      "id": 17,
+      "tallerId": 3,
+      "fecha": "2026-05-06T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-3-17",
+      "validoHasta": "2026-05-06T23:59:59.000Z"
+    },
+    {
+      "id": 18,
+      "tallerId": 3,
+      "fecha": "2026-04-01T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-3-18",
+      "validoHasta": "2026-04-01T23:59:59.000Z"
+    },
+    {
+      "id": 19,
+      "tallerId": 3,
+      "fecha": "2026-05-28T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-3-19",
+      "validoHasta": "2026-05-28T23:59:59.000Z"
+    },
+    {
+      "id": 20,
+      "tallerId": 3,
+      "fecha": "2026-04-09T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-3-20",
+      "validoHasta": "2026-04-09T23:59:59.000Z"
+    },
+    {
+      "id": 21,
+      "tallerId": 3,
+      "fecha": "2026-04-23T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-3-21",
+      "validoHasta": "2026-04-23T23:59:59.000Z"
+    },
+    {
+      "id": 22,
+      "tallerId": 3,
+      "fecha": "2026-04-28T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-3-22",
+      "validoHasta": "2026-04-28T23:59:59.000Z"
+    },
+    {
+      "id": 23,
+      "tallerId": 3,
+      "fecha": "2026-04-08T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-3-23",
+      "validoHasta": "2026-04-08T23:59:59.000Z"
+    },
+    {
+      "id": 24,
+      "tallerId": 3,
+      "fecha": "2026-04-30T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-3-24",
+      "validoHasta": "2026-04-30T23:59:59.000Z"
+    },
+    {
+      "id": 25,
+      "tallerId": 3,
+      "fecha": "2026-05-14T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-3-25",
+      "validoHasta": "2026-05-14T23:59:59.000Z"
+    },
+    {
+      "id": 26,
+      "tallerId": 3,
+      "fecha": "2026-05-22T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-3-26",
+      "validoHasta": "2026-05-22T23:59:59.000Z"
+    },
+    {
+      "id": 27,
+      "tallerId": 4,
+      "fecha": "2026-04-29T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-4-27",
+      "validoHasta": "2026-04-29T23:59:59.000Z"
+    },
+    {
+      "id": 28,
+      "tallerId": 4,
+      "fecha": "2026-04-15T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-4-28",
+      "validoHasta": "2026-04-15T23:59:59.000Z"
+    },
+    {
+      "id": 29,
+      "tallerId": 4,
+      "fecha": "2026-05-13T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-4-29",
+      "validoHasta": "2026-05-13T23:59:59.000Z"
+    },
+    {
+      "id": 30,
+      "tallerId": 4,
+      "fecha": "2026-06-03T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-4-30",
+      "validoHasta": "2026-06-03T23:59:59.000Z"
+    },
+    {
+      "id": 31,
+      "tallerId": 4,
+      "fecha": "2026-05-06T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-4-31",
+      "validoHasta": "2026-05-06T23:59:59.000Z"
+    },
+    {
+      "id": 32,
+      "tallerId": 4,
+      "fecha": "2026-04-01T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-4-32",
+      "validoHasta": "2026-04-01T23:59:59.000Z"
+    },
+    {
+      "id": 33,
+      "tallerId": 4,
+      "fecha": "2026-04-08T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-4-33",
+      "validoHasta": "2026-04-08T23:59:59.000Z"
+    },
+    {
+      "id": 34,
+      "tallerId": 4,
+      "fecha": "2026-05-27T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-4-34",
+      "validoHasta": "2026-05-27T23:59:59.000Z"
+    },
+    {
+      "id": 35,
+      "tallerId": 5,
+      "fecha": "2026-04-29T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-5-35",
+      "validoHasta": "2026-04-29T23:59:59.000Z"
+    },
+    {
+      "id": 36,
+      "tallerId": 5,
+      "fecha": "2026-04-15T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-5-36",
+      "validoHasta": "2026-04-15T23:59:59.000Z"
+    },
+    {
+      "id": 37,
+      "tallerId": 5,
+      "fecha": "2026-05-06T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-5-37",
+      "validoHasta": "2026-05-06T23:59:59.000Z"
+    },
+    {
+      "id": 38,
+      "tallerId": 5,
+      "fecha": "2026-04-01T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-5-38",
+      "validoHasta": "2026-04-01T23:59:59.000Z"
+    },
+    {
+      "id": 39,
+      "tallerId": 5,
+      "fecha": "2026-04-08T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-5-39",
+      "validoHasta": "2026-04-08T23:59:59.000Z"
+    },
+    {
+      "id": 40,
+      "tallerId": 5,
+      "fecha": "2026-04-22T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-5-40",
+      "validoHasta": "2026-04-22T23:59:59.000Z"
+    },
+    {
+      "id": 41,
+      "tallerId": 6,
+      "fecha": "2026-04-29T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-6-41",
+      "validoHasta": "2026-04-29T23:59:59.000Z"
+    },
+    {
+      "id": 42,
+      "tallerId": 6,
+      "fecha": "2026-04-15T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-6-42",
+      "validoHasta": "2026-04-15T23:59:59.000Z"
+    },
+    {
+      "id": 43,
+      "tallerId": 6,
+      "fecha": "2026-05-06T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-6-43",
+      "validoHasta": "2026-05-06T23:59:59.000Z"
+    },
+    {
+      "id": 44,
+      "tallerId": 6,
+      "fecha": "2026-04-01T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-6-44",
+      "validoHasta": "2026-04-01T23:59:59.000Z"
+    },
+    {
+      "id": 45,
+      "tallerId": 6,
+      "fecha": "2026-05-27T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-6-45",
+      "validoHasta": "2026-05-27T23:59:59.000Z"
+    },
+    {
+      "id": 46,
+      "tallerId": 6,
+      "fecha": "2026-04-22T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-6-46",
+      "validoHasta": "2026-04-22T23:59:59.000Z"
+    },
+    {
+      "id": 47,
+      "tallerId": 7,
+      "fecha": "2026-05-12T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-7-47",
+      "validoHasta": "2026-05-12T23:59:59.000Z"
+    },
+    {
+      "id": 48,
+      "tallerId": 7,
+      "fecha": "2026-04-07T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-7-48",
+      "validoHasta": "2026-04-07T23:59:59.000Z"
+    },
+    {
+      "id": 49,
+      "tallerId": 7,
+      "fecha": "2026-05-26T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-7-49",
+      "validoHasta": "2026-05-26T23:59:59.000Z"
+    },
+    {
+      "id": 50,
+      "tallerId": 7,
+      "fecha": "2026-04-10T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-7-50",
+      "validoHasta": "2026-04-10T23:59:59.000Z"
+    },
+    {
+      "id": 51,
+      "tallerId": 7,
+      "fecha": "2026-05-15T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-7-51",
+      "validoHasta": "2026-05-15T23:59:59.000Z"
+    },
+    {
+      "id": 52,
+      "tallerId": 7,
+      "fecha": "2026-04-21T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-7-52",
+      "validoHasta": "2026-04-21T23:59:59.000Z"
+    },
+    {
+      "id": 53,
+      "tallerId": 8,
+      "fecha": "2026-04-16T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-8-53",
+      "validoHasta": "2026-04-16T23:59:59.000Z"
+    },
+    {
+      "id": 54,
+      "tallerId": 8,
+      "fecha": "2026-04-13T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-8-54",
+      "validoHasta": "2026-04-13T23:59:59.000Z"
+    },
+    {
+      "id": 55,
+      "tallerId": 8,
+      "fecha": "2026-05-11T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-8-55",
+      "validoHasta": "2026-05-11T23:59:59.000Z"
+    },
+    {
+      "id": 56,
+      "tallerId": 8,
+      "fecha": "2026-05-25T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-8-56",
+      "validoHasta": "2026-05-25T23:59:59.000Z"
+    },
+    {
+      "id": 57,
+      "tallerId": 8,
+      "fecha": "2026-04-09T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-8-57",
+      "validoHasta": "2026-04-09T23:59:59.000Z"
+    },
+    {
+      "id": 58,
+      "tallerId": 8,
+      "fecha": "2026-04-27T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-8-58",
+      "validoHasta": "2026-04-27T23:59:59.000Z"
+    },
+    {
+      "id": 59,
+      "tallerId": 8,
+      "fecha": "2026-05-07T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-8-59",
+      "validoHasta": "2026-05-07T23:59:59.000Z"
+    },
+    {
+      "id": 60,
+      "tallerId": 8,
+      "fecha": "2026-05-04T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-8-60",
+      "validoHasta": "2026-05-04T23:59:59.000Z"
+    },
+    {
+      "id": 61,
+      "tallerId": 8,
+      "fecha": "2026-04-06T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-8-61",
+      "validoHasta": "2026-04-06T23:59:59.000Z"
+    },
+    {
+      "id": 62,
+      "tallerId": 8,
+      "fecha": "2026-05-14T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-8-62",
+      "validoHasta": "2026-05-14T23:59:59.000Z"
+    },
+    {
+      "id": 63,
+      "tallerId": 8,
+      "fecha": "2026-06-01T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-8-63",
+      "validoHasta": "2026-06-01T23:59:59.000Z"
+    },
+    {
+      "id": 64,
+      "tallerId": 9,
+      "fecha": "2026-05-18T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-9-64",
+      "validoHasta": "2026-05-18T23:59:59.000Z"
+    },
+    {
+      "id": 65,
+      "tallerId": 9,
+      "fecha": "2026-04-13T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-9-65",
+      "validoHasta": "2026-04-13T23:59:59.000Z"
+    },
+    {
+      "id": 66,
+      "tallerId": 9,
+      "fecha": "2026-04-20T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-9-66",
+      "validoHasta": "2026-04-20T23:59:59.000Z"
+    },
+    {
+      "id": 67,
+      "tallerId": 9,
+      "fecha": "2026-04-17T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-9-67",
+      "validoHasta": "2026-04-17T23:59:59.000Z"
+    },
+    {
+      "id": 68,
+      "tallerId": 9,
+      "fecha": "2026-05-11T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-9-68",
+      "validoHasta": "2026-05-11T23:59:59.000Z"
+    },
+    {
+      "id": 69,
+      "tallerId": 9,
+      "fecha": "2026-05-25T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-9-69",
+      "validoHasta": "2026-05-25T23:59:59.000Z"
+    },
+    {
+      "id": 70,
+      "tallerId": 9,
+      "fecha": "2026-04-27T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-9-70",
+      "validoHasta": "2026-04-27T23:59:59.000Z"
+    },
+    {
+      "id": 71,
+      "tallerId": 9,
+      "fecha": "2026-04-10T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-9-71",
+      "validoHasta": "2026-04-10T23:59:59.000Z"
+    },
+    {
+      "id": 72,
+      "tallerId": 9,
+      "fecha": "2026-03-30T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-9-72",
+      "validoHasta": "2026-03-30T23:59:59.000Z"
+    },
+    {
+      "id": 73,
+      "tallerId": 9,
+      "fecha": "2026-05-04T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-9-73",
+      "validoHasta": "2026-05-04T23:59:59.000Z"
+    },
+    {
+      "id": 74,
+      "tallerId": 9,
+      "fecha": "2026-04-06T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-9-74",
+      "validoHasta": "2026-04-06T23:59:59.000Z"
+    },
+    {
+      "id": 75,
+      "tallerId": 9,
+      "fecha": "2026-04-24T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-9-75",
+      "validoHasta": "2026-04-24T23:59:59.000Z"
+    },
+    {
+      "id": 76,
+      "tallerId": 9,
+      "fecha": "2026-06-01T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-9-76",
+      "validoHasta": "2026-06-01T23:59:59.000Z"
+    },
+    {
+      "id": 77,
+      "tallerId": 10,
+      "fecha": "2026-05-05T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-77",
+      "validoHasta": "2026-05-05T23:59:59.000Z"
+    },
+    {
+      "id": 78,
+      "tallerId": 10,
+      "fecha": "2026-06-02T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-78",
+      "validoHasta": "2026-06-02T23:59:59.000Z"
+    },
+    {
+      "id": 79,
+      "tallerId": 10,
+      "fecha": "2026-04-13T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-79",
+      "validoHasta": "2026-04-13T23:59:59.000Z"
+    },
+    {
+      "id": 80,
+      "tallerId": 10,
+      "fecha": "2026-04-20T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-80",
+      "validoHasta": "2026-04-20T23:59:59.000Z"
+    },
+    {
+      "id": 81,
+      "tallerId": 10,
+      "fecha": "2026-05-11T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-81",
+      "validoHasta": "2026-05-11T23:59:59.000Z"
+    },
+    {
+      "id": 82,
+      "tallerId": 10,
+      "fecha": "2026-05-12T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-82",
+      "validoHasta": "2026-05-12T23:59:59.000Z"
+    },
+    {
+      "id": 83,
+      "tallerId": 10,
+      "fecha": "2026-05-25T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-83",
+      "validoHasta": "2026-05-25T23:59:59.000Z"
+    },
+    {
+      "id": 84,
+      "tallerId": 10,
+      "fecha": "2026-04-07T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-84",
+      "validoHasta": "2026-04-07T23:59:59.000Z"
+    },
+    {
+      "id": 85,
+      "tallerId": 10,
+      "fecha": "2026-05-26T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-85",
+      "validoHasta": "2026-05-26T23:59:59.000Z"
+    },
+    {
+      "id": 86,
+      "tallerId": 10,
+      "fecha": "2026-04-27T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-86",
+      "validoHasta": "2026-04-27T23:59:59.000Z"
+    },
+    {
+      "id": 87,
+      "tallerId": 10,
+      "fecha": "2026-04-28T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-87",
+      "validoHasta": "2026-04-28T23:59:59.000Z"
+    },
+    {
+      "id": 88,
+      "tallerId": 10,
+      "fecha": "2026-05-04T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-88",
+      "validoHasta": "2026-05-04T23:59:59.000Z"
+    },
+    {
+      "id": 89,
+      "tallerId": 10,
+      "fecha": "2026-03-31T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-89",
+      "validoHasta": "2026-03-31T23:59:59.000Z"
+    },
+    {
+      "id": 90,
+      "tallerId": 10,
+      "fecha": "2026-03-30T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-90",
+      "validoHasta": "2026-03-30T23:59:59.000Z"
+    },
+    {
+      "id": 91,
+      "tallerId": 10,
+      "fecha": "2026-04-14T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-91",
+      "validoHasta": "2026-04-14T23:59:59.000Z"
+    },
+    {
+      "id": 92,
+      "tallerId": 10,
+      "fecha": "2026-04-06T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-92",
+      "validoHasta": "2026-04-06T23:59:59.000Z"
+    },
+    {
+      "id": 93,
+      "tallerId": 10,
+      "fecha": "2026-04-21T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-93",
+      "validoHasta": "2026-04-21T23:59:59.000Z"
+    },
+    {
+      "id": 94,
+      "tallerId": 10,
+      "fecha": "2026-06-01T00:00:00.000Z",
+      "bloque": "A",
+      "qrToken": "QR-10-94",
+      "validoHasta": "2026-06-01T23:59:59.000Z"
+    }
+  ],
+  "asistencias": [
+    {
+      "sesionId": 3,
+      "estudianteId": 1,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 1,
+      "estudianteId": 1,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 4,
+      "estudianteId": 1,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 5,
+      "estudianteId": 1,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 2,
+      "estudianteId": 1,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 3,
+      "estudianteId": 2,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 1,
+      "estudianteId": 2,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 4,
+      "estudianteId": 2,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 5,
+      "estudianteId": 2,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 2,
+      "estudianteId": 2,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 8,
+      "estudianteId": 3,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 9,
+      "estudianteId": 3,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 6,
+      "estudianteId": 3,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 11,
+      "estudianteId": 3,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 7,
+      "estudianteId": 3,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 10,
+      "estudianteId": 3,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 8,
+      "estudianteId": 4,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 9,
+      "estudianteId": 4,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 6,
+      "estudianteId": 4,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 11,
+      "estudianteId": 4,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 7,
+      "estudianteId": 4,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 10,
+      "estudianteId": 4,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 8,
+      "estudianteId": 5,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 9,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 6,
+      "estudianteId": 5,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 11,
+      "estudianteId": 5,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 7,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 10,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 8,
+      "estudianteId": 6,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 9,
+      "estudianteId": 6,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 6,
+      "estudianteId": 6,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 11,
+      "estudianteId": 6,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 7,
+      "estudianteId": 6,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 10,
+      "estudianteId": 6,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 8,
+      "estudianteId": 7,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 9,
+      "estudianteId": 7,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 6,
+      "estudianteId": 7,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 11,
+      "estudianteId": 7,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 7,
+      "estudianteId": 7,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 10,
+      "estudianteId": 7,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 8,
+      "estudianteId": 8,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 9,
+      "estudianteId": 8,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 6,
+      "estudianteId": 8,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 11,
+      "estudianteId": 8,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 7,
+      "estudianteId": 8,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 10,
+      "estudianteId": 8,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 8,
+      "estudianteId": 9,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 9,
+      "estudianteId": 9,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 6,
+      "estudianteId": 9,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 11,
+      "estudianteId": 9,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 7,
+      "estudianteId": 9,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 10,
+      "estudianteId": 9,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 8,
+      "estudianteId": 10,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 9,
+      "estudianteId": 10,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 6,
+      "estudianteId": 10,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 11,
+      "estudianteId": 10,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 7,
+      "estudianteId": 10,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 10,
+      "estudianteId": 10,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 8,
+      "estudianteId": 11,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 9,
+      "estudianteId": 11,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 6,
+      "estudianteId": 11,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 11,
+      "estudianteId": 11,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 7,
+      "estudianteId": 11,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 10,
+      "estudianteId": 11,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 8,
+      "estudianteId": 12,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 9,
+      "estudianteId": 12,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 6,
+      "estudianteId": 12,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 11,
+      "estudianteId": 12,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 7,
+      "estudianteId": 12,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 10,
+      "estudianteId": 12,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 8,
+      "estudianteId": 13,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 9,
+      "estudianteId": 13,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 6,
+      "estudianteId": 13,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 11,
+      "estudianteId": 13,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 7,
+      "estudianteId": 13,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 10,
+      "estudianteId": 13,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 8,
+      "estudianteId": 14,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 9,
+      "estudianteId": 14,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 6,
+      "estudianteId": 14,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 11,
+      "estudianteId": 14,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 7,
+      "estudianteId": 14,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 10,
+      "estudianteId": 14,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 8,
+      "estudianteId": 15,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 9,
+      "estudianteId": 15,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 6,
+      "estudianteId": 15,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 11,
+      "estudianteId": 15,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 7,
+      "estudianteId": 15,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 10,
+      "estudianteId": 15,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 8,
+      "estudianteId": 16,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 9,
+      "estudianteId": 16,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 6,
+      "estudianteId": 16,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 11,
+      "estudianteId": 16,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 7,
+      "estudianteId": 16,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 10,
+      "estudianteId": 16,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 8,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 9,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 6,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 11,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 7,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 10,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 18,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 23,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 20,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 13,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 12,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 21,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 22,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 14,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 24,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 17,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 15,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 25,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 26,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 19,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 16,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 18,
+      "estudianteId": 18,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 23,
+      "estudianteId": 18,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 20,
+      "estudianteId": 18,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 13,
+      "estudianteId": 18,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 12,
+      "estudianteId": 18,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 21,
+      "estudianteId": 18,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 22,
+      "estudianteId": 18,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 14,
+      "estudianteId": 18,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 24,
+      "estudianteId": 18,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 17,
+      "estudianteId": 18,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 15,
+      "estudianteId": 18,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 25,
+      "estudianteId": 18,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 26,
+      "estudianteId": 18,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 19,
+      "estudianteId": 18,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 16,
+      "estudianteId": 18,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 18,
+      "estudianteId": 11,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 23,
+      "estudianteId": 11,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 20,
+      "estudianteId": 11,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 13,
+      "estudianteId": 11,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 12,
+      "estudianteId": 11,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 21,
+      "estudianteId": 11,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 22,
+      "estudianteId": 11,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 14,
+      "estudianteId": 11,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 24,
+      "estudianteId": 11,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 17,
+      "estudianteId": 11,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 15,
+      "estudianteId": 11,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 25,
+      "estudianteId": 11,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 26,
+      "estudianteId": 11,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 19,
+      "estudianteId": 11,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 16,
+      "estudianteId": 11,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 18,
+      "estudianteId": 19,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 23,
+      "estudianteId": 19,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 20,
+      "estudianteId": 19,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 13,
+      "estudianteId": 19,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 12,
+      "estudianteId": 19,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 21,
+      "estudianteId": 19,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 22,
+      "estudianteId": 19,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 14,
+      "estudianteId": 19,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 24,
+      "estudianteId": 19,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 17,
+      "estudianteId": 19,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 15,
+      "estudianteId": 19,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 25,
+      "estudianteId": 19,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 26,
+      "estudianteId": 19,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 19,
+      "estudianteId": 19,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 16,
+      "estudianteId": 19,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 18,
+      "estudianteId": 20,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 23,
+      "estudianteId": 20,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 20,
+      "estudianteId": 20,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 13,
+      "estudianteId": 20,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 12,
+      "estudianteId": 20,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 21,
+      "estudianteId": 20,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 22,
+      "estudianteId": 20,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 14,
+      "estudianteId": 20,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 24,
+      "estudianteId": 20,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 17,
+      "estudianteId": 20,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 15,
+      "estudianteId": 20,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 25,
+      "estudianteId": 20,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 26,
+      "estudianteId": 20,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 19,
+      "estudianteId": 20,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 16,
+      "estudianteId": 20,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 18,
+      "estudianteId": 21,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 23,
+      "estudianteId": 21,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 20,
+      "estudianteId": 21,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 13,
+      "estudianteId": 21,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 12,
+      "estudianteId": 21,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 21,
+      "estudianteId": 21,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 22,
+      "estudianteId": 21,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 14,
+      "estudianteId": 21,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 24,
+      "estudianteId": 21,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 17,
+      "estudianteId": 21,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 15,
+      "estudianteId": 21,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 25,
+      "estudianteId": 21,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 26,
+      "estudianteId": 21,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 19,
+      "estudianteId": 21,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 16,
+      "estudianteId": 21,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 32,
+      "estudianteId": 22,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 33,
+      "estudianteId": 22,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 22,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 22,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 27,
+      "estudianteId": 22,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 31,
+      "estudianteId": 22,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 29,
+      "estudianteId": 22,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 34,
+      "estudianteId": 22,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 30,
+      "estudianteId": 22,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 32,
+      "estudianteId": 23,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 33,
+      "estudianteId": 23,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 23,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 23,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 27,
+      "estudianteId": 23,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 31,
+      "estudianteId": 23,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 29,
+      "estudianteId": 23,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 34,
+      "estudianteId": 23,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 30,
+      "estudianteId": 23,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 32,
+      "estudianteId": 24,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 33,
+      "estudianteId": 24,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 24,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 24,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 27,
+      "estudianteId": 24,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 31,
+      "estudianteId": 24,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 29,
+      "estudianteId": 24,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 34,
+      "estudianteId": 24,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 30,
+      "estudianteId": 24,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 32,
+      "estudianteId": 25,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 33,
+      "estudianteId": 25,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 25,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 25,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 27,
+      "estudianteId": 25,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 31,
+      "estudianteId": 25,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 29,
+      "estudianteId": 25,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 34,
+      "estudianteId": 25,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 30,
+      "estudianteId": 25,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 32,
+      "estudianteId": 26,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 33,
+      "estudianteId": 26,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 26,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 26,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 27,
+      "estudianteId": 26,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 31,
+      "estudianteId": 26,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 29,
+      "estudianteId": 26,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 34,
+      "estudianteId": 26,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 30,
+      "estudianteId": 26,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 32,
+      "estudianteId": 27,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 33,
+      "estudianteId": 27,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 27,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 27,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 27,
+      "estudianteId": 27,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 31,
+      "estudianteId": 27,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 29,
+      "estudianteId": 27,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 34,
+      "estudianteId": 27,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 30,
+      "estudianteId": 27,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 32,
+      "estudianteId": 28,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 33,
+      "estudianteId": 28,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 28,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 28,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 27,
+      "estudianteId": 28,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 31,
+      "estudianteId": 28,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 29,
+      "estudianteId": 28,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 34,
+      "estudianteId": 28,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 30,
+      "estudianteId": 28,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 32,
+      "estudianteId": 29,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 33,
+      "estudianteId": 29,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 29,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 29,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 27,
+      "estudianteId": 29,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 31,
+      "estudianteId": 29,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 29,
+      "estudianteId": 29,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 34,
+      "estudianteId": 29,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 30,
+      "estudianteId": 29,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 32,
+      "estudianteId": 30,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 33,
+      "estudianteId": 30,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 30,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 30,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 27,
+      "estudianteId": 30,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 31,
+      "estudianteId": 30,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 29,
+      "estudianteId": 30,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 34,
+      "estudianteId": 30,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 30,
+      "estudianteId": 30,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 32,
+      "estudianteId": 31,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 33,
+      "estudianteId": 31,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 31,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 28,
+      "estudianteId": 31,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 27,
+      "estudianteId": 31,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 31,
+      "estudianteId": 31,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 29,
+      "estudianteId": 31,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 34,
+      "estudianteId": 31,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 30,
+      "estudianteId": 31,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 38,
+      "estudianteId": 32,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 39,
+      "estudianteId": 32,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 36,
+      "estudianteId": 32,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 40,
+      "estudianteId": 32,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 35,
+      "estudianteId": 32,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 37,
+      "estudianteId": 32,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 38,
+      "estudianteId": 33,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 39,
+      "estudianteId": 33,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 36,
+      "estudianteId": 33,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 40,
+      "estudianteId": 33,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 35,
+      "estudianteId": 33,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 37,
+      "estudianteId": 33,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 38,
+      "estudianteId": 34,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 39,
+      "estudianteId": 34,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 36,
+      "estudianteId": 34,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 40,
+      "estudianteId": 34,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 35,
+      "estudianteId": 34,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 37,
+      "estudianteId": 34,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 38,
+      "estudianteId": 6,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 39,
+      "estudianteId": 6,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 36,
+      "estudianteId": 6,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 40,
+      "estudianteId": 6,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 35,
+      "estudianteId": 6,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 37,
+      "estudianteId": 6,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 38,
+      "estudianteId": 34,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 39,
+      "estudianteId": 34,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 36,
+      "estudianteId": 34,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 40,
+      "estudianteId": 34,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 35,
+      "estudianteId": 34,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 37,
+      "estudianteId": 34,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 38,
+      "estudianteId": 35,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 39,
+      "estudianteId": 35,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 36,
+      "estudianteId": 35,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 40,
+      "estudianteId": 35,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 35,
+      "estudianteId": 35,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 37,
+      "estudianteId": 35,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 38,
+      "estudianteId": 36,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 39,
+      "estudianteId": 36,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 36,
+      "estudianteId": 36,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 40,
+      "estudianteId": 36,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 35,
+      "estudianteId": 36,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 37,
+      "estudianteId": 36,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 38,
+      "estudianteId": 11,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 39,
+      "estudianteId": 11,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 36,
+      "estudianteId": 11,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 40,
+      "estudianteId": 11,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 35,
+      "estudianteId": 11,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 37,
+      "estudianteId": 11,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 38,
+      "estudianteId": 37,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 39,
+      "estudianteId": 37,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 36,
+      "estudianteId": 37,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 40,
+      "estudianteId": 37,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 35,
+      "estudianteId": 37,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 37,
+      "estudianteId": 37,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 38,
+      "estudianteId": 38,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 39,
+      "estudianteId": 38,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 36,
+      "estudianteId": 38,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 40,
+      "estudianteId": 38,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 35,
+      "estudianteId": 38,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 37,
+      "estudianteId": 38,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 38,
+      "estudianteId": 21,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 39,
+      "estudianteId": 21,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 36,
+      "estudianteId": 21,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 40,
+      "estudianteId": 21,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 35,
+      "estudianteId": 21,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 37,
+      "estudianteId": 21,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 38,
+      "estudianteId": 39,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 39,
+      "estudianteId": 39,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 36,
+      "estudianteId": 39,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 40,
+      "estudianteId": 39,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 35,
+      "estudianteId": 39,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 37,
+      "estudianteId": 39,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 38,
+      "estudianteId": 40,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 39,
+      "estudianteId": 40,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 36,
+      "estudianteId": 40,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 40,
+      "estudianteId": 40,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 35,
+      "estudianteId": 40,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 37,
+      "estudianteId": 40,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 44,
+      "estudianteId": 41,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 42,
+      "estudianteId": 41,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 46,
+      "estudianteId": 41,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 41,
+      "estudianteId": 41,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 43,
+      "estudianteId": 41,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 45,
+      "estudianteId": 41,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 44,
+      "estudianteId": 4,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 42,
+      "estudianteId": 4,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 46,
+      "estudianteId": 4,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 41,
+      "estudianteId": 4,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 43,
+      "estudianteId": 4,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 45,
+      "estudianteId": 4,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 44,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 42,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 46,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 41,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 43,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 45,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 44,
+      "estudianteId": 43,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 42,
+      "estudianteId": 43,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 46,
+      "estudianteId": 43,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 41,
+      "estudianteId": 43,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 43,
+      "estudianteId": 43,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 45,
+      "estudianteId": 43,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 44,
+      "estudianteId": 10,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 42,
+      "estudianteId": 10,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 46,
+      "estudianteId": 10,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 41,
+      "estudianteId": 10,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 43,
+      "estudianteId": 10,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 45,
+      "estudianteId": 10,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 44,
+      "estudianteId": 44,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 42,
+      "estudianteId": 44,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 46,
+      "estudianteId": 44,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 41,
+      "estudianteId": 44,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 43,
+      "estudianteId": 44,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 45,
+      "estudianteId": 44,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 44,
+      "estudianteId": 45,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 42,
+      "estudianteId": 45,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 46,
+      "estudianteId": 45,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 41,
+      "estudianteId": 45,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 43,
+      "estudianteId": 45,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 45,
+      "estudianteId": 45,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 44,
+      "estudianteId": 46,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 42,
+      "estudianteId": 46,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 46,
+      "estudianteId": 46,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 41,
+      "estudianteId": 46,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 43,
+      "estudianteId": 46,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 45,
+      "estudianteId": 46,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 44,
+      "estudianteId": 47,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 42,
+      "estudianteId": 47,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 46,
+      "estudianteId": 47,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 41,
+      "estudianteId": 47,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 43,
+      "estudianteId": 47,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 45,
+      "estudianteId": 47,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 48,
+      "estudianteId": 4,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 50,
+      "estudianteId": 4,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 52,
+      "estudianteId": 4,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 47,
+      "estudianteId": 4,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 51,
+      "estudianteId": 4,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 49,
+      "estudianteId": 4,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 48,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 50,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 52,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 47,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 51,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 49,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 48,
+      "estudianteId": 48,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 50,
+      "estudianteId": 48,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 52,
+      "estudianteId": 48,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 47,
+      "estudianteId": 48,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 51,
+      "estudianteId": 48,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 49,
+      "estudianteId": 48,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 48,
+      "estudianteId": 15,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 50,
+      "estudianteId": 15,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 52,
+      "estudianteId": 15,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 47,
+      "estudianteId": 15,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 51,
+      "estudianteId": 15,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 49,
+      "estudianteId": 15,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 61,
+      "estudianteId": 49,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 57,
+      "estudianteId": 49,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 54,
+      "estudianteId": 49,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 53,
+      "estudianteId": 49,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 58,
+      "estudianteId": 49,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 60,
+      "estudianteId": 49,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 59,
+      "estudianteId": 49,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 55,
+      "estudianteId": 49,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 62,
+      "estudianteId": 49,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 56,
+      "estudianteId": 49,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 63,
+      "estudianteId": 49,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 61,
+      "estudianteId": 50,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 57,
+      "estudianteId": 50,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 54,
+      "estudianteId": 50,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 53,
+      "estudianteId": 50,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 58,
+      "estudianteId": 50,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 60,
+      "estudianteId": 50,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 59,
+      "estudianteId": 50,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 55,
+      "estudianteId": 50,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 62,
+      "estudianteId": 50,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 56,
+      "estudianteId": 50,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 63,
+      "estudianteId": 50,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 61,
+      "estudianteId": 51,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 57,
+      "estudianteId": 51,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 54,
+      "estudianteId": 51,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 53,
+      "estudianteId": 51,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 58,
+      "estudianteId": 51,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 60,
+      "estudianteId": 51,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 59,
+      "estudianteId": 51,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 55,
+      "estudianteId": 51,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 62,
+      "estudianteId": 51,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 56,
+      "estudianteId": 51,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 63,
+      "estudianteId": 51,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 61,
+      "estudianteId": 52,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 57,
+      "estudianteId": 52,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 54,
+      "estudianteId": 52,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 53,
+      "estudianteId": 52,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 58,
+      "estudianteId": 52,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 60,
+      "estudianteId": 52,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 59,
+      "estudianteId": 52,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 55,
+      "estudianteId": 52,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 62,
+      "estudianteId": 52,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 56,
+      "estudianteId": 52,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 63,
+      "estudianteId": 52,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 61,
+      "estudianteId": 53,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 57,
+      "estudianteId": 53,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 54,
+      "estudianteId": 53,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 53,
+      "estudianteId": 53,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 58,
+      "estudianteId": 53,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 60,
+      "estudianteId": 53,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 59,
+      "estudianteId": 53,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 55,
+      "estudianteId": 53,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 62,
+      "estudianteId": 53,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 56,
+      "estudianteId": 53,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 63,
+      "estudianteId": 53,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 61,
+      "estudianteId": 54,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 57,
+      "estudianteId": 54,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 54,
+      "estudianteId": 54,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 53,
+      "estudianteId": 54,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 58,
+      "estudianteId": 54,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 60,
+      "estudianteId": 54,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 59,
+      "estudianteId": 54,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 55,
+      "estudianteId": 54,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 62,
+      "estudianteId": 54,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 56,
+      "estudianteId": 54,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 63,
+      "estudianteId": 54,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 61,
+      "estudianteId": 55,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 57,
+      "estudianteId": 55,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 54,
+      "estudianteId": 55,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 53,
+      "estudianteId": 55,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 58,
+      "estudianteId": 55,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 60,
+      "estudianteId": 55,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 59,
+      "estudianteId": 55,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 55,
+      "estudianteId": 55,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 62,
+      "estudianteId": 55,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 56,
+      "estudianteId": 55,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 63,
+      "estudianteId": 55,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 61,
+      "estudianteId": 56,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 57,
+      "estudianteId": 56,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 54,
+      "estudianteId": 56,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 53,
+      "estudianteId": 56,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 58,
+      "estudianteId": 56,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 60,
+      "estudianteId": 56,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 59,
+      "estudianteId": 56,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 55,
+      "estudianteId": 56,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 62,
+      "estudianteId": 56,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 56,
+      "estudianteId": 56,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 63,
+      "estudianteId": 56,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 61,
+      "estudianteId": 57,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 57,
+      "estudianteId": 57,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 54,
+      "estudianteId": 57,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 53,
+      "estudianteId": 57,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 58,
+      "estudianteId": 57,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 60,
+      "estudianteId": 57,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 59,
+      "estudianteId": 57,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 55,
+      "estudianteId": 57,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 62,
+      "estudianteId": 57,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 56,
+      "estudianteId": 57,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 63,
+      "estudianteId": 57,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 61,
+      "estudianteId": 58,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 57,
+      "estudianteId": 58,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 54,
+      "estudianteId": 58,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 53,
+      "estudianteId": 58,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 58,
+      "estudianteId": 58,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 60,
+      "estudianteId": 58,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 59,
+      "estudianteId": 58,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 55,
+      "estudianteId": 58,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 62,
+      "estudianteId": 58,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 56,
+      "estudianteId": 58,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 63,
+      "estudianteId": 58,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 72,
+      "estudianteId": 3,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 74,
+      "estudianteId": 3,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 71,
+      "estudianteId": 3,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 65,
+      "estudianteId": 3,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 67,
+      "estudianteId": 3,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 66,
+      "estudianteId": 3,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 75,
+      "estudianteId": 3,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 70,
+      "estudianteId": 3,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 73,
+      "estudianteId": 3,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 68,
+      "estudianteId": 3,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 64,
+      "estudianteId": 3,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 69,
+      "estudianteId": 3,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 76,
+      "estudianteId": 3,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 72,
+      "estudianteId": 59,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 74,
+      "estudianteId": 59,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 71,
+      "estudianteId": 59,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 65,
+      "estudianteId": 59,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 67,
+      "estudianteId": 59,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 66,
+      "estudianteId": 59,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 75,
+      "estudianteId": 59,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 70,
+      "estudianteId": 59,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 73,
+      "estudianteId": 59,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 68,
+      "estudianteId": 59,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 64,
+      "estudianteId": 59,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 69,
+      "estudianteId": 59,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 76,
+      "estudianteId": 59,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 72,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 74,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 71,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 65,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 67,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 66,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 75,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 70,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 73,
+      "estudianteId": 17,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 68,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 64,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 69,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 76,
+      "estudianteId": 17,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 72,
+      "estudianteId": 32,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 74,
+      "estudianteId": 32,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 71,
+      "estudianteId": 32,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 65,
+      "estudianteId": 32,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 67,
+      "estudianteId": 32,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 66,
+      "estudianteId": 32,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 75,
+      "estudianteId": 32,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 70,
+      "estudianteId": 32,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 73,
+      "estudianteId": 32,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 68,
+      "estudianteId": 32,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 64,
+      "estudianteId": 32,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 69,
+      "estudianteId": 32,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 76,
+      "estudianteId": 32,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 72,
+      "estudianteId": 60,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 74,
+      "estudianteId": 60,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 71,
+      "estudianteId": 60,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 65,
+      "estudianteId": 60,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 67,
+      "estudianteId": 60,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 66,
+      "estudianteId": 60,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 75,
+      "estudianteId": 60,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 70,
+      "estudianteId": 60,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 73,
+      "estudianteId": 60,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 68,
+      "estudianteId": 60,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 64,
+      "estudianteId": 60,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 69,
+      "estudianteId": 60,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 76,
+      "estudianteId": 60,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 72,
+      "estudianteId": 61,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 74,
+      "estudianteId": 61,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 71,
+      "estudianteId": 61,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 65,
+      "estudianteId": 61,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 67,
+      "estudianteId": 61,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 66,
+      "estudianteId": 61,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 75,
+      "estudianteId": 61,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 70,
+      "estudianteId": 61,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 73,
+      "estudianteId": 61,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 68,
+      "estudianteId": 61,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 64,
+      "estudianteId": 61,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 69,
+      "estudianteId": 61,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 76,
+      "estudianteId": 61,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 72,
+      "estudianteId": 62,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 74,
+      "estudianteId": 62,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 71,
+      "estudianteId": 62,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 65,
+      "estudianteId": 62,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 67,
+      "estudianteId": 62,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 66,
+      "estudianteId": 62,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 75,
+      "estudianteId": 62,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 70,
+      "estudianteId": 62,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 73,
+      "estudianteId": 62,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 68,
+      "estudianteId": 62,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 64,
+      "estudianteId": 62,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 69,
+      "estudianteId": 62,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 76,
+      "estudianteId": 62,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 72,
+      "estudianteId": 63,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 74,
+      "estudianteId": 63,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 71,
+      "estudianteId": 63,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 65,
+      "estudianteId": 63,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 67,
+      "estudianteId": 63,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 66,
+      "estudianteId": 63,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 75,
+      "estudianteId": 63,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 70,
+      "estudianteId": 63,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 73,
+      "estudianteId": 63,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 68,
+      "estudianteId": 63,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 64,
+      "estudianteId": 63,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 69,
+      "estudianteId": 63,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 76,
+      "estudianteId": 63,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 72,
+      "estudianteId": 64,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 74,
+      "estudianteId": 64,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 71,
+      "estudianteId": 64,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 65,
+      "estudianteId": 64,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 67,
+      "estudianteId": 64,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 66,
+      "estudianteId": 64,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 75,
+      "estudianteId": 64,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 70,
+      "estudianteId": 64,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 73,
+      "estudianteId": 64,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 68,
+      "estudianteId": 64,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 64,
+      "estudianteId": 64,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 69,
+      "estudianteId": 64,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 76,
+      "estudianteId": 64,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 72,
+      "estudianteId": 65,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 74,
+      "estudianteId": 65,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 71,
+      "estudianteId": 65,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 65,
+      "estudianteId": 65,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 67,
+      "estudianteId": 65,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 66,
+      "estudianteId": 65,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 75,
+      "estudianteId": 65,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 70,
+      "estudianteId": 65,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 73,
+      "estudianteId": 65,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 68,
+      "estudianteId": 65,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 64,
+      "estudianteId": 65,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 69,
+      "estudianteId": 65,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 76,
+      "estudianteId": 65,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 72,
+      "estudianteId": 66,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 74,
+      "estudianteId": 66,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 71,
+      "estudianteId": 66,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 65,
+      "estudianteId": 66,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 67,
+      "estudianteId": 66,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 66,
+      "estudianteId": 66,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 75,
+      "estudianteId": 66,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 70,
+      "estudianteId": 66,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 73,
+      "estudianteId": 66,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 68,
+      "estudianteId": 66,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 64,
+      "estudianteId": 66,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 69,
+      "estudianteId": 66,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 76,
+      "estudianteId": 66,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 72,
+      "estudianteId": 4,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 74,
+      "estudianteId": 4,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 71,
+      "estudianteId": 4,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 65,
+      "estudianteId": 4,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 67,
+      "estudianteId": 4,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 66,
+      "estudianteId": 4,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 75,
+      "estudianteId": 4,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 70,
+      "estudianteId": 4,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 73,
+      "estudianteId": 4,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 68,
+      "estudianteId": 4,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 64,
+      "estudianteId": 4,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 69,
+      "estudianteId": 4,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 76,
+      "estudianteId": 4,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 67,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 67,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 67,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 67,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 67,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 67,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 67,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 67,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 67,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 67,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 67,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 67,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 67,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 67,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 67,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 67,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 67,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 67,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 68,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 68,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 68,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 68,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 68,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 68,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 68,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 68,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 68,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 68,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 68,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 68,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 68,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 68,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 68,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 68,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 68,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 68,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 69,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 69,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 42,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 42,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 5,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 5,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 5,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 5,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 5,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 70,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 70,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 70,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 70,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 70,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 70,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 70,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 70,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 70,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 70,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 70,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 70,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 70,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 70,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 70,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 70,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 70,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 70,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 71,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 71,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 71,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 71,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 71,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 71,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 71,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 71,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 71,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 71,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 71,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 71,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 71,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 71,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 71,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 71,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 71,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 71,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 72,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 72,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 72,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 72,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 72,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 72,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 72,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 72,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 72,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 72,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 72,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 72,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 72,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 72,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 72,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 72,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 72,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 72,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 73,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 73,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 73,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 73,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 73,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 73,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 73,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 73,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 73,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 73,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 73,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 73,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 73,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 73,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 73,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 73,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 73,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 73,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 74,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 74,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 74,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 74,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 74,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 74,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 74,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 74,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 74,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 74,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 74,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 74,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 74,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 74,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 74,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 74,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 74,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 74,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 75,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 75,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 75,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 75,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 75,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 75,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 75,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 75,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 75,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 75,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 75,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 75,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 75,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 75,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 75,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 75,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 75,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 75,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 76,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 76,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 76,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 76,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 76,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 76,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 76,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 76,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 76,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 76,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 76,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 76,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 76,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 76,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 76,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 76,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 76,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 76,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 77,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 77,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 77,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 77,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 77,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 77,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 77,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 77,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 77,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 77,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 77,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 77,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 77,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 77,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 77,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 77,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 77,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 77,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 78,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 78,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 78,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 78,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 78,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 78,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 78,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 78,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 78,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 78,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 78,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 78,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 78,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 78,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 78,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 78,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 78,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 78,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 79,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 79,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 79,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 79,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 79,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 79,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 79,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 79,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 79,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 79,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 79,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 79,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 79,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 79,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 79,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 79,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 79,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 79,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 80,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 80,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 80,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 80,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 80,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 80,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 80,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 80,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 80,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 80,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 80,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 80,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 80,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 80,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 80,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 80,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 80,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 80,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 81,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 81,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 81,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 81,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 81,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 81,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 81,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 81,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 81,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 81,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 81,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 81,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 81,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 81,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 81,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 81,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 81,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 81,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 82,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 82,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 83,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 83,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 84,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 84,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 84,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 84,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 84,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 84,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 84,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 84,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 84,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 84,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 84,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 84,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 84,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 84,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 84,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 84,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 84,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 84,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 85,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 85,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 86,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 86,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 87,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 87,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 88,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 88,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 88,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 88,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 88,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 88,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 88,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 88,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 88,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 88,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 88,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 88,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 88,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 88,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 88,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 88,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 88,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 88,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 89,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 89,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 89,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 89,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 89,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 89,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 89,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 89,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 89,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 89,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 89,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 89,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 89,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 89,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 89,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 89,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 89,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 89,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 90,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 90,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 90,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 90,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 90,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 90,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 90,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 90,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 90,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 90,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 90,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 90,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 90,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 90,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 90,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 90,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 90,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 90,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 91,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 91,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 91,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 91,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 91,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 91,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 91,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 91,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 91,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 91,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 91,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 91,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 91,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 91,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 91,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 91,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 91,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 91,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 92,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 92,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 92,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 92,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 92,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 92,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 92,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 92,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 92,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 92,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 92,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 92,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 92,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 92,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 92,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 92,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 92,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 92,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 93,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 93,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 90,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 89,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 92,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 84,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 79,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 91,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 80,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 93,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 86,
+      "estudianteId": 94,
+      "estado": "Presente"
+    },
+    {
+      "sesionId": 87,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 88,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 77,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 81,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 82,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 83,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 85,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 94,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    },
+    {
+      "sesionId": 78,
+      "estudianteId": 94,
+      "estado": "Ausente"
+    }
+  ]
+}

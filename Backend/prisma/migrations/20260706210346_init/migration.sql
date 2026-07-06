@@ -1,24 +1,8 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Post` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-
-*/
 -- CreateEnum
 CREATE TYPE "RolUsuario" AS ENUM ('Administrador', 'Profesor', 'Ayudante', 'Estudiante');
 
 -- CreateEnum
-CREATE TYPE "BloqueHorario" AS ENUM ('A', 'B', 'C', 'C2', 'D', 'E', 'F');
-
--- DropForeignKey
-ALTER TABLE "Post" DROP CONSTRAINT "Post_authorId_fkey";
-
--- DropTable
-DROP TABLE "Post";
-
--- DropTable
-DROP TABLE "User";
+CREATE TYPE "BloqueHorario" AS ENUM ('A', 'B', 'C', 'C2', 'D', 'E', 'F', 'G');
 
 -- CreateTable
 CREATE TABLE "Usuario" (
@@ -42,6 +26,9 @@ CREATE TABLE "Taller" (
     "semestre" TEXT NOT NULL,
     "estado" BOOLEAN NOT NULL DEFAULT true,
     "profesorId" INTEGER NOT NULL,
+    "bloques" "BloqueHorario"[] DEFAULT ARRAY['A']::"BloqueHorario"[],
+    "dia" INTEGER NOT NULL DEFAULT 1,
+    "lugar" TEXT NOT NULL DEFAULT 'Galpón Cultural',
 
     CONSTRAINT "Taller_pkey" PRIMARY KEY ("id")
 );
@@ -61,9 +48,9 @@ CREATE TABLE "Sesion" (
     "id" SERIAL NOT NULL,
     "tallerId" INTEGER NOT NULL,
     "fecha" DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "bloque" "BloqueHorario" NOT NULL,
     "qrToken" TEXT NOT NULL,
     "validoHasta" TIMESTAMP(3) NOT NULL,
+    "bloque" INTEGER NOT NULL,
 
     CONSTRAINT "Sesion_pkey" PRIMARY KEY ("id")
 );
@@ -76,6 +63,7 @@ CREATE TABLE "Asistencia" (
     "fechaHora" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "estado" TEXT NOT NULL DEFAULT 'Ausente',
     "notaSatisfaccion" INTEGER,
+    "comentario" TEXT,
 
     CONSTRAINT "Asistencia_pkey" PRIMARY KEY ("id")
 );
@@ -108,7 +96,7 @@ ALTER TABLE "Inscripcion" ADD CONSTRAINT "Inscripcion_tallerId_fkey" FOREIGN KEY
 ALTER TABLE "Sesion" ADD CONSTRAINT "Sesion_tallerId_fkey" FOREIGN KEY ("tallerId") REFERENCES "Taller"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Asistencia" ADD CONSTRAINT "Asistencia_sesionId_fkey" FOREIGN KEY ("sesionId") REFERENCES "Sesion"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Asistencia" ADD CONSTRAINT "Asistencia_estudianteId_fkey" FOREIGN KEY ("estudianteId") REFERENCES "Usuario"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Asistencia" ADD CONSTRAINT "Asistencia_estudianteId_fkey" FOREIGN KEY ("estudianteId") REFERENCES "Usuario"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Asistencia" ADD CONSTRAINT "Asistencia_sesionId_fkey" FOREIGN KEY ("sesionId") REFERENCES "Sesion"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
