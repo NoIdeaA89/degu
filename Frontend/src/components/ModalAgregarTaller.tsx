@@ -5,7 +5,7 @@ import { obtenerProfesores } from "../services/profesor.service"
 import type { Profesor } from "../interfaces/Profesor"
 
 interface Props {
-  onAgregar: (titulo: string, lugar: string, profesorId: number) => void
+  onAgregar: (titulo: string, lugar: string, profesorId: number, descripcion: string) => void
   onCerrar: () => void
 }
 
@@ -14,6 +14,7 @@ export default function ModalAgregarTaller({
   onCerrar,
 }: Props): ReactElement {
   const [titulo, setTitulo] = useState("")
+  const [descripcion, setDescripcion] = useState("") 
   const [lugar, setLugar] = useState(lugares[0] ?? "")
   const [profesores, setProfesores] = useState<Profesor[]>([])
   const [profesorId, setProfesorId] = useState<number | "">("")
@@ -36,8 +37,9 @@ export default function ModalAgregarTaller({
 
   const handleSubmit = () => {
     if (!titulo.trim() || !lugar || !profesorId) return
-    onAgregar(titulo, lugar, Number(profesorId))
+    onAgregar(titulo, lugar, Number(profesorId), descripcion)
     setTitulo("")
+    setDescripcion("")
     onCerrar()
   }
 
@@ -58,6 +60,14 @@ export default function ModalAgregarTaller({
           value={titulo}
           onChange={(e) => setTitulo(e.target.value)}
           autoFocus
+        />
+        <textarea
+          className="panel-busqueda"
+          placeholder="Descripción del taller (opcional)"
+          value={descripcion}
+          onChange={(e) => setDescripcion(e.target.value)}
+          rows={3}
+          style={{ resize: "vertical" }}
         />
 
         <select

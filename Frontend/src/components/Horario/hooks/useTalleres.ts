@@ -59,7 +59,7 @@ export function useTalleres() {
     [talleresState]
   )
 
-  const agregarTaller = async (titulo: string, lugar: string, profesorId: number) => {
+  const agregarTaller = async (titulo: string, lugar: string, profesorId: number, descripcion: string) => {
   const tituloLimpio = titulo.trim()
   const lugarLimpio = lugar.trim()
   if (!tituloLimpio || !lugarLimpio || !profesorId) return
@@ -68,6 +68,7 @@ export function useTalleres() {
     const semestre = obtenerSemestreActual()
     const nuevoTallerApi = await crearTallerEnBD({
       nombre: tituloLimpio,
+      descripcion: descripcion.trim(), 
       lugar: lugarLimpio,
       semestre,
       profesorId,
