@@ -16,8 +16,9 @@ export default function useHorario() {
     asistenciaActual,
     hayCambios,
     estudiantes,
-    cargando: cargandoAsistencia,   // 👈 NUEVO (renombrado para no chocar si tienes otro "cargando" en el archivo)
-    error: errorAsistencia,         // 👈 NUEVO
+    qrToken,
+    cargando: cargandoAsistencia,   
+    error: errorAsistencia,         
     abrirTaller,
     cerrarTaller,
     guardarAsistencia,
@@ -95,6 +96,7 @@ export default function useHorario() {
     dias,
     bloques,
     lugares,
+    qrToken,
     lugaresActivos,
     talleresPorCelda,
     talleresSinAsignar,
@@ -104,8 +106,8 @@ export default function useHorario() {
     hayCambios,
     mostrarQrModal,
     estudiantes,
-    cargandoAsistencia,   // 👈 NUEVO
-    errorAsistencia,      // 👈 NUEVO
+    cargandoAsistencia,   
+    errorAsistencia,      
     modoEdicion,
     desasignarTaller,
     agregarTaller,

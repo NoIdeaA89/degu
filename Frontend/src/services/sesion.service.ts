@@ -4,6 +4,7 @@ export interface SesionApi {
   tallerId: number;
   bloque: number;
   fecha: string;
+  qrToken: string; 
 }
 
 export async function obtenerOCrearSesionDeHoy(tallerId: number, bloque: number): Promise<SesionApi> {

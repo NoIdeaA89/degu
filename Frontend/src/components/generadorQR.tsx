@@ -6,6 +6,7 @@ interface GeneradorQRProps {
   tallerId: number;
   nombreTaller: string;
   bloque?: number;
+  qrTokenExistente?: string;
 }
 
 export default function GeneradorQR({ tallerId, nombreTaller, bloque }: GeneradorQRProps) {

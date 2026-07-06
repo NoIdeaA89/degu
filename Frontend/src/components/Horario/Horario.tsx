@@ -23,6 +23,7 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
   dias,
   bloques,
   lugaresActivos,
+  qrToken, 
   talleresPorCelda,
   talleresSinAsignar,
   agregarTaller,
@@ -145,6 +146,7 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
           tallerSeleccionado={tallerSeleccionado}
           bloqueText={tallerSeleccionado.taller.bloque}
           cerrarQrModal={cerrarQrModal}
+          qrToken={qrToken}   
         />
       )}
     </section>

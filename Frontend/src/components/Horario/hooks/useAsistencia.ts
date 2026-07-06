@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import {  useMemo, useState } from "react"
 import { obtenerInscritosPorTaller, type EstudianteApi } from "../../../services/inscripcion.service"
 import { obtenerOCrearSesionDeHoy } from "../../../services/sesion.service"
 import { obtenerAsistenciaPorSesion, guardarAsistenciaManual } from "../../../services/asistencia.service"
@@ -23,44 +23,47 @@ export function useAsistencia() {
   const [tallerSeleccionado, setTallerSeleccionado] = useState<TallerSeleccionado | null>(null)
   const [cargando, setCargando] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [qrToken, setQrToken] = useState<string | null>(null)
 
   const abrirTaller = async (taller: TallerUI) => {
-    setTallerSeleccionado({ id: taller.id, taller })
-    setCargando(true)
-    setError(null)
+  setTallerSeleccionado({ id: taller.id, taller })
+  setCargando(true)
+  setError(null)
 
-    try {
-      const [inscritos, sesion] = await Promise.all([
-        obtenerInscritosPorTaller(taller.id),
-        obtenerOCrearSesionDeHoy(taller.id, taller.bloque),
-      ])
+  try {
+    const [inscritos, sesion] = await Promise.all([
+      obtenerInscritosPorTaller(taller.id),
+      obtenerOCrearSesionDeHoy(taller.id, taller.bloque),
+    ])
 
-      const estudiantesUI = inscritos.map(convertirEstudianteApi)
-      setEstudiantes(estudiantesUI)
-      setSesionId(sesion.id)
+    const estudiantesUI = inscritos.map(convertirEstudianteApi)
+    setEstudiantes(estudiantesUI)
+    setSesionId(sesion.id)
+    setQrToken(sesion.qrToken)   // 👈 NUEVO
 
-      const asistenciaExistente = await obtenerAsistenciaPorSesion(sesion.id)
-      const porEstudianteId = new Map(asistenciaExistente.map((a) => [a.estudianteId, a.estado === "Presente"]))
+    const asistenciaExistente = await obtenerAsistenciaPorSesion(sesion.id)
+    const porEstudianteId = new Map(asistenciaExistente.map((a) => [a.estudianteId, a.estado === "Presente"]))
 
-      const base: Record<string, boolean> = {}
-      estudiantesUI.forEach((e) => {
-        base[e.rut] = porEstudianteId.get(e.id) ?? false
-      })
+    const base: Record<string, boolean> = {}
+    estudiantesUI.forEach((e) => {
+      base[e.rut] = porEstudianteId.get(e.id) ?? false
+    })
 
-      setAsistenciaActual(base)
-      setAsistenciaOriginal(base)
-    } catch (err) {
-      console.error("Error al abrir taller para asistencia:", err)
-      setError("No se pudo cargar la asistencia del taller")
-    } finally {
-      setCargando(false)
-    }
+    setAsistenciaActual(base)
+    setAsistenciaOriginal(base)
+  } catch (err) {
+    console.error("Error al abrir taller para asistencia:", err)
+    setError("No se pudo cargar la asistencia del taller")
+  } finally {
+    setCargando(false)
   }
+}
 
   const cerrarTaller = () => {
     setTallerSeleccionado(null)
     setAsistenciaActual(null)
     setAsistenciaOriginal(null)
+    setQrToken(null)   
     setSesionId(null)
     setEstudiantes([])
   }
@@ -110,6 +113,7 @@ export function useAsistencia() {
     estudiantes,
     cargando,
     error,
+    qrToken,
     abrirTaller,
     cerrarTaller,
     guardarAsistencia,
