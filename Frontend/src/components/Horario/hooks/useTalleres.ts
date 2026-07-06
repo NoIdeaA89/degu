@@ -16,9 +16,9 @@ function convertirTallerApiAUI(taller: TallerApi): TallerUI {
     id: taller.id,
     nombre: taller.nombre,
     dia: taller.dia || 0,
-    bloque: mapearBloqueANumero(taller.bloques[0] ?? "A"),
+    bloque: mapearBloqueANumero(taller.bloque),
     lugar: taller.lugar || "Galpón Cultural",
-    pendienteAsignacion: taller.dia === 0 || taller.bloques.length === 0,
+    pendienteAsignacion: taller.dia === 0 || !taller.bloque,
   }
 }
 
@@ -73,7 +73,7 @@ export function useTalleres() {
       semestre,
       profesorId,
       dia: 0,
-      bloques: ["A"], // placeholder válido del enum; dia:0 ya marca "pendiente"
+      bloque: "A", // placeholder válido del enum; dia:0 ya marca "pendiente"
     })
 
     const nuevoTallerUI = convertirTallerApiAUI(nuevoTallerApi)
@@ -104,7 +104,7 @@ export function useTalleres() {
   })
 
   try {
-    await actualizarTallerEnBD(origen.id, 0, [bloqueString])
+    await actualizarTallerEnBD(origen.id, 0, bloqueString)
   } catch (err) {
     console.error("Error al desasignar taller:", err)
     setError("No se pudo desasignar el taller")
@@ -133,7 +133,7 @@ export function useTalleres() {
   })
 
   try {
-    await actualizarTallerEnBD(origen.id, nuevoDia, [bloqueString])
+    await actualizarTallerEnBD(origen.id, nuevoDia, bloqueString)
   } catch (err) {
     console.error("Error al mover taller:", err)
     setError("No se pudo mover el taller")
@@ -145,7 +145,7 @@ export function useTalleres() {
   const confirmarAsignacion = async (id: number, bloque: number) => {
     try {
       const bloqueString = BLOQUES[bloque - 1] ?? "A"
-      await actualizarTallerEnBD(id, 0, [bloqueString])
+      await actualizarTallerEnBD(id, 0, bloqueString)
 
       setTalleresState((prev) => {
         const actualizado = prev.map((t) =>
