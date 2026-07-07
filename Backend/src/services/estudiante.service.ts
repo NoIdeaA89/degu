@@ -105,7 +105,7 @@ export async function buscarEstudiantes({
         rut: q.toUpperCase(),
         rol: RolUsuario.Estudiante,
       },
-      select: { id: true, nombre: true, apellido: true, rut: true, correo: true },
+      select: { id: true, nombre: true, apellido: true, rut: true, correo: true, carrera: true, telefono: true },
     });
 
     return {
@@ -129,7 +129,7 @@ export async function buscarEstudiantes({
   const [data, total] = await prisma.$transaction([
     prisma.usuario.findMany({
       where,
-      select: { id: true, nombre: true, apellido: true, rut: true, correo: true },
+      select: { id: true, nombre: true, apellido: true, rut: true, correo: true, carrera: true, telefono: true },
       orderBy: [{ nombre: 'asc' }, { apellido: 'asc' }],
       skip,
       take,
