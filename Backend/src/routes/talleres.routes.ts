@@ -8,7 +8,9 @@ router.get('/', talleresController.obtenerPorSemestre);
 router.post('/', talleresController.crearTaller);
 router.post('/:id', talleresController.actualizarTaller);
 router.get('/:id/inscritos', obtenerInscritosPorTaller);
-// talleres.routes.ts
 
+router.post('/grupos', talleresController.crearGrupo);
+router.post('/grupos/:grupoId/agregar', talleresController.agregarAlGrupo);
+router.patch('/:id/salir-grupo', talleresController.salirGrupo);
 
 export default router;
