@@ -1,9 +1,9 @@
 import { prisma } from '../src/lib/prisma';
-import crypto from 'crypto';
-import bcrypt from 'bcrypt';
+import { randomUUID } from 'crypto'; 
+import bcrypt from 'bcrypt'; 
 
 async function main() {
-  console.log('🌱 Iniciando seed del Galpón Cultural...');
+  console.log('🌱 Iniciando seed analítico para el Galpón Cultural...');
 
   try {
     console.log('🧹 Limpiando tablas viejas...');
@@ -11,23 +11,20 @@ async function main() {
     await prisma.sesion.deleteMany();
     await prisma.inscripcion.deleteMany();
     await prisma.taller.deleteMany();
-    await prisma.grupoTaller.deleteMany();
     await prisma.usuario.deleteMany();
 
     console.log('🔐 Encriptando contraseñas por defecto...');
     const passwordHasheada = await bcrypt.hash('password123', 10);
 
-    console.log('👨‍🏫 Creando administrador y profesores...');
-    const admin = await prisma.usuario.create({
+    console.log('👨‍🏫 Creando usuarios (Administrador y Equipo de Estudiantes)...');
+    const profesor = await prisma.usuario.create({
       data: {
-        nombre: "Carolina",
-        apellido: "Reyes",
-        carrera: "Administración",
-        telefono: "+56911111111",
-        rut: "11.111.111-1",
-        correo: "carolina.reyes@ucn.cl",
-        password: passwordHasheada,
-        rol: "Administrador"
+        nombre: "Edgar",
+        apellido: "Gallardo",
+        rut: "12.345.678-9",
+        correo: "Edgar.Gallardo@ucn.cl",
+        password: passwordHasheada, 
+        rol: "Administrador" 
       }
     });
 
