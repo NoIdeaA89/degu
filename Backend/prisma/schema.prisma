@@ -1,83 +1,10 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
-  provider = "postgresql"
-}
-
-model Usuario {
-  id               Int           @id @default(autoincrement())
-  nombre           String
-  apellido         String
-  carrera          String        @default("")
-  telefono         String        @default("")
-  rut              String        @unique
-  correo           String        @unique
-  password         String
-  rol              RolUsuario
-  asistencias      Asistencia[]
-  inscripciones    Inscripcion[]
-  talleresDictados Taller[]      @relation("ProfesorTaller")
-}
-
-model GrupoTaller {
-  id       Int      @id @default(autoincrement())
-  talleres Taller[]
-}
-
-model Taller {
-  id            Int           @id @default(autoincrement())
-  nombre        String
-  descripcion   String
-  horario       String
-  semestre      String
-  estado        Boolean       @default(true)
-  lugar         String        @default("Galpón Cultural")
-  dia           Int           @default(1)
-  bloque        BloqueHorario @default(A)
-  profesorId    Int
-  grupoId       Int?
-  inscripciones Inscripcion[]
-  sesiones      Sesion[]
-  grupo         GrupoTaller?  @relation(fields: [grupoId], references: [id])
-  profesor      Usuario       @relation("ProfesorTaller", fields: [profesorId], references: [id])
-}
-
-model Inscripcion {
-  id            Int      @id @default(autoincrement())
-  fechaRegistro DateTime @default(now())
-  estudianteId  Int
-  tallerId      Int
-  estudiante    Usuario  @relation(fields: [estudianteId], references: [id])
-  taller        Taller   @relation(fields: [tallerId], references: [id])
-
-  @@unique([estudianteId, tallerId])
-}
-
-model Sesion {
-  id          Int          @id @default(autoincrement())
-  tallerId    Int
-  fecha       DateTime     @default(now()) @db.Date
-  bloque      Int
-  qrToken     String       @unique
-  validoHasta DateTime
-  asistencias Asistencia[]
-  taller      Taller       @relation(fields: [tallerId], references: [id])
-}
-
-model Asistencia {
-  id               Int      @id @default(autoincrement())
-  sesionId         Int
-  estudianteId     Int
-  fechaHora        DateTime @default(now())
-  estado           String   @default("Ausente")
-  notaSatisfaccion Int?
-  comentario       String?
-  estudiante       Usuario  @relation(fields: [estudianteId], references: [id])
-  sesion           Sesion   @relation(fields: [sesionId], references: [id])
-
-  @@unique([sesionId, estudianteId])
+  provider = "postgresql"
 }
 
 enum RolUsuario {
@@ -96,4 +23,74 @@ enum BloqueHorario {
   E
   F
   G
+}
+
+model Usuario {
+  id               Int          @id @default(autoincrement())
+  nombre           String
+  apellido         String
+  rut              String       @unique
+  correo           String       @unique
+  password         String
+  rol              RolUsuario
+
+  talleresDictados Taller[]     @relation("ProfesorTaller")
+  inscripciones    Inscripcion[]
+  asistencias      Asistencia[]
+}
+
+model Taller {
+  id          Int      @id @default(autoincrement())
+  nombre      String
+  descripcion String   @db.Text
+  horario     String
+  semestre    String
+  estado      Boolean  @default(true)
+  lugar       String   @default("Galpón Cultural")
+  dia         Int      @default(1)
+  bloque      BloqueHorario @default(A) // Changed to use Enum
+
+  profesorId  Int
+  profesor    Usuario  @relation("ProfesorTaller", fields: [profesorId], references: [id])
+  
+  inscripciones Inscripcion[]
+  sesiones      Sesion[]
+}
+
+model Inscripcion {
+  id            Int      @id @default(autoincrement())
+  fechaRegistro DateTime @default(now())
+  estudianteId  Int
+  tallerId      Int
+  estudiante    Usuario  @relation(fields: [estudianteId], references: [id])
+  taller        Taller   @relation(fields: [tallerId], references: [id])
+
+  @@unique([estudianteId, tallerId])
+}
+
+model Sesion {
+  id           Int      @id @default(autoincrement())
+  tallerId     Int
+  taller       Taller   @relation(fields: [tallerId], references: [id])
+  fecha        DateTime @default(now()) @db.Date
+  bloque       Int
+
+  qrToken      String   @unique
+  validoHasta  DateTime
+
+  asistencias  Asistencia[]
+}
+
+model Asistencia {
+  id               Int      @id @default(autoincrement())
+  sesionId         Int
+  estudianteId     Int
+  fechaHora        DateTime @default(now())
+  estado           String   @default("Ausente")
+  notaSatisfaccion Int?
+  comentario       String?
+  estudiante       Usuario  @relation(fields: [estudianteId], references: [id])
+  sesion           Sesion   @relation(fields: [sesionId], references: [id])
+
+  @@unique([sesionId, estudianteId])
 }

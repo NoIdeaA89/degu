@@ -72,7 +72,6 @@ export const crearTaller = async (data: {
   semestre: string;
   lugar: string;
   profesorId: number;
-
   dia?: number;
   bloque?: BloqueHorario;
 }) => {
@@ -97,49 +96,4 @@ export const crearTaller = async (data: {
   } catch (error: any) {
     throw new Error(`Error al crear el taller: ${error.message}`);
   }
-};
-export const crearGrupoTaller = async (tallerIds: number[]) => {
-  if (tallerIds.length < 2 || tallerIds.length > 3) {
-    throw new Error('Un grupo debe tener entre 2 y 3 talleres');
-  }
-
-  const idsUnicos = new Set(tallerIds);
-  if (idsUnicos.size !== tallerIds.length) {
-    throw new Error('Los talleres del grupo deben ser distintos entre sí');
-  }
-
-  const talleres = await prisma.taller.findMany({ where: { id: { in: tallerIds } } });
-  if (talleres.length !== tallerIds.length) {
-    throw new Error('Alguno de los talleres no existe');
-  }
-  if (talleres.some((t) => t.grupoId !== null)) {
-    throw new Error('Alguno de los talleres ya pertenece a un grupo');
-  }
-
-  return await prisma.$transaction(async (tx) => {
-    const grupo = await tx.grupoTaller.create({ data: {} });
-    await tx.taller.updateMany({
-      where: { id: { in: tallerIds } },
-      data: { grupoId: grupo.id }
-    });
-    return grupo;
-  });
-};
-
-export const agregarTallerAGrupo = async (grupoId: number, tallerId: number) => {
-  const miembros = await prisma.taller.count({ where: { grupoId } });
-  if (miembros >= 3) {
-    throw new Error('El grupo ya tiene el máximo de 3 talleres');
-  }
-
-  const taller = await prisma.taller.findUnique({ where: { id: tallerId } });
-  if (taller?.grupoId) {
-    throw new Error('Ese taller ya pertenece a otro grupo');
-  }
-
-  return await prisma.taller.update({ where: { id: tallerId }, data: { grupoId } });
-};
-
-export const salirDeGrupo = async (tallerId: number) => {
-  return await prisma.taller.update({ where: { id: tallerId }, data: { grupoId: null } });
 };
