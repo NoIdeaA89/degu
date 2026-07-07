@@ -25,8 +25,10 @@ export interface RegistroUsuarioPayload {
   apellido: string
   rut: string
   correo: string
-  password: string
+  password?: string
   rol: 'Administrador' | 'Profesor' | 'Ayudante' | 'Estudiante'
+  carrera?: string
+  telefono?: string
 }
 
 export interface RegistroUsuarioResponse {
@@ -38,6 +40,8 @@ export interface RegistroUsuarioResponse {
     rut: string
     correo: string
     rol: string
+    carrera?: string
+    telefono?: string
   }
 }
 
@@ -71,16 +75,20 @@ export async function buscarEstudiantes(
 export async function registrarUsuario(
   payload: RegistroUsuarioPayload
 ): Promise<RegistroUsuarioResponse> {
-  const response = await fetch(`${baseUrl}/auth/registro`, {
+  const token = localStorage.getItem("token");
+  const headers: HeadersInit = { 'Content-Type': 'application/json' };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const response = await fetch(`${baseUrl}/estudiantes`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers,
     body: JSON.stringify(payload),
   })
 
   const data = await response.json()
 
   if (!response.ok) {
-    throw new Error(data.error || data.message || 'Error al registrar usuario')
+    throw new Error(data.error || data.message || data.detalle || 'Error al registrar usuario')
   }
 
   return data as RegistroUsuarioResponse

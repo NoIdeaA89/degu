@@ -6,6 +6,10 @@ import {
   type ResumenAsistenciaEstudianteItem,
 } from "../services/perfilAsistencia.service"
 import { exportarPerfilEstudianteExcel } from "../utils/excel.utils"
+import { useAuth } from "../context/AuthContext"
+import { obtenerTalleresPorSemestre, type TallerApi } from "../services/talleres.service"
+import { inscribirEstudianteEnTaller } from "../services/inscripcion.service"
+import { obtenerSemestreActual } from "../utils/semestre.utils"
 
 
 export interface EstudiantePerfil {
@@ -72,6 +76,54 @@ export default function Perfil({ estudiante, historialTalleres }: PerfilProps): 
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
+  const { user } = useAuth()
+  const [talleresDisponibles, setTalleresDisponibles] = useState<TallerApi[]>([])
+  const [tallerParaInscribir, setTallerParaInscribir] = useState<string>('')
+  const [cargandoInscripcion, setCargandoInscripcion] = useState(false)
+  const [errorInscripcion, setErrorInscripcion] = useState<string | null>(null)
+  const [exitoInscripcion, setExitoInscripcion] = useState<string | null>(null)
+  const [triggerRecarga, setTriggerRecarga] = useState(0)
+
+  useEffect(() => {
+    async function loadTalleres() {
+      try {
+        const semestre = obtenerSemestreActual()
+        const data = await obtenerTalleresPorSemestre(semestre)
+        setTalleresDisponibles(data)
+      } catch (err) {
+        console.error("Error al cargar talleres:", err)
+      }
+    }
+    if (user?.rol === 'Administrador') {
+      loadTalleres()
+    }
+  }, [user])
+
+  const talleresParaElegir = useMemo(() => {
+    const idsInscritos = new Set(historialFinal.map(t => t.id))
+    return talleresDisponibles.filter(t => !idsInscritos.has(t.id))
+  }, [talleresDisponibles, historialFinal])
+
+  const handleInscribir = async () => {
+    if (!estudianteFinal?.id || !tallerParaInscribir) return
+    setCargandoInscripcion(true)
+    setErrorInscripcion(null)
+    setExitoInscripcion(null)
+
+    try {
+      await inscribirEstudianteEnTaller(estudianteFinal.id, Number(tallerParaInscribir))
+      setExitoInscripcion('Estudiante inscrito exitosamente.')
+      setTallerParaInscribir('')
+      setTriggerRecarga(prev => prev + 1)
+      setTimeout(() => setExitoInscripcion(null), 3000)
+    } catch (err: any) {
+      setErrorInscripcion(err.message || 'Error al inscribir estudiante.')
+      setTimeout(() => setErrorInscripcion(null), 5000)
+    } finally {
+      setCargandoInscripcion(false)
+    }
+  }
+
   useEffect(() => {
     let activo = true
 
@@ -129,7 +181,7 @@ export default function Perfil({ estudiante, historialTalleres }: PerfilProps): 
     return () => {
       activo = false
     }
-  }, [estudianteBase])
+  }, [estudianteBase, triggerRecarga])
 
   const manejarExportacionExcel = async () => {
     if (!estudianteFinal) return
@@ -235,6 +287,47 @@ export default function Perfil({ estudiante, historialTalleres }: PerfilProps): 
                       </p>
                     </article>
                   </div>
+
+                  {user?.rol === 'Administrador' && (
+                    <div className="mt-6 p-5 bg-white border border-[#dfe3e7] rounded-xl shadow-sm">
+                      <h3 className="text-base font-semibold text-[#2f363d] mb-2">Inscribir en un nuevo taller</h3>
+                      <p className="text-xs text-gray-500 mb-4">Inscribe al estudiante en alguno de los talleres dictados en este semestre.</p>
+                      
+                      {errorInscripcion && (
+                        <div className="mb-3 p-3 bg-red-50 text-red-700 text-sm rounded border border-red-200">
+                          {errorInscripcion}
+                        </div>
+                      )}
+                      
+                      {exitoInscripcion && (
+                        <div className="mb-3 p-3 bg-green-50 text-green-700 text-sm rounded border border-green-200">
+                          {exitoInscripcion}
+                        </div>
+                      )}
+
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <select
+                          className="flex-1 border border-gray-300 rounded-lg p-2.5 text-sm bg-white text-gray-700 outline-none focus:border-blue-500"
+                          value={tallerParaInscribir}
+                          onChange={(e) => setTallerParaInscribir(e.target.value)}
+                        >
+                          <option value="">-- Seleccionar Taller --</option>
+                          {talleresParaElegir.map(t => (
+                            <option key={t.id} value={t.id}>
+                              {t.nombre} ({t.lugar} - {t.bloque})
+                            </option>
+                          ))}
+                        </select>
+                        <button
+                          onClick={handleInscribir}
+                          disabled={!tallerParaInscribir || cargandoInscripcion}
+                          className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          {cargandoInscripcion ? 'Inscribiendo...' : 'Inscribir estudiante'}
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </section>
 
                 <aside className="rounded-2xl border border-[#dfe3e7] bg-gradient-to-b from-[#f6f7f8] to-[#fcfcfd] p-5 shadow-[0_8px_22px_-18px_rgba(31,35,40,0.28)]">

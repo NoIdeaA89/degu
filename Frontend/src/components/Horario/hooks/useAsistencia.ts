@@ -1,5 +1,5 @@
 import {  useMemo, useState } from "react"
-import { obtenerInscritosPorTaller, type EstudianteApi } from "../../../services/inscripcion.service"
+import { obtenerInscritosPorTaller, type EstudianteApi, inscribirEstudianteEnTaller } from "../../../services/inscripcion.service"
 import { obtenerOCrearSesionDeHoy } from "../../../services/sesion.service"
 import { obtenerAsistenciaPorSesion, guardarAsistenciaManual } from "../../../services/asistencia.service"
 import type { TallerUI } from "../../../interfaces/Taller"
@@ -96,6 +96,44 @@ export function useAsistencia() {
     }
   }
 
+  const inscribirEstudiante = async (estudianteId: number) => {
+    if (!tallerSeleccionado) return
+    try {
+      setError(null)
+      await inscribirEstudianteEnTaller(estudianteId, tallerSeleccionado.id)
+      
+      const inscritos = await obtenerInscritosPorTaller(tallerSeleccionado.id)
+      const estudiantesUI = inscritos.map(convertirEstudianteApi)
+      setEstudiantes(estudiantesUI)
+
+      setAsistenciaActual((prev) => {
+        if (!prev) return prev
+        const act = { ...prev }
+        estudiantesUI.forEach((e) => {
+          if (act[e.rut] === undefined) {
+            act[e.rut] = false
+          }
+        })
+        return act
+      })
+
+      setAsistenciaOriginal((prev) => {
+        if (!prev) return prev
+        const orig = { ...prev }
+        estudiantesUI.forEach((e) => {
+          if (orig[e.rut] === undefined) {
+            orig[e.rut] = false
+          }
+        })
+        return orig
+      })
+    } catch (err: any) {
+      console.error("Error al inscribir estudiante en taller desde asistencia:", err)
+      setError(err.message || "Error al inscribir estudiante")
+      throw err
+    }
+  }
+
   const hayCambios = useMemo(
     () =>
       Boolean(
@@ -119,5 +157,6 @@ export function useAsistencia() {
     guardarAsistencia,
     alternarAsistencia,
     marcarTodos,
+    inscribirEstudiante,
   }
 }

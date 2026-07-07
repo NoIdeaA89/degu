@@ -30,7 +30,9 @@ export const crearEstudianteSchema = z.object({
     apellido: z.string().min(1, "El apellido es obligatorio"),
     rut: z.string().min(1, "El RUT es obligatorio"),
     correo: z.string().email("Formato de correo inválido"),
-    password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
+    password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres").optional(),
+    carrera: z.string().optional(),
+    telefono: z.string().optional(),
   })
 });
 
