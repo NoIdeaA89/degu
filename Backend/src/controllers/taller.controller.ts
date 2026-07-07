@@ -92,20 +92,5 @@ export const crearTaller = async (req: Request, res: Response) => {
   }
 };
 // taller.controller.ts — agregar
-export const vincularPareja = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const { parejaId } = req.body;
 
-    if (!parejaId) {
-      return res.status(400).json({ error: 'parejaId es requerido' });
-    }
-
-    const resultado = await talleresService.vincularPareja(Number(id), Number(parejaId));
-    res.status(200).json({ message: 'Talleres vinculados correctamente', data: resultado });
-  } catch (error: any) {
-    console.error("=== ERROR AL VINCULAR PAREJA ===", error);
-    res.status(500).json({ error: 'Error al vincular los talleres', detalle: error.message });
-  }
-};
 

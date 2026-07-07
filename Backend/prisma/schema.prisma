@@ -1,6 +1,5 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -29,6 +28,8 @@ model Usuario {
   id               Int          @id @default(autoincrement())
   nombre           String
   apellido         String
+  carrera          String
+  telefono         String
   rut              String       @unique
   correo           String       @unique
   password         String
@@ -37,6 +38,11 @@ model Usuario {
   talleresDictados Taller[]     @relation("ProfesorTaller")
   inscripciones    Inscripcion[]
   asistencias      Asistencia[]
+}
+
+model GrupoTaller {
+  id       Int      @id @default(autoincrement())
+  talleres Taller[]
 }
 
 model Taller {
@@ -53,9 +59,8 @@ model Taller {
   profesorId  Int
   profesor    Usuario  @relation("ProfesorTaller", fields: [profesorId], references: [id])
 
-  parejaId    Int?     @unique                                    // 👈 NUEVO
-  pareja      Taller?  @relation("TallerPareja", fields: [parejaId], references: [id]) // 👈 NUEVO
-  parejaDe    Taller?  @relation("TallerPareja")                  // 👈 NUEVO
+  grupoId     Int?                                              // 👈 NUEVO
+  grupo       GrupoTaller? @relation(fields: [grupoId], references: [id]) // 👈 NUEVO
 
   inscripciones Inscripcion[]
   sesiones      Sesion[]
