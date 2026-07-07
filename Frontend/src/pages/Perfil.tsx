@@ -18,6 +18,7 @@ export interface EstudiantePerfil {
   apellido?: string
   rut: string
   correo: string
+  carrera: string
   semestreActual?: string
   promedioAsistencia?: number
   talleresInscritos?: number
@@ -267,6 +268,11 @@ export default function Perfil({ estudiante, historialTalleres }: PerfilProps): 
                     <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
                       <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Correo</p>
                       <p className="mt-1 break-all text-[#2f363d]">{estudianteFinal.correo}</p>
+                    </article>
+
+                    <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Carrera</p>
+                      <p className="mt-1 break-all text-[#2f363d]">{estudianteFinal.carrera}</p>
                     </article>
                   </div>
 
