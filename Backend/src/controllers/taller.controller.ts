@@ -91,4 +91,42 @@ export const crearTaller = async (req: Request, res: Response) => {
     });
   }
 };
+// endpoints grupo
+export const crearGrupo = async (req: Request, res: Response) => {
+  try {
+    const { tallerIds } = req.body;
+    if (!Array.isArray(tallerIds)) {
+      return res.status(400).json({ error: 'tallerIds debe ser un arreglo' });
+    }
+    const grupo = await talleresService.crearGrupoTaller(tallerIds);
+    res.status(201).json({ message: 'Grupo creado correctamente', data: grupo });
+  } catch (error: any) {
+    console.error("=== ERROR AL CREAR GRUPO ===", error);
+    res.status(400).json({ error: error.message });
+  }
+};
+
+export const agregarAlGrupo = async (req: Request, res: Response) => {
+  try {
+    const { grupoId } = req.params;
+    const { tallerId } = req.body;
+    const resultado = await talleresService.agregarTallerAGrupo(Number(grupoId), Number(tallerId));
+    res.status(200).json({ message: 'Taller agregado al grupo', data: resultado });
+  } catch (error: any) {
+    console.error("=== ERROR AL AGREGAR AL GRUPO ===", error);
+    res.status(400).json({ error: error.message });
+  }
+};
+
+export const salirGrupo = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const resultado = await talleresService.salirDeGrupo(Number(id));
+    res.status(200).json({ message: 'Taller removido del grupo', data: resultado });
+  } catch (error: any) {
+    console.error("=== ERROR AL SALIR DEL GRUPO ===", error);
+    res.status(400).json({ error: error.message });
+  }
+};
+
 

@@ -47,12 +47,6 @@ const AsistenciaForm = () => {
           <div className="text-5xl mb-4">✅</div>
           <h2 className="text-2xl font-bold text-gray-800 mb-2">¡Asistencia Registrada!</h2>
           <p className="text-gray-600">Tu participación en el taller ha sido guardada correctamente.</p>
-          <button 
-            onClick={() => window.location.href = '/'}
-            className="mt-6 w-full py-3 bg-gray-800 text-white rounded-xl font-semibold"
-          >
-            Finalizar
-          </button>
         </div>
       </div>
     );
@@ -77,7 +71,7 @@ const AsistenciaForm = () => {
 
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">
-            Ingresa tu RUT (sin puntos ni guion)
+            Ingresa tu RUT (con puntos y guion)
           </label>
           <input
             type="text"

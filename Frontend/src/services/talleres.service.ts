@@ -26,6 +26,7 @@ export interface TallerApi {
   dia: number;
   bloque: string;
   profesorId: number;
+  grupoId?: number | null;
 }
 
 export interface CrearTallerPayload {
@@ -150,4 +151,67 @@ export async function actualizarTallerEnBD(tallerId: number, dia: number, bloque
 
   const data = await response.json();
   return data.data;
+}
+
+export async function crearGrupoTallerEnBD(tallerIds: number[]): Promise<any> {
+  const token = localStorage.getItem('token');
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json'
+  };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const baseUrl = import.meta.env.VITE_API_URL;
+  const response = await fetch(`${baseUrl}/talleres/grupos`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ tallerIds })
+  });
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    throw new Error(data.error || 'Error al crear el grupo de taller.');
+  }
+
+  return response.json();
+}
+
+export async function agregarTallerAGrupoEnBD(grupoId: number, tallerId: number): Promise<any> {
+  const token = localStorage.getItem('token');
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json'
+  };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const baseUrl = import.meta.env.VITE_API_URL;
+  const response = await fetch(`${baseUrl}/talleres/grupos/${grupoId}/agregar`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ tallerId })
+  });
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    throw new Error(data.error || 'Error al agregar el taller al grupo.');
+  }
+
+  return response.json();
+}
+
+export async function salirDeGrupoEnBD(tallerId: number): Promise<any> {
+  const token = localStorage.getItem('token');
+  const headers: HeadersInit = {};
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const baseUrl = import.meta.env.VITE_API_URL;
+  const response = await fetch(`${baseUrl}/talleres/${tallerId}/salir-grupo`, {
+    method: 'PATCH',
+    headers
+  });
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    throw new Error(data.error || 'Error al remover el taller del grupo.');
+  }
+
+  return response.json();
 }

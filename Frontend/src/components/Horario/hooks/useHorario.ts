@@ -24,6 +24,7 @@ export default function useHorario() {
     guardarAsistencia,
     alternarAsistencia,
     marcarTodos,
+    inscribirEstudiante,
   } = useAsistencia()
 
   // Estados locales
@@ -125,5 +126,6 @@ export default function useHorario() {
     guardarAsistencia,
     abrirQrModal,
     cerrarQrModal,
+    inscribirEstudiante,
   }
 }

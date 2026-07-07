@@ -5,6 +5,7 @@ import { transferirMando } from '../services/admin.service';
 import Navbar from '../components/navbar';
 import { AgregarProfesor } from './ModalAgregarProfesor';
 import { AgregarEstudiante } from './ModalAgregarEstudiante';
+import { GestionGrupos } from './GestionGrupos';
 
 export const PerfilAdmin = () => {
   const navigate = useNavigate();
@@ -104,6 +105,9 @@ export const PerfilAdmin = () => {
             </button>
           </div>
         </div>
+
+        {/* GESTION DE GRUPOS */}
+        <GestionGrupos />
 
         {/* MODAL DE ADVERTENCIA */}
         {isModalOpen && (
