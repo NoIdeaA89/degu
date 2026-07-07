@@ -182,7 +182,7 @@ export const GestionGrupos: React.FC = () => {
                           // If there's an existing group, allow adding to it
                           grupoId !== null && (
                             <button
-                              onClick={() => handleAgregarAlGrupo(grupoId, t.id)}
+                              onClick={() => handleAgregarAlGrupo(grupoId as number, t.id)}
                               className="px-3 py-1 bg-green-50 hover:bg-green-100 text-green-600 hover:text-green-700 text-xs font-medium rounded transition"
                             >
                               Agregar al Grupo #{grupoId}
