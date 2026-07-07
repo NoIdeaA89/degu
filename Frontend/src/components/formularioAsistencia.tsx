@@ -77,7 +77,7 @@ const AsistenciaForm = () => {
             type="text"
             required
             disabled={isLoading}
-            placeholder="12345678"
+            placeholder="1.234.567-8"
             className="w-full p-4 border-2 border-gray-100 rounded-xl focus:border-blue-500 outline-none transition-colors text-lg disabled:bg-gray-50"
             value={rut}
             onChange={(e) => setRut(e.target.value)}
