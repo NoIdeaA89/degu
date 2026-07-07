@@ -6,6 +6,8 @@ export interface Estudiante {
   apellido: string;
   rut: string;
   correo: string;
+  carrera: string;
+  telefono: string;
 }
 
 export interface BusquedaEstudiantesResponse {
