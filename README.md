@@ -1,36 +1,114 @@
-# degu
+# Degú
 Proyecto Integrador Plataforma
 
-BASE DE DATOS 
+## Descripción
 
-remplaza los datos de tu configuracion de base de datos con lo siguiente 
+Plataforma web para la gestión de asistencia a talleres y generación de métricas.
 
-Replace the placeholders with your actual database credentials:
+## Tecnologías
 
+- Backend: Node.js, Express, Prisma, PostgreSQL y TypeScript
+- Frontend: React, Vite y TypeScript
+
+## Configuración inicial
+
+### Base de datos
+
+Reemplaza los datos de conexión por los de tu entorno en la variable `DATABASE_URL`:
+
+```env
 DATABASE_URL="postgresql://username:password@localhost:5432/mydb?schema=public"
+```
 
-username: Your PostgreSQL username
-password: Your PostgreSQL password
-localhost:5432: Your PostgreSQL host and port
-mydb: Your database name
+- `username`: usuario de PostgreSQL
+- `password`: contraseña de PostgreSQL
+- `localhost:5432`: host y puerto de PostgreSQL
+- `mydb`: nombre de la base de datos
 
-mas sobre la informacion de la configuracion inicial aqui: https://www.prisma.io/docs/prisma-orm/quickstart/postgresql
+Más información sobre Prisma y PostgreSQL:
+https://www.prisma.io/docs/prisma-orm/quickstart/postgresql
 
-backend 
+### Backend
 
-configuracion inicial aqui: https://docs.nestjs.com/first-steps
+El backend está desarrollado con Node.js, Express y Prisma.
 
-frontend:
+Más información sobre Express:
+https://expressjs.com/
 
-configuracion inicial aqui: https://vite.dev/guide/
+### Frontend
 
-uso de docker:
+El frontend está desarrollado con React y Vite.
 
-1. para construir: docker-compose build --no-cache
-2. para levantar: docker-compose up -d 
-3. para bajarlo: docker-compose down -v
+Más información sobre Vite:
+https://vite.dev/guide/
 
+## Variables de entorno
 
+El backend utiliza las siguentes variables de entorno:
 
-Edgar.Gallardo@ucn.cl
-password123
+- `DATABASE_URL`
+- `DIRECT_URL`
+- `JWT_SECRET`
+- `GOOGLE_CLIENT_ID`
+- `VITE_API_URL`
+
+El frontend utiliza las siguentes variables de entorno:
+
+- `VITE_API_URL`
+
+Si ejecutas el proyecto localmente, configura estos valores en tu entorno antes de iniciar la aplicación.
+
+## Uso de Docker
+
+### Construir las imágenes
+
+```bash
+docker-compose build --no-cache
+```
+
+### Levantar los servicios
+
+```bash
+docker-compose up -d
+```
+
+### Detener los servicios
+
+```bash
+docker-compose down -v
+```
+
+## Ejecución local
+
+### Backend
+
+```bash
+cd Backend
+npm install
+npm run dev
+```
+
+### Frontend
+
+```bash
+cd Frontend
+npm install
+npm run dev
+```
+
+## Scripts disponibles
+
+### Backend
+
+- `npm run dev`: ejecuta el servidor en desarrollo
+- `npm run build`: compila TypeScript
+- `npm run start`: inicia la aplicación compilada
+- `npm run test`: ejecuta los tests
+- `npm run seed`: carga datos iniciales en la base de datos
+
+### Frontend
+
+- `npm run dev`: inicia Vite en modo desarrollo
+- `npm run build`: compila la aplicación
+- `npm run lint`: ejecuta ESLint
+- `npm run preview`: previsualiza el build
