@@ -64,8 +64,8 @@ export async function crearEstudiante(input: CrearEstudianteInput) {
       rut,
       correo,
       password: passwordHasheada,
-      carrera: carrera || "",
-      telefono: telefono || "",
+      carrera: carrera,
+      telefono: telefono,
       rol: RolUsuario.Estudiante,
     },
     select: {

@@ -23,14 +23,11 @@ export async function loginConCorreo(
 
   const data = await response.json()
 
-  if (!response.ok) {
-    if (response.status === 404) {
-      throw new Error("No encontramos ninguna cuenta asociada a este correo.")
-    } else if (response.status === 401) {
-      throw new Error("La contraseña ingresada es incorrecta. Inténtalo nuevamente.")
-    } else {
-      throw new Error(data.message || data.error || "Credenciales incorrectas")
+  if (!response.ok) { 
+    if (response.status === 404 || response.status === 401) {
+      throw new Error("Credenciales incorrectas. Inténtalo nuevamente.");
     }
+    throw new Error(data.message || data.error || "Ocurrió un problema al iniciar sesión. Inténtalo más tarde.");
   }
 
   return data as LoginResponse

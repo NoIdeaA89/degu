@@ -14,9 +14,9 @@ export const listarEstudiantes = async (req: Request, res: Response) => {
 
 export const crearEstudiante = async (req: Request, res: Response) => {
   try {
-    const { nombre, apellido, rut, correo, password } = req.body;
+    const { nombre, apellido, rut, correo, carrera, telefono, rol } = req.body;
 
-    if (!nombre || !apellido || !rut || !correo || !password) {
+    if (!nombre || !apellido || !rut || !correo || !carrera || !telefono || !rol) {
       return res.status(400).json({
         error: 'Faltan campos obligatorios: nombre, apellido, rut, correo, password.',
       });
@@ -27,7 +27,8 @@ export const crearEstudiante = async (req: Request, res: Response) => {
       apellido,
       rut,
       correo,
-      password,
+      carrera,
+      telefono,
     });
 
     return res.status(201).json({
