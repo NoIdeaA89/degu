@@ -19,6 +19,7 @@ export interface EstudiantePerfil {
   rut: string
   correo: string
   carrera: string
+  telefono: string
   semestreActual?: string
   promedioAsistencia?: number
   talleresInscritos?: number
@@ -252,7 +253,7 @@ export default function Perfil({ estudiante, historialTalleres }: PerfilProps): 
                 <section className="rounded-2xl border border-[#dfe3e7] bg-gradient-to-b from-[#f6f7f8] to-[#fcfcfd] p-5 shadow-[0_8px_22px_-18px_rgba(31,35,40,0.28)]">
                   <h2 className="mb-4 text-lg font-semibold text-[#2f363d]">Información del estudiante</h2>
 
-                  <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="grid gap-3 sm:grid-cols-2 mb-3">
                     <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
                       <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Nombre</p>
                       <p className="mt-1 text-[#2f363d]">
@@ -275,18 +276,22 @@ export default function Perfil({ estudiante, historialTalleres }: PerfilProps): 
                       <p className="mt-1 break-all text-[#2f363d]">{estudianteFinal.carrera}</p>
                     </article>
                   </div>
+                  <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Teléfono</p>
+                      <p className="mt-1 text-[#2f363d]">{estudianteFinal.telefono}</p>
+                  </article>
 
                   <div className="mt-4 grid gap-3 sm:grid-cols-2">
 
                     <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
-                      <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Inscritos</p>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Talleres Inscritos</p>
                       <p className="mt-1 text-xl font-semibold text-[#2f363d]">
                         {estudianteFinal.talleresInscritos ?? historialFinal.length}
                       </p>
                     </article>
 
                     <article className="rounded-xl border border-[#dfe3e7] bg-white p-4">
-                      <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Aprobados</p>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-[#68727d]">Talleres Aprobados</p>
                       <p className="mt-1 text-xl font-semibold text-[#2f363d]">
                         {estudianteFinal.talleresAprobados ??
                           historialFinal.filter((item) => item.estado === "Calificado").length}

@@ -7,6 +7,7 @@ export interface Estudiante {
   rut: string;
   correo: string;
   carrera: string;
+  telefono: string;
 }
 
 export interface BusquedaEstudiantesResponse {
