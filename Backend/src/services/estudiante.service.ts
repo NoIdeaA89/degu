@@ -15,7 +15,9 @@ interface CrearEstudianteInput {
   apellido: string;
   rut: string;
   correo: string;
-  password: string;
+  password?: string;
+  carrera?: string;
+  telefono?: string;
 }
 
 export const obtenerTodos = async (busqueda?: string) => {
@@ -30,13 +32,13 @@ export const obtenerTodos = async (busqueda?: string) => {
         ]
       })
     },
-    select: { id: true, nombre: true, apellido: true, rut: true, correo: true },
+    select: { id: true, nombre: true, apellido: true, rut: true, correo: true, carrera: true, telefono: true },
     orderBy: { nombre: 'asc' }
   });
 };
 
 export async function crearEstudiante(input: CrearEstudianteInput) {
-  const { nombre, apellido, rut, correo, password } = input;
+  const { nombre, apellido, rut, correo, password, carrera, telefono } = input;
 
   const usuarioExistente = await prisma.usuario.findFirst({
     where: {
@@ -52,7 +54,8 @@ export async function crearEstudiante(input: CrearEstudianteInput) {
     throw { status: 409, message: 'Ya existe un usuario registrado con ese correo.' };
   }
 
-  const passwordHasheada = await bcrypt.hash(password, 10);
+  const passToHash = password || "123456";
+  const passwordHasheada = await bcrypt.hash(passToHash, 10);
 
   const nuevoEstudiante = await prisma.usuario.create({
     data: {
@@ -61,6 +64,8 @@ export async function crearEstudiante(input: CrearEstudianteInput) {
       rut,
       correo,
       password: passwordHasheada,
+      carrera: carrera || "",
+      telefono: telefono || "",
       rol: RolUsuario.Estudiante,
     },
     select: {
@@ -69,6 +74,8 @@ export async function crearEstudiante(input: CrearEstudianteInput) {
       apellido: true,
       rut: true,
       correo: true,
+      carrera: true,
+      telefono: true,
       rol: true,
     },
   });

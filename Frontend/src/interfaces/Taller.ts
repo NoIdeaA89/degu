@@ -6,4 +6,5 @@ export interface TallerUI {
   lugar: string;
   horario?: number;
   pendienteAsignacion?: boolean;
+  grupoId?: number | null;
 }

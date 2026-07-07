@@ -1,4 +1,4 @@
-﻿import type { ReactElement } from "react"
+import type { ReactElement } from "react"
 import { useState } from "react"
 import "./Horario.css"
 import HorarioGrid from "./HorarioGrid"
@@ -50,7 +50,8 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
   alternarAsistencia,
   guardarAsistencia,
   abrirQrModal,
-  cerrarQrModal
+  cerrarQrModal,
+  inscribirEstudiante
 } = useHorario()
 
   return (
@@ -138,6 +139,7 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
           guardarAsistencia={guardarAsistencia}
           cerrarModalAsistencia={cerrarModalAsistencia}
           abrirQrModal={abrirQrModal}
+          inscribirEstudiante={inscribirEstudiante}
         />
       )}
 

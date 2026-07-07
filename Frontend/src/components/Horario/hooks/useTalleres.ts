@@ -19,6 +19,7 @@ function convertirTallerApiAUI(taller: TallerApi): TallerUI {
     bloque: mapearBloqueANumero(taller.bloque),
     lugar: taller.lugar || "Galpón Cultural",
     pendienteAsignacion: taller.dia === 0 || !taller.bloque,
+    grupoId: taller.grupoId,
   }
 }
 
