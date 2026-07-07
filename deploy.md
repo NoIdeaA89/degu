@@ -39,7 +39,7 @@ La aplicación en React es la interfaz que utilizan los administradores de los t
 3. En Vercel, ir a **Settings > Environment Variables** y agregar las credenciales que conectan con la API y Google:
 
 ```env
-VITE_API_URL="[https://degu-production-dd46.up.railway.app/api](https://degu-production-dd46.up.railway.app/api)"
+VITE_API_URL=https://degu-production-dd46.up.railway.app/api
 GOOGLE_CLIENT_ID="831255732165-rsl1a8jr0qk1udq3sc12876p0b66rs5a.apps.googleusercontent.com"
 ```
 
