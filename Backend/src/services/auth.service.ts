@@ -21,6 +21,10 @@ export const autenticarUsuario = async (correo: string, passwordPlan: string) =>
     throw new Error('El correo ingresado no está registrado');
   }
 
+  if (usuario.rol !== 'Administrador') {
+    throw new Error('Acceso denegado. Solo los administradores pueden iniciar sesión en este portal.');
+  }
+
   const passwordCorrecto = await bcrypt.compare(passwordPlan, usuario.password);
   
   if (!passwordCorrecto) {
@@ -112,6 +116,12 @@ export const autenticarConGoogle = async (tokenGoogle: string) => {
   if (!usuario) {
     const error: any = new Error('Tu correo institucional es válido, pero no estás registrado en el sistema.');
     error.status = 404; 
+    throw error;
+  }
+
+  if (usuario.rol !== 'Administrador') {
+    const error: any = new Error('Acceso denegado. Solo los administradores pueden iniciar sesión en este portal.');
+    error.status = 403; 
     throw error;
   }
 
