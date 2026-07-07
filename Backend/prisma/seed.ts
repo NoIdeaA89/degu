@@ -22,7 +22,7 @@ async function main() {
         nombre: "Edgar",
         apellido: "Gallardo",
         rut: "12.345.678-9",
-        correo: "Edgar.Gallardo@ucn.cl",
+        correo: "galponcultural@ucn.cl",
         password: passwordHasheada, 
         rol: "Administrador" 
       }
