@@ -5,6 +5,7 @@ import { obtenerSemestreActual } from "../../../utils/semestre.utils"
 import { BLOQUES } from "../../../constants/Horario"
 import type { TallerUI } from "../../../interfaces/Taller"
 import { crearTallerEnBD } from "../../../services/talleres.service"
+import { crearGrupoEnBD } from "../../../services/talleres.service"
 
 function mapearBloqueANumero(bloque: string): number {
   const index = BLOQUES.indexOf(bloque)
@@ -60,27 +61,45 @@ export function useTalleres() {
     [talleresState]
   )
 
-  const agregarTaller = async (titulo: string, lugar: string, profesorId: number, descripcion: string) => {
+  const agregarTaller = async (
+  titulo: string,
+  lugar: string,
+  profesorId: number,
+  descripcion: string,
+  cantidadBloques: number = 1   // 👈 NUEVO, default 1 para no romper nada si algún caller viejo no lo manda
+) => {
   const tituloLimpio = titulo.trim()
   const lugarLimpio = lugar.trim()
   if (!tituloLimpio || !lugarLimpio || !profesorId) return
 
   try {
     const semestre = obtenerSemestreActual()
-    const nuevoTallerApi = await crearTallerEnBD({
-      nombre: tituloLimpio,
-      descripcion: descripcion.trim(), 
-      lugar: lugarLimpio,
-      semestre,
-      profesorId,
-      dia: 0,
-      bloque: "A", // placeholder válido del enum; dia:0 ya marca "pendiente"
-    })
 
-    const nuevoTallerUI = convertirTallerApiAUI(nuevoTallerApi)
+    // 👇 crea una fila de Taller por cada bloque, todas iguales, todas "pendientes de asignar"
+    const talleresCreados = await Promise.all(
+      Array.from({ length: cantidadBloques }, () =>
+        crearTallerEnBD({
+          nombre: tituloLimpio,
+          descripcion: descripcion.trim(),
+          lugar: lugarLimpio,
+          semestre,
+          profesorId,
+          dia: 0,
+          bloque: "A",
+        })
+      )
+    )
+
+    // 👇 si son 2 o 3, se vinculan como grupo para compartir inscripciones
+    if (talleresCreados.length > 1) {
+      const ids = talleresCreados.map((t) => t.id)
+      await crearGrupoEnBD(ids)
+    }
+
+    const nuevosTalleresUI = talleresCreados.map(convertirTallerApiAUI)
 
     setTalleresState((prev) => {
-      const actualizado = [...prev, nuevoTallerUI]
+      const actualizado = [...prev, ...nuevosTalleresUI]
       guardarTalleres(actualizado)
       return actualizado
     })

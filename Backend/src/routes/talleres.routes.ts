@@ -6,12 +6,14 @@ const router = Router();
 router.get('/todos', talleresController.obtenerDashboard);
 router.get('/', talleresController.obtenerPorSemestre);
 router.post('/', talleresController.crearTaller);
-router.post('/:id', talleresController.actualizarTaller);
-router.get('/:id/inscritos', obtenerInscritosPorTaller);
-router.post('/:id/inscribir', inscribirEstudianteController);
+
 
 router.post('/grupos', talleresController.crearGrupo);
 router.post('/grupos/:grupoId/agregar', talleresController.agregarAlGrupo);
+
+router.post('/:id', talleresController.actualizarTaller);
+router.get('/:id/inscritos', obtenerInscritosPorTaller);
+router.post('/:id/inscribir', inscribirEstudianteController);
 router.patch('/:id/salir-grupo', talleresController.salirGrupo);
 
 export default router;

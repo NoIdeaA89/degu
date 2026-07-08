@@ -82,7 +82,15 @@ async function main() {
     const tallerCuecaViernes = await prisma.taller.create({
       data: { nombre: "Cueca", descripcion: "Baile tradicional chileno, nivel inicial.", horario: "Viernes 12:00 - 13:00", dia: 5, bloque: "C", semestre: "2026-2", lugar: "Salón Graciela Ramos (Sala de Espejos)", profesorId: profValentina.id, grupoId: grupoCueca.id }
     });
+    // 👇 NUEVO: ejemplo de grupo con 2 bloques
+    const grupoYoga = await prisma.grupoTaller.create({ data: {} });
 
+    const tallerYogaMartes = await prisma.taller.create({
+      data: { nombre: "Yoga", descripcion: "Relajación y respiración consciente.", horario: "Martes 07:00 - 08:00", dia: 2, bloque: "A", semestre: "2026-2", lugar: "Salón Graciela Ramos (Sala de Espejos)", profesorId: profIgnacio.id, grupoId: grupoYoga.id }
+    });
+    const tallerYogaJueves = await prisma.taller.create({
+      data: { nombre: "Yoga", descripcion: "Relajación y respiración consciente.", horario: "Jueves 07:00 - 08:00", dia: 4, bloque: "A", semestre: "2026-2", lugar: "Salón Graciela Ramos (Sala de Espejos)", profesorId: profIgnacio.id, grupoId: grupoYoga.id }
+    });
     const tallerTeatro = await prisma.taller.create({
       data: { nombre: "Taller de Teatro", descripcion: "Improvisación y técnicas de actuación.", horario: "Jueves 18:00 - 20:00", dia: 4, bloque: "G", semestre: "2026-2", lugar: "Salón de Artes Escénicas (Salón Exterior)", profesorId: profAndres.id }
     });
@@ -111,6 +119,13 @@ async function main() {
       { estudianteId: javiera.id, tallerId: tallerCuecaMiercoles.id },
       { estudianteId: javiera.id, tallerId: tallerCuecaViernes.id },
 
+      // Grupo Yoga (2 bloques) — Sebastián y Antonia en ambos
+      { estudianteId: sebastian.id, tallerId: tallerYogaMartes.id },
+      { estudianteId: sebastian.id, tallerId: tallerYogaJueves.id },
+
+      { estudianteId: antonia.id, tallerId: tallerYogaMartes.id },
+      { estudianteId: antonia.id, tallerId: tallerYogaJueves.id },
+
       { estudianteId: diego.id, tallerId: tallerTeatro.id },
       { estudianteId: fernanda.id, tallerId: tallerTeatro.id },
       { estudianteId: sebastian.id, tallerId: tallerTeatro.id },
@@ -134,7 +149,8 @@ async function main() {
     const sesionCuecaMiercoles = await prisma.sesion.create({ data: { tallerId: tallerCuecaMiercoles.id, fecha: ahora, bloque: 3, qrToken: crypto.randomUUID(), validoHasta: validez } });
     const sesionTeatro = await prisma.sesion.create({ data: { tallerId: tallerTeatro.id, fecha: ahora, bloque: 7, qrToken: crypto.randomUUID(), validoHasta: validez } });
     const sesionFotografia = await prisma.sesion.create({ data: { tallerId: tallerFotografia.id, fecha: ahora, bloque: 1, qrToken: crypto.randomUUID(), validoHasta: validez } });
-
+    const sesionYogaMartes = await prisma.sesion.create({ data: { tallerId: tallerYogaMartes.id, fecha: ahora, bloque: 1, qrToken: crypto.randomUUID(), validoHasta: validez } });
+    const sesionYogaJueves = await prisma.sesion.create({ data: { tallerId: tallerYogaJueves.id, fecha: ahora, bloque: 1, qrToken: crypto.randomUUID(), validoHasta: validez } });
     console.log('🙋 Registrando asistencias y encuestas de satisfacción...');
 
     // 2026-1
@@ -164,6 +180,15 @@ async function main() {
       { sesionId: sesionCuecaMiercoles.id, estudianteId: javiera.id, estado: "Ausente" },
     ]});
 
+    await prisma.asistencia.createMany({ data: [
+  { sesionId: sesionYogaMartes.id, estudianteId: sebastian.id, estado: "Presente", notaSatisfaccion: 5 },
+  { sesionId: sesionYogaMartes.id, estudianteId: antonia.id, estado: "Presente", notaSatisfaccion: 4 },
+  ]});
+
+  await prisma.asistencia.createMany({ data: [
+    { sesionId: sesionYogaJueves.id, estudianteId: sebastian.id, estado: "Ausente" },
+    { sesionId: sesionYogaJueves.id, estudianteId: antonia.id, estado: "Presente", notaSatisfaccion: 5 },
+  ]});
     await prisma.asistencia.createMany({ data: [
       { sesionId: sesionTeatro.id, estudianteId: diego.id, estado: "Presente", notaSatisfaccion: 4 },
       { sesionId: sesionTeatro.id, estudianteId: fernanda.id, estado: "Presente", notaSatisfaccion: 5 },
