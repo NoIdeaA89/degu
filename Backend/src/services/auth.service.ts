@@ -18,13 +18,13 @@ export const autenticarUsuario = async (correo: string, passwordPlan: string) =>
   });
 
   if (!usuario) {
-    throw new Error('El correo ingresado no está registrado');
+    throw new Error('Credenciales incorrectas');
   }
 
   const passwordCorrecto = await bcrypt.compare(passwordPlan, usuario.password);
   
   if (!passwordCorrecto) {
-    throw new Error('Contraseña incorrecta');
+    throw new Error('Credenciales incorrectas');
   }
 
   const token = jwt.sign(
