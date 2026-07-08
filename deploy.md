@@ -22,8 +22,8 @@ El servidor desarrollado en Express.js maneja la lógica de los códigos QR. Deb
 3. Una vez en el panel del proyecto en Railway, ir a la pestaña **Variables** e ingresar las siguientes credenciales de producción:
 
 ```env
-DATABASE_URL="postgresql://postgres.jnkiydatrwwbzikoxqhs:zHLTd2MS9s0z8TJ3@aws-1-ca-central-1.pooler.supabase.com:5432/postgres?pgbouncer=true"
-DIRECT_URL="postgresql://postgres.jnkiydatrwwbzikoxqhs:zHLTd2MS9s0z8TJ3@aws-1-ca-central-1.pooler.supabase.com:5432/postgres"
+DATABASE_URL="postgresql://postgres.jnkiydatrwwbzikoxqhs:[colocar contraeña]@aws-1-ca-central-1.pooler.supabase.com:5432/postgres?pgbouncer=true"
+DIRECT_URL="postgresql://postgres.jnkiydatrwwbzikoxqhs:[colocar contraeña]@aws-1-ca-central-1.pooler.supabase.com:5432/postgres"
 GOOGLE_CLIENT_ID=""
 JWT_SECRET=" "
 ```
