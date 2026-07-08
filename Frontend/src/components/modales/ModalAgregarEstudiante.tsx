@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import ExcelJS from 'exceljs';
-import { registrarUsuario } from '../services/estudiantes.service';
-import { obtenerTextoCelda } from '../utils/excel.utils';
-import { obtenerTalleresPorSemestre, type TallerApi } from '../services/talleres.service';
-import { inscribirEstudianteEnTaller } from '../services/inscripcion.service';
-import { obtenerSemestreActual } from '../utils/semestre.utils';
+import { registrarUsuario } from '../../services/estudiantes.service';
+import { obtenerTextoCelda } from '../../utils/excel.utils';
+import { obtenerTalleresPorSemestre, type TallerApi } from '../../services/talleres.service';
+import { inscribirEstudianteEnTaller } from '../../services/inscripcion.service';
+import { obtenerSemestreActual } from '../../utils/semestre.utils';
 
 type EstudianteExcelRow = {
   nombre: string;

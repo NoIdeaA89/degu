@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import type { ReactElement } from "react"
-import { lugares } from "../constants/Lugares"
-import { obtenerProfesores } from "../services/profesor.service"
-import type { Profesor } from "../interfaces/Profesor"
+import { lugares } from "../../constants/Lugares"
+import { obtenerProfesores } from "../../services/profesor.service"
+import type { Profesor } from "../../interfaces/Profesor"
 
 interface Props {
   onAgregar: (titulo: string, lugar: string, profesorId: number, descripcion: string) => void

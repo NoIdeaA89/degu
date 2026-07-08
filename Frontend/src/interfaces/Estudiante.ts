@@ -1,6 +1,9 @@
 export interface Estudiante {
-  id: number
-  rut: string
-  nombre: string
-  correo: string
+  id: number;
+  nombre: string;
+  apellido: string;
+  rut: string;
+  correo: string;
+  carrera: string;
+  telefono: string;
 }

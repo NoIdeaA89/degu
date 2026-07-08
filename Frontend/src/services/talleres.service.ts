@@ -197,21 +197,3 @@ export async function agregarTallerAGrupoEnBD(grupoId: number, tallerId: number)
   return response.json();
 }
 
-export async function salirDeGrupoEnBD(tallerId: number): Promise<any> {
-  const token = localStorage.getItem('token');
-  const headers: HeadersInit = {};
-  if (token) headers.Authorization = `Bearer ${token}`;
-
-  const baseUrl = import.meta.env.VITE_API_URL;
-  const response = await fetch(`${baseUrl}/talleres/${tallerId}/salir-grupo`, {
-    method: 'PATCH',
-    headers
-  });
-
-  if (!response.ok) {
-    const data = await response.json().catch(() => ({}));
-    throw new Error(data.error || 'Error al remover el taller del grupo.');
-  }
-
-  return response.json();
-}
