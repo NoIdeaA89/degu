@@ -6,6 +6,7 @@ import { BLOQUES } from "../../../constants/Horario"
 import type { TallerUI } from "../../../interfaces/Taller"
 import { crearTallerEnBD } from "../../../services/talleres.service"
 import { crearGrupoEnBD } from "../../../services/talleres.service"
+import { archivarTallerEnBD } from '../../../services/talleres.service';
 
 function mapearBloqueANumero(bloque: string): number {
   const index = BLOQUES.indexOf(bloque)
@@ -50,6 +51,27 @@ export function useTalleres() {
 
     cargarTalleresDelBackend()
   }, [])
+  
+  const archivarTallerAPI = async (tallerId: number) => {
+    try {
+    // 1. Llamamos al backend para que libere el bloque y lo oculte
+      await archivarTallerEnBD(tallerId);
+
+    // 2. Lo eliminamos de TODA la interfaz de React
+    // Si tu estado principal se llama talleresState (donde están todos los talleres):
+      setTalleresState((prevTalleres) => 
+        prevTalleres.filter((taller) => taller.id !== tallerId)
+      );
+    
+    // NOTA: Si manejas "talleresSinAsignar" en un useState independiente, 
+    // agrégalo también aquí:
+    // setTalleresSinAsignar((prev) => prev.filter((t) => t.id !== tallerId));
+
+    } catch (error) {
+      console.error("Error al intentar quitar el taller:", error);
+      throw error;
+    }
+  };
 
   const lugares = useMemo(
     () => Array.from(new Set(talleresState.map((t) => t.lugar))).sort(),
@@ -188,6 +210,7 @@ export function useTalleres() {
     desasignarTaller,
     moverTaller,
     confirmarAsignacion,
+    archivarTallerAPI,
     cargando,
     error,
   }
