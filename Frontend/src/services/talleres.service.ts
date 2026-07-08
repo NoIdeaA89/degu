@@ -153,11 +153,9 @@ export async function actualizarTallerEnBD(tallerId: number, dia: number, bloque
   return data.data;
 }
 
-export async function crearGrupoTallerEnBD(tallerIds: number[]): Promise<any> {
+export async function crearGrupoEnBD(tallerIds: number[]): Promise<{ id: number }> {
   const token = localStorage.getItem('token');
-  const headers: HeadersInit = {
-    'Content-Type': 'application/json'
-  };
+  const headers: HeadersInit = { 'Content-Type': 'application/json' };
   if (token) headers.Authorization = `Bearer ${token}`;
 
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -168,32 +166,10 @@ export async function crearGrupoTallerEnBD(tallerIds: number[]): Promise<any> {
   });
 
   if (!response.ok) {
-    const data = await response.json().catch(() => ({}));
-    throw new Error(data.error || 'Error al crear el grupo de taller.');
+    const data = await response.json().catch(() => null);
+    throw new Error(data?.error || 'Error al vincular los talleres como grupo.');
   }
 
-  return response.json();
+  const data = await response.json();
+  return data.data;
 }
-
-export async function agregarTallerAGrupoEnBD(grupoId: number, tallerId: number): Promise<any> {
-  const token = localStorage.getItem('token');
-  const headers: HeadersInit = {
-    'Content-Type': 'application/json'
-  };
-  if (token) headers.Authorization = `Bearer ${token}`;
-
-  const baseUrl = import.meta.env.VITE_API_URL;
-  const response = await fetch(`${baseUrl}/talleres/grupos/${grupoId}/agregar`, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({ tallerId })
-  });
-
-  if (!response.ok) {
-    const data = await response.json().catch(() => ({}));
-    throw new Error(data.error || 'Error al agregar el taller al grupo.');
-  }
-
-  return response.json();
-}
-

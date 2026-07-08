@@ -5,7 +5,7 @@ import { obtenerProfesores } from "../../services/profesor.service"
 import type { Profesor } from "../../interfaces/Profesor"
 
 interface Props {
-  onAgregar: (titulo: string, lugar: string, profesorId: number, descripcion: string) => void
+  onAgregar: (titulo: string, lugar: string, profesorId: number, descripcion: string, cantidadBloques: number) => void
   onCerrar: () => void
 }
 
@@ -14,8 +14,9 @@ export default function ModalAgregarTaller({
   onCerrar,
 }: Props): ReactElement {
   const [titulo, setTitulo] = useState("")
-  const [descripcion, setDescripcion] = useState("") 
+  const [descripcion, setDescripcion] = useState("")
   const [lugar, setLugar] = useState(lugares[0] ?? "")
+  const [cantidadBloques, setCantidadBloques] = useState(1)   // 👈 NUEVO
   const [profesores, setProfesores] = useState<Profesor[]>([])
   const [profesorId, setProfesorId] = useState<number | "">("")
   const [cargandoProfesores, setCargandoProfesores] = useState(true)
@@ -37,9 +38,10 @@ export default function ModalAgregarTaller({
 
   const handleSubmit = () => {
     if (!titulo.trim() || !lugar || !profesorId) return
-    onAgregar(titulo, lugar, Number(profesorId), descripcion)
+    onAgregar(titulo, lugar, Number(profesorId), descripcion, cantidadBloques)
     setTitulo("")
     setDescripcion("")
+    setCantidadBloques(1)
     onCerrar()
   }
 
@@ -61,6 +63,7 @@ export default function ModalAgregarTaller({
           onChange={(e) => setTitulo(e.target.value)}
           autoFocus
         />
+
         <textarea
           className="panel-busqueda"
           placeholder="Descripción del taller (opcional)"
@@ -96,6 +99,22 @@ export default function ModalAgregarTaller({
             </option>
           ))}
         </select>
+
+        {/* 👇 NUEVO */}
+        <div>
+          <label style={{ display: "block", marginBottom: "4px", fontSize: "0.9rem" }}>
+            ¿En cuántos bloques a la semana se dicta?
+          </label>
+          <select
+            className="panel-busqueda"
+            value={cantidadBloques}
+            onChange={(e) => setCantidadBloques(Number(e.target.value))}
+          >
+            <option value={1}>1 bloque</option>
+            <option value={2}>2 bloques</option>
+            <option value={3}>3 bloques</option>
+          </select>
+        </div>
 
         <div className="asistencia-acciones">
           <button
