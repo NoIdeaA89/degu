@@ -117,3 +117,6 @@ npm run dev
 Para detalles sobre cómo transferir la propiedad de los servicios (Supabase, Railway, Vercel) y configurar los entornos de producción, por favor revisa el siguiente documento:
 
 * [Manual de Traspaso y Despliegue](./deploy.md)
+
+* [Manual del Usuario ](./MANUALUSUARIO.md)
+
