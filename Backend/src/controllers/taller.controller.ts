@@ -24,7 +24,7 @@ export const obtenerPorSemestre = async (req: Request, res: Response) => {
 
     const talleres = await talleresService.obtenerTalleresPorSemestre(String(semestre));
 
-    console.log("📦 talleres encontrados:", talleres, JSON.stringify(talleres).slice(0, 200));
+    //console.log("📦 talleres encontrados:", talleres, JSON.stringify(talleres).slice(0, 200));
 
     res.status(200).json(talleres);
   } catch (error: any) {

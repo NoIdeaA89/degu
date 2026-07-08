@@ -2,7 +2,7 @@ import { prisma } from '../lib/prisma';
 import bcrypt from 'bcrypt';
 import { RolUsuario, Prisma } from '@prisma/client'
 
-const RUT_REGEX = /^\d{7,9}-[\dkK]$/;
+const RUT_REGEX = /^\d{1,2}\.\d{3}\.\d{3}-[\dkK]$/;
 
 interface BuscarEstudiantesParams {
   query: string;
@@ -81,6 +81,69 @@ export async function crearEstudiante(input: CrearEstudianteInput) {
   });
 
   return nuevoEstudiante;
+}
+
+export async function crearEstudiantesBatch(inputs: CrearEstudianteInput[]) {
+  if (inputs.length === 0) return { creados: [], errores: [] };
+
+  // 1. Una sola query para traer TODOS los duplicados posibles
+  const ruts = inputs.map(i => i.rut);
+  const correos = inputs.map(i => i.correo);
+
+  const existentes = await prisma.usuario.findMany({
+    where: {
+      OR: [{ rut: { in: ruts } }, { correo: { in: correos } }],
+    },
+    select: { rut: true, correo: true },
+  });
+
+  const rutsExistentes = new Set(existentes.map(u => u.rut));
+  const correosExistentes = new Set(existentes.map(u => u.correo));
+
+  const validos: CrearEstudianteInput[] = [];
+  const errores: { input: CrearEstudianteInput; message: string }[] = [];
+
+  for (const input of inputs) {
+    if (rutsExistentes.has(input.rut)) {
+      errores.push({ input, message: 'Ya existe un usuario registrado con ese RUT.' });
+    } else if (correosExistentes.has(input.correo)) {
+      errores.push({ input, message: 'Ya existe un usuario registrado con ese correo.' });
+    } else {
+      validos.push(input);
+    }
+  }
+
+  const passwordsUnicas = new Set(validos.map(i => i.password || '123456'));
+  const hashCache = new Map<string, string>();
+  for (const pass of passwordsUnicas) {
+    hashCache.set(pass, await bcrypt.hash(pass, 10));
+  }
+
+  const creados = await prisma.usuario.createManyAndReturn({
+    data: validos.map(input => ({
+      nombre: input.nombre,
+      apellido: input.apellido,
+      rut: input.rut,
+      correo: input.correo,
+      password: hashCache.get(input.password || '123456')!,
+      carrera: input.carrera,
+      telefono: input.telefono,
+      rol: RolUsuario.Estudiante,
+    })),
+    select: {
+      id: true,
+      nombre: true,
+      apellido: true,
+      rut: true,
+      correo: true,
+      carrera: true,
+      telefono: true,
+      rol: true,
+    },
+    skipDuplicates: true,
+  });
+
+  return { creados, errores };
 }
 
 export const obtenerPorRut = async (rut: string) => {

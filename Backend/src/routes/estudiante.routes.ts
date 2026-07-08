@@ -7,6 +7,7 @@ import * as schema from '../schemes/estudiante.scheme';
 const router = Router();
 
 router.post('/', middlewareVerificarAdmin, validate(schema.crearEstudianteSchema), ctrl.crearEstudiante);
+router.post('/batch', middlewareVerificarAdmin, ctrl.crearEstudiantesBatch);
 //router.get('/', validate(schema.buscarEstudianteSchema), ctrl.listarEstudiantes);
 router.get('/buscar', middlewareVerificarAdmin, ctrl.buscarEstudiantesController);
 //router.get('/:rut', validate(schema.rutParamSchema), ctrl.obtenerPerfil);

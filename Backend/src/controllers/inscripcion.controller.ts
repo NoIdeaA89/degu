@@ -1,6 +1,6 @@
 // controllers/inscripcion.controller.ts
 import { Request, Response } from 'express';
-import { listarInscritosPorTaller, inscribirEstudiante } from '../services/inscripcion.service';
+import { listarInscritosPorTaller, inscribirEstudiante, inscribirEstudiantesBatch } from '../services/inscripcion.service';
 
 export const obtenerInscritosPorTaller = async (req: Request, res: Response) => {
   try {
@@ -27,5 +27,19 @@ export const inscribirEstudianteController = async (req: Request, res: Response)
   } catch (error: any) {
     console.error("=== ERROR AL INSCRIBIR ESTUDIANTE ===", error);
     res.status(error.status || 500).json({ error: 'Error al inscribir estudiante', detalle: error.message });
+  }
+};
+
+export const inscribirEstudiantesBatchController = async (req: Request, res: Response) => {
+  try {
+    const { inscripciones } = req.body;
+    if (!Array.isArray(inscripciones) || inscripciones.length === 0) {
+      return res.status(400).json({ error: 'Se requieren inscripciones validas.' });
+    }
+    const resultado = await inscribirEstudiantesBatch(inscripciones);
+    return res.status(201).json({ mensaje: 'Inscripciones procesadas', ...resultado });
+  } catch (error: any) {
+    const status = error.status || 500;
+    return res.status(status).json({ detalle: error.message || 'Error al inscribir estudiantes.' });
   }
 };

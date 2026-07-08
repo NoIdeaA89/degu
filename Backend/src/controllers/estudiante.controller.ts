@@ -42,6 +42,20 @@ export const crearEstudiante = async (req: Request, res: Response) => {
   }
 };
 
+export const crearEstudiantesBatch = async (req: Request, res: Response) => {
+  try {
+    const { estudiantes } = req.body;
+    if (!Array.isArray(estudiantes) || estudiantes.length === 0) {
+      return res.status(400).json({ error: 'Se requiere un arreglo de estudiantes.' });
+    }
+    const resultado = await service.crearEstudiantesBatch(estudiantes);
+    return res.status(201).json({ mensaje: 'Estudiantes procesados', ...resultado });
+  } catch (error: any) {
+    const status = error.status || 500;
+    return res.status(status).json({ detalle: error.message || 'Error al crear estudiantes.' });
+  }
+};
+
 export const obtenerPerfil = async (req: Request, res: Response) => {
   try {
     const { rut } = req.params;
