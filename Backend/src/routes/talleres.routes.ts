@@ -16,6 +16,6 @@ router.post('/:id', talleresController.actualizarTaller);
 router.get('/:id/inscritos', obtenerInscritosPorTaller);
 router.post('/:id/inscribir', inscribirEstudianteController);
 router.patch('/:id/salir-grupo', talleresController.salirGrupo);
-router.patch('/:id/archivar', talleresController.archivarTaller );
+router.patch('/:id', talleresController.archivarTaller );
 
 export default router;
