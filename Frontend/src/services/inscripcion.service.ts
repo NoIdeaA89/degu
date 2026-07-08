@@ -1,11 +1,5 @@
 // services/inscripcion.service.ts
-export interface EstudianteApi {
-  id: number;
-  nombre: string;
-  apellido: string;
-  rut: string;
-  correo: string;
-}
+import type{ Estudiante as EstudianteApi } from "../interfaces/Estudiante";
 
 export async function obtenerInscritosPorTaller(tallerId: number): Promise<EstudianteApi[]> {
   const token = localStorage.getItem('token');

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { agregarProfesor } from '../services/profesor.service';
+import { agregarProfesor } from '../../services/profesor.service';
 
 export const AgregarProfesor = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

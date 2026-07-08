@@ -20,18 +20,4 @@ export const talleres: Array<TallerUI> = [
   { id: 17, dia: 3, bloque: 2, nombre: "Canto", lugar: "Sala multiusos" },
   { id: 18, dia: 3, bloque: 2, nombre: "Danza", lugar: "Sala de Música" },
   { id: 19, dia: 3, bloque: 3, nombre: "Pintura", lugar: "Taller de Arte" },
-  { id: 20, dia: 3, bloque: 3, nombre: "Canto", lugar: "Sala multiusos" },
-  { id: 21, dia: 3, bloque: 4, nombre: "Danza", lugar: "Sala de Música" },
-  { id: 22, dia: 3, bloque: 4, nombre: "Teatro", lugar: "Sala multiusos" },
-  { id: 23, dia: 3, bloque: 6, nombre: "Música", lugar: "Sala de Música" },
-  { id: 24, dia: 3, bloque: 7, nombre: "Música", lugar: "Sala de Música" },
-  { id: 25, dia: 4, bloque: 2, nombre: "Club de literatura", lugar: "Sala de Música" },
-  { id: 26, dia: 4, bloque: 2, nombre: "Fotografía", lugar: "Exterior" },
-  { id: 27, dia: 4, bloque: 3, nombre: "Fotografía", lugar: "Exterior" },
-  { id: 28, dia: 4, bloque: 4, nombre: "Teatro", lugar: "Sala multiusos" },
-  { id: 29, dia: 4, bloque: 4, nombre: "Club TCG", lugar: "Sala J" },
-  { id: 30, dia: 4, bloque: 6, nombre: "Pole Dance", lugar: "Gimnasio" },
-  { id: 31, dia: 5, bloque: 4, nombre: "Club TCG", lugar: "Sala J" },
-  { id: 32, dia: 5, bloque: 5, nombre: "Jazz Band", lugar: "Sala de Música" },
-  { id: 33, dia: 5, bloque: 5, nombre: "Bandas", lugar: "Sala multiusos" }
 ]

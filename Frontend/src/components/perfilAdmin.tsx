@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { transferirMando } from '../services/admin.service';
 import Navbar from '../components/navbar';
-import { AgregarProfesor } from './ModalAgregarProfesor';
-import { AgregarEstudiante } from './ModalAgregarEstudiante';
-import { GestionGrupos } from './GestionGrupos';
+import { AgregarProfesor } from './modales/ModalAgregarProfesor';
+import { AgregarEstudiante } from './modales/ModalAgregarEstudiante';
+
 
 export const PerfilAdmin = () => {
   const navigate = useNavigate();
@@ -105,10 +105,7 @@ export const PerfilAdmin = () => {
             </button>
           </div>
         </div>
-
-        {/* GESTION DE GRUPOS */}
-        <GestionGrupos />
-
+        
         {/* MODAL DE ADVERTENCIA */}
         {isModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
