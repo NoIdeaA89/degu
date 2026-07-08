@@ -9,6 +9,7 @@ import ModalQr from "../modales/ModalQr"
 import ModalAgregarTaller from "../modales/ModalAgregarTaller"
 import PanelTalleresSinAsignar from "../PanelTalleresSinAsignar"
 import useHorario from "./hooks/useHorario"
+import ModalEliminarTaller from "../modales/ModalEliminarTaller"
 
 
 type HorarioProps = {
@@ -18,6 +19,8 @@ type HorarioProps = {
 export default function Horario({ modo = "completo" }: HorarioProps): ReactElement {
   const soloLectura = modo === "inicio"
   const [mostrarModalTaller, setMostrarModalTaller] = useState(false)
+  const [tallerParaBorrar, setTallerParaBorrar] = useState<any | null>(null)
+  const [eliminando, setEliminando] = useState(false)
 
   const {
   dias,
@@ -51,8 +54,24 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
   guardarAsistencia,
   abrirQrModal,
   cerrarQrModal,
-  inscribirEstudiante
+  inscribirEstudiante,
+  archivarTallerEnBD
 } = useHorario()
+
+  const handleConfirmarEliminar = async () => {
+    if (!tallerParaBorrar) return;
+    setEliminando(true);
+    try {
+      
+      await archivarTallerEnBD(tallerParaBorrar.id);
+      
+      setTallerParaBorrar(null);
+    } catch (error) {
+      alert("Error al intentar eliminar el taller.");
+    } finally {
+      setEliminando(false);
+    }
+  };
 
   return (
     <section className="w-full my-8">
@@ -103,6 +122,7 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
               talleres={talleresSinAsignar}
               onAbrirModal={() => setMostrarModalTaller(true)}
               onDesasignar={desasignarTaller}
+              onSolicitarEliminar={(taller) => setTallerParaBorrar(taller)}
             />
           )}
         </div>
@@ -151,6 +171,16 @@ export default function Horario({ modo = "completo" }: HorarioProps): ReactEleme
           qrToken={qrToken}   
         />
       )}
+
+      {!soloLectura && modoEdicion && tallerParaBorrar && (
+        <ModalEliminarTaller
+          taller={tallerParaBorrar}
+          cargando={eliminando}
+          onCerrar={() => setTallerParaBorrar(null)}
+          onConfirmar={handleConfirmarEliminar}
+        />
+      )}
+
     </section>
   )
 }

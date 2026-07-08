@@ -6,6 +6,7 @@ import { BLOQUES } from "../../../constants/Horario"
 import type { TallerUI } from "../../../interfaces/Taller"
 import { crearTallerEnBD } from "../../../services/talleres.service"
 import { crearGrupoEnBD } from "../../../services/talleres.service"
+import { archivarTallerEnBD } from '../../../services/talleres.service';
 
 function mapearBloqueANumero(bloque: string): number {
   const index = BLOQUES.indexOf(bloque)
@@ -190,5 +191,6 @@ export function useTalleres() {
     confirmarAsignacion,
     cargando,
     error,
+    archivarTallerEnBD
   }
 }

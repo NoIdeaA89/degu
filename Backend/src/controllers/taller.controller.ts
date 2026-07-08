@@ -128,3 +128,25 @@ export const salirGrupo = async (req: Request, res: Response) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+export const archivarTaller = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    
+    if (!id || isNaN(Number(id))) {
+      return res.status(400).json({ message: 'ID de taller inválido' });
+    }
+
+    const taller = await talleresService.archivarTaller(Number(id));
+    
+    res.status(200).json({ 
+      message: 'Taller eliminado correctamente', 
+      data: taller 
+    });
+  } catch (error: any) {
+    res.status(500).json({ 
+      message: 'Hubo un error al eliminar el taller', 
+      error: error.message 
+    });
+  }
+};

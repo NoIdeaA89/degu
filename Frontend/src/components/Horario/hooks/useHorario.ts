@@ -9,7 +9,7 @@ import type { TallerUI } from "../../../interfaces/Taller"
 
 export default function useHorario() {
   // Sub-hooks para responsabilidades específicas
-  const { talleresState, lugares, talleresSinAsignar, agregarTaller, desasignarTaller, moverTaller } = useTalleres()
+  const { talleresState, lugares, talleresSinAsignar, agregarTaller, desasignarTaller, moverTaller, archivarTallerEnBD} = useTalleres()
   const { lugaresActivos, toggleLugar, seleccionarTodos, limpiarTodos } = useFiltros(lugares)
   const {
     tallerSeleccionado,
@@ -60,7 +60,7 @@ export default function useHorario() {
     const items = talleresPorCelda.get(`${bloque}-${dia}`) ?? []
     setCeldaSeleccionada({ dia, bloque, items })
   }
-
+  
   const cerrarModal = () => {
     setCeldaSeleccionada(null)
   }
@@ -92,6 +92,7 @@ export default function useHorario() {
     window.addEventListener("keydown", onKeyDown)
     return () => window.removeEventListener("keydown", onKeyDown)
   }, [mostrarQrModal, tallerSeleccionado])
+  
 
   return {
     dias,
@@ -127,5 +128,6 @@ export default function useHorario() {
     abrirQrModal,
     cerrarQrModal,
     inscribirEstudiante,
+    archivarTallerEnBD,
   }
 }
