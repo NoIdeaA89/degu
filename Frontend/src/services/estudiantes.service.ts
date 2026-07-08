@@ -39,6 +39,39 @@ export interface RegistroUsuarioResponse {
   }
 }
 
+export interface CrearEstudianteInput {
+  nombre: string;
+  apellido: string;
+  rut: string;
+  correo: string;
+  carrera: string;
+  telefono: string;
+  rol: string;
+  password?: string;
+}
+
+export interface EstudianteCreado {
+  id: number;
+  nombre: string;
+  apellido: string;
+  rut: string;
+  correo: string;
+  carrera: string;
+  telefono: string;
+  rol: string;
+}
+
+interface ErrorCreacion {
+  input: CrearEstudianteInput;
+  message: string;
+}
+
+interface RespuestaCrearEstudiantesBatch {
+  mensaje: string;
+  creados: EstudianteCreado[];
+  errores: ErrorCreacion[];
+}
+
 export async function buscarEstudiantes(
   query: string,
   page = 1,
@@ -86,4 +119,26 @@ export async function registrarUsuario(
   }
 
   return data as RegistroUsuarioResponse
+}
+
+export async function registrarEstudiantesBatch(
+  estudiantes: CrearEstudianteInput[]
+): Promise<RespuestaCrearEstudiantesBatch> {
+  const token = localStorage.getItem("token");
+  const headers: HeadersInit = { 'Content-Type': 'application/json' };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const response = await fetch(`${baseUrl}/estudiantes/batch`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ estudiantes }),
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.error || data.message || data.detalle || 'Error al crear estudiantes en batch');
+  }
+
+  return data as RespuestaCrearEstudiantesBatch;
 }

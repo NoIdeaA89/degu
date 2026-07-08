@@ -1,12 +1,13 @@
 import { Router } from 'express';
-import { obtenerInscritosPorTaller, inscribirEstudianteController } from '../controllers/inscripcion.controller';
+import { obtenerInscritosPorTaller, inscribirEstudianteController, inscribirEstudiantesBatchController } from '../controllers/inscripcion.controller';
 import * as talleresController from '../controllers/taller.controller';
+import { middlewareVerificarAdmin } from '../middlewares/auth.middleware';
 const router = Router();
 
-router.get('/todos', talleresController.obtenerDashboard);
+//router.get('/todos', talleresController.obtenerDashboard);
 router.get('/', talleresController.obtenerPorSemestre);
 router.post('/', talleresController.crearTaller);
-
+router.post('/inscribir/batch', middlewareVerificarAdmin, inscribirEstudiantesBatchController)
 
 router.post('/grupos', talleresController.crearGrupo);
 router.post('/grupos/:grupoId/agregar', talleresController.agregarAlGrupo);

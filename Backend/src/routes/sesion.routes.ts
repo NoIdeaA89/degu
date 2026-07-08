@@ -11,11 +11,11 @@ const router = Router();
 
 router.post('/generar', crearSesion);
 
-router.get('/validar/:token', validarEnlace);
+//router.get('/validar/:token', validarEnlace);
 
-router.get('/taller/:tallerId', listarSesionesPorTaller);
+//router.get('/taller/:tallerId', listarSesionesPorTaller);
 
-router.patch('/:id/finalizar', finalizarSesion);
+//router.patch('/:id/finalizar', finalizarSesion);
 
 router.post('/hoy', obtenerOCrearSesionDeHoy);
 

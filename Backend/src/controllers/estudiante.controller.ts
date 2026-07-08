@@ -14,9 +14,9 @@ export const listarEstudiantes = async (req: Request, res: Response) => {
 
 export const crearEstudiante = async (req: Request, res: Response) => {
   try {
-    const { nombre, apellido, rut, correo, password } = req.body;
+    const { nombre, apellido, rut, correo, carrera, telefono, rol } = req.body;
 
-    if (!nombre || !apellido || !rut || !correo || !password) {
+    if (!nombre || !apellido || !rut || !correo || !carrera || !telefono || !rol) {
       return res.status(400).json({
         error: 'Faltan campos obligatorios: nombre, apellido, rut, correo, password.',
       });
@@ -27,7 +27,8 @@ export const crearEstudiante = async (req: Request, res: Response) => {
       apellido,
       rut,
       correo,
-      password,
+      carrera,
+      telefono,
     });
 
     return res.status(201).json({
@@ -38,6 +39,20 @@ export const crearEstudiante = async (req: Request, res: Response) => {
     const status = error.status || 500;
     const message = error.message || 'Error al crear el estudiante.';
     return res.status(status).json({ detalle: message });
+  }
+};
+
+export const crearEstudiantesBatch = async (req: Request, res: Response) => {
+  try {
+    const { estudiantes } = req.body;
+    if (!Array.isArray(estudiantes) || estudiantes.length === 0) {
+      return res.status(400).json({ error: 'Se requiere un arreglo de estudiantes.' });
+    }
+    const resultado = await service.crearEstudiantesBatch(estudiantes);
+    return res.status(201).json({ mensaje: 'Estudiantes procesados', ...resultado });
+  } catch (error: any) {
+    const status = error.status || 500;
+    return res.status(status).json({ detalle: error.message || 'Error al crear estudiantes.' });
   }
 };
 
