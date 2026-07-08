@@ -110,132 +110,180 @@ export class AsistenciaService {
   }
 
   async resumenPorSemestre(filtros: {
-    semestre: string;
-    mes?: number;
-    dia?: number;
-    fechaInicio?: Date;
-    fechaFin?: Date;
-  }) {
-    const { semestre, mes, dia, fechaInicio, fechaFin } = filtros;
+  semestre: string;
+  mes?: number;
+  dia?: number;
+  fechaInicio?: Date;
+  fechaFin?: Date;
+}) {
+  const { semestre, mes, dia, fechaInicio, fechaFin } = filtros;
 
-    const rangoFecha = (() => {
-      if (fechaInicio || fechaFin) {
-        return {
-          ...(fechaInicio && { gte: fechaInicio }),
-          ...(fechaFin    && { lte: fechaFin }),
-        };
-      }
-      if (mes) {
-        const anio = new Date().getFullYear();
-        return {
-          gte: new Date(anio, mes - 1, 1),
-          lt:  new Date(anio, mes, 1),
-        };
-      }
-      return undefined;
-    })();
+  const rangoFecha = (() => {
+    if (fechaInicio || fechaFin) {
+      return {
+        ...(fechaInicio && { gte: fechaInicio }),
+        ...(fechaFin    && { lte: fechaFin }),
+      };
+    }
+    if (mes) {
+      const anio = new Date().getFullYear();
+      return {
+        gte: new Date(anio, mes - 1, 1),
+        lt:  new Date(anio, mes, 1),
+      };
+    }
+    return undefined;
+  })();
 
-    const whereSesion = {
-      taller: {
-        semestre,
-        ...(dia !== undefined && { dia }),
-      },
-      ...(rangoFecha && { fecha: rangoFecha }),
+  const whereSesion = {
+    taller: {
+      semestre,
+      ...(dia !== undefined && { dia }),
+    },
+    ...(rangoFecha && { fecha: rangoFecha }),
+  };
+
+  const sesiones = await prisma.sesion.findMany({
+    where: whereSesion,
+    select: { id: true, tallerId: true },
+  });
+
+  if (sesiones.length === 0) return [];
+
+  const sesionToTaller = new Map<number, number>(sesiones.map((s) => [s.id, s.tallerId]));
+
+  const sesionesPorTaller = new Map<number, number>();
+  for (const s of sesiones) {
+    sesionesPorTaller.set(s.tallerId, (sesionesPorTaller.get(s.tallerId) ?? 0) + 1);
+  }
+
+  const tallerIds = [...sesionesPorTaller.keys()];
+
+  const asistencias = await prisma.asistencia.findMany({
+    where: {
+      sesion: whereSesion,
+      estado: 'Presente',
+    },
+    select: {
+      estudianteId: true,
+      sesionId: true,
+      notaSatisfaccion: true,
+    },
+  });
+
+  const asistenciasPorTallerAlumno = new Map<string, number>();
+  const satisfaccionPorTaller = new Map<number, { suma: number; count: number }>();
+
+  for (const row of asistencias) {
+    const tallerId = sesionToTaller.get(row.sesionId);
+    if (!tallerId) continue;
+
+    const key = `${tallerId}|${row.estudianteId}`;
+    asistenciasPorTallerAlumno.set(key, (asistenciasPorTallerAlumno.get(key) ?? 0) + 1);
+
+    if (row.notaSatisfaccion !== null) {
+      const actual = satisfaccionPorTaller.get(tallerId) ?? { suma: 0, count: 0 };
+      satisfaccionPorTaller.set(tallerId, {
+        suma: actual.suma + row.notaSatisfaccion,
+        count: actual.count + 1,
+      });
+    }
+  }
+
+  const inscripciones = await prisma.inscripcion.findMany({
+    where: { tallerId: { in: tallerIds } },
+    select: {
+      estudianteId: true,
+      tallerId: true,
+    },
+  });
+
+  const alumnosPorTaller = new Map<number, number[]>();
+  for (const insc of inscripciones) {
+    const totalSesiones = sesionesPorTaller.get(insc.tallerId) ?? 0;
+    const asistenciasAlumno = asistenciasPorTallerAlumno.get(`${insc.tallerId}|${insc.estudianteId}`) ?? 0;
+    const porcentaje = totalSesiones > 0 ? (asistenciasAlumno / totalSesiones) * 100 : 0;
+
+    if (!alumnosPorTaller.has(insc.tallerId)) alumnosPorTaller.set(insc.tallerId, []);
+    alumnosPorTaller.get(insc.tallerId)!.push(porcentaje);
+  }
+
+  const talleresInfo = await prisma.taller.findMany({
+    where: { id: { in: tallerIds } },
+    select: { id: true, nombre: true, grupoId: true },
+  });
+  const talleresMap = new Map(talleresInfo.map((t) => [t.id, t]));
+
+  const resultadosBase = tallerIds.map((tallerId) => {
+    const porcentajes = alumnosPorTaller.get(tallerId) ?? [];
+    const promedioAsistencia = porcentajes.length > 0
+      ? Math.round(porcentajes.reduce((a, b) => a + b, 0) / porcentajes.length)
+      : 0;
+
+    const sat = satisfaccionPorTaller.get(tallerId);
+    const promedioSatisfaccion = sat && sat.count > 0
+      ? Math.round((sat.suma / sat.count) * 10) / 10
+      : null;
+
+    return {
+      tallerId,
+      grupoId: talleresMap.get(tallerId)?.grupoId ?? null,
+      nombre: talleresMap.get(tallerId)?.nombre ?? '',
+      totalSesiones: sesionesPorTaller.get(tallerId) ?? 0,
+      totalAlumnos: porcentajes.length,
+      promedioAsistencia,
+      promedioSatisfaccion,
     };
+  });
 
-    const sesiones = await prisma.sesion.findMany({
-      where: whereSesion,
-      select: { id: true, tallerId: true },
-    });
-
-    if (sesiones.length === 0) return [];
-
-    const sesionToTaller = new Map<number, number>(sesiones.map((s) => [s.id, s.tallerId]));
-
-    const sesionesPorTaller = new Map<number, number>();
-    for (const s of sesiones) {
-      sesionesPorTaller.set(s.tallerId, (sesionesPorTaller.get(s.tallerId) ?? 0) + 1);
+  // 👇 NUEVO: colapsar los talleres que pertenecen al mismo grupo en una sola fila
+  const sinGrupo = resultadosBase.filter((r) => !r.grupoId);
+  const conGrupoMap = new Map<number, typeof resultadosBase>();
+  resultadosBase.forEach((r) => {
+    if (r.grupoId) {
+      if (!conGrupoMap.has(r.grupoId)) conGrupoMap.set(r.grupoId, []);
+      conGrupoMap.get(r.grupoId)!.push(r);
     }
+  });
 
-    const tallerIds = [...sesionesPorTaller.keys()];
+  const resultadosAgrupados = await Promise.all(
+    [...conGrupoMap.entries()].map(async ([, items]) => {
+      const idsDelGrupo = items.map((i) => i.tallerId);
 
-    const asistencias = await prisma.asistencia.findMany({
-      where: {
-        sesion: whereSesion,
-        estado: 'Presente',
-      },
-      select: {
-        estudianteId: true,
-        sesionId: true,
-        notaSatisfaccion: true,
-      },
-    });
+      const inscritosDistintos = await prisma.inscripcion.findMany({
+        where: { tallerId: { in: idsDelGrupo } },
+        select: { estudianteId: true },
+        distinct: ['estudianteId'],
+      });
 
-    const asistenciasPorTallerAlumno = new Map<string, number>();
-    const satisfaccionPorTaller = new Map<number, { suma: number; count: number }>();
+      const totalSesiones = items.reduce((sum, i) => sum + i.totalSesiones, 0);
+      const promedioAsistencia = Math.round(
+        items.reduce((sum, i) => sum + i.promedioAsistencia, 0) / items.length
+      );
 
-    for (const row of asistencias) {
-      const tallerId = sesionToTaller.get(row.sesionId);
-      if (!tallerId) continue;
-
-      const key = `${tallerId}|${row.estudianteId}`;
-      asistenciasPorTallerAlumno.set(key, (asistenciasPorTallerAlumno.get(key) ?? 0) + 1);
-
-      if (row.notaSatisfaccion !== null) {
-        const actual = satisfaccionPorTaller.get(tallerId) ?? { suma: 0, count: 0 };
-        satisfaccionPorTaller.set(tallerId, {
-          suma: actual.suma + row.notaSatisfaccion,
-          count: actual.count + 1,
-        });
-      }
-    }
-
-    const inscripciones = await prisma.inscripcion.findMany({
-      where: { tallerId: { in: tallerIds } },
-      select: {
-        estudianteId: true,
-        tallerId: true,
-      },
-    });
-
-    const alumnosPorTaller = new Map<number, number[]>();
-    for (const insc of inscripciones) {
-      const totalSesiones = sesionesPorTaller.get(insc.tallerId) ?? 0;
-      const asistenciasAlumno = asistenciasPorTallerAlumno.get(`${insc.tallerId}|${insc.estudianteId}`) ?? 0;
-      const porcentaje = totalSesiones > 0 ? (asistenciasAlumno / totalSesiones) * 100 : 0;
-
-      if (!alumnosPorTaller.has(insc.tallerId)) alumnosPorTaller.set(insc.tallerId, []);
-      alumnosPorTaller.get(insc.tallerId)!.push(porcentaje);
-    }
-
-    // 👇 FIX: nombre traído directo desde Taller, no depende de que tenga inscritos
-    const talleresInfo = await prisma.taller.findMany({
-      where: { id: { in: tallerIds } },
-      select: { id: true, nombre: true },
-    });
-    const talleresMap = new Map(talleresInfo.map((t) => [t.id, t]));
-
-    return tallerIds.map((tallerId) => {
-      const porcentajes = alumnosPorTaller.get(tallerId) ?? [];
-      const promedioAsistencia = porcentajes.length > 0
-        ? Math.round(porcentajes.reduce((a, b) => a + b, 0) / porcentajes.length)
-        : 0;
-
-      const sat = satisfaccionPorTaller.get(tallerId);
-      const promedioSatisfaccion = sat && sat.count > 0
-        ? Math.round((sat.suma / sat.count) * 10) / 10
+      const satisfacciones = items
+        .filter((i) => i.promedioSatisfaccion !== null)
+        .map((i) => i.promedioSatisfaccion as number);
+      const promedioSatisfaccion = satisfacciones.length > 0
+        ? Math.round((satisfacciones.reduce((a, b) => a + b, 0) / satisfacciones.length) * 10) / 10
         : null;
 
       return {
-        tallerId,
-        nombre: talleresMap.get(tallerId)?.nombre ?? '',
-        totalSesiones: sesionesPorTaller.get(tallerId) ?? 0,
-        totalAlumnos: porcentajes.length,
+        tallerId: Math.min(...idsDelGrupo),
+        nombre: items[0].nombre,
+        totalSesiones,
+        totalAlumnos: inscritosDistintos.length,
         promedioAsistencia,
         promedioSatisfaccion,
       };
-    });
-  }
+    })
+  );
+
+  return [
+    ...sinGrupo.map(({ grupoId, ...resto }) => resto), // saco grupoId, el frontend no lo necesita
+    ...resultadosAgrupados,
+  ];
+}
 
   async resumenPorEstudiante(estudianteId: number) {
 
