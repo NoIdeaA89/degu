@@ -1,13 +1,7 @@
 // services/inscripcion.service.ts
 const baseUrl = import.meta.env.VITE_API_URL;
 
-export interface EstudianteApi {
-  id: number;
-  nombre: string;
-  apellido: string;
-  rut: string;
-  correo: string;
-}
+import type{ Estudiante as EstudianteApi } from "../interfaces/Estudiante";
 
 export interface ParInscripcion {
   estudianteId: number;

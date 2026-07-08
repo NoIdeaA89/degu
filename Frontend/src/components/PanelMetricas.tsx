@@ -33,7 +33,7 @@ export default function PanelMetricas(): ReactElement {
             <p className="text-3xl font-bold text-gray-800">{metricas.volumen.totalAsistenciasFisicas}</p>
           </div>
           <div className="text-right">
-            <p className="text-sm text-gray-500">Estudiantes Únicos</p>
+            <p className="text-sm text-gray-500">Estudiantes Inscritos a Talleres</p>
             <p className="text-xl font-semibold text-blue-600">{metricas.volumen.estudiantesUnicos}</p>
           </div>
         </div>

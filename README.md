@@ -112,3 +112,8 @@ npm run dev
 - `npm run build`: compila la aplicación
 - `npm run lint`: ejecuta ESLint
 - `npm run preview`: previsualiza el build
+
+## Documentación
+Para detalles sobre cómo transferir la propiedad de los servicios (Supabase, Railway, Vercel) y configurar los entornos de producción, por favor revisa el siguiente documento:
+
+* [Manual de Traspaso y Despliegue](./deploy.md)

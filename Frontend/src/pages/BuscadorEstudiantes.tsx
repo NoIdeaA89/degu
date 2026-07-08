@@ -1,8 +1,8 @@
 import { useEffect, useState, type ReactElement } from "react"
 import { useNavigate } from "react-router-dom"
 import Navbar from "../components/navbar"
-import { buscarEstudiantes, type Estudiante } from "../services/estudiantes.service"
-
+import { buscarEstudiantes } from "../services/estudiantes.service"
+import type { Estudiante } from "../interfaces/Estudiante"
 const LIMITE = 10
 
 export default function BuscadorEstudiantes(): ReactElement {

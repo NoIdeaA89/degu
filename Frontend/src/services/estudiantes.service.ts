@@ -1,14 +1,6 @@
+import type { Estudiante } from '../interfaces/Estudiante';
 const baseUrl = import.meta.env.VITE_API_URL;
 
-export interface Estudiante {
-  id: number;
-  nombre: string;
-  apellido: string;
-  rut: string;
-  correo: string;
-  carrera: string;
-  telefono: string;
-}
 
 export interface BusquedaEstudiantesResponse {
   data: Estudiante[];

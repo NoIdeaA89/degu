@@ -1,19 +1,11 @@
 import {  useMemo, useState } from "react"
-import { obtenerInscritosPorTaller, type EstudianteApi, inscribirEstudianteEnTaller } from "../../../services/inscripcion.service"
+import { obtenerInscritosPorTaller, inscribirEstudianteEnTaller } from "../../../services/inscripcion.service"
 import { obtenerOCrearSesionDeHoy } from "../../../services/sesion.service"
 import { obtenerAsistenciaPorSesion, guardarAsistenciaManual } from "../../../services/asistencia.service"
 import type { TallerUI } from "../../../interfaces/Taller"
 import type { TallerSeleccionado } from "../../../interfaces/Horario"
 import type { Estudiante } from "../../../interfaces/Estudiante"
 
-function convertirEstudianteApi(e: EstudianteApi): Estudiante {
-  return {
-    id: e.id,
-    nombre: `${e.nombre} ${e.apellido}`,
-    rut: e.rut,
-    correo: e.correo,
-  }
-}
 
 export function useAsistencia() {
   const [estudiantes, setEstudiantes] = useState<Estudiante[]>([])
@@ -36,7 +28,7 @@ export function useAsistencia() {
       obtenerOCrearSesionDeHoy(taller.id, taller.bloque),
     ])
 
-    const estudiantesUI = inscritos.map(convertirEstudianteApi)
+    const estudiantesUI = inscritos;
     setEstudiantes(estudiantesUI)
     setSesionId(sesion.id)
     setQrToken(sesion.qrToken)   // 👈 NUEVO
@@ -103,13 +95,12 @@ export function useAsistencia() {
       await inscribirEstudianteEnTaller(estudianteId, tallerSeleccionado.id)
       
       const inscritos = await obtenerInscritosPorTaller(tallerSeleccionado.id)
-      const estudiantesUI = inscritos.map(convertirEstudianteApi)
-      setEstudiantes(estudiantesUI)
+      setEstudiantes(inscritos)
 
       setAsistenciaActual((prev) => {
         if (!prev) return prev
         const act = { ...prev }
-        estudiantesUI.forEach((e) => {
+        inscritos.forEach((e) => {
           if (act[e.rut] === undefined) {
             act[e.rut] = false
           }
@@ -120,7 +111,7 @@ export function useAsistencia() {
       setAsistenciaOriginal((prev) => {
         if (!prev) return prev
         const orig = { ...prev }
-        estudiantesUI.forEach((e) => {
+        inscritos.forEach((e) => {
           if (orig[e.rut] === undefined) {
             orig[e.rut] = false
           }
