@@ -143,3 +143,20 @@ export const agregarTallerAGrupo = async (grupoId: number, tallerId: number) => 
 export const salirDeGrupo = async (tallerId: number) => {
   return await prisma.taller.update({ where: { id: tallerId }, data: { grupoId: null } });
 };
+
+export const archivarTaller = async (tallerId: number) => {
+  try {
+    const tallerArchivado = await prisma.taller.update({
+      where: { id: tallerId },
+      data: {
+        estado: false,            // Esto lo oculta de la vista
+        dia: 0,                   // Libera el día
+        bloque: 'A',              // Resetea el bloque por defecto (o usa BloqueHorario.A si es enum)
+        grupoId: null             // Lo saca de cualquier grupo al que perteneciera
+      },
+    });
+    return tallerArchivado;
+  } catch (error: any) {
+    throw new Error(`Error al archivar el taller: ${error.message}`);
+  }
+};

@@ -173,3 +173,23 @@ export async function crearGrupoEnBD(tallerIds: number[]): Promise<{ id: number 
   const data = await response.json();
   return data.data;
 }
+
+export async function archivarTallerEnBD(tallerId: number): Promise<void> {
+  const token = localStorage.getItem('token');
+  const headers: HeadersInit = { 'Content-Type': 'application/json' };
+  
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const baseUrl = import.meta.env.VITE_API_URL;
+  
+  // Hacemos el PATCH a la ruta /archivar
+  const response = await fetch(`${baseUrl}/talleres/${tallerId}/archivar`, {
+    method: 'PATCH',
+    headers
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+    throw new Error(errorData?.error || 'Error al ocultar el taller.');
+  }
+}

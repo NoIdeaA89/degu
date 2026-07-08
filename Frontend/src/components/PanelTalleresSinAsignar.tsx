@@ -6,10 +6,12 @@ interface Props {
   talleres: TallerUI[]
   onAbrirModal: () => void
   onDesasignar: (origen: TallerUI) => void
+  onSolicitarEliminar: (taller: TallerUI) => void
 }
 
-export default function PanelTalleresSinAsignar({ talleres, onAbrirModal, onDesasignar }: Props): ReactElement {
+export default function PanelTalleresSinAsignar({ talleres, onAbrirModal, onDesasignar , onSolicitarEliminar}: Props): ReactElement {
   const [dragOver, setDragOver] = useState(false)
+  const [isDraggingOverTrash, setIsDraggingOverTrash] = useState(false)
 
   return (
     <aside
@@ -42,6 +44,43 @@ export default function PanelTalleresSinAsignar({ talleres, onAbrirModal, onDesa
           + Agregar taller
         </button>
       </div>
+
+      {/* --- ZONA DE PAPELERA --- */}
+      <div
+        className={`mx-5 my-4 p-5 rounded-lg border-2 border-dashed flex flex-col items-center justify-center transition-all duration-200 ease-in-out cursor-pointer
+          ${isDraggingOverTrash 
+            ? "bg-red-100 border-red-500 text-red-700 scale-[1.02]" 
+            : "bg-gray-50 border-gray-300 text-gray-500 hover:bg-gray-100"
+          }
+        `}
+        onDragOver={(event) => {
+          event.preventDefault()
+          event.stopPropagation()
+          setIsDraggingOverTrash(true)
+        }}
+        onDragLeave={(event) => {
+          event.preventDefault()
+          event.stopPropagation()
+          setIsDraggingOverTrash(false)
+        }}
+        onDrop={(event) => {
+          event.preventDefault()
+          event.stopPropagation()
+          setIsDraggingOverTrash(false)
+
+          const data = event.dataTransfer.getData("text/plain")
+          if (!data) return
+
+          const tallerSeleccionado: TallerUI = JSON.parse(data)
+          onSolicitarEliminar(tallerSeleccionado)
+        }}
+      >
+        <span className="text-3xl mb-2">🗑️</span>
+        <span className="text-sm font-medium">
+          Arrastra aquí para eliminar
+        </span>
+      </div>
+      {/* -------------------------------------- */}
 
       <div className="panel-lista">
         {talleres.length === 0 && (

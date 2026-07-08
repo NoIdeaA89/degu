@@ -5,7 +5,7 @@ const router = Router();
 
 router.post('/login', login);
 router.post('/google', loginGoogle);
-router.post('/registro', registro);
-router.get('/verify', verificarSesion);
+//router.post('/registro', registro);
+//router.get('/verify', verificarSesion);
 
 export default router;

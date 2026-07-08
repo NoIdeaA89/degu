@@ -9,7 +9,7 @@ import type { TallerUI } from "../../../interfaces/Taller"
 
 export default function useHorario() {
   // Sub-hooks para responsabilidades específicas
-  const { talleresState, lugares, talleresSinAsignar, agregarTaller, desasignarTaller, moverTaller } = useTalleres()
+  const { talleresState, lugares, talleresSinAsignar, agregarTaller, desasignarTaller, moverTaller, archivarTallerAPI } = useTalleres()
   const { lugaresActivos, toggleLugar, seleccionarTodos, limpiarTodos } = useFiltros(lugares)
   const {
     tallerSeleccionado,
@@ -127,5 +127,6 @@ export default function useHorario() {
     abrirQrModal,
     cerrarQrModal,
     inscribirEstudiante,
+    archivarTallerAPI,
   }
 }
