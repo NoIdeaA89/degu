@@ -19,7 +19,8 @@ app.use(cors({
     const dominiosPermitidos = [
       'http://localhost:3000',
       'http://localhost:5173',
-      'https://degu-hazel.vercel.app' // Tu dominio principal
+      'https://degu-hazel.vercel.app',
+      'https://degu-orcin.vercel.app'
     ];
 
     // 1. Permitir peticiones sin origen (Postman) o dominios de la lista estricta
