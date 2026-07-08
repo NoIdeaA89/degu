@@ -45,7 +45,7 @@ export default function BuscadorEstudiantes(): ReactElement {
       } finally {
         if (activo) setCargando(false)
       }
-    }, 300)
+    }, 500)
 
     return () => {
       activo = false
@@ -91,7 +91,7 @@ export default function BuscadorEstudiantes(): ReactElement {
               type="text"
               value={query}
               onChange={(e) => cambiarQuery(e.target.value)}
-              placeholder="Ej: Camila o 20123456-7"
+              placeholder="Ej: Camila o 20.123.456-7"
               className="mt-4 w-full rounded-xl border border-[#dfe3e7] bg-[#f8fafc] px-4 py-3 text-[#2f363d] outline-none transition focus:border-[#bfc8d1]"
             />
           </header>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ExcelJS from 'exceljs';
-import { registrarUsuario } from '../services/estudiantes.service';
-import { obtenerTextoCelda } from '../utils/excel.utils';
+import { registrarUsuario, registrarEstudiantesBatch } from '../services/estudiantes.service';
+import { formatRut, obtenerTextoCelda } from '../utils/excel.utils';
 import { obtenerTalleresPorSemestre, type TallerApi } from '../services/talleres.service';
-import { inscribirEstudianteEnTaller } from '../services/inscripcion.service';
+import { inscribirEstudianteEnTaller, inscribirEstudiantesBatch } from '../services/inscripcion.service';
 import { obtenerSemestreActual } from '../utils/semestre.utils';
 
 type EstudianteExcelRow = {
@@ -15,6 +15,12 @@ type EstudianteExcelRow = {
   telefono: string;
   talleresTexto: string;
 };
+
+interface ProblemaImportacion {
+  estudiante: string;
+  taller: string;
+  motivo: string;
+}
 
 export const AgregarEstudiante = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,6 +39,8 @@ export const AgregarEstudiante = () => {
   const [exitoMensaje, setExitoMensaje] = useState<string | null>(null);
   const [filasPreview, setFilasPreview] = useState<EstudianteExcelRow[]>([]);
   const [mostrarPreview, setMostrarPreview] = useState(false);
+  const [problemasImportacion, setProblemasImportacion] = useState<ProblemaImportacion[]>([]);
+  const [mostrarProblemasImportacion, setMostrarProblemasImportacion] = useState(false);
 
   const semestreActual = obtenerSemestreActual();
 
@@ -60,6 +68,8 @@ export const AgregarEstudiante = () => {
     setTelefono('');
     setTallerSeleccionado('');
     setErrorMensaje(null);
+    setProblemasImportacion([]);
+    setMostrarProblemasImportacion(false);
   };
 
   const handleAgregarEstudiante = async (e: React.FormEvent) => {
@@ -158,63 +168,109 @@ export const AgregarEstudiante = () => {
     setIsLoading(true);
     setErrorMensaje(null);
     try {
-      // Fetch current semester workshops to match them
+      setProblemasImportacion([]);
+      setMostrarProblemasImportacion(false);
+
+      // 1 query
       const todosLosTalleres = await obtenerTalleresPorSemestre(semestreActual);
       const mapTalleres = new Map<string, TallerApi>();
-      todosLosTalleres.forEach(t => {
-        mapTalleres.set(t.nombre.trim().toLowerCase(), t);
-      });
+      todosLosTalleres.forEach(t => mapTalleres.set(t.nombre.trim().toLowerCase(), t));
 
-      let countImported = 0;
-      for (const fila of filasPreview) {
-        // Create user
-        const res = await registrarUsuario({
+      // 1 request al backend (internamente: 1-2 queries)
+      const resCreacion = await registrarEstudiantesBatch(
+        filasPreview.map(fila => ({
           nombre: fila.nombre,
           apellido: fila.apellido,
-          rut: fila.rut,
+          rut: formatRut(fila.rut),
           correo: fila.correo,
           carrera: fila.carrera,
           telefono: fila.telefono,
           rol: 'Estudiante'
+        }))
+      );
+    
+      const problemas: ProblemaImportacion[] = [];
+    
+      // Estudiantes que no se pudieron crear (rut/correo duplicado)
+      resCreacion.errores.forEach(err => {
+        problemas.push({
+          estudiante: `${err.input.nombre} ${err.input.apellido}`,
+          taller: '—',
+          motivo: err.message,
         });
-
-        const estudianteId = res.usuario.id;
-
-        // Process workshops
-        if (fila.talleresTexto) {
-          const talleresBrutos = fila.talleresTexto.split(',');
-          for (const tBruto of talleresBrutos) {
-            const nombreTallerLimpio = tBruto.split('(')[0].trim().toLowerCase();
-            if (!nombreTallerLimpio) continue;
-
-            const tallerEncontrado = mapTalleres.get(nombreTallerLimpio);
-            if (tallerEncontrado) {
-              try {
-                await inscribirEstudianteEnTaller(estudianteId, tallerEncontrado.id);
-              } catch (errInsc) {
-                console.error(`Error al inscribir a ${fila.nombre} en ${tallerEncontrado.nombre}:`, errInsc);
-              }
-            } else {
-              console.warn(`No se encontró taller "${nombreTallerLimpio}" en el semestre actual`);
-            }
+      });
+    
+      // Emparejar por RUT, no por índice (createManyAndReturn no garantiza orden)
+      const porRut = new Map(resCreacion.creados.map(e => [e.rut, e.id]));
+      // Mapas auxiliares para poder reconstruir nombres al mostrar los problemas de inscripción
+      const nombrePorEstudianteId = new Map(resCreacion.creados.map(e => [e.id, `${e.nombre} ${e.apellido}`]));
+      const nombrePorTallerId = new Map(todosLosTalleres.map(t => [t.id, t.nombre]));
+    
+      const pares: { estudianteId: number; tallerId: number }[] = [];
+      filasPreview.forEach(fila => {
+        const rutFormateado = formatRut(fila.rut);
+        const estudianteId = porRut.get(rutFormateado);
+        if (!estudianteId) return; // ya quedó reportado arriba en resCreacion.errores
+        if (!fila.talleresTexto) return;
+        fila.talleresTexto.split(',').forEach(tBruto => {
+          const nombreTallerLimpio = tBruto.split('(')[0].trim().toLowerCase();
+          if (!nombreTallerLimpio) return;
+          const taller = mapTalleres.get(nombreTallerLimpio);
+          if (taller) {
+            pares.push({ estudianteId, tallerId: taller.id });
+          } else {
+            // El nombre del taller en el Excel no coincide con ninguno del semestre actual
+            problemas.push({
+              estudiante: `${fila.nombre} ${fila.apellido}`,
+              taller: tBruto.trim(),
+              motivo: 'No se encontró ese taller en el semestre actual',
+            });
           }
-        }
-        countImported++;
-      }
+        });
+      });
+    
+      // 1 request al backend (internamente: 4 queries)
+      const resInscripcion = await inscribirEstudiantesBatch(pares);
+    
+      // Reconciliar los resultados de inscripción con nombres, para los que no quedaron "inscrito"
+      resInscripcion.resultados
+        .filter(r => r.status !== 'inscrito')
+        .forEach(r => {
+          problemas.push({
+            estudiante: nombrePorEstudianteId.get(r.estudianteId) ?? `ID ${r.estudianteId}`,
+            taller: nombrePorTallerId.get(r.tallerId) ?? `ID ${r.tallerId}`,
+            motivo: r.status === 'ya_inscrito'
+              ? 'El estudiante ya estaba inscrito en ese taller'
+              : 'El taller no existe (fue eliminado o cambió de semestre)',
+          });
+        });
+      
+      setProblemasImportacion(problemas);
+      setMostrarProblemasImportacion(problemas.length > 0);
 
-      setExitoMensaje(`Se importaron e inscribieron ${countImported} estudiantes correctamente.`);
+      setExitoMensaje(
+        `Se importaron ${resCreacion.creados.length} estudiantes correctamente` +
+        (problemas.length > 0 ? ` (${problemas.length} incidencias, ver detalle abajo).` : '.')
+      );
       setMostrarPreview(false);
       setFilasPreview([]);
-
-      setTimeout(() => {
-        setIsModalOpen(false);
-        setExitoMensaje(null);
-      }, 2000);
+    
+      // Solo cerrar el modal automáticamente si no hubo incidencias que revisar
+      if (problemas.length === 0) {
+        setTimeout(() => {
+          setIsModalOpen(false);
+          setExitoMensaje(null);
+        }, 2000);
+      }
     } catch (error: any) {
       setErrorMensaje(error.message || 'Error al importar los estudiantes.');
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const cerrarProblemasImportacion = () => {
+    setMostrarProblemasImportacion(false);
   };
 
   const handleCancelarImportacion = () => {
@@ -233,10 +289,10 @@ export const AgregarEstudiante = () => {
       </button>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 gap-4 overflow-y-auto">
-          <div className="flex flex-col md:flex-row gap-4 max-w-5xl w-full my-8">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start md:items-center justify-center gap-2 p-4 z-50 overflow-y-auto">
+          <div className="flex flex-col md:flex-row gap-4 max-w-2xl w-full my-8 max-h-[calc(100vh-2rem)] min-h-0">
             {/* Formulario Manual */}
-            <div className="bg-white rounded-lg shadow-xl flex-1 p-6">
+            <div className="bg-white rounded-lg shadow-xl flex-1 p-6 min-h-0 overflow-y-auto">
               <div className="flex items-center gap-3 mb-4 text-emerald-600">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -295,7 +351,7 @@ export const AgregarEstudiante = () => {
                     <input
                       type="text"
                       required
-                      placeholder="12345678-9"
+                      placeholder="12.345.678-9"
                       className="w-full border border-gray-300 rounded-md p-2 focus:ring-emerald-500 focus:border-emerald-500"
                       value={rut}
                       onChange={(e) => setRut(e.target.value)}
@@ -384,9 +440,10 @@ export const AgregarEstudiante = () => {
                 </div>
               </form>
             </div>
-
+          </div>
+          <div className="flex flex-col md:flex-row gap-4 max-w-2xl w-full my-8 max-h-[calc(100vh-2rem)] min-h-0">
             {/* Importación desde Excel */}
-            <div className="bg-white rounded-lg shadow-xl flex-1 p-6 flex flex-col">
+            <div className="bg-white rounded-lg shadow-xl flex-1 p-6 flex flex-col min-h-0 overflow-hidden">
               <div className="flex items-center gap-3 mb-4 text-emerald-600">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -421,12 +478,12 @@ export const AgregarEstudiante = () => {
               )}
 
               {mostrarPreview && (
-                <div className="flex-1 flex flex-col">
+                <div className="flex-1 flex flex-col min-h-0">
                   <p className="text-sm text-gray-600 mb-2">
                     Se encontraron <strong>{filasPreview.length}</strong> estudiantes. Revisa la lista antes de confirmar:
                   </p>
 
-                  <div className="flex-1 max-h-96 overflow-y-auto border rounded mb-4 shadow-inner">
+                  <div className="flex-1 max-h-96 overflow-auto border rounded mb-4 shadow-inner">
                     <table className="w-full text-xs text-left">
                       <thead className="bg-gray-100 sticky top-0 border-b">
                         <tr>
@@ -467,6 +524,41 @@ export const AgregarEstudiante = () => {
                       {isLoading ? 'Importando...' : 'Confirmar e importar'}
                     </button>
                   </div>
+                </div>
+              )}
+              {mostrarProblemasImportacion && problemasImportacion.length > 0 && (
+                <div className="mt-4 border border-yellow-300 bg-yellow-50 rounded p-3 max-h-64 overflow-auto">
+                  <div className="flex items-center justify-between gap-3 mb-2">
+                    <p className="font-medium text-sm">
+                      {problemasImportacion.length} estudiante(s) con incidencias:
+                    </p>
+                    <button
+                      type="button"
+                      onClick={cerrarProblemasImportacion}
+                      className="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors"
+                    >
+                      Cerrar
+                    </button>
+                  </div>
+
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="text-left text-gray-600">
+                        <th className="pr-4">Estudiante</th>
+                        <th className="pr-4">Taller</th>
+                        <th>Motivo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {problemasImportacion.map((p, i) => (
+                        <tr key={i} className="border-t">
+                          <td className="pr-4 py-1">{p.estudiante}</td>
+                          <td className="pr-4 py-1">{p.taller}</td>
+                          <td className="py-1 text-gray-700">{p.motivo}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               )}
             </div>

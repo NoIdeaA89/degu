@@ -126,3 +126,19 @@ export async function exportarPerfilEstudianteExcel({
   URL.revokeObjectURL(url);
 }
 
+export const formatRut = (rut: string) => {
+  if (!rut) return '';
+  // Remover simbolos y mantener solo los numeros y la k
+  const clean = rut.toString().replace(/[^0-9kK]/g, '').toUpperCase();
+  if (clean.length === 0) return '';
+  const verifier = clean.slice(-1);
+  const body = clean.slice(0, -1);
+  if (!body) return verifier;
+  // Insertar un punto cada 3 digitos
+  const reversed = body.split('').reverse().join('');
+  const chunks = reversed.match(/.{1,3}/g) || [];
+  const withDotsReversed = chunks.join('.');
+  const bodyFormatted = withDotsReversed.split('').reverse().join('');
+  return `${bodyFormatted}-${verifier}`;
+};
+
