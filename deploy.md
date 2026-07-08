@@ -22,10 +22,10 @@ El servidor desarrollado en Express.js maneja la lógica de los códigos QR. Deb
 3. Una vez en el panel del proyecto en Railway, ir a la pestaña **Variables** e ingresar las siguientes credenciales de producción:
 
 ```env
-DATABASE_URL="postgresql://postgres.jnkiydatrwwbzikoxqhs:zHLTd2MS9s0z8TJ3@aws-1-ca-central-1.pooler.supabase.com:5432/postgres?pgbouncer=true"
-DIRECT_URL="postgresql://postgres.jnkiydatrwwbzikoxqhs:zHLTd2MS9s0z8TJ3@aws-1-ca-central-1.pooler.supabase.com:5432/postgres"
-GOOGLE_CLIENT_ID="831255732165-rsl1a8jr0qk1udq3sc12876p0b66rs5a.apps.googleusercontent.com"
-JWT_SECRET="9a3f2b4c6d8e1x5y7z9w2v4u6t8s0r1q3p5o7n9m214k6j8i0h2g4f6e8d0c2b4a!"
+DATABASE_URL="postgresql://your_username:your_password@your_host:5432/postgres?pgbouncer=true"
+DIRECT_URL="postgresql://your_username:your_password@your_host:5432/postgres"
+GOOGLE_CLIENT_ID="your_id.apps.googleusercontent.com"
+JWT_SECRET="long_random_string"
 ```
 
 4. Railway realizará un redespliegue automático. Verificar que el proceso sea exitoso en la pestaña **Deployments**.
@@ -40,7 +40,7 @@ La aplicación en React es la interfaz que utilizan los administradores de los t
 
 ```env
 VITE_API_URL=https://degu-production-dd46.up.railway.app/api
-GOOGLE_CLIENT_ID="831255732165-rsl1a8jr0qk1udq3sc12876p0b66rs5a.apps.googleusercontent.com"
+GOOGLE_CLIENT_ID="your_id.apps.googleusercontent.com"
 ```
 
 4. Guardar y presionar **Redeploy** para aplicar los cambios.
